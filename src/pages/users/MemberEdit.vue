@@ -39,7 +39,7 @@
 
     <div class="btn-area">
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
-      <button class="app-btn" @click="handleSave">저장</button>
+      <AppButton text="저장" @click="handleSave" />
     </div>
 
   </div>
@@ -48,6 +48,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import AppButton from '@/components/commons/AppButton.vue'
 
 const router = useRouter()
 

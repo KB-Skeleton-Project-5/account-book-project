@@ -39,15 +39,17 @@
 
     <div class="btn-area">
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
-      <button class="app-btn" @click="handleSignup">저장</button>
-    </div>
+      <app-button text="저장" @click="handleSignup" />
+    </div> 
 
   </div>
 </template>
 
 <script setup>
+import AppButton from '@/components/commons/AppButton.vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 
 const router = useRouter()
 

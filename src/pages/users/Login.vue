@@ -46,6 +46,9 @@ const form = reactive({
 function handleLogin() {
   // TODO: 서버 로그인 요청 연결
   console.log('로그인 시도:', form.userId, form.pw)
+  //테스트용-나중에 서버요청으로 교체
+  router.push({name:'main'})
+
 }
 </script>
 

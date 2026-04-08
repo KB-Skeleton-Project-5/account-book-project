@@ -35,7 +35,7 @@
 
     <div class="btn-area">
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
-      <button class="app-btn" @click="router.push({ name: 'users/edit' })">수정</button>
+      <AppButton text="수정" @click="router.push({ name: 'users/edit' })" />
     </div>
 
     <div class="bottom-btns">
@@ -49,6 +49,7 @@
 <script setup>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import AppButton from '@/components/commons/AppButton.vue'
 
 const router = useRouter()
 

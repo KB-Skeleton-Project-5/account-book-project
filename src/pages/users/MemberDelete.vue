@@ -31,7 +31,7 @@
       <label for="agree-check">위 내용을 모두 확인했으며 탈퇴에 동의합니다</label>
     </div>
 
-    <!-- 모달 -->
+    <!-- 모달 후에 교체 예정 -->
     <div v-if="showModal" class="modal-overlay">
       <div class="modal">
         <p class="modal-title">정말 탈퇴하시겠습니까?</p>
@@ -74,7 +74,7 @@ function closeModal() {
 }
 
 function handleDelete() {
-  // TODO: 서버 탈퇴 요청 연결
+  
   console.log('탈퇴 요청:', form)
   showModal.value = false
 }
@@ -184,8 +184,8 @@ function handleDelete() {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
