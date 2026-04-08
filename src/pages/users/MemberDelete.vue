@@ -33,7 +33,7 @@
 
     <!-- 모달 후에 교체 예정 -->
     <div v-if="showModal" class="modal-overlay">
-      <div class="modal">
+      <div class="delete-modal">
         <p class="modal-title">정말 탈퇴하시겠습니까?</p>
         <p class="modal-sub">
           탈퇴 후 모든 데이터가 삭제되며<br />되돌릴 수 없습니다
@@ -77,6 +77,7 @@ function handleDelete() {
   
   console.log('탈퇴 요청:', form)
   showModal.value = false
+  router.push({name:'users/login'})
 }
 </script>
 
