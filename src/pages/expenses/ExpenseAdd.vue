@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="header">
-            <span>지출 내역 추가</span>
+            <span>지출 추가</span>
         </div>
         <ExpenseForm />
         <AppButton text="저장" @click="handleSave"/>
@@ -12,10 +12,13 @@
 <script setup>
 import AppButton from '@/components/commons/AppButton.vue';
 import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
 
 const handleSave = () => {
-    // 확인 용도
-    console.log('저장 클릭!');
+    router.push({ name : 'expenses' });
 }
 
 </script>

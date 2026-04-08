@@ -11,9 +11,12 @@
 <script setup>
 import ExpenseForm from '@/components/expenses/ExpenseForm.vue'
 import AppButton from '@/components/commons/AppButton.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
 
 const handleSave = () => {
-    console.log('저장 클릭!')
+    router.push({ name : 'expenses' });
 }
 </script>
 

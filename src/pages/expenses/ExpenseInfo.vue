@@ -9,15 +9,21 @@
 </template>
 
 <script setup>
+import { useRoute, useRouter } from 'vue-router'
 import ExpenseForm from '@/components/expenses/ExpenseForm.vue'
 import AppButton from '@/components/commons/AppButton.vue'
 
+const route = useRoute();
+const router = useRouter();
+
 const handleEdit = () => {
-    console.log('수정 클릭!')
+    router.push({ name: 'expenses/modify/id', params : { id : route.params.id }});
 }
 
 const handleDelete = () => {
-    console.log('삭제 클릭!')
+    // TODO : 삭제 모달 연결 예정
+    // 아직은 메인 페이지로 이동
+    router.push({ name : 'main' });
 }
 </script>
 
