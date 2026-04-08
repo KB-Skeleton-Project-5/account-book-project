@@ -55,27 +55,34 @@ const router = createRouter({
     },
     {
       path: '/summaries',
-      name: 'summary',
+      name: 'summaries',
       component: () => import('../pages/summaries/Summary.vue'),
     },
 
     {
       path: '/calendars',
-      name: 'calendar',
+      name: 'calendars',
       component: () => import('../pages/calendars/Calendar.vue'),
     },
 
     {
       path: '/calendars/add',
-      name: 'calendar/add',
+      name: 'calendars/add',
       component: () => import('../pages/calendars/CalendarAdd.vue'),
     },
 
     {
+      path: '/calendars/info/:id',
+      name: 'calendars/info',
+      component: () => import('../pages/calendars/CalendarInfo.vue'),
+    },
+
+    {
       path: '/calendars/modify/:id',
-      name: 'calendar/modify',
+      name: 'calendars/modify',
       component: () => import('../pages/calendars/CalendarModify.vue'),
     },
+    
     {
       path: '/challenges',
       name: 'Challenge',
@@ -92,7 +99,7 @@ const router = createRouter({
       component: () => import('../pages/challenges/ChallengeInfo.vue'),
     },
     {
-      path: '/challenges/modify:id/',
+      path: '/challenges/modify/:id',
       name: 'ChallengeModify',
       component: () => import('../pages/challenges/ChallengeForm.vue'),
     },
