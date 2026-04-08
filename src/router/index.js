@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'main',
+      component: () => import('../pages/main/MainHome.vue'),
+    },
+    {
       path: '/users/login',
       name: 'users/login',
       component: () => import('../pages/users/Login.vue'),
@@ -82,7 +87,7 @@ const router = createRouter({
       name: 'calendars/modify',
       component: () => import('../pages/calendars/CalendarModify.vue'),
     },
-    
+
     {
       path: '/challenges',
       name: 'Challenge',
