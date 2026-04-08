@@ -7,91 +7,91 @@ const router = createRouter({
     {
       path: '/users/login',
       name: 'users/login',
-      component: () => import('../pages/Login.vue'),
+      component: () => import('../pages/users/Login.vue'),
     },
     {
       path: '/users/register',
       name: 'users/register',
-      component: () => import('../pages/Register.vue'),
+      component: () => import('../pages/users/Register.vue'),
     },
     {
       path: '/users/info',
       name: 'users/info',
-      component: () => import('../pages/MemberInfo.vue'),
+      component: () => import('../pages/users/MemberInfo.vue'),
     },
     {
       path: '/users/edit',
       name: 'users/edit',
-      component: () => import('../pages/MemberEdit.vue'),
+      component: () => import('../pages/users/MemberEdit.vue'),
     },
     {
       path: '/users/reset',
       name: 'users/reset',
-      component: () => import('../pages/PasswordReset.vue'),
+      component: () => import('../pages/users/PasswordReset.vue'),
     },
     {
       path: '/users/delete',
       name: 'users/delete',
-      component: () => import('../pages/MemberDelete.vue'),
+      component: () => import('../pages/users/MemberDelete.vue'),
     },
  {
       path: '/expenses',
       name: 'expenses',
-      component: () => import('../pages/ExpensesList.vue'),
+      component: () => import('../pages/expenses/ExpensesList.vue'),
     },
     {
       path: '/expenses/add',
       name: 'expenses/add',
-      component: () => import('../pages/ExpensesAdd.vue'),
+      component: () => import('../pages/expenses/ExpensesAdd.vue'),
     },
     {
       path: '/expenses/modify/:id',
       name: 'expenses/modify/id',
-      component: () => import('../pages/ExpenseModify.vue'),
+      component: () => import('../pages/expenses/ExpenseModify.vue'),
     },
     {
   path: '/summary',
   name: 'summary',
-  component: () => import ('../pages/Summary.vue')
+  component: () => import ('../pages/summary/Summary.vue')
 },
 
 {
   path : '/calendar',
   name: 'calendar',
-  component: () =>import ('../pages/Calendar.vue')
+  component: () =>import ('../pages/calendar/Calendar.vue')
 },
 
 {
   path: '/calendar/add',
   name: 'calendar/add',
-  component: () => import('../pages/CalendarAdd.vue')
+  component: () => import('../pages/calendar/CalendarAdd.vue')
 
 },
 
 {
   path: '/calendar/modify/:id',
   name: 'calendar/modify',
-  component: () => import('../pages/CalendarModify.vue')
+  component: () => import('../pages/calendar/CalendarModify.vue')
 }, 
       {
       path: '/challenges',
       name: 'Challenge',
-      component: () => import('../pages/Challenge.vue'),
+      component: () => import('../pages/challenges/Challenge.vue'),
     },
     {
       path: '/challenges/add',
       name: 'ChallengeAdd',
-      component: () => import('../pages/ChallengeForm.vue'),
+      component: () => import('../pages/challenges/ChallengeForm.vue'),
     },
     {
       path: '/challenges/info/:id',
       name: 'ChallengeInfo',
-      component: () => import('../pages/ChallengeInfo.vue'),
+      component: () => import('../pages/challenges/ChallengeInfo.vue'),
     },
     {
       path: '/challenges/modify:id/',
       name: 'ChallengeModify',
-      component: () => import('../pages/ChallengeForm.vue'),
+      component: () => import('../pages/challenges/ChallengeForm.vue'),
     },
   ],
 })
