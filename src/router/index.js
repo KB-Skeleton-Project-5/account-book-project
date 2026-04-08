@@ -49,11 +49,6 @@ const router = createRouter({
       component: () => import('../pages/expenses/ExpenseModify.vue'),
     },
     {
-      path: '/expenses/info/:id',
-      name: 'expenses/info/id',
-      component: () => import('../pages/expenses/ExpenseInfo.vue'),
-    },
-    {
       path: '/summaries',
       name: 'summary',
       component: () => import('../pages/summaries/Summary.vue'),
