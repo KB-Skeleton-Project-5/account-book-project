@@ -1,5 +1,5 @@
 <template>
-    <div>메인 화면</div>
+    <div>상세보기</div>
 </template>
 
 <script setup>
