@@ -1,46 +1,33 @@
 <template>
-    <div class="wrapper">
-        <div class="header">
-            <span>지출 추가</span>
-        </div>
-        <ExpenseForm />
-        <AppButton text="저장" @click="handleSave"/>
-    </div>
-    
+  <DefaultLayout>
+    <template #header>
+      <AppHeader title="지출 추가" />
+    </template>
+
+    <ExpenseForm />
+    <AppButton text="저장" @click="handleSave" />
+
+    <template #footer>
+      <AppFooter />
+    </template>
+  </DefaultLayout>
 </template>
 
 <script setup>
 import AppButton from '@/components/commons/AppButton.vue';
 import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import AppHeader from '@/layouts/AppHeader.vue';
+import AppFooter from '@/layouts/AppFooter.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRouter } from 'vue-router';
-
 
 const router = useRouter();
 
 const handleSave = () => {
-    router.push({ name : 'expenses' });
-}
-
+  router.push({ name: 'expenses' });
+};
 </script>
 
 <style scoped>
-.wrapper {
-    width: 100%;
-    max-width: 390px;
-    margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-}
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #545045;
-    border-bottom: 1px solid #EBEBEB;
-}
+
 </style>
