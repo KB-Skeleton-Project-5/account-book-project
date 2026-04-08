@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>전체 일정 조회</h2>
+        <h2>월별 재정 요약 페이지</h2>
     </div>
 </template>
 
