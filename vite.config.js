@@ -15,4 +15,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      // /api로 시작하는 요청을 json-server(3000번 포트)로 전달
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+       // 파일 업로드 서버
+    },
+  },
 })
