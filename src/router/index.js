@@ -1,5 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
-
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,15 +33,15 @@ const router = createRouter({
       name: 'users/delete',
       component: () => import('../pages/users/MemberDelete.vue'),
     },
- {
+    {
       path: '/expenses',
       name: 'expenses',
-      component: () => import('../pages/expenses/ExpensesList.vue'),
+      component: () => import('../pages/expenses/ExpenseList.vue'),
     },
     {
       path: '/expenses/add',
       name: 'expenses/add',
-      component: () => import('../pages/expenses/ExpensesAdd.vue'),
+      component: () => import('../pages/expenses/ExpenseAdd.vue'),
     },
     {
       path: '/expenses/modify/:id',
@@ -50,30 +49,29 @@ const router = createRouter({
       component: () => import('../pages/expenses/ExpenseModify.vue'),
     },
     {
-  path: '/summary',
-  name: 'summary',
-  component: () => import ('../pages/summary/Summary.vue')
-},
+      path: '/summaries',
+      name: 'summary',
+      component: () => import('../pages/summaries/Summary.vue'),
+    },
 
-{
-  path : '/calendar',
-  name: 'calendar',
-  component: () =>import ('../pages/calendar/Calendar.vue')
-},
+    {
+      path: '/calendars',
+      name: 'calendar',
+      component: () => import('../pages/calendars/Calendar.vue'),
+    },
 
-{
-  path: '/calendar/add',
-  name: 'calendar/add',
-  component: () => import('../pages/calendar/CalendarAdd.vue')
+    {
+      path: '/calendars/add',
+      name: 'calendar/add',
+      component: () => import('../pages/calendars/CalendarAdd.vue'),
+    },
 
-},
-
-{
-  path: '/calendar/modify/:id',
-  name: 'calendar/modify',
-  component: () => import('../pages/calendar/CalendarModify.vue')
-}, 
-      {
+    {
+      path: '/calendars/modify/:id',
+      name: 'calendar/modify',
+      component: () => import('../pages/calendars/CalendarModify.vue'),
+    },
+    {
       path: '/challenges',
       name: 'Challenge',
       component: () => import('../pages/challenges/Challenge.vue'),
@@ -94,6 +92,6 @@ const router = createRouter({
       component: () => import('../pages/challenges/ChallengeForm.vue'),
     },
   ],
-})
+});
 
-export default router
+export default router;
