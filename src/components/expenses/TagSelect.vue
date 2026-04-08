@@ -1,13 +1,16 @@
 <template>
     <div class="wrapper">
         <label>태그</label>
-        <button
-        v-for="tag in tags"
-        :key="tag"
-        @click="selected = tag"
-        :style="selected === tag ? 'background-color: #FCF2D0;' : ''"
-        >
-        {{ tag }}</button>
+        <div class="tag-group">
+            <button
+            v-for="tag in tags"
+            :key="tag"
+            @click="selected = tag"
+            :class="{ active : selected === tag }"
+            class="tag-btn"
+            >
+            {{ tag }}</button>
+        </div>
     </div>
 </template>
 
@@ -19,21 +22,35 @@ const tags = ['식비', '교통비', '쇼핑', '기타' , '+'];
 </script>
 
 
-<!-- 
-:class="{ active: selected === tag }"
-
-<style>
-.active {
-  background-color: #FCF2D0;
-}
-</style>
-
--->
-
 <style scoped>
 .wrapper {
-    border: 1px solid black;
-    width: 100%; 
-    max-width: 400px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 16px;
+}
+label {
+    font-size: 0.9rem;
+    color: #545045;
+    min-width: 40px;
+}
+.tag-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.tag-btn {
+    padding: 6px 16px;
+    border: 1px solid #EBEBEB;
+    border-radius: 20px;
+    background-color: #ffffff;
+    color: #9e9e9e;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.tag-btn.active {
+    background-color: #FCF2D0;
+    color: #545045;
+    border-color: #FFBC00;
 }
 </style>
