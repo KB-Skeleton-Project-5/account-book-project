@@ -1,7 +1,22 @@
 <template>
-    <div>지출 내역 수정/삭제 저장화면</div>
+    <div class="wrapper">
+        수정
+        <ExpenseForm />
+        <!-- 공통 컴포넌트 저장 버튼 들어가야함. -->
+    </div>
 </template>
 
 <script setup>
+import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
 
 </script>
+
+
+
+<style scoped>
+.wrapper {
+    border: 1px solid black;
+    width: 100%; 
+    max-width: 400px;
+}
+</style>

@@ -1,16 +1,15 @@
 <template>
+    <!-- 고정 지출 여부 -->
     <div class="wrapper">
-        지출 내역 추가
-        <ExpenseForm />
-        <!-- 공통 컴포넌트 저장 버튼 들어가야함. -->
+        <label>고정 지출 등록</label>
+        <input type="checkbox" v-model="isFixed">
     </div>
-    
 </template>
 
 <script setup>
-import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import { ref } from 'vue';
 
-
+const isFixed = ref(false);
 </script>
 
 <style scoped>

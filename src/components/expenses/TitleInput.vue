@@ -1,16 +1,15 @@
 <template>
+    <!-- 제목(내역) Input -->
     <div class="wrapper">
-        지출 내역 추가
-        <ExpenseForm />
-        <!-- 공통 컴포넌트 저장 버튼 들어가야함. -->
+        <label>제목</label>
+        <input type="text" v-model="title">
     </div>
-    
 </template>
 
 <script setup>
-import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import { ref } from 'vue';
 
-
+const title = ref('')
 </script>
 
 <style scoped>

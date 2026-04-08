@@ -1,16 +1,15 @@
 <template>
+    <!-- 금액 Input -->
     <div class="wrapper">
-        지출 내역 추가
-        <ExpenseForm />
-        <!-- 공통 컴포넌트 저장 버튼 들어가야함. -->
+        <label>금액</label>
+        <input type="number" v-model.number="amount">원
     </div>
-    
 </template>
 
 <script setup>
-import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import { ref } from 'vue';
 
-
+const amount = ref('');
 </script>
 
 <style scoped>

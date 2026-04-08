@@ -1,16 +1,14 @@
 <template>
     <div class="wrapper">
-        지출 내역 추가
-        <ExpenseForm />
-        <!-- 공통 컴포넌트 저장 버튼 들어가야함. -->
+        <label>메모</label>
+        <textarea v-model="memo" placeholder="자세한 내용은 여기에 쓰세요."></textarea>
     </div>
-    
 </template>
 
 <script setup>
-import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import { ref } from 'vue';
 
-
+const memo = ref('');
 </script>
 
 <style scoped>
