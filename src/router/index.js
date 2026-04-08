@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'main',
+      component: () => import('../pages/main/MainHome.vue'),
+    },
+    {
       path: '/users/login',
       name: 'users/login',
       component: () => import('../pages/users/Login.vue'),
@@ -49,28 +54,40 @@ const router = createRouter({
       component: () => import('../pages/expenses/ExpenseModify.vue'),
     },
     {
+      path: '/expenses/info/:id',
+      name: 'expenses/info/id',
+      component: () => import('../pages/expenses/ExpenseInfo.vue'),
+    },
+    {
       path: '/summaries',
-      name: 'summary',
+      name: 'summaries',
       component: () => import('../pages/summaries/Summary.vue'),
     },
 
     {
       path: '/calendars',
-      name: 'calendar',
+      name: 'calendars',
       component: () => import('../pages/calendars/Calendar.vue'),
     },
 
     {
       path: '/calendars/add',
-      name: 'calendar/add',
+      name: 'calendars/add',
       component: () => import('../pages/calendars/CalendarAdd.vue'),
     },
 
     {
+      path: '/calendars/info/:id',
+      name: 'calendars/info',
+      component: () => import('../pages/calendars/CalendarInfo.vue'),
+    },
+
+    {
       path: '/calendars/modify/:id',
-      name: 'calendar/modify',
+      name: 'calendars/modify',
       component: () => import('../pages/calendars/CalendarModify.vue'),
     },
+
     {
       path: '/challenges',
       name: 'challenge',
@@ -87,9 +104,9 @@ const router = createRouter({
       component: () => import('../pages/challenges/ChallengeInfo.vue'),
     },
     {
-      path: '/challenges/modify/:id',
-      name: 'challenge/modify',
-      component: () => import('../pages/challenges/ChallengeModify.vue'),
+      path: '/challenges/modify:id/',
+      name: 'Challenge/modify',
+      component: () => import('../pages/challenges/ChallengeForm.vue'),
     },
   ],
 });
