@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'main',
+      component: () => import('../pages/main/MainHome.vue'),
+    },
+    {
       path: '/users/login',
       name: 'users/login',
       component: () => import('../pages/users/Login.vue'),
@@ -49,6 +54,11 @@ const router = createRouter({
       component: () => import('../pages/expenses/ExpenseModify.vue'),
     },
     {
+      path: '/expenses/info/:id',
+      name: 'expenses/info/id',
+      component: () => import('../pages/expenses/ExpenseInfo.vue'),
+    },
+    {
       path: '/summaries',
       name: 'summaries',
       component: () => import('../pages/summaries/Summary.vue'),
@@ -77,7 +87,7 @@ const router = createRouter({
       name: 'calendars/modify',
       component: () => import('../pages/calendars/CalendarModify.vue'),
     },
-    
+
     {
       path: '/challenges',
       name: 'Challenge',
