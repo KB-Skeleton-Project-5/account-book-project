@@ -2,10 +2,10 @@
   <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
   <div class="challenge-info">
     <header>
-      <h2>{{ challengeName }}</h2>
-      <Button class="high-right-button" />
+      <h2>{{ challenge.challengeName }}</h2>
+      <AppButton class="high-right-button" />
     </header>
-    <ProgressBar />
+    <ProgressBar :current="challenge.current" :total="challenge.total" />
     <ChallengeDescription />
     <p>메모</p>
     <MemoDisplay />
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import AppButton from '@/components/commons/AppButton.vue';
 import ProgressBar from '@/components/challenges/ProgressBar.vue';
 import ChallengeDescription from '@/components/challenges/ChallengeDescription.vue';
@@ -26,17 +26,36 @@ import MemoDisplay from '@/components/challenges/MemoDisplay.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 
-const challengeName = '목표 1';
+const props = defineProps({
+  challenge: {
+    type: Object,
+    required: true,
+    default: () => ({ challengeName: '챌린지', current: 0, total: 1 }),
+  },
+  challengeType: { type: String, default: '지출' },
+});
+
+const percentage = computed(() => {
+  if (props.challenge.total === 0) return 0;
+  return (props.challenge.current / props.challenge.total) * 100;
+});
+
+const challengeResult = computed(() => {
+  const rawValue = Math.floor(percentage.value);
+
+  if (props.challengeType === '지출') {
+    return rawValue > 100 ? '목표 실패!' : `${rawValue}`;
+  }
+
+  if (props.challengeType === '수입') {
+    return rawValue >= 100 ? '목표 성공!' : `${rawValue}`;
+  }
+
+  return `${rawValue}`;
+});
 </script>
 
 <style>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #fde8a2;
-  height: 100%;
-}
 header {
   display: flex;
 }

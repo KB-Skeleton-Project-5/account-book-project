@@ -33,13 +33,6 @@ const challengeData = ref({
 </script>
 
 <style>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #fde8a2;
-  height: 100%;
-}
 footer {
   display: flex;
 }
