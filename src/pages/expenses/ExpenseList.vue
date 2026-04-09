@@ -112,19 +112,34 @@
         <div v-else class="history-list">
           <template v-for="n in 5" :key="n">
             <p class="history-date">26.00.00</p>
-            <div class="history-item">
+            <div
+              class="history-item"
+              @click="
+                $router.push({ name: 'expenses/info/id', params: { id: 1 } })
+              "
+            >
               <span class="tag-badge">태그</span>
               <span class="item-name">급여일</span>
               <span class="item-pay">카드</span>
               <span class="item-amount">00000원</span>
             </div>
-            <div class="history-item">
+            <div
+              class="history-item"
+              @click="
+                $router.push({ name: 'expenses/info/id', params: { id: 2 } })
+              "
+            >
               <span class="tag-badge">태그</span>
               <span class="item-name">점심식사</span>
               <span class="item-pay">카드</span>
               <span class="item-amount">00000원</span>
             </div>
-            <div class="history-item">
+            <div
+              class="history-item"
+              @click="
+                $router.push({ name: 'expenses/info/id', params: { id: 3 } })
+              "
+            >
               <span class="tag-badge">태그</span>
               <span class="item-name">저녁식사</span>
               <span class="item-pay">카드</span>
@@ -327,6 +342,11 @@ const toggleTag = (tag) => {
   font-size: 0.85rem;
   color: #545045;
   padding: 4px 0;
+  cursor: pointer;
+}
+.history-item:hover {
+  background-color: #f9f9f9;
+  border-radius: 6px;
 }
 .tag-badge {
   background: #f0f0f0;
