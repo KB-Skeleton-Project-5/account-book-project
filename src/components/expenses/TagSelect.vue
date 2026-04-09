@@ -6,7 +6,7 @@
             v-for="tag in tags"
             :key="tag.tagid"
             @click="handleSelect(tag)"
-            :class="{ active: selected === tag }"
+            :class="{ active: selected.tagid === tag.tagid }"
             class="tag-btn"
             >
             {{ tag.tagtitle }}

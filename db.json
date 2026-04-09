@@ -24,6 +24,14 @@
       "userId": "tttt",
       "pw": "1111",
       "id": 3
+    },
+    {
+      "name": "xxx",
+      "nick": "xyz",
+      "email": "hyeon100@gmail.com",
+      "userId": "hahyeon",
+      "pw": "1234",
+      "id": 4
     }
   ],
   "expenses": [
@@ -116,6 +124,23 @@
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "스킨케어"
+    },
+    {
+      "amount": 10,
+      "date": "",
+      "title": "1234",
+      "memo": "dfs",
+      "paymentMethod": "cash",
+      "isFixed": true,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 6
     }
   ],
   "calendars": [

@@ -7,7 +7,7 @@
         v-for="tab in tabs"
         :key="tab.typeid"
         @click="handleSelect(tab)"
-        :class="{ active: selected === tab }"
+        :class="{ active: selected.typeid === tab.typeid }"
         class="tab-btn"
       >
         {{ tab.typetitle }}
