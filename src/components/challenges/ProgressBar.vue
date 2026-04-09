@@ -8,11 +8,11 @@
 
     <div class="labels-container">
       <div class="label moving-label" :style="{ left: movingLabelPos + '%' }">
-        {{ isOver ? total : current }}만원
+        {{ isOver ? formatManwon(total) : formatManwon(current) }}만원
       </div>
 
       <div class="label end-label" :class="{ 'text-danger': isOver }">
-        {{ isOver ? current : total }}만원
+        {{ isOver ? formatManwon(current) : formatManwon(total) }}만원
       </div>
     </div>
   </div>
@@ -26,23 +26,24 @@ const props = defineProps({
   total: { type: Number, default: 1 },
 });
 
-// 목표 초과 여부
-const isOver = computed(() => props.current > props.total);
+// 만원 단위 함수
+const formatManwon = (amount) => {
+  return Math.floor(amount / 10000);
+};
 
-// 바의 전체 기준값 (초과 시 현재액이 기준, 미만 시 목표액이 기준)
+// 초과 여부 확인
+const isOver = computed(() => props.current > props.total);
 const maxVal = computed(() => Math.max(props.current, props.total));
 
-// 바의 채워지는 스타일
+// 막대 스타일 결정 함수
 const fillStyle = computed(() => {
   if (isOver.value) {
-    // 초과 시: 전체가 빨간색이지만 목표지점(total)까지만 밝은 빨강, 그 이후는 진한 빨강으로 구분
     const splitPoint = (props.total / props.current) * 100;
     return {
       width: '100%',
       background: `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
     };
   } else {
-    // 정상 시: 현재 지출액만큼만 파란색으로 채움
     return {
       width: `${(props.current / props.total) * 100}%`,
       backgroundColor: '#3b82f6',
@@ -50,13 +51,11 @@ const fillStyle = computed(() => {
   }
 });
 
-// 움직이는 라벨의 위치 (%)
+// 움직이는 라벨(글자)의 위치 계산
 const movingLabelPos = computed(() => {
   if (isOver.value) {
-    // 초과 시: 목표액(total)이 왼쪽 어딘가에 위치
     return (props.total / props.current) * 100;
   } else {
-    // 정상 시: 현재액(current)이 점과 함께 움직임
     return (props.current / props.total) * 100;
   }
 });
@@ -65,7 +64,7 @@ const movingLabelPos = computed(() => {
 <style scoped>
 .progress-container {
   width: 100%;
-  padding: 20px 0 40px 0; /* 라벨 공간 확보 */
+  padding: 20px 0 40px 0;
 }
 
 .track {
@@ -80,7 +79,7 @@ const movingLabelPos = computed(() => {
   height: 100%;
   border-radius: 20px;
   position: relative;
-  transition: width 0.4s ease-out;
+  transition: width 0.4s ease-out; /* 막대 채워지는 애니메이션 */
 }
 
 .indicator-dot {
@@ -97,13 +96,11 @@ const movingLabelPos = computed(() => {
   z-index: 2;
 }
 
-/* 초과 시 점 스타일 변경 */
 .is-danger .indicator-dot {
   border-color: #cc0000;
-  right: 0; /* 초과 시엔 항상 맨 끝에 붙음 */
+  right: 0;
 }
 
-/* 라벨 스타일 */
 .labels-container {
   position: relative;
   width: 100%;
@@ -120,6 +117,7 @@ const movingLabelPos = computed(() => {
 
 .moving-label {
   transform: translateX(-50%);
+  transition: left 0.4s ease-out; /* 글자도 막대와 함께 이동하게 추가' */
 }
 
 .end-label {

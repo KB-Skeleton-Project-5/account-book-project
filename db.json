@@ -171,9 +171,22 @@
       "userId": 1,
       "title": "4월 식비 절약",
       "targetAmount": 300000,
-      "type": "SPENDING",
+      "currentAmount": 100000,
+      "type": "수입",
       "tag": "식비",
       "memo": "이번 달은 외식 금지!",
+      "year": 2026,
+      "month": 4
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "4월 기타 절약",
+      "targetAmount": 500000,
+      "currentAmount": 150000,
+      "type": "지출",
+      "tag": "기타",
+      "memo": "이번 달은 기타 금지!",
       "year": 2026,
       "month": 4
     }

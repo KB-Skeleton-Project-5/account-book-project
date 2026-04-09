@@ -1,6 +1,7 @@
 <template>
   <DefaultLayout>
     <AppHeader title="챌린지 HOME" />
+    <AppButton text="추가" type="single" @click="handleAdd" />
     <div class="challenge-container">
       <header>
         <MonthPicker v-model="dateFilter" />
@@ -23,11 +24,13 @@
 
 <script setup>
 import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import ChallengeCard from '@/components/challenges/ChallengeCard.vue';
 import MonthPicker from '@/components/commons/MonthPicker.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import AppButton from '@/components/commons/AppButton.vue';
 
 const now = new Date();
 const dateFilter = ref({
@@ -35,19 +38,15 @@ const dateFilter = ref({
   month: now.getMonth() + 1,
 });
 
+const route = useRoute();
+const router = useRouter();
+
 const challenges = ref([]);
 
 const fetchChallenges = async () => {
   console.log(
     `${dateFilter.value.year}년 ${dateFilter.value.month}월 데이터 요청`,
   );
-  setTimeout(() => {
-    challenges.value = [
-      { id: 1, challengeName: '목표 1', current: 27, total: 50, tag: '식비' },
-
-      { id: 2, challengeName: '목표 2', current: 60, total: 50, tag: '교통비' },
-    ];
-  }, 500);
 
   try {
     const response = await fetch('http://localhost:3000/challenges');
@@ -73,6 +72,11 @@ watch(
   },
   { deep: true },
 );
+
+const handleAdd = () => {
+  console.log('추가 버튼 클릭됨');
+  router.push({ name: 'challenges/add' });
+};
 </script>
 
 <style>

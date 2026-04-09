@@ -3,7 +3,7 @@
     <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
     <div class="challenge-info">
       <header>
-        <h2>{{ challenge.challengeName }}</h2>
+        <h2>{{ challenge.title }}</h2>
         <AppButton
           type="history"
           text="내역"
@@ -11,14 +11,21 @@
           class="high-button"
         />
       </header>
-      <ProgressBar :current="challenge.current" :total="challenge.total" />
+
+      <ProgressBar
+        :current="challenge.currentAmount"
+        :total="challenge.targetAmount"
+      />
+
       <ChallengeDescription
         :tag="challenge.tag"
-        :targetAmount="challenge.total"
-        :challengeType="challengeType"
+        :targetAmount="challenge.targetAmount / 10000"
+        :challengeType="challenge.type"
       />
+
       <p>메모</p>
-      <MemoDisplay />
+      <MemoDisplay :memo="challenge.memo" />
+
       <footer class="low-button">
         <AppButton
           type="edit-delete"
@@ -46,58 +53,63 @@ const route = useRoute();
 const router = useRouter();
 
 const challenge = ref({
-  challengeName: '불러오는 중...',
+  title: '불러오는 중...',
   tag: '',
-  current: 0,
-  total: 1,
+  currentAmount: 0,
+  targetAmount: 1,
+  type: '지출',
+  memo: '',
 });
 
-const challengeType = ref('지출');
+const fetchChallengeInfo = async () => {
+  const challengeId = route.params.id;
+  console.log(`${challengeId}번 챌린지 상세 정보 요청`);
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/challenges/${challengeId}`,
+    );
+    if (!response.ok) throw new Error('서버 통신 불량!');
+
+    const data = await response.json();
+    challenge.value = data; // 서버가 준 진짜 데이터로 그릇을 채웁니다!
+  } catch (error) {
+    console.error('상세 정보 실패', error);
+  }
+};
 
 onMounted(() => {
-  const challengeId = route.params.id; // URL에서 id를 꺼냅니다.
-
-  // 💡 실제로는 여기서 서버나 Pinia(상태관리)에서 id에 맞는 데이터를 가져와야 합니다.
-  // 지금은 눈으로 확인하기 위해 임시 데이터를 넣어보겠습니다!
-  challenge.value = {
-    challengeName: '목표 1',
-    tag: '기타',
-    current: 23,
-    total: 50,
-  };
+  fetchChallengeInfo();
 });
 
 const percentage = computed(() => {
-  if (challenge.value.total === 0) return 0;
-  return (challenge.value.current / challenge.value.total) * 100;
+  if (!challenge.value.targetAmount || challenge.value.targetAmount === 0)
+    return 0;
+  return (challenge.value.currentAmount / challenge.value.targetAmount) * 100;
 });
 
 const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
 
-  if (challengeType.value === '지출') {
-    return rawValue > 100 ? '목표 실패!' : `${rawValue}`;
+  if (challenge.value.type === '지출' || challenge.value.type === 'SPENDING') {
+    return rawValue > 100 ? '목표 실패!' : `${rawValue}%`;
   }
 
-  if (challengeType.value === '수입') {
-    return rawValue >= 100 ? '목표 성공!' : `${rawValue}`;
+  if (challenge.value.type === '수입' || challenge.value.type === 'INCOME') {
+    return rawValue >= 100 ? '목표 성공!' : `${rawValue}%`;
   }
 
-  return `${rawValue}`;
+  return `${rawValue}%`;
 });
 
 const handleHistory = () => {
   console.log('내역 버튼 클릭됨');
-
-  router.push({
-    name: 'expenses',
-  });
+  router.push({ name: 'expenses' });
 };
 
 const handleEdit = () => {
   console.log('수정 버튼 클릭됨');
   const challengeId = route.params.id;
-
   router.push({
     name: 'challenges/modify',
     params: { id: challengeId },
@@ -106,10 +118,7 @@ const handleEdit = () => {
 
 const handleDelete = () => {
   console.log('삭제 버튼 클릭됨');
-
-  router.push({
-    name: 'challenges',
-  });
+  router.push({ name: 'challenges' });
 };
 </script>
 

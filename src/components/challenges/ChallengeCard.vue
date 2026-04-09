@@ -4,12 +4,15 @@
       <h2>{{ challenge.title }}</h2>
     </header>
 
-    <ProgressBar :current="challenge.current" :total="challenge.total" />
+    <ProgressBar
+      :current="challenge.currentAmount"
+      :total="challenge.targetAmount"
+    />
 
     <ChallengeDescription
       :tag="challenge.tag"
-      :targetAmount="challenge.total"
-      :challengeType="challengeType"
+      :targetAmount="challenge.targetAmount / 10000"
+      :challengeType="challenge.type"
     />
 
     <div class="percentage">{{ challengeResult }}</div>
@@ -28,16 +31,17 @@ const props = defineProps({
     default: () => ({
       title: '챌린지 1',
       tag: '교통비',
-      current: 0,
-      total: 1,
+      currentAmount: 0,
+      targetAmount: 1,
+      type: '지출',
     }),
   },
   challengeType: { type: String, default: '지출' },
 });
 
 const percentage = computed(() => {
-  if (props.challenge.total === 0) return 0;
-  return (props.challenge.current / props.challenge.total) * 100;
+  if (props.challenge.targetAmount === 0) return 0;
+  return (props.challenge.currentAmount / props.challenge.targetAmount) * 100;
 });
 
 const challengeResult = computed(() => {

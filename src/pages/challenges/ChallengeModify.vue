@@ -31,7 +31,7 @@ const router = useRouter();
 const route = useRoute();
 
 const challengeData = ref({
-  challengeName: '',
+  title: '',
   tag: '식비',
   targetAmount: 0,
   type: '지출',

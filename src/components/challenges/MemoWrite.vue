@@ -1,8 +1,20 @@
 <template>
   <div class="memo-write">
-    <textarea name="" id=""></textarea>
+    <textarea
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      placeholder="챌린지 다짐 메모"
+    ></textarea>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+const props = defineProps(['modelValue']);
+const emit = defineEmits(['update:modelValue']);
+
+const memoText = ref('');
+</script>
 
 <style scoped>
 textarea {

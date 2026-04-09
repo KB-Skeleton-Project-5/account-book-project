@@ -1,13 +1,16 @@
 <template>
   <div class="memo-display">
-    <p>{{ memo }}</p>
+    <p>{{ memo || '등록된 메모가 없습니다.' }}</p>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const memo = ref('여기는 메모입니다.');
+defineProps({
+  memo: {
+    type: String,
+    default: '',
+  },
+});
 </script>
 
 <style scoped>
