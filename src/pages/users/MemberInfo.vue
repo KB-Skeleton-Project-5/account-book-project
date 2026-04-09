@@ -42,21 +42,33 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { getUserInfo,fetchUserById,logoutProcess } from '@/util/authUtil'
 import AppButton from '@/components/commons/AppButton.vue'
 import AppHeader from '@/layouts/AppHeader.vue'
 const router = useRouter()
 
 // TODO: 서버에서 실제 데이터 불러오기
 const member = reactive({
-  userId: 'user_001',
-  name: '홍길동',
-  nick: '길동이',
-  email: 'hong@email.com',
+  userId: '',
+  name: '',
+  nick: '',
+  email: '',
   profileImage: ''
 })
+onMounted(async () => {
+  const userInfo = getUserInfo()
 
+if (!userInfo.authenticated){
+  router.push({name:'users/login'})
+  return
+}
+const user = await fetchUserById(userInfo.id)
+if(user){
+  Object.assign(member, user)
+}
+})
 function handleLogout() {
   // TODO: 로그인 상태 초기화 연결
   console.log('로그아웃')
