@@ -49,16 +49,16 @@ const fetchChallenges = async () => {
     ];
   }, 500);
 
-  // try {
-  //   const response = await fetch('http://localhost:3000/challenges');
-  //   if (!response.ok) throw new Error('에러 발생 1');
+  try {
+    const response = await fetch('http://localhost:3000/challenges');
+    if (!response.ok) throw new Error('에러 발생 1');
 
-  //   const data = await response.json();
+    const data = await response.json();
 
-  //   challenges.value = data;
-  // } catch (error) {
-  //   console.error('에러 발생 2', error);
-  // }
+    challenges.value = data;
+  } catch (error) {
+    console.error('에러 발생 2', error);
+  }
 };
 
 onMounted(() => {

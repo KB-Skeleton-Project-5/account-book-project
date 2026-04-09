@@ -1,7 +1,7 @@
 <template>
   <div class="challenge-card">
     <header>
-      <h2>{{ challenge.challengeName }}</h2>
+      <h2>{{ challenge.title }}</h2>
     </header>
 
     <ProgressBar :current="challenge.current" :total="challenge.total" />
@@ -26,7 +26,7 @@ const props = defineProps({
     type: Object,
     required: true,
     default: () => ({
-      challengeName: '챌린지 1',
+      title: '챌린지 1',
       tag: '교통비',
       current: 0,
       total: 1,

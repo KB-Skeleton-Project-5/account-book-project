@@ -1,13 +1,13 @@
 <template>
   <div class="memo-display">
-    <p>{{ userMemo }}</p>
+    <p>{{ memo }}</p>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const userMemo = ref('여기는 메모입니다.');
+const memo = ref('여기는 메모입니다.');
 </script>
 
 <style scoped>
