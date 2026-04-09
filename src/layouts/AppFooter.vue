@@ -16,7 +16,7 @@
         <line x1="7" y1="13" x2="13" y2="13"/>
       </svg>
       <span>지출</span>
-    </router-link>
+    </router-link> 
 
     <router-link :to="{ name: 'expenses/add' }" class="nav-item nav-add">
       <div class="add-btn">
@@ -35,7 +35,7 @@
       <span>월별요약</span>
     </router-link>
 
-    <router-link :to="{ name: 'Challenge' }" class="nav-item">
+    <router-link :to="{ name: 'challenges' }" class="nav-item">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M12 2C8 2 5 5.5 5 9c0 4 4 8 7 11 3-3 7-7 7-11 0-3.5-3-7-7-7z"/>
         <circle cx="12" cy="9" r="2.5"/>
