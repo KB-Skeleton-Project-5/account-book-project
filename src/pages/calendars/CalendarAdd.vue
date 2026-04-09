@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="일정 등록" :back="true" backTo="calendars"  />
+      <AppHeader title="일정 등록" :back="true" backTo="calendars" />
     </template>
 
     <div class="calendar-form-page">
@@ -9,9 +9,9 @@
 
       <!-- 입력 폼 -->
       <CalendarForm :form="form" mode="input">
-      <div class="button-area">
-        <AppButton text="저장" @click="saveCalendar" />
-      </div>
+        <div class="button-area">
+          <AppButton text="저장" @click="saveCalendar" />
+        </div>
       </CalendarForm>
       <div class="page-bottom-space"></div>
     </div>
@@ -24,6 +24,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
+
 import AppButton from '@/components/commons/AppButton.vue';
 import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
@@ -32,10 +34,6 @@ import AppFooter from '@/layouts/AppFooter.vue';
 
 const router = useRouter();
 
-const saveCalendar = () => {
-  router.push({name: 'calendars'});
-};
-
 const form = ref({
   title: '',
   date: '',
@@ -43,6 +41,16 @@ const form = ref({
   expenseId: '',
   memo: '',
 });
+
+const saveCalendar = async () => {
+  try {
+    await axios.post( 'http://localhost:3000/calendars', {userId: 1, ...form.value,});
+
+    router.push({name: 'calendars'});
+  } catch(error) {
+    console.log(error);
+  }
+};
 </script>
 
 <style scoped>

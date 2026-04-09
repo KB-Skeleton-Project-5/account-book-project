@@ -126,7 +126,70 @@
       "date": "2026-04-01",
       "time": "09:00",
       "expenseId": "exp_042",
-      "memo": "급여 입금 예정"
+      "memo": "급여 입금 완료"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "팀 회의 수정",
+      "date": "2026-04-10",
+      "time": "14:00",
+      "expenseId": 5,
+      "memo": "ppt 준비"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "title": "스터디",
+      "date": "2026-04-10",
+      "time": "16:00",
+      "expenseId": 6,
+      "memo": "Vue 라우터 복습 완료!"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "title": "병원 예약",
+      "date": "2026-04-15",
+      "time": "11:00",
+      "expenseId": null,
+      "memo": "정기 검진"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "title": "친구와 영화",
+      "date": "2026-04-25",
+      "time": "19:30",
+      "expenseId": null,
+      "memo": "CGV 예매"
+    },
+    {
+      "userId": 1,
+      "title": "생일파티",
+      "date": "2026-04-15",
+      "time": "07:00",
+      "expenseId": "",
+      "memo": "선물 챙기기",
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "title": "미용실",
+      "date": "2026-04-01",
+      "time": "14:00",
+      "expenseId": "",
+      "memo": "",
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "title": "할아버지 댁 가기",
+      "date": "2026-04-02",
+      "time": "08:00",
+      "expenseId": "",
+      "memo": "",
+      "id": 8
     }
   ],
   "summary": [
@@ -164,7 +227,6 @@
         }
       ]
     },
-
     {
       "id": 2,
       "userId": 1,
@@ -174,16 +236,31 @@
       "expense": 2000000,
       "netProfit": 1100000,
       "comparison": [
-        { "prevExpense": 1850000, "diff": 150000, "diffRate": 8.1 }
+        {
+          "prevExpense": 1850000,
+          "diff": 150000,
+          "diffRate": 8.1
+        }
       ],
       "tagBreakdown": [
-        { "tag": "식비", "amount": 700000 },
-        { "tag": "교통비", "amount": 380000 },
-        { "tag": "쇼핑", "amount": 120000 },
-        { "tag": "기타", "amount": 100000 }
+        {
+          "tag": "식비",
+          "amount": 700000
+        },
+        {
+          "tag": "교통비",
+          "amount": 380000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 120000
+        },
+        {
+          "tag": "기타",
+          "amount": 100000
+        }
       ]
     },
-
     {
       "id": 3,
       "userId": 1,
@@ -193,16 +270,31 @@
       "expense": 2100000,
       "netProfit": 1050000,
       "comparison": [
-        { "prevExpense": 2000000, "diff": 100000, "diffRate": 5.0 }
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
       ],
       "tagBreakdown": [
-        { "tag": "식비", "amount": 750000 },
-        { "tag": "교통비", "amount": 420000 },
-        { "tag": "쇼핑", "amount": 150000 },
-        { "tag": "기타", "amount": 120000 }
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 420000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 150000
+        },
+        {
+          "tag": "기타",
+          "amount": 120000
+        }
       ]
     },
-
     {
       "id": 4,
       "userId": 1,
@@ -212,16 +304,31 @@
       "expense": 1950000,
       "netProfit": 1250000,
       "comparison": [
-        { "prevExpense": 2100000, "diff": -150000, "diffRate": -7.1 }
+        {
+          "prevExpense": 2100000,
+          "diff": -150000,
+          "diffRate": -7.1
+        }
       ],
       "tagBreakdown": [
-        { "tag": "식비", "amount": 680000 },
-        { "tag": "교통비", "amount": 390000 },
-        { "tag": "쇼핑", "amount": 100000 },
-        { "tag": "기타", "amount": 130000 }
+        {
+          "tag": "식비",
+          "amount": 680000
+        },
+        {
+          "tag": "교통비",
+          "amount": 390000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 100000
+        },
+        {
+          "tag": "기타",
+          "amount": 130000
+        }
       ]
     },
-
     {
       "id": 5,
       "userId": 1,
@@ -231,16 +338,31 @@
       "expense": 2200000,
       "netProfit": 1100000,
       "comparison": [
-        { "prevExpense": 1950000, "diff": 250000, "diffRate": 12.8 }
+        {
+          "prevExpense": 1950000,
+          "diff": 250000,
+          "diffRate": 12.8
+        }
       ],
       "tagBreakdown": [
-        { "tag": "식비", "amount": 800000 },
-        { "tag": "교통비", "amount": 450000 },
-        { "tag": "쇼핑", "amount": 180000 },
-        { "tag": "기타", "amount": 140000 }
+        {
+          "tag": "식비",
+          "amount": 800000
+        },
+        {
+          "tag": "교통비",
+          "amount": 450000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 180000
+        },
+        {
+          "tag": "기타",
+          "amount": 140000
+        }
       ]
     },
-
     {
       "id": 6,
       "userId": 1,
@@ -250,13 +372,29 @@
       "expense": 2050000,
       "netProfit": 1200000,
       "comparison": [
-        { "prevExpense": 2200000, "diff": -150000, "diffRate": -6.8 }
+        {
+          "prevExpense": 2200000,
+          "diff": -150000,
+          "diffRate": -6.8
+        }
       ],
       "tagBreakdown": [
-        { "tag": "식비", "amount": 720000 },
-        { "tag": "교통비", "amount": 400000 },
-        { "tag": "쇼핑", "amount": 130000 },
-        { "tag": "기타", "amount": 120000 }
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 400000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 130000
+        },
+        {
+          "tag": "기타",
+          "amount": 120000
+        }
       ]
     }
   ],
@@ -272,7 +410,6 @@
       "year": 2026,
       "month": 4
     },
-
     {
       "id": 2,
       "userId": 1,
@@ -284,7 +421,6 @@
       "year": 2026,
       "month": 5
     },
-
     {
       "id": 3,
       "userId": 1,
@@ -296,7 +432,6 @@
       "year": 2026,
       "month": 6
     },
-
     {
       "id": 4,
       "userId": 1,
@@ -308,7 +443,6 @@
       "year": 2026,
       "month": 7
     },
-
     {
       "id": 5,
       "userId": 1,
@@ -320,7 +454,6 @@
       "year": 2026,
       "month": 8
     },
-
     {
       "id": 6,
       "userId": 1,

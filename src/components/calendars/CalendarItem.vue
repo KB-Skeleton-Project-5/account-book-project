@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/calendars/info/${id}`" class="calendar-item-link">
+  <router-link :to="{ name: 'calendars/info', params: { id } }" class="calendar-item-link">
       <div class="calendar-item">
         <div class="calendar-title">{{ title }}</div>
         <div class="calendar-time">{{ time }}</div>
@@ -8,7 +8,11 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
+  id: {
+    type:[Number, String],
+    required: true,
+  },
   time: {
     type: String,
     default: '14:00',

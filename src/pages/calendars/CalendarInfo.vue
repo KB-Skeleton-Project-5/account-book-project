@@ -7,9 +7,13 @@
     <div class="calendar-form-page">
       <div class="page-top-space"></div>
 
-      <CalendarForm v-if="form":form="form" mode="value">
+      <CalendarForm v-if="form" :form="form" mode="value">
         <div class="button-area">
-          <AppButton type="edit-delete" @edit="handleEdit" @delete="handleDelete" />
+          <AppButton
+            type="edit-delete"
+            @edit="handleEdit"
+            @delete="handleDelete"
+          />
         </div>
       </CalendarForm>
       <div class="page-bottom-space"></div>
@@ -21,8 +25,8 @@
 </template>
 
 <script setup>
-import { ref ,onMounted} from 'vue';
-import { useRouter ,useRoute} from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import AppButton from '@/components/commons/AppButton.vue';
 import CalendarForm from '@/components/calendars/CalendarForm.vue';
@@ -33,23 +37,28 @@ import AppFooter from '@/layouts/AppFooter.vue';
 const router = useRouter();
 const route = useRoute();
 
-
 const form = ref(null);
 
 const handleEdit = () => {
-  router.push({name: 'calendars/modify', params: { id: route.params.id } });
+  router.push({ name: 'calendars/modify', params: { id: route.params.id } });
 };
 
-const handleDelete = () => {
+const handleDelete = async () => {
   // TODO : 삭제 모달 연결 예정
-  // 아직은 메인 페이지로 이동
-  router.push({name: 'calendars'});
+  // 우선 삭제 버튼 누르면 삭제되는걸로
+  try {
+    await axios.delete(`http://localhost:3000/calendars/${route.params.id}`);
+    console.log('삭제 완료');
+    router.push({ name: 'calendars' });
+  } catch (e) {
+    console.log('삭제 실패',error);
+  }
 };
 
 const fetchCalendar = async () => {
   try {
     const res = await axios.get(
-      `http://localhost:3000/calendars/${route.params.id}`
+      `http://localhost:3000/calendars/${route.params.id}`,
     );
 
     form.value = res.data;
@@ -62,9 +71,6 @@ const fetchCalendar = async () => {
 onMounted(() => {
   fetchCalendar();
 });
-
-
-
 </script>
 
 <style scoped>
