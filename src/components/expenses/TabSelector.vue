@@ -1,16 +1,16 @@
 <template>
-  <!-- 수입, 지출, 이체 탭 -->
+  <!-- 수입, 지출 탭 -->
   <div class="wrapper">
     <label>분류</label>
     <div class="tab-group">
       <button
         v-for="tab in tabs"
-        :key="tab"
+        :key="tab.typeid"
         @click="handleSelect(tab)"
-        :class="{ active : selected === tab }"
+        :class="{ active: selected === tab }"
         class="tab-btn"
       >
-        {{ tab }}
+        {{ tab.typetitle }}
       </button>
     </div>
   </div>
@@ -19,13 +19,17 @@
 <script setup>
 import { ref } from 'vue';
 
-const selected = ref('지출');
-const tabs = ['수입', '지출', '이체'];
+const tabs = [
+  { typeid: 'deposit', typetitle: '수입' },
+  { typeid: 'withdrawal', typetitle: '출금' }
+]
+
+const selected = ref(tabs[1]);  // 기본값 '출금'
 const emit = defineEmits(['submit-tab']);
 
 const handleSelect = (tab) => {
-    selected.value = tab
-    emit('submit-tab', tab)
+  selected.value = tab
+  emit('submit-tab', tab)
 }
 </script>
 

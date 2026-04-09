@@ -4,12 +4,13 @@
         <div class="tag-group">
             <button
             v-for="tag in tags"
-            :key="tag"
+            :key="tag.tagid"
             @click="handleSelect(tag)"
-            :class="{ active : selected === tag }"
+            :class="{ active: selected === tag }"
             class="tag-btn"
             >
-            {{ tag }}</button>
+            {{ tag.tagtitle }}
+            </button>
         </div>
     </div>
 </template>
@@ -17,13 +18,19 @@
 <script setup>
 import { ref } from 'vue';
 
-const selected = ref('식비');
-const tags = ['식비', '교통비', '쇼핑', '기타', '+'];
+const tags = [
+  { tagid: 'eat', tagtitle: '식비' },
+  { tagid: 'traffic', tagtitle: '교통비' },
+  { tagid: 'shopping', tagtitle: '쇼핑' },
+  { tagid: 'etc', tagtitle: '기타' }
+]
+
+const selected = ref(tags[0]);
 const emit = defineEmits(['submit-tag']);
 
 const handleSelect = (tag) => {
-    selected.value = tag
-    emit('submit-tag', tag)
+  selected.value = tag
+  emit('submit-tag', tag)
 }
 </script>
 
