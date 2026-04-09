@@ -1,8 +1,10 @@
 <template>
-  <div class="calendar-item">
-    <div class="calendar-title">{{ title }}</div>
-    <div class="calendar-time">{{ time }}</div>
-  </div>
+  <router-link :to="`/calendars/info/${id}`" class="calendar-item-link">
+      <div class="calendar-item">
+        <div class="calendar-title">{{ title }}</div>
+        <div class="calendar-time">{{ time }}</div>
+      </div>
+  </router-link>
 </template>
 
 <script setup>

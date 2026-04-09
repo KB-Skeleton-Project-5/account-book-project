@@ -1,17 +1,18 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="일정 등록" />
+      <AppHeader title="일정 등록" :back="true" backTo="calendars"  />
     </template>
 
     <div class="calendar-form-page">
       <div class="page-top-space"></div>
 
       <!-- 입력 폼 -->
-      <CalendarForm :form="form" mode="input" />
-
-      <AppButton text="저장" @click="saveCalendar" />
-
+      <CalendarForm :form="form" mode="input">
+      <div class="button-area">
+        <AppButton text="저장" @click="saveCalendar" />
+      </div>
+      </CalendarForm>
       <div class="page-bottom-space"></div>
     </div>
     <template #footer>
@@ -22,11 +23,18 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import AppButton from '@/components/commons/AppButton.vue';
 import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+
+const router = useRouter();
+
+const saveCalendar = () => {
+  router.push({name: 'calendars'});
+};
 
 const form = ref({
   title: '',
@@ -43,6 +51,12 @@ const form = ref({
   background-color: #f3f3f3;
   box-sizing: border-box;
   min-height: 100%;
+}
+
+.button-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
 }
 
 .page-top-space {
