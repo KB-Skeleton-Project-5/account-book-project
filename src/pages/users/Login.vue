@@ -7,12 +7,16 @@
 
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.userId" placeholder="아이디를 입력하세요" />
+        <input type="text" v-model="form.userId" 
+          placeholder="아이디를 입력하세요" 
+          @keyup.enter="handleLogin" />
       </div>
 
       <div class="field">
         <label>비밀번호</label>
-        <input type="password" v-model="form.pw" placeholder="비밀번호를 입력하세요" />
+        <input type="password" v-model="form.pw" 
+          placeholder="비밀번호를 입력하세요" 
+          @keyup.enter="handleLogin"/>
       </div>
 
       <button class="btn-login" @click="handleLogin">로그인</button>
@@ -35,6 +39,7 @@
 <script setup>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { loginProcess } from '@/util/authUtil'
 
 const router = useRouter()
 
@@ -44,12 +49,20 @@ const form = reactive({
 })
 
 function handleLogin() {
-  // TODO: 서버 로그인 요청 연결
-  console.log('로그인 시도:', form.userId, form.pw)
-  //테스트용-나중에 서버요청으로 교체
-  router.push({name:'main'})
-
+  loginProcess(
+    form.userId,
+    form.pw,
+    () => {
+       console.log('로그인 성공')
+       router.push({name:'main'})
+    },
+    () => {
+  alert('아이디 또는 비밀번호가 틀렸습니다.')
+    }
+  )
 }
+
+
 </script>
 
 <style scoped>

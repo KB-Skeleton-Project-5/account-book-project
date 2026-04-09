@@ -31,8 +31,8 @@
     </div>
 
     <div class="btn-area">
-      <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
-      <app-button text="저장" @click="handleSignup" />
+      
+      <app-button text="저장" @click="handleSignup", @keyup.enter="handleSignup"/>
     </div> 
 
   </div>
@@ -43,6 +43,8 @@ import AppButton from '@/components/commons/AppButton.vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AppHeader from '@/layouts/AppHeader.vue'
+import { registerProcess } from '@/util/authUtil'
+
 
 
 const router = useRouter()
@@ -57,13 +59,21 @@ const form = reactive({
 
 const pwConfirm = ref('')
 
-function handleSignup() {
+ function handleSignup() {
   if (form.pw !== pwConfirm.value) {
     console.log('비밀번호가 일치하지 않습니다')
     return
   }
-  // TODO: 서버 회원가입 요청 연결
-  console.log('회원가입 시도:', form)
+  registerProcess(
+    form,
+    () => {
+      console.log('회원가입 성공')
+      router.push({name:"users/login"})
+    },
+    () => {
+      alert('회원가입에 실패했습니다')
+    }
+  )
 }
 </script>
 
