@@ -1,42 +1,135 @@
 {
-  "users": [],
-  "expenses": [
+  "users": [
     {
-      "amount": 10,
-      "date": "2026-04-08",
-      "title": "실험2",
-      "memo": "실험22",
-      "paymentMethod": "cash",
-      "isFixed": false,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "출금"
-      },
-      "id": 7
-    },
-    {
-      "amount": 123,
-      "date": "2026-04-07",
-      "title": "실험3",
-      "memo": "실험333",
-      "paymentMethod": "cash",
-      "isFixed": false,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "id": 8
+      "id": 1,
+      "userId": "user_001",
+      "pw": "hashed_string",
+      "name": "홍길동",
+      "nick": "길동이",
+      "email": "hong@email.com",
+      "profileImage": "https://..."
     }
   ],
-  "calendars": [],
-  "summary": [],
-  "challenges": []
+  "expenses": [
+    {
+      "id": 1,
+      "userId": 1,
+      "date": "2026-04-01",
+      "title": "스타벅스 아메리카노",
+      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "amount": 4500,
+      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "memo": "오전 커피"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "date": "2026-04-02",
+      "title": "김밥",
+      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "amount": 3000,
+      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "memo": "아침식사"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "date": "2026-04-03",
+      "title": "버스비",
+      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "amount": 1500,
+      "tag": { "tagid": "traffic", "tagtitle": "교통비" },
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "memo": "출근"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "date": "2026-04-04",
+      "title": "월급",
+      "type": { "typeid": "deposit", "typetitle": "입금" },
+      "amount": 2500000,
+      "tag": { "tagid": "etc", "tagtitle": "기타" },
+      "paymentMethod": "카드",
+      "isFixed": true,
+      "memo": "4월 급여"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "date": "2026-04-05",
+      "title": "올리브영",
+      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "amount": 23000,
+      "tag": { "tagid": "shopping", "tagtitle": "쇼핑" },
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "memo": "스킨케어"
+    }
+  ],
+  "calendars": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "월급날",
+      "date": "2026-04-01",
+      "time": "09:00",
+      "expenseId": "exp_042",
+      "memo": "급여 입금 예정"
+    }
+  ],
+  "summary": [
+    {
+      "id": 1,
+      "userId": 1,
+      "year": 2026,
+      "month": 4,
+      "income": 3200000,
+      "expense": 1850000,
+      "netProfit": 1350000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": -250000,
+          "diffRate": -11.9
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 650000
+        },
+        {
+          "tag": "교통비",
+          "amount": 420000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 80000
+        },
+        {
+          "tag": "기타",
+          "amount": 100000
+        }
+      ]
+    }
+  ],
+  "challenges": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "4월 식비 절약",
+      "targetAmount": 300000,
+      "type": "SPENDING",
+      "tag": "식비",
+      "memo": "이번 달은 외식 금지!",
+      "year": 2026,
+      "month": 4
+    }
+  ]
 }
