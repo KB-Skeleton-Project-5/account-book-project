@@ -1,7 +1,28 @@
 <template>
   <header class="app-header">
+    <!-- 뒤로가기 버튼 (back prop이 true일 때만 표시) -->
+    <button
+      v-if="back"
+      class="icon-btn back-btn"
+      aria-label="뒤로가기"
+      @click="$router.push({ name: backTo })"
+    >
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+
     <span class="header-title">{{ title }}</span>
-    <div class="header-icons">
+
+    <!-- 오른쪽 아이콘 (back이 false일 때만 표시) -->
+    <div v-if="!back" class="header-icons">
       <button
         class="icon-btn"
         aria-label="캘린더"
@@ -43,8 +64,31 @@
 </template>
 
 <script setup>
+/**
+ * AppHeader 사용법
+ *
+ * [뒤로가기 없음 - 메인 페이지]
+ * <AppHeader title="가계부 HOME" />
+ *
+ * [뒤로가기 있음 - 하위 페이지]
+ * <AppHeader title="챌린지" :back="true" backTo="Challenge" />
+ * <AppHeader title="지출 내역" :back="true" backTo="expenses" />
+ * <AppHeader title="월별 요약" :back="true" backTo="summaries" />
+ *
+ * backTo: router/index.js 에 등록된 name 값을 넣어주세요
+ */
 defineProps({
   title: {
+    type: String,
+    default: '',
+  },
+  // true로 설정하면 뒤로가기 버튼 표시, 캘린더/프로필 아이콘 숨김
+  back: {
+    type: Boolean,
+    default: false,
+  },
+  // 뒤로가기 버튼 클릭 시 이동할 라우터 name
+  backTo: {
     type: String,
     default: '',
   },
@@ -77,6 +121,11 @@ defineProps({
 .header-icons {
   display: flex;
   gap: 8px;
+}
+
+.back-btn {
+  position: absolute;
+  left: 12px;
 }
 
 .icon-btn {
