@@ -13,7 +13,7 @@
 
 <style scoped>
 .comparison-box {
-  height: 200px;
+
   border: 1px solid #777;
   background-color: #ffffff;
 
