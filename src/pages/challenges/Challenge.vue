@@ -44,9 +44,21 @@ const fetchChallenges = async () => {
   setTimeout(() => {
     challenges.value = [
       { id: 1, challengeName: '목표 1', current: 27, total: 50, tag: '식비' },
+
       { id: 2, challengeName: '목표 2', current: 60, total: 50, tag: '교통비' },
     ];
   }, 500);
+
+  // try {
+  //   const response = await fetch('http://localhost:3000/challenges');
+  //   if (!response.ok) throw new Error('에러 발생 1');
+
+  //   const data = await response.json();
+
+  //   challenges.value = data;
+  // } catch (error) {
+  //   console.error('에러 발생 2', error);
+  // }
 };
 
 onMounted(() => {
@@ -64,13 +76,18 @@ watch(
 </script>
 
 <style>
-.card-list {
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  text-decoration: none;
-  color: inherit;
-  display: block;
+}
+
+.card-link:active {
+  transform: scale(0.98);
+  transition: transform 0.1s;
 }
 </style>

@@ -106,7 +106,7 @@ const router = createRouter({
     {
       path: '/challenges/modify/:id',
       name: 'challenges/modify',
-      component: () => import('../pages/challenges/ChallengeAdd.vue'),
+      component: () => import('../pages/challenges/ChallengeModify.vue'),
     },
   ],
 });

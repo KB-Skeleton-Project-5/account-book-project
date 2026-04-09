@@ -26,7 +26,7 @@ const props = defineProps({
     type: Object,
     required: true,
     default: () => ({
-      challengeName: '챌린지',
+      challengeName: '챌린지 1',
       tag: '교통비',
       current: 0,
       total: 1,
@@ -44,14 +44,14 @@ const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
 
   if (props.challengeType === '지출') {
-    return rawValue > 100 ? '목표 실패!' : `${rawValue}`;
+    return rawValue > 100 ? '목표 실패!' : `${rawValue}%`;
   }
 
   if (props.challengeType === '수입') {
-    return rawValue >= 100 ? '목표 성공!' : `${rawValue}`;
+    return rawValue >= 100 ? '목표 성공!' : `${rawValue}%`;
   }
 
-  return `${rawValue}`;
+  return `${rawValue}%`;
 });
 </script>
 

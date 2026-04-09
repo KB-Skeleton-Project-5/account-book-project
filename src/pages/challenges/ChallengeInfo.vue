@@ -47,6 +47,7 @@ const router = useRouter();
 
 const challenge = ref({
   challengeName: '불러오는 중...',
+  tag: '',
   current: 0,
   total: 1,
 });
@@ -86,8 +87,11 @@ const challengeResult = computed(() => {
 });
 
 const handleHistory = () => {
-  console.log('내역 페이지로 이동합니다!');
-  // 여기에 router.push 등의 로직을 넣으면 되겠죠?
+  console.log('내역 버튼 클릭됨');
+
+  router.push({
+    name: 'expenses',
+  });
 };
 
 const handleEdit = () => {
@@ -102,6 +106,10 @@ const handleEdit = () => {
 
 const handleDelete = () => {
   console.log('삭제 버튼 클릭됨');
+
+  router.push({
+    name: 'challenges',
+  });
 };
 </script>
 

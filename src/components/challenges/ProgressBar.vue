@@ -7,11 +7,7 @@
     </div>
 
     <div class="labels-container">
-      <div
-        class="label moving-label"
-        :class="{ 'text-danger': isOver }"
-        :style="{ left: movingLabelPos + '%' }"
-      >
+      <div class="label moving-label" :style="{ left: movingLabelPos + '%' }">
         {{ isOver ? total : current }}만원
       </div>
 
