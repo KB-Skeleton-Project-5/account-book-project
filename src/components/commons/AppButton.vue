@@ -1,13 +1,20 @@
 <template>
   <!-- 수정/삭제 그룹 (양쪽 배치) -->
   <div v-if="type === 'edit-delete'" class="btn-group">
-    <button class="app-btn" @click="$emit('edit')">{{ leftText }}</button>
+    <button class="app-btn" @click="$emit('edit')">수정</button>
     <button class="app-btn btn-delete" @click="$emit('delete')">삭제</button>
   </div>
 
   <!-- 단일 버튼 (오른쪽 배치) -->
   <div v-else class="btn-wrapper">
-    <button class="app-btn" @click="$emit('click')">{{ text }}</button>
+    <!-- 기본 노란색 버튼 -->
+    <button v-if="type !== 'history'" class="app-btn" @click="$emit('click')">
+      {{ text }}
+    </button>
+    <!-- 내역 버튼 (연한 회색) -->
+    <button v-else class="app-btn btn-history" @click="$emit('click')">
+      {{ text }}
+    </button>
   </div>
 </template>
 
@@ -18,8 +25,12 @@ defineProps({
     type: String,
     default: '저장',
   },
-  leftText: { type: String, default: '수정' },
-  // 'edit-delete' 로 넣으면 수정/삭제 그룹으로 표시
+  /**
+   * 버튼 타입
+   * 'single'      : 기본 노란색 버튼 (오른쪽 배치)
+   * 'edit-delete' : 수정/삭제 그룹 (양쪽 배치)
+   * 'history'     : 연한 회색 버튼 (내역 조회용)
+   */
   type: {
     type: String,
     default: 'single',
@@ -65,5 +76,15 @@ defineEmits(['click', 'edit', 'delete']);
 
 .btn-delete:hover {
   background-color: #c62828;
+}
+
+/* 내역 버튼 - 연한 회색 */
+.btn-history {
+  background-color: #f0f0f0;
+  color: #9e9e9e;
+}
+
+.btn-history:hover {
+  background-color: #e0e0e0;
 }
 </style>

@@ -16,12 +16,13 @@
         </router-link>
       </main>
     </div>
+
     <AppFooter />
   </DefaultLayout>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import ChallengeCard from '@/components/challenges/ChallengeCard.vue';
 import MonthPicker from '@/components/commons/MonthPicker.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
@@ -29,15 +30,37 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const now = new Date();
-
 const dateFilter = ref({
   year: now.getFullYear(),
   month: now.getMonth() + 1,
 });
-const challenges = ref([
-  { id: 1, challengeName: '목표 1', current: 27, total: 50 },
-  { id: 2, challengeName: '목표 2', current: 60, total: 50 },
-]);
+
+const challenges = ref([]);
+
+const fetchChallenges = async () => {
+  console.log(
+    `${dateFilter.value.year}년 ${dateFilter.value.month}월 데이터 요청`,
+  );
+  setTimeout(() => {
+    challenges.value = [
+      { id: 1, challengeName: '목표 1', current: 27, total: 50, tag: '식비' },
+      { id: 2, challengeName: '목표 2', current: 60, total: 50, tag: '교통비' },
+    ];
+  }, 500);
+};
+
+onMounted(() => {
+  fetchChallenges();
+});
+
+watch(
+  dateFilter,
+  () => {
+    challenges.value = [];
+    fetchChallenges();
+  },
+  { deep: true },
+);
 </script>
 
 <style>

@@ -7,6 +7,7 @@
     <ProgressBar :current="challenge.current" :total="challenge.total" />
 
     <ChallengeDescription
+      :tag="challenge.tag"
       :targetAmount="challenge.total"
       :challengeType="challengeType"
     />
@@ -24,7 +25,12 @@ const props = defineProps({
   challenge: {
     type: Object,
     required: true,
-    default: () => ({ challengeName: '챌린지', current: 0, total: 1 }),
+    default: () => ({
+      challengeName: '챌린지',
+      tag: '교통비',
+      current: 0,
+      total: 1,
+    }),
   },
   challengeType: { type: String, default: '지출' },
 });

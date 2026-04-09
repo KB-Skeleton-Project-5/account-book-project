@@ -6,12 +6,7 @@
       <p>메모</p>
       <MemoWrite />
       <footer>
-        <AppButton
-          type="edit-delete"
-          leftText="저장"
-          @edit="handleSave"
-          @delete="handleDelete"
-        />
+        <AppButton type="single" @edit="handleSave" />
       </footer>
     </div>
     <AppFooter />
@@ -36,9 +31,6 @@ const challengeData = ref({
 </script>
 
 <style>
-footer {
-  display: flex;
-}
 .challenge-add-container {
   background-color: white;
   border: 5px solid black;
