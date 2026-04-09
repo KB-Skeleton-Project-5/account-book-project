@@ -84,7 +84,7 @@
         {{ form.memo }}
       </div>
     </div>
-
+    <slot/>
   </div>
 </template>
 

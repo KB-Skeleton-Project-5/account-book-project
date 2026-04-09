@@ -20,9 +20,9 @@
       <div class="calendar-section">
         <div class="calendar-date">📅 4월 10일 일정</div>
 
-        <CalendarItem title="팀 회의" time="14:00" />
+        <CalendarItem :id = "1" title="팀 회의" time="14:00" />
 
-        <CalendarItem title="스터디" time="16:00" />
+        <CalendarItem :id = "2" title="스터디" time="16:00" />
 
        
       </div>
