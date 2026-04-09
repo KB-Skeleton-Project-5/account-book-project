@@ -4,7 +4,7 @@
       <AppHeader title="지출 추가" :back="true" backTo="expenses"/>
     </template>
 
-    <ExpenseForm />
+    <ExpenseForm ref="expenseFormRef" @submit-form="handleSubmit" />
     <AppButton text="저장" @click="handleSave" />
 
     <template #footer>
@@ -20,14 +20,18 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { createExpense } from '@/api/expenses.js';
 
 const router = useRouter();
+const expenseFormRef = ref(null)
 
 const handleSave = () => {
-  router.push({ name: 'expenses' });
-};
+  expenseFormRef.value.submitForm()
+}
+
+const handleSubmit = async (formData) => {
+  await createExpense(formData)
+  router.push({ name: 'expenses' })
+}
 </script>
-
-<style scoped>
-
-</style>

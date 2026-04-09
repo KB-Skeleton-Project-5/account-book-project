@@ -5,7 +5,7 @@
             <button
             v-for="tag in tags"
             :key="tag"
-            @click="selected = tag"
+            @click="handleSelect(tag)"
             :class="{ active : selected === tag }"
             class="tag-btn"
             >
@@ -18,7 +18,13 @@
 import { ref } from 'vue';
 
 const selected = ref('식비');
-const tags = ['식비', '교통비', '쇼핑', '기타' , '+'];
+const tags = ['식비', '교통비', '쇼핑', '기타', '+'];
+const emit = defineEmits(['submit-tag']);
+
+const handleSelect = (tag) => {
+    selected.value = tag
+    emit('submit-tag', tag)
+}
 </script>
 
 

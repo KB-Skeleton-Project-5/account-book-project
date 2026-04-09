@@ -3,11 +3,13 @@
         <label>결제수단</label>
         <div class="radio-group">
             <label class="radio-label">
-                <input v-model="payment" type="radio" name="payment" value="card">
+                <input v-model="payment" type="radio" name="payment" value="card"
+                @change="handleChange">
                 <span>카드</span>
             </label>
             <label class="radio-label">
-                <input v-model="payment" type="radio" name="payment" value="cash">
+                <input v-model="payment" type="radio" name="payment" value="cash"
+                @change="handleChange">
                 <span>현금</span>
             </label>
         </div>
@@ -17,7 +19,12 @@
 <script setup>
 import { ref } from 'vue';
 
-const payment = ref('');
+const payment = ref('card');
+const emit = defineEmits(['submit-payment']);
+
+const handleChange = () => {
+    emit('submit-payment', payment.value)
+}
 </script>
 
 <style scoped>

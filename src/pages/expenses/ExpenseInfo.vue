@@ -20,6 +20,7 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import { useRoute, useRouter } from 'vue-router';
 import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
 import AppButton from '@/components/commons/AppButton.vue';
+import { deleteExpenses } from '@/api/expenses';
 
 const route = useRoute();
 const router = useRouter();
@@ -28,10 +29,9 @@ const handleEdit = () => {
   router.push({ name: 'expenses/modify/id', params: { id: route.params.id } });
 };
 
-const handleDelete = () => {
-  // TODO : 삭제 모달 연결 예정
-  // 아직은 메인 페이지로 이동
-  router.push({ name: 'main' });
+const handleDelete = async() => {
+  await deleteExpenses(route.params.id)  // <- id로 삭제
+  router.push({ name: 'main' });        // 삭제 후 목록으로 이동
 };
 </script>
 

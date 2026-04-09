@@ -6,13 +6,13 @@ import api from "./index.js";
 //   }
 //
 
-// 지출 상세 조회 (READ)
-export const getExpenses = (id) => {
-    return api.get(`/expenses/${id}`)
-};
+// // 지출 상세 조회 (READ)
+// export const getExpense = (id) => {
+//     return api.get(`/expenses/${id}`)
+// };
 
 // 지출 추가 (CREATE)
-export const createExpenses = (data) => {
+export const createExpense = (data) => {
     return api.post('/expenses', data)
 };
 

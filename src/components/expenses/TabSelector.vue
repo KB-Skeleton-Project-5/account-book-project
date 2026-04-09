@@ -6,7 +6,7 @@
       <button
         v-for="tab in tabs"
         :key="tab"
-        @click="selected = tab"
+        @click="handleSelect(tab)"
         :class="{ active : selected === tab }"
         class="tab-btn"
       >
@@ -21,6 +21,12 @@ import { ref } from 'vue';
 
 const selected = ref('지출');
 const tabs = ['수입', '지출', '이체'];
+const emit = defineEmits(['submit-tab']);
+
+const handleSelect = (tab) => {
+    selected.value = tab
+    emit('submit-tab', tab)
+}
 </script>
 
 <style scoped>

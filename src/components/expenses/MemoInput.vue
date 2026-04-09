@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <label>메모</label>
-        <textarea v-model="memo" placeholder="자세한 내용은 여기에 쓰세요."></textarea>
+        <textarea v-model="memo" @input="handleInput" placeholder="자세한 내용은 여기에 쓰세요."></textarea>
     </div>
 </template>
 
@@ -9,6 +9,11 @@
 import { ref } from 'vue';
 
 const memo = ref('');
+const emit = defineEmits(['submit-memo']);
+
+const handleInput = () => {
+    emit('submit-memo', memo.value)
+}
 </script>
 
 <style scoped>

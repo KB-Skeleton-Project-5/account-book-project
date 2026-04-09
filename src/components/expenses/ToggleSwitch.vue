@@ -2,7 +2,7 @@
     <div class="wrapper">
         <label>고정 지출 등록</label>
         <label class="toggle">
-            <input type="checkbox" v-model="isFixed">
+            <input type="checkbox" v-model="isFixed" @change="handleChange">
             <span class="slider"></span>
         </label>
     </div>
@@ -10,7 +10,13 @@
 
 <script setup>
 import { ref } from 'vue';
+
 const isFixed = ref(false);
+const emit = defineEmits(['submit-isFixed']);
+
+const handleChange = () => {
+    emit('submit-isFixed', isFixed.value)
+}
 </script>
 
 <style scoped>
