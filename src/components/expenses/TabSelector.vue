@@ -9,6 +9,7 @@
         @click="handleSelect(tab)"
         :class="{ active: selected.typeid === tab.typeid }"
         class="tab-btn"
+        :disabled="props.readonly"
       >
         {{ tab.typetitle }}
       </button>
@@ -17,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const tabs = [
   { typeid: 'deposit', typetitle: '수입' },
@@ -25,7 +26,8 @@ const tabs = [
 ]
 
 const props = defineProps({
-    value : [ Object ]
+    value : [ Object ],
+    readonly : Boolean,
 });
 
 const selected = ref(tabs[1]);  // 기본값 '지출'

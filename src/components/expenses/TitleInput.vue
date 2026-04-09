@@ -2,15 +2,20 @@
     <!-- 제목(내역) Input -->
     <div class="wrapper">
         <label>제목</label>
-        <input type="text" v-model="title" @input="handleInput">
+        <input 
+        type="text" 
+        v-model="title" 
+        @input="handleInput"
+        :readonly="props.readonly">
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const props = defineProps({
-    value : [ String ]
+    value : [ String ],
+    readonly : Boolean,
 });
 
 watch(() => props.value, (val) => {

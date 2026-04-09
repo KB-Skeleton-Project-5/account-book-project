@@ -2,17 +2,22 @@
     <div class="wrapper">
         <label>고정 지출 등록</label>
         <label class="toggle">
-            <input type="checkbox" v-model="isFixed" @change="handleChange">
+            <input 
+            type="checkbox" 
+            v-model="isFixed" 
+            @change="handleChange"
+            :disabled="props.readonly">
             <span class="slider"></span>
         </label>
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const props = defineProps({
-    value : [ Boolean ]
+    value : [ Boolean ],
+    readonly : Boolean,
 });
 
 watch(() => props.value, (val) => {

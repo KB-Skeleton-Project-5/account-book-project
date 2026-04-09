@@ -2,18 +2,23 @@
     <!-- 날짜 Input 태그 -->
     <div class="wrapper">
         <label>날짜</label>
-        <input type="date" v-model="date" @input="handleInput">
+        <input 
+        type="date" 
+        v-model="date" 
+        @input="handleInput"
+        :readonly="props.readonly">
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const date = ref(new Date().toISOString().split('T')[0]);
 /// new Date().toISOString().split('T')[0]는 JS에서 현재 날짜를 YYYY-MM-DD 형식
 
 const props = defineProps({
-    value : [ String ]
+    value : [ String ],
+    readonly : Boolean,
 });
 
 watch(() => props.value, (val) => {

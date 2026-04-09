@@ -8,6 +8,7 @@
             @click="handleSelect(tag)"
             :class="{ active: selected.tagid === tag.tagid }"
             class="tag-btn"
+            :disabled="props.readonly"
             >
             {{ tag.tagtitle }}
             </button>
@@ -16,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const tags = [
   { tagid: 'eat', tagtitle: '식비' },
@@ -29,7 +30,8 @@ const selected = ref({});  // 초기 값 빈 객체로
 const emit = defineEmits(['submit-tag']);
 
 const props = defineProps({
-    value : [ Object ]
+    value : [ Object ],
+    readonly : Boolean,
 });
 
 watch(() => props.value, (val) => {

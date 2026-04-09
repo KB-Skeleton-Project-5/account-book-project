@@ -3,13 +3,23 @@
         <label>결제수단</label>
         <div class="radio-group">
             <label class="radio-label">
-                <input v-model="payment" type="radio" name="payment" value="card"
-                @change="handleChange">
+                <input 
+                v-model="payment" 
+                type="radio" 
+                name="payment" 
+                value="card"
+                @change="handleChange"
+                :disabled="props.readonly">
                 <span>카드</span>
             </label>
             <label class="radio-label">
-                <input v-model="payment" type="radio" name="payment" value="cash"
-                @change="handleChange">
+                <input 
+                v-model="payment" 
+                type="radio" 
+                name="payment" 
+                value="cash"
+                @change="handleChange"
+                :disabled="props.readonly">
                 <span>현금</span>
             </label>
         </div>
@@ -17,10 +27,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const props = defineProps({
-    value : [ String ]
+    value : [ String ],
+    readonly: Boolean,
 });
 
 watch(() => props.value, (val) => {

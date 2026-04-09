@@ -1,16 +1,38 @@
 <template>
   <div>
-    <TabSelector :value="formData.type" @submit-tab="handleTab" />
-    <DateInput :value="formData.date" @submit-date="handleDate" />
-    <AmountInput :value="formData.amount" @submit-amount="handleAmount" />
-    <TitleInput :value="formData.title" @submit-title="handleTitle" />
-    <TagSelect :value="formData.tag" @submit-tag="handleTag" />
-    <MemoInput :value="formData.memo" @submit-memo="handleMemo" />
+    <TabSelector 
+    :value="formData.type" 
+    @submit-tab="handleTab"
+    :readonly="props.readonly" />
+    <DateInput 
+    :value="formData.date" 
+    @submit-date="handleDate"
+    :readonly="props.readonly" />
+    <AmountInput 
+    :value="formData.amount" 
+    @submit-amount="handleAmount"
+    :readonly="props.readonly" />
+    <TitleInput 
+    :value="formData.title" 
+    @submit-title="handleTitle"
+    :readonly="props.readonly" />
+    <TagSelect 
+    :value="formData.tag" 
+    @submit-tag="handleTag" 
+    :readonly="props.readonly"/>
+    <MemoInput 
+    :value="formData.memo" 
+    @submit-memo="handleMemo" 
+    :readonly="props.readonly"/>
     <PaymentMethod
       :value="formData.paymentMethod"
       @submit-payment="handlePayment"
+      :readonly="props.readonly"
     />
-    <ToggleSwitch :value="formData.isFixed" @submit-isFixed="handleIsFixed" />
+    <ToggleSwitch 
+    :value="formData.isFixed" 
+    @submit-isFixed="handleIsFixed"
+    :readonly="props.readonly" />
   </div>
 </template>
 
@@ -23,7 +45,7 @@ import TagSelect from './TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const formData = ref({
   amount: '',
@@ -71,6 +93,7 @@ const handleTab = (value) => {
 // 부모 (ExpenseInfo)에서 전달받은 초기 데이터
 const props = defineProps({
   initialData: Object,
+  readonly : Boolean,
 });
 
 // initialData가 들어오면 formData에 세팅

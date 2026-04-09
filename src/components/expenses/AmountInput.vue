@@ -2,19 +2,25 @@
     <!-- 금액 Input -->
     <div class="wrapper">
         <label>금액</label>
-        <input type="number" v-model.number="amount" @input="handleInput" placeholder="0">
+        <input 
+        type="number" 
+        v-model.number="amount" 
+        @input="handleInput" 
+        placeholder="0"
+        :readonly="props.readonly">
         <span>원</span>
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { readonly, ref, watch } from 'vue';
 
 const amount = ref('');
 const emit = defineEmits(['submit-amount']);
 
 const props = defineProps({
-    value : [ Number, String ]
+    value : [ Number, String ],
+    readonly : Boolean,
 });
 
 // props.value를 계속 지켜보고 있음
