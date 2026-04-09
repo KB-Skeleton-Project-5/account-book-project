@@ -1,14 +1,32 @@
 <template>
     <div class="wrapper">
         <label>메모</label>
-        <textarea v-model="memo" placeholder="자세한 내용은 여기에 쓰세요."></textarea>
+        <textarea 
+        v-model="memo" 
+        @input="handleInput" 
+        placeholder="자세한 내용은 여기에 쓰세요."
+        :readonly="props.readonly"></textarea>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { readonly, ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ String ],
+    readonly : Boolean,
+});
+
+watch(() => props.value, (val) => {
+    if(val) memo.value = val;
+}, { immediate : true });
 
 const memo = ref('');
+const emit = defineEmits(['submit-memo']);
+
+const handleInput = () => {
+    emit('submit-memo', memo.value)
+}
 </script>
 
 <style scoped>

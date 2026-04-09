@@ -2,15 +2,34 @@
     <div class="wrapper">
         <label>고정 지출 등록</label>
         <label class="toggle">
-            <input type="checkbox" v-model="isFixed">
+            <input 
+            type="checkbox" 
+            v-model="isFixed" 
+            @change="handleChange"
+            :disabled="props.readonly">
             <span class="slider"></span>
         </label>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { readonly, ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ Boolean ],
+    readonly : Boolean,
+});
+
+watch(() => props.value, (val) => {
+    if(val) isFixed.value = val;
+}, { immediate : true });
+
 const isFixed = ref(false);
+const emit = defineEmits(['submit-isFixed']);
+
+const handleChange = () => {
+    emit('submit-isFixed', isFixed.value)
+}
 </script>
 
 <style scoped>
