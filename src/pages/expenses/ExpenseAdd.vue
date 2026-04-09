@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="지출 추가" :back="true" backTo="expenses"/>
+      <AppHeader title="거래 내역 등록" :back="true" backTo="expenses"/>
     </template>
 
     <ExpenseForm ref="expenseFormRef" @submit-form="handleSubmit" />
