@@ -1,7 +1,7 @@
 <template>
   <!-- 수정/삭제 그룹 (양쪽 배치) -->
   <div v-if="type === 'edit-delete'" class="btn-group">
-    <button class="app-btn" @click="$emit('edit')">수정</button>
+    <button class="app-btn" @click="$emit('edit')">{{ leftText }}</button>
     <button class="app-btn btn-delete" @click="$emit('delete')">삭제</button>
   </div>
 

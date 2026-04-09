@@ -1,30 +1,24 @@
 <template>
-  <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
-  <div class="challenge-info">
+  <div class="challenge-card">
     <header>
       <h2>{{ challenge.challengeName }}</h2>
-      <AppButton class="high-right-button" />
     </header>
+
     <ProgressBar :current="challenge.current" :total="challenge.total" />
-    <ChallengeDescription />
-    <p>메모</p>
-    <MemoDisplay />
-    <footer class="low-button">
-      <AppButton />
-      <AppButton class="low-right-button" />
-    </footer>
+
+    <ChallengeDescription
+      :targetAmount="challenge.total"
+      :challengeType="challengeType"
+    />
+
+    <div class="percentage">{{ challengeResult }}</div>
   </div>
-  <AppFooter />
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import AppButton from '@/components/commons/AppButton.vue';
-import ProgressBar from '@/components/challenges/ProgressBar.vue';
-import ChallengeDescription from '@/components/challenges/ChallengeDescription.vue';
-import MemoDisplay from '@/components/challenges/MemoDisplay.vue';
-import AppHeader from '@/layouts/AppHeader.vue';
-import AppFooter from '@/layouts/AppFooter.vue';
+import { computed } from 'vue';
+import ProgressBar from './ProgressBar.vue';
+import ChallengeDescription from './ChallengeDescription.vue';
 
 const props = defineProps({
   challenge: {
@@ -55,24 +49,14 @@ const challengeResult = computed(() => {
 });
 </script>
 
-<style>
-header {
+<style scoped>
+.challenge-card {
   display: flex;
-}
-.high-right-button {
-  margin-left: auto;
-}
-.challenge-info {
-  background-color: white;
+  flex-direction: column;
   border: 5px solid black;
-  min-height: 400px;
+  background-color: white;
 }
-
-.low-button {
-  display: flex;
-}
-
-.low-right-button {
-  margin-left: auto;
+.percentage {
+  align-self: flex-end;
 }
 </style>

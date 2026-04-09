@@ -90,23 +90,23 @@ const router = createRouter({
 
     {
       path: '/challenges',
-      name: 'Challenge',
+      name: 'challenges',
       component: () => import('../pages/challenges/Challenge.vue'),
     },
     {
       path: '/challenges/add',
-      name: 'ChallengeAdd',
-      component: () => import('../pages/challenges/ChallengeForm.vue'),
+      name: 'challenges/add',
+      component: () => import('../pages/challenges/ChallengeAdd.vue'),
     },
     {
       path: '/challenges/info/:id',
-      name: 'ChallengeInfo',
+      name: 'challenges/info',
       component: () => import('../pages/challenges/ChallengeInfo.vue'),
     },
     {
-      path: '/challenges/modify/:id',
-      name: 'ChallengeModify',
-      component: () => import('../pages/challenges/ChallengeForm.vue'),
+      path: '/challenges/modify:id/',
+      name: 'challenges/modify',
+      component: () => import('../pages/challenges/ChallengeAdd.vue'),
     },
   ],
 });
