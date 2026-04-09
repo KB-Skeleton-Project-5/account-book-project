@@ -16,17 +16,9 @@
       "userId": 1,
       "date": "2026-04-01",
       "title": "스타벅스 아메리카노",
-      "type": [
-        { "typeid": "deposit", "typetitle": "입금" },
-        { "typeid": "withdrawal", "typetitle": "출금" }
-      ],
+      "type": { "typeid": "withdrawal", "typetitle": "출금" },
       "amount": 4500,
-      "tag": [
-        { "tagid": "eat", "tagtitle": "식비" },
-        { "tagid": "traffic", "tagtitle": "교통비" },
-        { "tagid": "shopping", "tagtitle": "쇼핑" },
-        { "tagid": "etc", "tagtitle": "기타" }
-      ],
+      "tag": { "tagid": "eat", "tagtitle": "식비" },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "오전 커피"

@@ -8,9 +8,14 @@
       <!-- 달력 카드 -->
       <div class="calendar-card">
         <div class="month-bar">
-          <span class="month-arrow">‹</span>
-          <MonthPicker v-model="selectedDate" />
-          <span class="month-arrow">›</span>
+          <!--왼쪽 : 날짜 선택 -->
+          <div class="month-left">
+            <MonthPicker v-model="selectedDate" />
+          </div>
+          <!-- 오른쪽: 추가 버튼 -->
+          <div class="month_right">
+            <AppButton text="추가" @click="handleAdd" />
+          </div>
         </div>
 
         <div class="calendar-box">달력 자리</div>
@@ -20,11 +25,9 @@
       <div class="calendar-section">
         <div class="calendar-date">📅 4월 10일 일정</div>
 
-        <CalendarItem :id = "1" title="팀 회의" time="14:00" />
+        <CalendarItem :id="1" title="팀 회의" time="14:00" />
 
-        <CalendarItem :id = "2" title="스터디" time="16:00" />
-
-       
+        <CalendarItem :id="2" title="스터디" time="16:00" />
       </div>
     </div>
     <template #footer>
@@ -34,11 +37,19 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import MonthPicker from '@/components/commons/MonthPicker.vue';
+import AppButton from '@/components/commons/AppButton.vue';
 import CalendarItem from '@/components/calendars/CalendarItem.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+
+const router = useRouter();
+
+const handleAdd = () => {
+  router.push({name: 'calendars/add'});
+};
 </script>
 
 <style scoped>
@@ -63,15 +74,14 @@ import AppFooter from '@/layouts/AppFooter.vue';
   margin-bottom: 10px;
 }
 
-.month-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: #222;
+.month-left {
+  display: flex;
+  align-items: center;
 }
 
-.month-arrow {
-  font-size: 16px;
-  color: #555;
+.month-right {
+  display: flex;
+  align-items: center;
 }
 
 .calendar-box {
