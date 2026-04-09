@@ -1,48 +1,52 @@
 <template>
   <div class="challenge-card">
     <header>
-      <h2>{{ challengeName }}</h2>
+      <h2>{{ challenge.challengeName }}</h2>
     </header>
-    <ProgressBar :current="props.current" :total="props.total" />
-    <ChallengeDescription />
-    <div class="percentage">{{ challengeResult }}%</div>
+
+    <ProgressBar :current="challenge.current" :total="challenge.total" />
+
+    <ChallengeDescription
+      :targetAmount="challenge.total"
+      :challengeType="challengeType"
+    />
+
+    <div class="percentage">{{ challengeResult }}</div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import ProgressBar from './ProgressBar.vue';
 import ChallengeDescription from './ChallengeDescription.vue';
 
 const props = defineProps({
-  challengeName: {
-    type: String,
-    default: '챌린지 이름',
-  },
-  current: {
-    type: Number,
+  challenge: {
+    type: Object,
     required: true,
-    default: 27,
+    default: () => ({ challengeName: '챌린지', current: 0, total: 1 }),
   },
-  total: {
-    type: Number,
-    required: true,
-    default: 50,
-  },
+  challengeType: { type: String, default: '지출' },
 });
 
 const percentage = computed(() => {
-  return (props.current / props.total) * 100;
+  if (props.challenge.total === 0) return 0;
+  return (props.challenge.current / props.challenge.total) * 100;
 });
-if(challengeType){
-if (percentage > 100){
-  challengeResult
-}
-}
 
-else if (percentage <= 100){
+const challengeResult = computed(() => {
+  const rawValue = Math.floor(percentage.value);
 
-}
+  if (props.challengeType === '지출') {
+    return rawValue > 100 ? '목표 실패!' : `${rawValue}`;
+  }
+
+  if (props.challengeType === '수입') {
+    return rawValue >= 100 ? '목표 성공!' : `${rawValue}`;
+  }
+
+  return `${rawValue}`;
+});
 </script>
 
 <style scoped>

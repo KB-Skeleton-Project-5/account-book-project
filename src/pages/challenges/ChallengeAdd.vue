@@ -1,4 +1,5 @@
 <template>
+  <AppHeader title="챌린지 ADD" :back="true" backTo="challenges" />
   <div class="challenge-add-container">
     <ChallengeSetup v-model="challengeData" />
     <p>메모</p>
@@ -12,6 +13,7 @@
       />
     </footer>
   </div>
+  <AppFooter />
 </template>
 
 <script setup>
@@ -19,6 +21,8 @@ import { ref } from 'vue';
 import ChallengeSetup from '@/components/challenges/ChallengeSetup.vue';
 import MemoWrite from '@/components/challenges/MemoWrite.vue';
 import AppButton from '@/components/commons/AppButton.vue';
+import AppHeader from '@/layouts/AppHeader.vue';
+import AppFooter from '@/layouts/AppFooter.vue';
 
 const challengeData = ref({
   challengeName: '',

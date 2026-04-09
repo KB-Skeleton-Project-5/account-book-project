@@ -1,4 +1,5 @@
 <template>
+  <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
   <div class="challenge-info">
     <header>
       <h2>{{ challengeName }}</h2>
@@ -13,6 +14,7 @@
       <AppButton class="low-right-button" />
     </footer>
   </div>
+  <AppFooter />
 </template>
 
 <script setup>
@@ -21,6 +23,8 @@ import AppButton from '@/components/commons/AppButton.vue';
 import ProgressBar from '@/components/challenges/ProgressBar.vue';
 import ChallengeDescription from '@/components/challenges/ChallengeDescription.vue';
 import MemoDisplay from '@/components/challenges/MemoDisplay.vue';
+import AppHeader from '@/layouts/AppHeader.vue';
+import AppFooter from '@/layouts/AppFooter.vue';
 
 const challengeName = '목표 1';
 </script>
