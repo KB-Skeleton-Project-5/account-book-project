@@ -40,8 +40,9 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { getUserInfo, fetchUserById, updateUserProcess } from '@/util/authUtil.js'
 import AppButton from '@/components/commons/AppButton.vue'
 import AppHeader from '@/layouts/AppHeader.vue'
 
@@ -49,22 +50,57 @@ const router = useRouter()
 
 // TODO: 서버에서 기존 데이터 불러오기
 const form = reactive({
-  name: '홍길동',
-  nick: '길동이',
-  email: 'hong@email.com',
-  userId: 'user_001',
+  name: '',
+  nick: '',
+  email: '',
+  userId: '',
   newPw: ''
 })
 
 const pwConfirm = ref('')
+onMounted(async () => {
 
-function handleSave() {
+  if(!userInfo.authenticated) {
+    router.push({name:'users/login'})
+    return
+  }
+  const user = await fetchUserById(userInfo.id)
+  if(user){
+    form.name =user.name
+    form.nick =user.nick
+    form.email =user.email
+    form.userId =user.userId
+      
+  }
+})
+
+
+async function handleSave() {
   if (form.newPw && form.newPw !== pwConfirm.value) {
     console.log('비밀번호가 일치하지 않습니다')
     return
   }
-  // TODO: 서버 수정 요청 연결
-  console.log('수정 저장:', form)
+  const userInfo = getUserInfo
+
+const updateData = {
+    name: form.name,
+    nick: form.nick,
+    email: form.email,
+  }
+if (form.newPw) {
+    updateData.pw = form.newPw
+  }
+  updateUserProcess(
+    userInfo.id,
+    updateData,
+    () => {
+      console.log('수정 성공')
+      router.push({ name: 'users/info' })
+    },
+    () => {
+      alert('수정에 실패했습니다')
+    }
+  )
 }
 </script>
 
