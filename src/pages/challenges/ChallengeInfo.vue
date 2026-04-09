@@ -33,7 +33,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import AppButton from '@/components/commons/AppButton.vue';
 import ProgressBar from '@/components/challenges/ProgressBar.vue';
 import ChallengeDescription from '@/components/challenges/ChallengeDescription.vue';
@@ -42,7 +42,8 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
-const route = useRoute(); // 현재 주소창 정보
+const route = useRoute();
+const router = useRouter();
 
 const challenge = ref({
   challengeName: '불러오는 중...',
@@ -90,11 +91,17 @@ const handleHistory = () => {
 };
 
 const handleEdit = () => {
-  console.log('수정하기');
+  console.log('수정 버튼 클릭됨');
+  const challengeId = route.params.id;
+
+  router.push({
+    name: 'challenges/modify',
+    params: { id: challengeId },
+  });
 };
 
 const handleDelete = () => {
-  console.log('삭제하기');
+  console.log('삭제 버튼 클릭됨');
 };
 </script>
 
