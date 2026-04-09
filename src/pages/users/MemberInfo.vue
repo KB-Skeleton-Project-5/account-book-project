@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-        <AppHeader title="내 정보" back="true" backTo="main" />
+        <AppHeader title="내 정보" :back="true" backTo="main" />
     
 
     <div class="profile-area">
