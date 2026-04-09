@@ -1,20 +1,22 @@
 <template>
-  <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
-  <div class="challenge-info">
-    <header>
-      <h2>{{ challenge.challengeName }}</h2>
-      <AppButton class="high-right-button" />
-    </header>
-    <ProgressBar :current="challenge.current" :total="challenge.total" />
-    <ChallengeDescription />
-    <p>메모</p>
-    <MemoDisplay />
-    <footer class="low-button">
-      <AppButton />
-      <AppButton class="low-right-button" />
-    </footer>
-  </div>
-  <AppFooter />
+  <DefaultLayout>
+    <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
+    <div class="challenge-info">
+      <header>
+        <h2>{{ challenge.challengeName }}</h2>
+        <AppButton class="high-right-button" />
+      </header>
+      <ProgressBar :current="challenge.current" :total="challenge.total" />
+      <ChallengeDescription />
+      <p>메모</p>
+      <MemoDisplay />
+      <footer class="low-button">
+        <AppButton />
+        <AppButton class="low-right-button" />
+      </footer>
+    </div>
+    <AppFooter />
+  </DefaultLayout>
 </template>
 
 <script setup>
@@ -25,6 +27,7 @@ import ChallengeDescription from '@/components/challenges/ChallengeDescription.v
 import MemoDisplay from '@/components/challenges/MemoDisplay.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const props = defineProps({
   challenge: {

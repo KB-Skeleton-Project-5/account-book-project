@@ -1,21 +1,23 @@
 <template>
-  <AppHeader title="챌린지 HOME" />
-  <div class="challenge-container">
-    <header>
-      <MonthPicker v-model="dateFilter" />
-    </header>
-    <main class="card-list">
-      <router-link
-        v-for="item in challenges"
-        :key="item.id"
-        :to="{ name: 'challenges/info', params: { id: item.id } }"
-        class="card-link"
-      >
-        <ChallengeCard :challenge="item" />
-      </router-link>
-    </main>
-  </div>
-  <AppFooter />
+  <DefaultLayout>
+    <AppHeader title="챌린지 HOME" />
+    <div class="challenge-container">
+      <header>
+        <MonthPicker v-model="dateFilter" />
+      </header>
+      <main class="card-list">
+        <router-link
+          v-for="item in challenges"
+          :key="item.id"
+          :to="{ name: 'challenges/info', params: { id: item.id } }"
+          class="card-link"
+        >
+          <ChallengeCard :challenge="item" />
+        </router-link>
+      </main>
+    </div>
+    <AppFooter />
+  </DefaultLayout>
 </template>
 
 <script setup>
@@ -24,6 +26,7 @@ import ChallengeCard from '@/components/challenges/ChallengeCard.vue';
 import MonthPicker from '@/components/commons/MonthPicker.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const now = new Date();
 

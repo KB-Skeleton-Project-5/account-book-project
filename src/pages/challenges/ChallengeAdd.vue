@@ -1,19 +1,21 @@
 <template>
-  <AppHeader title="챌린지 ADD" :back="true" backTo="challenges" />
-  <div class="challenge-add-container">
-    <ChallengeSetup v-model="challengeData" />
-    <p>메모</p>
-    <MemoWrite />
-    <footer>
-      <AppButton
-        type="edit-delete"
-        leftText="저장"
-        @edit="handleSave"
-        @delete="handleDelete"
-      />
-    </footer>
-  </div>
-  <AppFooter />
+  <DefaultLayout>
+    <AppHeader title="챌린지 ADD" :back="true" backTo="challenges" />
+    <div class="challenge-add-container">
+      <ChallengeSetup v-model="challengeData" />
+      <p>메모</p>
+      <MemoWrite />
+      <footer>
+        <AppButton
+          type="edit-delete"
+          leftText="저장"
+          @edit="handleSave"
+          @delete="handleDelete"
+        />
+      </footer>
+    </div>
+    <AppFooter />
+  </DefaultLayout>
 </template>
 
 <script setup>
@@ -23,6 +25,7 @@ import MemoWrite from '@/components/challenges/MemoWrite.vue';
 import AppButton from '@/components/commons/AppButton.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const challengeData = ref({
   challengeName: '',
