@@ -2,7 +2,7 @@
     <!-- 금액 Input -->
     <div class="wrapper">
         <label>금액</label>
-        <input type="number" v-model.number="amount" placeholder="0">
+        <input type="number" v-model.number="amount" @input="handleInput" placeholder="0">
         <span>원</span>
     </div>
 </template>
@@ -11,6 +11,12 @@
 import { ref } from 'vue';
 
 const amount = ref('');
+const emit = defineEmits(['submit-amount']);
+
+const handleInput = () => {
+    // ref는 value,,
+    emit('submit-amount', amount.value)
+}
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
     <!-- 제목(내역) Input -->
     <div class="wrapper">
         <label>제목</label>
-        <input type="text" v-model="title">
+        <input type="text" v-model="title" @input="handleInput">
     </div>
 </template>
 
@@ -10,6 +10,11 @@
 import { ref } from 'vue';
 
 const title = ref('')
+const emit = defineEmits(['submit-title']);
+
+const handleInput = () => {
+    emit('submit-title',title.value)
+}
 </script>
 
 <style scoped>

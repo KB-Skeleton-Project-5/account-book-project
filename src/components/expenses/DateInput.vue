@@ -2,7 +2,7 @@
     <!-- 날짜 Input 태그 -->
     <div class="wrapper">
         <label>날짜</label>
-        <input type="date" v-model="date">
+        <input type="date" v-model="date" @input="handleInput">
     </div>
 </template>
 
@@ -11,6 +11,13 @@ import { ref } from 'vue';
 
 const date = ref(new Date().toISOString().split('T')[0]);
 /// new Date().toISOString().split('T')[0]는 JS에서 현재 날짜를 YYYY-MM-DD 형식
+
+const emit = defineEmits(['submit-date']);
+
+const handleInput = () => {
+    emit('submit-date',date.value)
+}
+
 </script>
 
 <style scoped>

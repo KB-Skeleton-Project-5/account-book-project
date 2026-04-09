@@ -1,9 +1,9 @@
 <template>
     <div>
         <TabSelector />
-        <DateInput/>
-        <AmountInput />
-        <TitleInput />
+        <DateInput @submit-date="handleDate"/>
+        <AmountInput @submit-amount="handleAmount" />
+        <TitleInput @submit-title="handleTitle"/>
         <TagSelect />
         <MemoInput />
         <PaymentMethod />
@@ -20,5 +20,23 @@ import TagSelect from './TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
+import { ref } from 'vue';
 
+const formData = ref({
+    amount : '',
+    date : '',
+    title : '',
+});
+
+const handleAmount = (value) => {
+    formData.value.amount = value
+}
+
+const handleDate = (value) => {
+    formData.value.date = value
+}
+
+const handleTitle = (value) => {
+    formData.value.title = value
+}
 </script>
