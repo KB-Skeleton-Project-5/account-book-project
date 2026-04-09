@@ -16,21 +16,33 @@
       "userId": 1,
       "date": "2026-04-01",
       "title": "스타벅스 아메리카노",
-      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "출금"
+      },
       "amount": 4500,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
-      "memo": "오전 커피"
+      "memo": "오후 커피"
     },
     {
       "id": 2,
       "userId": 1,
       "date": "2026-04-02",
       "title": "김밥",
-      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "출금"
+      },
       "amount": 3000,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "아침식사"
@@ -40,21 +52,33 @@
       "userId": 1,
       "date": "2026-04-03",
       "title": "버스비",
-      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 1500,
-      "tag": { "tagid": "traffic", "tagtitle": "교통비" },
-      "paymentMethod": "카드",
-      "isFixed": false,
-      "memo": "출근"
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "paymentMethod": "cash",
+      "isFixed": true,
+      "memo": "출근길"
     },
     {
       "id": 4,
       "userId": 1,
       "date": "2026-04-04",
       "title": "월급",
-      "type": { "typeid": "deposit", "typetitle": "입금" },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "입금"
+      },
       "amount": 2500000,
-      "tag": { "tagid": "etc", "tagtitle": "기타" },
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
       "paymentMethod": "카드",
       "isFixed": true,
       "memo": "4월 급여"
@@ -64,9 +88,15 @@
       "userId": 1,
       "date": "2026-04-05",
       "title": "올리브영",
-      "type": { "typeid": "withdrawal", "typetitle": "출금" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "출금"
+      },
       "amount": 23000,
-      "tag": { "tagid": "shopping", "tagtitle": "쇼핑" },
+      "tag": {
+        "tagid": "shopping",
+        "tagtitle": "쇼핑"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "스킨케어"
