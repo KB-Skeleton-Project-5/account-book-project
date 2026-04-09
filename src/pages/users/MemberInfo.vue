@@ -1,14 +1,7 @@
 <template>
   <div class="wrapper">
-
-    <div class="page-header">
-      <button class="btn-back" @click="router.back()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
-      </button>
-      <h2 class="page-title">내 정보</h2>
-    </div>
+        <AppHeader title="내 정보" back="true" backTo="main" />
+    
 
     <div class="profile-area">
       <div class="avatar">{{ member.name[0] }}</div>
@@ -32,6 +25,7 @@
         <input type="text" :value="member.userId" readonly />
       </div>
     </div>
+  
 
     <div class="btn-area">
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
@@ -42,15 +36,16 @@
       <button class="btn-logout" @click="handleLogout">로그아웃</button>
       <button class="btn-withdraw" @click="router.push({ name: 'users/delete' })">회원탈퇴</button>
     </div>
-
   </div>
+
+  
 </template>
 
 <script setup>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/commons/AppButton.vue'
-
+import AppHeader from '@/layouts/AppHeader.vue'
 const router = useRouter()
 
 // TODO: 서버에서 실제 데이터 불러오기
@@ -78,34 +73,6 @@ function handleLogout() {
   padding: 0 28px 32px;
   max-width: 480px;
   margin: 0 auto;
-}
-.page-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 0 16px;
-  position: relative;
-}
-.btn-back {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #545045;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  transition: background 0.15s;
-}
-.btn-back:hover {
-  background-color: #f0f0f0;
-}
-.page-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #545045;
 }
 .profile-area {
   display: flex;

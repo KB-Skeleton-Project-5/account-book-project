@@ -1,14 +1,8 @@
 <template>
   <div class="wrapper">
 
-    <div class="page-header">
-      <button class="btn-back" @click="router.back()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
-      </button>
-      <h2 class="page-title">회원수정</h2>
-    </div>
+    <AppHeader title="회원수정" :back="true" backTo="users/info" />
+    
 
     <div class="form-area">
       <div class="field">
@@ -41,14 +35,15 @@
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
       <AppButton text="저장" @click="handleSave" />
     </div>
-
-  </div>
+    </div>
+  
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AppButton from '@/components/commons/AppButton.vue'
+import AppHeader from '@/layouts/AppHeader.vue'
 
 const router = useRouter()
 
@@ -82,34 +77,6 @@ function handleSave() {
   padding: 0 28px 32px;
   max-width: 480px;
   margin: 0 auto;
-}
-.page-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 0 24px;
-  position: relative;
-}
-.btn-back {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #545045;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  transition: background 0.15s;
-}
-.btn-back:hover {
-  background-color: #f0f0f0;
-}
-.page-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #545045;
 }
 .form-area {
   display: flex;

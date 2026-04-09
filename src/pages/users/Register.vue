@@ -1,14 +1,7 @@
 <template>
   <div class="wrapper">
 
-    <div class="page-header">
-      <button class="btn-back" @click="router.back()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M15 18l-6-6 6-6"/>
-        </svg>
-      </button>
-      <h2 class="page-title">회원가입</h2>
-    </div>
+    <AppHeader title="회원가입" :back="true" backTo="users/login" />
 
     <div class="form-area">
       <div class="field">
@@ -49,6 +42,7 @@
 import AppButton from '@/components/commons/AppButton.vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import AppHeader from '@/layouts/AppHeader.vue'
 
 
 const router = useRouter()
@@ -82,34 +76,6 @@ function handleSignup() {
   padding: 0 28px 32px;
   max-width: 400px;
   margin: 0 auto;
-}
-.page-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 0 24px;
-  position: relative;
-}
-.btn-back {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #545045;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  transition: background 0.15s;
-}
-.btn-back:hover {
-  background-color: #f0f0f0;
-}
-.page-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #545045;
 }
 .form-area {
   display: flex;
