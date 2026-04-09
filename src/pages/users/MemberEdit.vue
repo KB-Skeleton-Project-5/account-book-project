@@ -59,7 +59,8 @@ const form = reactive({
 
 const pwConfirm = ref('')
 onMounted(async () => {
-
+  const userInfo = getUserInfo()
+  
   if(!userInfo.authenticated) {
     router.push({name:'users/login'})
     return
