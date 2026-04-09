@@ -18,7 +18,7 @@
       "title": "스타벅스 아메리카노",
       "type": {
         "typeid": "withdrawal",
-        "typetitle": "출금"
+        "typetitle": "지출"
       },
       "amount": 4500,
       "tag": {
@@ -36,7 +36,7 @@
       "title": "김밥",
       "type": {
         "typeid": "withdrawal",
-        "typetitle": "출금"
+        "typetitle": "지출"
       },
       "amount": 3000,
       "tag": {
@@ -72,7 +72,7 @@
       "title": "월급",
       "type": {
         "typeid": "deposit",
-        "typetitle": "입금"
+        "typetitle": "수입"
       },
       "amount": 2500000,
       "tag": {
@@ -90,7 +90,7 @@
       "title": "올리브영",
       "type": {
         "typeid": "withdrawal",
-        "typetitle": "출금"
+        "typetitle": "지출"
       },
       "amount": 23000,
       "tag": {
