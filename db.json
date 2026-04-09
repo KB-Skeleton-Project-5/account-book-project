@@ -1,5 +1,5 @@
 {
-  "users": [
+  "usersdb": [
     {
       "id": 1,
       "userId": "user_001",
@@ -10,7 +10,7 @@
       "profileImage": "https://..."
     }
   ],
-  "expenses": [
+  "expensesdb": [
     {
       "id": 1,
       "userId": 1,
@@ -133,7 +133,7 @@
       "id": 7
     }
   ],
-  "calendars": [
+  "calendarsdb": [
     {
       "id": 1,
       "userId": 1,
@@ -144,7 +144,7 @@
       "memo": "급여 입금 예정"
     }
   ],
-  "summary": [
+  "summarydb": [
     {
       "id": 1,
       "userId": 1,
@@ -398,7 +398,7 @@
       "netProfit": 1350000
     }
   ],
-  "challenges": [
+  "challengesdb": [
     {
       "id": 1,
       "userId": 1,

@@ -7,7 +7,7 @@
                 v-model="payment" 
                 type="radio" 
                 name="payment" 
-                value="card"
+                value="카드"
                 @change="handleChange"
                 :disabled="props.readonly">
                 <span>카드</span>
@@ -17,7 +17,7 @@
                 v-model="payment" 
                 type="radio" 
                 name="payment" 
-                value="cash"
+                value="현금"
                 @change="handleChange"
                 :disabled="props.readonly">
                 <span>현금</span>

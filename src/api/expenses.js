@@ -1,4 +1,4 @@
-import api from "./index.js";
+import api from './index.js';
 
 // 지출 목록 조회
 // export const getExList = () => {
@@ -8,20 +8,20 @@ import api from "./index.js";
 
 // 지출 상세 조회 (READ)
 export const getExpense = (id) => {
-    return api.get(`/expenses/${id}`)
+  return api.get(`/expensesdb/${id}`);
 };
 
 // 지출 추가 (CREATE)
 export const createExpense = (data) => {
-    return api.post('/expenses', data)
+  return api.post('/expensesdb', data);
 };
 
 // 지출 수정 (UPDATE)
 export const updateExpenses = (id, data) => {
-    return api.put(`/expenses/${id}`, data)
+  return api.put(`/expensesdb/${id}`, data);
 };
 
 // 지출 삭제 (DELETE)
 export const deleteExpenses = (id) => {
-    return api.delete(`/expenses/${id}`)
-}
+  return api.delete(`/expensesdb/${id}`);
+};
