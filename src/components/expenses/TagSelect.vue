@@ -25,16 +25,18 @@ const tags = [
   { tagid: 'etc', tagtitle: '기타' }
 ]
 
+const selected = ref({});  // 초기 값 빈 객체로
+const emit = defineEmits(['submit-tag']);
+
 const props = defineProps({
     value : [ Object ]
 });
 
 watch(() => props.value, (val) => {
-    if(val !== undefined) tags.value = val;
-}, { imediate : true });
+    if(val) selected.value = val;
+}, { immediate : true });
 
-const selected = ref(tags[0]);
-const emit = defineEmits(['submit-tag']);
+
 
 const handleSelect = (tag) => {
   selected.value = tag

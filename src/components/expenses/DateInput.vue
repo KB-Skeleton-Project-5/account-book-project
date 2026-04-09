@@ -17,8 +17,8 @@ const props = defineProps({
 });
 
 watch(() => props.value, (val) => {
-    if(val !== undefined) date.value = val;
-}, { imediate : true });
+    if(val) date.value = val;
+}, { immediate : true });
 
 const emit = defineEmits(['submit-date']);
 

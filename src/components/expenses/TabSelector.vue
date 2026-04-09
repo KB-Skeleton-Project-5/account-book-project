@@ -28,12 +28,14 @@ const props = defineProps({
     value : [ Object ]
 });
 
-watch(() => props.value, (val) => {
-    if(val !== undefined) tabs.value = val;
-}, { imediate : true });
-
 const selected = ref(tabs[1]);  // 기본값 '지출'
 const emit = defineEmits(['submit-tab']);
+
+watch(() => props.value, (val) => {
+    if(val) selected.value = val;
+}, { immediate : true });
+
+
 
 const handleSelect = (tab) => {
   selected.value = tab

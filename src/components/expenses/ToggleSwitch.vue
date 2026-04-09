@@ -16,8 +16,8 @@ const props = defineProps({
 });
 
 watch(() => props.value, (val) => {
-    if(val !== undefined) isFixed.value = val;
-}, { imediate : true });
+    if(val) isFixed.value = val;
+}, { immediate : true });
 
 const isFixed = ref(false);
 const emit = defineEmits(['submit-isFixed']);

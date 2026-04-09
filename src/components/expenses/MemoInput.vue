@@ -13,8 +13,8 @@ const props = defineProps({
 });
 
 watch(() => props.value, (val) => {
-    if(val !== undefined) memo.value = val;
-}, { imediate : true });
+    if(val) memo.value = val;
+}, { immediate : true });
 
 const memo = ref('');
 const emit = defineEmits(['submit-memo']);

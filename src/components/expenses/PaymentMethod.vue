@@ -24,8 +24,8 @@ const props = defineProps({
 });
 
 watch(() => props.value, (val) => {
-    if(val !== undefined) payment.value = val;
-}, { imediate : true });
+    if(val) payment.value = val;
+}, { immediate : true });
 
 const payment = ref('card');
 const emit = defineEmits(['submit-payment']);

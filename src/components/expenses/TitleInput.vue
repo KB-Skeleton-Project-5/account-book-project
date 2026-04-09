@@ -14,8 +14,8 @@ const props = defineProps({
 });
 
 watch(() => props.value, (val) => {
-    if(val !== undefined) title.value = val;
-}, { imediate : true });
+    if(val) title.value = val;
+}, { immediate : true });
 
 const title = ref('')
 const emit = defineEmits(['submit-title']);

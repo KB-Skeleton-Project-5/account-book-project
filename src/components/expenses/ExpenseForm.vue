@@ -32,8 +32,8 @@ const formData = ref({
   memo: '',
   paymentMethod: '',
   isFixed: false,
-  tag: '',
-  type: '',
+  tag: {},
+  type: {},
 });
 
 const handleAmount = (value) => {

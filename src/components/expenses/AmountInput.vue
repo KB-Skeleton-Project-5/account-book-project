@@ -20,11 +20,11 @@ const props = defineProps({
 // props.value를 계속 지켜보고 있음
 watch(() => props.value, (val) => {
     // 새로운 값(val) 이 들어오면 내부 amount에 값 넣기
-    if(val !== undefined) amount.value = val;
+    if(val) amount.value = val;
     // 컴포넌트가 처음 생성될 때 바로 실행
     // 만약에 이거 없으면 빈값으로 뜨고 값이 바뀔 때만 실행되서 초기 데이터가 안 뜰수도,,
     // 즉시 실행?하는 느낌
-}, { imediate : true });
+}, { immediate : true });
 
 const handleInput = () => {
     // ref는 value,,
