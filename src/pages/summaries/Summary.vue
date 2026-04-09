@@ -9,7 +9,7 @@
     <div class="summary-page">
       <SummaryChart />
 
-      <SummaryTotals />
+      <SummaryTotals :selectedDate="selectedDate"/>
 
       <MonthlyComparison class="comparison-box"/>
     </div>
@@ -28,6 +28,11 @@ import MonthlyComparison from '@/components/summaries/MonthlyComparison.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import { ref } from 'vue';
+
+
+const now = new Date();
+const selectedDate = ref ({year : now.getFullYear(), month : now.getMonth() + 1});
 </script>
 
 <style scoped>

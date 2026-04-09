@@ -100,6 +100,37 @@
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "스킨케어"
+    },
+    {
+      "amount": "",
+      "date": "",
+      "title": "",
+      "memo": "",
+      "paymentMethod": "",
+      "isFixed": false,
+      "tag": {},
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 6
+    },
+    {
+      "amount": 100,
+      "date": "2026-06-24",
+      "title": "dfdds",
+      "memo": "",
+      "paymentMethod": "",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 7
     }
   ],
   "calendars": [
@@ -114,51 +145,259 @@
     }
   ],
   "summary": [
-  {
-    "id": 1,
-    "userId": 1,
-    "year": 2026,
-    "month": 3,
-    "income": 2800000,
-    "expense": 2100000,
-    "netProfit": 700000,
-    "comparison": [
-      {
-        "prevExpense": 1900000,
-        "diff": 200000,
-        "diffRate": 10.5
-      }
-    ],
-    "tagBreakdown": [
-      { "tag": "식비", "amount": 800000 },
-      { "tag": "교통비", "amount": 350000 },
-      { "tag": "쇼핑", "amount": 650000 },
-      { "tag": "기타", "amount": 300000 }
-    ]
-  },
-  {
-    "id": 2,
-    "userId": 1,
-    "year": 2026,
-    "month": 4,
-    "income": 3200000,
-    "expense": 1850000,
-    "netProfit": 1350000,
-    "comparison": [
-      {
-        "prevExpense": 2100000,
-        "diff": -250000,
-        "diffRate": -11.9
-      }
-    ],
-    "tagBreakdown": [
-      { "tag": "식비", "amount": 650000 },
-      { "tag": "교통비", "amount": 420000 },
-      { "tag": "쇼핑", "amount": 80000 },
-      { "tag": "기타", "amount": 100000 }
-    ]
-  }
-],
+    {
+      "id": 1,
+      "userId": 1,
+      "year": 2024,
+      "month": 1,
+      "income": 2500000,
+      "expense": 1800000,
+      "netProfit": 700000
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "year": 2024,
+      "month": 2,
+      "income": 2600000,
+      "expense": 2000000,
+      "netProfit": 600000
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "year": 2024,
+      "month": 3,
+      "income": 2700000,
+      "expense": 1900000,
+      "netProfit": 800000
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "year": 2024,
+      "month": 4,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "year": 2024,
+      "month": 5,
+      "income": 2500000,
+      "expense": 1700000,
+      "netProfit": 800000
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "year": 2024,
+      "month": 6,
+      "income": 3000000,
+      "expense": 2200000,
+      "netProfit": 800000
+    },
+    {
+      "id": 7,
+      "userId": 1,
+      "year": 2024,
+      "month": 7,
+      "income": 2900000,
+      "expense": 1950000,
+      "netProfit": 950000
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "year": 2024,
+      "month": 8,
+      "income": 3100000,
+      "expense": 2300000,
+      "netProfit": 800000
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "year": 2024,
+      "month": 9,
+      "income": 2800000,
+      "expense": 2000000,
+      "netProfit": 800000
+    },
+    {
+      "id": 10,
+      "userId": 1,
+      "year": 2024,
+      "month": 10,
+      "income": 3200000,
+      "expense": 2100000,
+      "netProfit": 1100000
+    },
+    {
+      "id": 11,
+      "userId": 1,
+      "year": 2024,
+      "month": 11,
+      "income": 3000000,
+      "expense": 2400000,
+      "netProfit": 600000
+    },
+    {
+      "id": 12,
+      "userId": 1,
+      "year": 2024,
+      "month": 12,
+      "income": 3500000,
+      "expense": 2800000,
+      "netProfit": 700000
+    },
+    {
+      "id": 13,
+      "userId": 1,
+      "year": 2025,
+      "month": 1,
+      "income": 2600000,
+      "expense": 1900000,
+      "netProfit": 700000
+    },
+    {
+      "id": 14,
+      "userId": 1,
+      "year": 2025,
+      "month": 2,
+      "income": 2700000,
+      "expense": 2000000,
+      "netProfit": 700000
+    },
+    {
+      "id": 15,
+      "userId": 1,
+      "year": 2025,
+      "month": 3,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000
+    },
+    {
+      "id": 16,
+      "userId": 1,
+      "year": 2025,
+      "month": 4,
+      "income": 2900000,
+      "expense": 1800000,
+      "netProfit": 1100000
+    },
+    {
+      "id": 17,
+      "userId": 1,
+      "year": 2025,
+      "month": 5,
+      "income": 3000000,
+      "expense": 2200000,
+      "netProfit": 800000
+    },
+    {
+      "id": 18,
+      "userId": 1,
+      "year": 2025,
+      "month": 6,
+      "income": 3100000,
+      "expense": 2300000,
+      "netProfit": 800000
+    },
+    {
+      "id": 19,
+      "userId": 1,
+      "year": 2025,
+      "month": 7,
+      "income": 2900000,
+      "expense": 2000000,
+      "netProfit": 900000
+    },
+    {
+      "id": 20,
+      "userId": 1,
+      "year": 2025,
+      "month": 8,
+      "income": 3200000,
+      "expense": 2400000,
+      "netProfit": 800000
+    },
+    {
+      "id": 21,
+      "userId": 1,
+      "year": 2025,
+      "month": 9,
+      "income": 3000000,
+      "expense": 2100000,
+      "netProfit": 900000
+    },
+    {
+      "id": 22,
+      "userId": 1,
+      "year": 2025,
+      "month": 10,
+      "income": 3300000,
+      "expense": 2200000,
+      "netProfit": 1100000
+    },
+    {
+      "id": 23,
+      "userId": 1,
+      "year": 2025,
+      "month": 11,
+      "income": 3100000,
+      "expense": 2500000,
+      "netProfit": 600000
+    },
+    {
+      "id": 24,
+      "userId": 1,
+      "year": 2025,
+      "month": 12,
+      "income": 3600000,
+      "expense": 2900000,
+      "netProfit": 700000
+    },
+    {
+      "id": 25,
+      "userId": 1,
+      "year": 2026,
+      "month": 1,
+      "income": 2700000,
+      "expense": 2000000,
+      "netProfit": 700000
+    },
+    {
+      "id": 26,
+      "userId": 1,
+      "year": 2026,
+      "month": 2,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000
+    },
+    {
+      "id": 27,
+      "userId": 1,
+      "year": 2026,
+      "month": 3,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000
+    },
+    {
+      "id": 28,
+      "userId": 1,
+      "year": 2026,
+      "month": 4,
+      "income": 3200000,
+      "expense": 1850000,
+      "netProfit": 1350000
+    }
+  ],
   "challenges": [
     {
       "id": 1,
