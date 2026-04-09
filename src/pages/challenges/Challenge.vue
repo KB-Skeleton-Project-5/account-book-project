@@ -1,7 +1,7 @@
 <template>
   <div class="challenge-container">
     <header>
-      <MonthPicker />
+      <MonthPicker v-model="dateFilter" />
     </header>
     <main class="card-list">
       <ChallengeCard
@@ -17,7 +17,12 @@
 import { ref } from 'vue';
 import ChallengeCard from '@/components/challenges/ChallengeCard.vue';
 import MonthPicker from '@/components/commons/MonthPicker.vue';
+const now = new Date();
 
+const dateFilter = ref({
+  year: now.getFullYear(),
+  month: now.getMonth() + 1,
+});
 const challenges = ref([
   {
     id: 1,

@@ -1,5 +1,5 @@
 <template>
-  <div class="ChallengeCard">
+  <div class="challenge-card">
     <header>
       <h2>{{ challengeName }}</h2>
     </header>
@@ -37,7 +37,7 @@ const percentage = computed(() => {
 </script>
 
 <style scoped>
-.ChallengeCard {
+.challenge-card {
   display: flex;
   flex-direction: column;
   border: 5px solid black;

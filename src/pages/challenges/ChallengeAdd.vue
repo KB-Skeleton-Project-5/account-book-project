@@ -7,7 +7,12 @@
     <p>메모</p>
     <MemoWrite />
     <footer>
-      <CustomButton label="취소"/><CustomButton label="저장" class="low-right-button" />
+      <AppButton
+        type="edit-delete"
+        leftText="저장"
+        @edit="handleSave"
+        @delete="handleDelete"
+      />
     </footer>
   </div>
 </template>
@@ -16,8 +21,7 @@
 import { ref } from 'vue';
 import ChallengeSetup from '@/components/challenges/ChallengeSetup.vue';
 import MemoWrite from '@/components/challenges/MemoWrite.vue';
-import CustomButton from '@/components/commons/CustomButton.vue';
-
+import AppButton from '@/components/commons/AppButton.vue';
 </script>
 
 <style>
@@ -35,9 +39,5 @@ footer {
   background-color: white;
   border: 5px solid black;
   min-height: 400px;
-}
-
-.low-right-button {
-  margin-left: auto;
 }
 </style>

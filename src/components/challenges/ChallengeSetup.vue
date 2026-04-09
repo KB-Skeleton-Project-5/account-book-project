@@ -19,5 +19,12 @@
 <script setup>
 import { ref } from 'vue';
 
+const updateValue = (e) => {
+  emit('update:modelValue', e.target.value);
+};
+
+const props = defineProps(['modelValue']);
+const emit = defineEmits(['update:modelValue']);
+
 let challengeType = ref('지출');
 </script>
