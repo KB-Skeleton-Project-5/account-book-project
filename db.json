@@ -1,39 +1,5 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "userId": "user_001",
-      "pw": "hashed_string",
-      "name": "홍길동",
-      "nick": "길동이",
-      "email": "hong@email.com",
-      "profileImage": "https://..."
-    },
-    {
-      "name": "박상호",
-      "nick": "하이하이",
-      "email": "ssss@gmail.com",
-      "userId": "park001",
-      "pw": "1234",
-      "id": 2
-    },
-    {
-      "name": "안녕이",
-      "nick": "국민이",
-      "email": "aaaa@gmail.com",
-      "userId": "tttt",
-      "pw": "1111",
-      "id": 3
-    },
-    {
-      "name": "xxx",
-      "nick": "xyz",
-      "email": "hyeon100@gmail.com",
-      "userId": "hahyeon",
-      "pw": "1234",
-      "id": 4
-    }
-  ],
+  "users": [],
   "expenses": [
     {
       "id": 1,
@@ -127,33 +93,40 @@
     },
     {
       "amount": 10,
-      "date": "",
-      "title": "1234",
-      "memo": "dfs",
+      "date": "2026-04-08",
+      "title": "실험2",
+      "memo": "실험22",
       "paymentMethod": "cash",
-      "isFixed": true,
+      "isFixed": false,
       "tag": {
         "tagid": "etc",
         "tagtitle": "기타"
       },
       "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
+        "typeid": "withdrawal",
+        "typetitle": "출금"
       },
-      "id": 6
-    }
-  ],
-  "calendars": [
+      "id": 7
+    },
     {
-      "id": 1,
-      "userId": 1,
-      "title": "월급날",
-      "date": "2026-04-01",
-      "time": "09:00",
-      "expenseId": "exp_042",
-      "memo": "급여 입금 예정"
+      "amount": 123,
+      "date": "2026-04-07",
+      "title": "실험3",
+      "memo": "실험333",
+      "paymentMethod": "cash",
+      "isFixed": false,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 8
     }
   ],
+  "calendars": [],
   "summary": [
     {
       "id": 1,

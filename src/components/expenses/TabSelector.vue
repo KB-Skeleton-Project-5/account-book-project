@@ -21,10 +21,10 @@ import { ref } from 'vue';
 
 const tabs = [
   { typeid: 'deposit', typetitle: '수입' },
-  { typeid: 'withdrawal', typetitle: '출금' }
+  { typeid: 'withdrawal', typetitle: '지출' }
 ]
 
-const selected = ref(tabs[1]);  // 기본값 '출금'
+const selected = ref(tabs[1]);  // 기본값 '지출'
 const emit = defineEmits(['submit-tab']);
 
 const handleSelect = (tab) => {

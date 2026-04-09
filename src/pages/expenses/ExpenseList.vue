@@ -1,97 +1,38 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="지출 내역" />
+      <AppHeader title="거래 내역" />
     </template>
 
     <div class="main-content">
-      <!-- 검색바 -->
-      <div class="search-bar">
-        <input type="text" class="search-input" placeholder="검색" />
-        <div class="search-icons">
-          <button class="icon-btn">🔍</button>
-          <button class="icon-btn" @click="showFilter = !showFilter">⊞</button>
-        </div>
-      </div>
-
-      <!-- 필터 -->
-      <div v-show="showFilter" class="filter-card">
-        <!-- 날짜 -->
-        <div class="filter-row">
-          <span class="filter-label">날짜</span>
-          <div class="filter-inputs">
-            <input type="date" class="filter-input" v-model="startDate" />
-            <input type="date" class="filter-input" v-model="endDate" />
-          </div>
-        </div>
-
-        <!-- 태그 -->
-        <div class="filter-row">
-          <span class="filter-label">태그</span>
-          <div class="tag-list">
-            <button
-              v-for="tag in tags"
-              :key="tag"
-              class="tag-btn"
-              :class="{ active: selectedTags.includes(tag) }"
-              @click="toggleTag(tag)"
-            >
-              {{ tag }}
-            </button>
-          </div>
-        </div>
-
-        <!-- 결제 -->
-        <div class="filter-row">
-          <span class="filter-label">결제</span>
-          <div class="filter-inputs">
-            <button
-              class="filter-select"
-              :class="{ active: selectedPayment === '현금' }"
-              @click="selectedPayment = '현금'"
-            >
-              현금
-            </button>
-            <button
-              class="filter-select"
-              :class="{ active: selectedPayment === '카드' }"
-              @click="selectedPayment = '카드'"
-            >
-              카드
-            </button>
-          </div>
-        </div>
-
-        <!-- 금액 -->
-        <div class="filter-row">
-          <span class="filter-label">금액</span>
-          <div class="filter-inputs">
-            <input type="number" class="filter-input" placeholder="원" />
-            <input type="number" class="filter-input" placeholder="원" />
-          </div>
-        </div>
-
-        <button class="search-btn">검색</button>
-      </div>
+      <!-- 검색 컴포넌트 -->
+      <ExpenseSearch @search="handleSearch" />
 
       <!-- 최근 내역 -->
       <section class="recent-section">
-        <template v-if="!isEmpty">
+        <template v-if="!isEmpty || activeTab !== '전체'">
           <h2 class="section-title">최근 내역</h2>
           <div class="tab-group">
             <button
               class="tab-btn"
-              :class="{ active: activeTab === '입금' }"
-              @click="activeTab = '입금'"
+              :class="{ active: activeTab === '전체' }"
+              @click="activeTab = '전체'"
             >
-              입금
+              전체
             </button>
             <button
               class="tab-btn"
-              :class="{ active: activeTab === '출금' }"
-              @click="activeTab = '출금'"
+              :class="{ active: activeTab === '수입' }"
+              @click="activeTab = '수입'"
             >
-              출금
+              수입
+            </button>
+            <button
+              class="tab-btn"
+              :class="{ active: activeTab === '지출' }"
+              @click="activeTab = '지출'"
+            >
+              지출
             </button>
           </div>
         </template>
@@ -110,40 +51,27 @@
 
         <!-- 데이터 있을 때 -->
         <div v-else class="history-list">
-          <template v-for="n in 5" :key="n">
-            <p class="history-date">26.00.00</p>
+          <template v-for="(items, date) in groupedExpenses" :key="date">
+            <p class="history-date">{{ date }}</p>
             <div
+              v-for="item in items"
+              :key="item.id"
               class="history-item"
               @click="
-                $router.push({ name: 'expenses/info/id', params: { id: 1 } })
+                $router.push({
+                  name: 'expenses/info/id',
+                  params: { id: item.id },
+                })
               "
             >
-              <span class="tag-badge">태그</span>
-              <span class="item-name">급여일</span>
-              <span class="item-pay">카드</span>
-              <span class="item-amount">00000원</span>
-            </div>
-            <div
-              class="history-item"
-              @click="
-                $router.push({ name: 'expenses/info/id', params: { id: 2 } })
-              "
-            >
-              <span class="tag-badge">태그</span>
-              <span class="item-name">점심식사</span>
-              <span class="item-pay">카드</span>
-              <span class="item-amount">00000원</span>
-            </div>
-            <div
-              class="history-item"
-              @click="
-                $router.push({ name: 'expenses/info/id', params: { id: 3 } })
-              "
-            >
-              <span class="tag-badge">태그</span>
-              <span class="item-name">저녁식사</span>
-              <span class="item-pay">카드</span>
-              <span class="item-amount">00000원</span>
+              <span class="tag-badge" :style="getTagStyle(item.tag.tagid)">{{
+                item.tag.tagtitle
+              }}</span>
+              <span class="item-name">{{ item.title }}</span>
+              <span class="item-pay">{{ item.paymentMethod }}</span>
+              <span class="item-amount"
+                >{{ item.amount.toLocaleString() }}원</span
+              >
             </div>
           </template>
         </div>
@@ -157,33 +85,105 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import ExpenseSearch from '@/components/expenses/ExpenseSearch.vue';
 
-// TODO: API 연결 시 실제 데이터 유무로 변경 (data.length === 0)
-const isEmpty = ref(false); // true: 빈 화면, false: 목록 표시
-const selectedPayment = ref('');
-const selectedTags = ref([]);
-const tags = ['식비', '식비', '식비', '식비', '식비', '식비'];
-const showFilter = ref(false);
+const expenses = ref([]);
+const activeTab = ref('전체');
 
-// 오늘 날짜 기준 한 달 전 ~ 오늘
-const today = new Date();
-const oneMonthAgo = new Date(today);
-oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-const formatDate = (date) => date.toISOString().split('T')[0];
-
-const startDate = ref(formatDate(oneMonthAgo));
-const endDate = ref(formatDate(today));
-
-const toggleTag = (tag) => {
-  const idx = selectedTags.value.indexOf(tag);
-  if (idx === -1) selectedTags.value.push(tag);
-  else selectedTags.value.splice(idx, 1);
+const tagColorMap = {
+  eat: { background: '#FFD6D6', color: '#E57373' },
+  traffic: { background: '#D6EAFF', color: '#5B9BD5' },
+  shopping: { background: '#D6F0E0', color: '#66A882' },
+  etc: { background: '#FFF3C4', color: '#B8860B' },
 };
+
+const getTagStyle = (tagid) => ({
+  backgroundColor: tagColorMap[tagid]?.background || '#f0f0f0',
+  color: tagColorMap[tagid]?.color || '#9e9e9e',
+});
+
+// 검색 필터
+const searchFilters = ref({
+  searchText: '',
+  startDate: '',
+  endDate: '',
+  tags: [],
+  payment: '',
+  minAmount: '',
+  maxAmount: '',
+});
+
+const handleSearch = (filters) => {
+  searchFilters.value = filters;
+};
+
+// 데이터 불러오기
+const fetchExpenses = async () => {
+  try {
+    const res = await axios.get('http://localhost:3000/expenses');
+    expenses.value = res.data;
+  } catch (e) {
+    console.error('expenses 불러오기 실패:', e);
+  }
+};
+
+onMounted(() => {
+  fetchExpenses();
+});
+
+// 필터링
+const filteredExpenses = computed(() => {
+  return expenses.value.filter((e) => {
+    if (activeTab.value !== '전체' && e.type.typetitle !== activeTab.value)
+      return false;
+    if (
+      searchFilters.value.searchText &&
+      !e.title.includes(searchFilters.value.searchText)
+    )
+      return false;
+    if (searchFilters.value.startDate && e.date < searchFilters.value.startDate)
+      return false;
+    if (searchFilters.value.endDate && e.date > searchFilters.value.endDate)
+      return false;
+    if (
+      searchFilters.value.tags.length > 0 &&
+      !searchFilters.value.tags.includes(e.tag.tagid)
+    )
+      return false;
+    if (
+      searchFilters.value.payment &&
+      e.paymentMethod !== searchFilters.value.payment
+    )
+      return false;
+    if (
+      searchFilters.value.minAmount &&
+      e.amount < Number(searchFilters.value.minAmount)
+    )
+      return false;
+    if (
+      searchFilters.value.maxAmount &&
+      e.amount > Number(searchFilters.value.maxAmount)
+    )
+      return false;
+    return true;
+  });
+});
+
+const isEmpty = computed(() => filteredExpenses.value.length === 0);
+
+const groupedExpenses = computed(() => {
+  const groups = {};
+  filteredExpenses.value.forEach((e) => {
+    if (!groups[e.date]) groups[e.date] = [];
+    groups[e.date].push(e);
+  });
+  return groups;
+});
 </script>
 
 <style scoped>
