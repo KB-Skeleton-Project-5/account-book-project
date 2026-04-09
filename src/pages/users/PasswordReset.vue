@@ -30,7 +30,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { updateUserProcess,getUserInfo,fetchUserById } from '@/util/authUtil'
+import { updateUserProcess } from '@/util/authUtil'
 import AppButton from '@/components/commons/AppButton.vue'
 import AppHeader from '@/layouts/AppHeader.vue'
 
@@ -45,7 +45,7 @@ const newPwConfirm = ref('')
 
 async function handleReset() {
   if (form.newPw !== newPwConfirm.value) {
-    console.log('비밀번호가 일치하지 않습니다')
+    alert('비밀번호가 일치하지 않습니다')
     return
   }
   const response = await fetch(`http://localhost:3000/users?userId=${form.userId}`)
@@ -55,7 +55,7 @@ async function handleReset() {
     alert('존재하지 않는 아이디입니다')
     return
   }
-  
+
   const user = users[0]
 
   updateUserProcess(

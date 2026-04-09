@@ -111,4 +111,37 @@ const router = createRouter({
   ],
 });
 
+import { getUserInfo } from '../util/authUtil.js'
+
+// 로그인이 필요한 페이지 목록
+const authRequiredPages = [
+  'main',
+  'users/info',
+  'users/edit',
+  'users/delete',
+  'expenses',
+  'expenses/add',
+  'expenses/modify/id',
+  'expenses/info/id',
+  'summaries',
+  'calendars',
+  'calendars/add',
+  'calendars/info',
+  'calendars/modify',
+  'challenges',
+  'challenges/add',
+  'challenges/info',
+  'challenges/modify',
+]
+
+router.beforeEach((to, from, next) => {
+  const userInfo = getUserInfo()
+
+  if (authRequiredPages.includes(to.name) && !userInfo.authenticated) {
+    next({ name: 'users/login' })
+  } else {
+    next()
+  }
+})
+
 export default router;
