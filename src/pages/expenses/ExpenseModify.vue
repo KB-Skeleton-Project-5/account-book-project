@@ -1,7 +1,7 @@
 <template>
     <DefaultLayout>
         <template #header>
-            <AppHeader title="수정"/>
+            <AppHeader title="수정" :back="true" backTo="expenses/info/id"/>
         </template>
         <ExpenseForm />
         <AppButton text="저장" @click="handleSave" />

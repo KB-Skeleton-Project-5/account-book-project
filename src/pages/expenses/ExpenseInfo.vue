@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="상세보기" />
+      <AppHeader title="상세보기" :back="true" backTo="expenses"/>
     </template>
 
     <ExpenseForm />

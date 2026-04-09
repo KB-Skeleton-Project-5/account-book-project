@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="지출 추가" />
+      <AppHeader title="지출 추가" :back="true" backTo="expenses"/>
     </template>
 
     <ExpenseForm />
