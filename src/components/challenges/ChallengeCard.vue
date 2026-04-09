@@ -5,7 +5,7 @@
     </header>
     <ProgressBar :current="props.current" :total="props.total" />
     <ChallengeDescription />
-    <div class="percentage">{{ percentage }}%</div>
+    <div class="percentage">{{ challengeResult }}%</div>
   </div>
 </template>
 
@@ -34,6 +34,15 @@ const props = defineProps({
 const percentage = computed(() => {
   return (props.current / props.total) * 100;
 });
+if(challengeType){
+if (percentage > 100){
+  challengeResult
+}
+}
+
+else if (percentage <= 100){
+
+}
 </script>
 
 <style scoped>

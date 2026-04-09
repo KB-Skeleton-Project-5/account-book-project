@@ -1,15 +1,14 @@
 <template>
   <div>
+    <AppHeader />
     <router-view />
+    <AppFooter />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import AppFooter from './layouts/AppFooter.vue';
+import AppHeader from './layouts/AppHeader.vue';
+</script>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
+<style></style>

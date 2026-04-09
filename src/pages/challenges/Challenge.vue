@@ -33,14 +33,13 @@ const challenges = ref([
     challengeName: '목표 2',
   },
 ]);
-</script>
+</script> 
 
 <style>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #fde8a2;
-  height: 100%;
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 </style>

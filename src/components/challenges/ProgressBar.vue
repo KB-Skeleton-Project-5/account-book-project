@@ -1,12 +1,22 @@
 <template>
-  <div class="progress-wrapper">
+  <div class="progress-container">
     <div class="track">
+      <div class="fill" :class="{ 'is-danger': isOver }" :style="fillStyle">
+        <div class="indicator-dot"></div>
+      </div>
+    </div>
+
+    <div class="labels-container">
       <div
-        class="fill"
-        :class="{ 'is-danger': isOver }"
-        :style="{ width: percent + '%' }"
+        class="label moving-label"
+        :class="{ 'text-danger': isOver }"
+        :style="{ left: movingLabelPos + '%' }"
       >
-        <span class="indicator-dot"></span>
+        {{ isOver ? total : current }}만원
+      </div>
+
+      <div class="label end-label" :class="{ 'text-danger': isOver }">
+        {{ isOver ? current : total }}만원
       </div>
     </div>
   </div>
@@ -16,62 +26,111 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-  current: { type: Number, default: 0 }, // 현재 지출액
-  total: { type: Number, default: 1 }, // 목표 금액
+  current: { type: Number, default: 0 },
+  total: { type: Number, default: 1 },
 });
 
-// 진행률 계산
-const percent = computed(() => {
-  const result = (props.current / props.total) * 100;
-  return result > 100 ? 100 : result; // 100%가 넘어도 바가 뚫고 나가지 않게 함
+// 목표 초과 여부
+const isOver = computed(() => props.current > props.total);
+
+// 바의 전체 기준값 (초과 시 현재액이 기준, 미만 시 목표액이 기준)
+const maxVal = computed(() => Math.max(props.current, props.total));
+
+// 바의 채워지는 스타일
+const fillStyle = computed(() => {
+  if (isOver.value) {
+    // 초과 시: 전체가 빨간색이지만 목표지점(total)까지만 밝은 빨강, 그 이후는 진한 빨강으로 구분
+    const splitPoint = (props.total / props.current) * 100;
+    return {
+      width: '100%',
+      background: `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
+    };
+  } else {
+    // 정상 시: 현재 지출액만큼만 파란색으로 채움
+    return {
+      width: `${(props.current / props.total) * 100}%`,
+      backgroundColor: '#3b82f6',
+    };
+  }
 });
 
-// 목표 달성 여부 (100%를 넘으면 빨간색으로 바꿀 때 사용)
-const isOver = computed(() => (props.current / props.total) * 100 > 100);
+// 움직이는 라벨의 위치 (%)
+const movingLabelPos = computed(() => {
+  if (isOver.value) {
+    // 초과 시: 목표액(total)이 왼쪽 어딘가에 위치
+    return (props.total / props.current) * 100;
+  } else {
+    // 정상 시: 현재액(current)이 점과 함께 움직임
+    return (props.current / props.total) * 100;
+  }
+});
 </script>
 
 <style scoped>
-.progress-wrapper {
+.progress-container {
   width: 100%;
-  padding: 10px 0;
+  padding: 20px 0 40px 0; /* 라벨 공간 확보 */
 }
 
 .track {
   width: 100%;
-  height: 12px;
-  background-color: #e0e0e0; /* 연한 회색 */
-  border-radius: 10px;
+  height: 14px;
+  background-color: #e0e0e0;
+  border-radius: 20px;
   position: relative;
 }
 
 .fill {
   height: 100%;
-  background-color: #3b82f6; /* 기본 파란색 */
-  border-radius: 10px;
+  border-radius: 20px;
   position: relative;
-  transition: width 0.4s ease-out; /* 데이터 변경 시 부드럽게 차오름 */
-}
-
-/* 목표 초과 시 빨간색 */
-.fill.is-danger {
-  background-color: #ff4d4d;
+  transition: width 0.4s ease-out;
 }
 
 .indicator-dot {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background-color: white;
-  border: 4px solid inherit; /* 부모(fill)의 색상을 따라가도록 나중에 JS나 CSS 변수 처리 가능 */
-  border-color: #3b82f6;
+  border: 4px solid #3b82f6;
   border-radius: 50%;
   position: absolute;
-  right: -8px; /* 점의 중심이 막대 끝에 오도록 */
+  right: -9px;
   top: 50%;
   transform: translateY(-50%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 
+/* 초과 시 점 스타일 변경 */
 .is-danger .indicator-dot {
-  border-color: #ff4d4d;
+  border-color: #cc0000;
+  right: 0; /* 초과 시엔 항상 맨 끝에 붙음 */
+}
+
+/* 라벨 스타일 */
+.labels-container {
+  position: relative;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.label {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.moving-label {
+  transform: translateX(-50%);
+}
+
+.end-label {
+  right: 0;
+}
+
+.text-danger {
+  color: #ff4d4d;
 }
 </style>

@@ -1,9 +1,6 @@
 <template>
   <div class="challenge-add-container">
-    <header>
-      <input type="text" placeholder="새 목표 1" />
-    </header>
-    <ChallengeSetup />
+    <ChallengeSetup v-model="challengeData" />
     <p>메모</p>
     <MemoWrite />
     <footer>
@@ -22,6 +19,13 @@ import { ref } from 'vue';
 import ChallengeSetup from '@/components/challenges/ChallengeSetup.vue';
 import MemoWrite from '@/components/challenges/MemoWrite.vue';
 import AppButton from '@/components/commons/AppButton.vue';
+
+const challengeData = ref({
+  challengeName: '',
+  tag: '식비',
+  targetAmount: 0,
+  type: '지출',
+});
 </script>
 
 <style>
