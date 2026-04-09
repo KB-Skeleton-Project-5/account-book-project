@@ -1,13 +1,16 @@
 <template>
   <div>
-    <TabSelector @submit-tab="handleTab" />
-    <DateInput @submit-date="handleDate" />
-    <AmountInput @submit-amount="handleAmount" />
-    <TitleInput @submit-title="handleTitle" />
-    <TagSelect @submit-tag="handleTag" />
-    <MemoInput @submit-memo="handleMemo" />
-    <PaymentMethod @submit-payment="handlePayment" />
-    <ToggleSwitch @submit-isFixed="handleIsFixed" />
+    <TabSelector :value="formData.type" @submit-tab="handleTab" />
+    <DateInput :value="formData.date" @submit-date="handleDate" />
+    <AmountInput :value="formData.amount" @submit-amount="handleAmount" />
+    <TitleInput :value="formData.title" @submit-title="handleTitle" />
+    <TagSelect :value="formData.tag" @submit-tag="handleTag" />
+    <MemoInput :value="formData.memo" @submit-memo="handleMemo" />
+    <PaymentMethod
+      :value="formData.paymentMethod"
+      @submit-payment="handlePayment"
+    />
+    <ToggleSwitch :value="formData.isFixed" @submit-isFixed="handleIsFixed" />
   </div>
 </template>
 
@@ -20,7 +23,7 @@ import TagSelect from './TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const formData = ref({
   amount: '',
@@ -64,6 +67,21 @@ const handleTag = (value) => {
 const handleTab = (value) => {
   formData.value.type = value;
 };
+
+// 부모 (ExpenseInfo)에서 전달받은 초기 데이터
+const props = defineProps({
+  initialData: Object,
+});
+
+// initialData가 들어오면 formData에 세팅
+watch(
+  () => props.initialData,
+  (val) => {
+    if (val) formData.value = { ...val };
+    // immediate : 컴포넌트 생성 시 즉시 실행
+  },
+  { immediate: true },
+);
 
 const emit = defineEmits(['submit-form']);
 

@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const tags = [
   { tagid: 'eat', tagtitle: '식비' },
@@ -24,6 +24,14 @@ const tags = [
   { tagid: 'shopping', tagtitle: '쇼핑' },
   { tagid: 'etc', tagtitle: '기타' }
 ]
+
+const props = defineProps({
+    value : [ Object ]
+});
+
+watch(() => props.value, (val) => {
+    if(val !== undefined) tags.value = val;
+}, { imediate : true });
 
 const selected = ref(tags[0]);
 const emit = defineEmits(['submit-tag']);

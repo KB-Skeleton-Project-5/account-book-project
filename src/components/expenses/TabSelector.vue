@@ -17,12 +17,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const tabs = [
   { typeid: 'deposit', typetitle: '수입' },
   { typeid: 'withdrawal', typetitle: '지출' }
 ]
+
+const props = defineProps({
+    value : [ Object ]
+});
+
+watch(() => props.value, (val) => {
+    if(val !== undefined) tabs.value = val;
+}, { imediate : true });
 
 const selected = ref(tabs[1]);  // 기본값 '지출'
 const emit = defineEmits(['submit-tab']);

@@ -9,7 +9,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ Boolean ]
+});
+
+watch(() => props.value, (val) => {
+    if(val !== undefined) isFixed.value = val;
+}, { imediate : true });
 
 const isFixed = ref(false);
 const emit = defineEmits(['submit-isFixed']);

@@ -17,7 +17,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ String ]
+});
+
+watch(() => props.value, (val) => {
+    if(val !== undefined) payment.value = val;
+}, { imediate : true });
 
 const payment = ref('card');
 const emit = defineEmits(['submit-payment']);

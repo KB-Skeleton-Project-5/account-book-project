@@ -6,10 +6,10 @@ import api from "./index.js";
 //   }
 //
 
-// // 지출 상세 조회 (READ)
-// export const getExpense = (id) => {
-//     return api.get(`/expenses/${id}`)
-// };
+// 지출 상세 조회 (READ)
+export const getExpense = (id) => {
+    return api.get(`/expenses/${id}`)
+};
 
 // 지출 추가 (CREATE)
 export const createExpense = (data) => {

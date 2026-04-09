@@ -6,7 +6,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ String ]
+});
+
+watch(() => props.value, (val) => {
+    if(val !== undefined) memo.value = val;
+}, { imediate : true });
 
 const memo = ref('');
 const emit = defineEmits(['submit-memo']);

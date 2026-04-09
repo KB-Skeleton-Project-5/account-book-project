@@ -7,7 +7,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ String ]
+});
+
+watch(() => props.value, (val) => {
+    if(val !== undefined) title.value = val;
+}, { imediate : true });
 
 const title = ref('')
 const emit = defineEmits(['submit-title']);
