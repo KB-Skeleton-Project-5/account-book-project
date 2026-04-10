@@ -118,24 +118,6 @@
       "id": 9
     },
     {
-      "amount": 200,
-      "date": "2026-04-01",
-      "title": "사탕",
-      "memo": "",
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": "4",
-      "id": 13
-    },
-    {
       "amount": 250000,
       "date": "2026-04-05",
       "title": "훈련장려금",
@@ -170,24 +152,6 @@
       },
       "userId": "4",
       "id": 15
-    },
-    {
-      "amount": 2,
-      "date": "2026-04-10",
-      "title": "dfsafsd",
-      "memo": "dfsa",
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": "4",
-      "id": 16
     }
   ],
   "calendarsdb": [

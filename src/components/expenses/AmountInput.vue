@@ -66,4 +66,13 @@ input {
 input:focus {
     border-color: #FFBC00;
 }
+
+/* 그 외(Chrome, Safari, Edge...)의 브라우저용 사용자 정의 스타일 */
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>
