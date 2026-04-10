@@ -16,24 +16,27 @@
             <button
               class="tab-btn"
               :class="{ active: activeTab === '전체' }"
-              @click="activeTab = '전체'"
+              @click="changeTab('전체')"
             >
               전체
             </button>
+
             <button
               class="tab-btn"
               :class="{ active: activeTab === '수입' }"
-              @click="activeTab = '수입'"
+              @click="changeTab('수입')"
             >
               수입
             </button>
+
             <button
               class="tab-btn"
               :class="{ active: activeTab === '지출' }"
-              @click="activeTab = '지출'"
+              @click="changeTab('지출')"
             >
               지출
             </button>
+
             <span class="fixed-legend">⭐ 고정지출 표시</span>
           </div>
         </template>
@@ -90,11 +93,15 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import ExpenseSearch from '@/components/expenses/ExpenseSearch.vue';
 import { getExpenses } from '@/api/expenses';
+
+const router = useRouter();
+const route = useRoute();
 
 const expenses = ref([]);
 const activeTab = ref('전체');
@@ -120,9 +127,31 @@ const searchFilters = ref({
   minAmount: '',
   maxAmount: '',
 });
+// query 관련 코드 추가
+const updateRouterQuery = () => {
+  const query = {};
+
+  if (searchFilters.value.startDate)
+    query.startDate = searchFilters.value.startDate;
+  if (searchFilters.value.endDate) query.endDate = searchFilters.value.endDate;
+  if (searchFilters.value.tags && searchFilters.value.tags.length > 0)
+    query.tags = searchFilters.value.tags;
+
+  if (activeTab.value !== '전체') {
+    query.type = activeTab.value;
+  }
+
+  router.push({ query });
+};
 
 const handleSearch = (filters) => {
   searchFilters.value = filters;
+  updateRouterQuery();
+};
+
+const changeTab = (tabName) => {
+  activeTab.value = tabName;
+  updateRouterQuery();
 };
 
 const fetchExpenses = async () => {
@@ -136,6 +165,10 @@ const fetchExpenses = async () => {
 
 onMounted(() => {
   fetchExpenses();
+
+  if (route.query.type) {
+    activeTab.value = route.query.type;
+  }
 });
 
 const filteredExpenses = computed(() => {

@@ -96,10 +96,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import AppButton from '@/components/commons/AppButton.vue';
 
 const emit = defineEmits(['search']);
+const route = useRoute();
 
 const searchText = ref('');
 const showFilter = ref(false);
@@ -151,6 +153,25 @@ const handleSearch = () => {
     maxAmount: maxAmount.value,
   });
 };
+
+onMounted(() => {
+  if (
+    route.query.startDate ||
+    route.query.endDate ||
+    route.query.tags ||
+    route.query.type
+  ) {
+    if (route.query.startDate) startDate.value = route.query.startDate;
+    if (route.query.endDate) endDate.value = route.query.endDate;
+    if (route.query.tags) {
+      selectedTags.value = Array.isArray(route.query.tags)
+        ? route.query.tags
+        : [route.query.tags];
+    }
+
+    handleSearch();
+  }
+});
 </script>
 
 <style scoped>
