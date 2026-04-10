@@ -89,16 +89,17 @@
       "title": "미용실",
       "memo": "기분 전환",
       "paymentMethod": "카드",
-      "isFixed": false,
+      "isFixed": true,
       "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
+        "tagid": "shopping",
+        "tagtitle": "쇼핑"
       },
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "id": 8
+      "id": 8,
+      "userId": "4"
     },
     {
       "amount": 135,
@@ -170,6 +171,42 @@
       },
       "userId": "4",
       "id": 15
+    },
+    {
+      "amount": 500,
+      "date": "2026-04-10",
+      "title": "실험",
+      "memo": "실험",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "userId": "4",
+      "id": 16
+    },
+    {
+      "amount": 3500,
+      "date": "2026-04-01",
+      "title": "OTT 결제",
+      "memo": "웨이브",
+      "paymentMethod": "카드",
+      "isFixed": true,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": "4",
+      "id": 17
     }
   ],
   "calendarsdb": [

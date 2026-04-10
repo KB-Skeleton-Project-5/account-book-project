@@ -27,7 +27,7 @@ const tags = [
   { tagid: 'etc', tagtitle: '기타' }
 ]
 
-const selected = ref({});  // 초기 값 빈 객체로
+const selected = ref(tags[3]);  // 초기 값 기타로 변경
 const emit = defineEmits(['submit-tag']);
 
 const props = defineProps({
@@ -36,7 +36,8 @@ const props = defineProps({
 });
 
 watch(() => props.value, (val) => {
-    if(val) selected.value = val;
+    // tagid가 있을 때만 세팅 (빈 객체가 기본값 덮어쓰는 것 방지)
+    if(val?.tagid) selected.value = val;
 }, { immediate : true });
 
 

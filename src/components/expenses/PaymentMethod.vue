@@ -42,7 +42,7 @@ watch(() => props.value, (val) => {
     if(val) payment.value = val;
 }, { immediate : true });
 
-const payment = ref('');
+const payment = ref('카드');
 const emit = defineEmits(['submit-payment']);
 
 const handleChange = () => {

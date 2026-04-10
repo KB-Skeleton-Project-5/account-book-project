@@ -35,7 +35,8 @@ const selected = ref(tabs[1]);
 const emit = defineEmits(['submit-tab']);
 
 watch(() => props.value, (val) => {
-    if(val) selected.value = val;
+    // val 이 빈 객체가 아닐 때만(typeid가 있을 때만) 세팅
+    if(val?.typeid) selected.value = val;
 }, { immediate : true });
 
 

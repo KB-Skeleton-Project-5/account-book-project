@@ -131,6 +131,10 @@ const submitForm = () => {
     alert('제목을 입력해주세요.')
     return
   }
+  if(!formData.value.tag?.tagtitle) {
+    alert('태그를 선택해주세요.');
+    return
+  }
   if(!formData.value.paymentMethod) {
     alert('결제수단을 선택해주세요.')
     return
