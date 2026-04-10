@@ -42,7 +42,7 @@ const userInfo = getUserInfo();
 const challengeData = ref({
   title: '',
   tag: '전체',
-  targetAmount: 0,
+  targetAmount: 1,
   type: '지출',
 });
 
@@ -62,8 +62,6 @@ const handleSave = async () => {
   //   return;
   // }
 
-  const now = new Date();
-
   if (!challengeData.value.title || challengeData.value.title.trim() === '') {
     alert('챌린지 제목 입력 필요');
     return;
@@ -76,6 +74,8 @@ const handleSave = async () => {
     return;
   }
   console.log('제목/목표 금액 검사 완료');
+
+  const now = new Date();
 
   try {
     const expensesRes = await axios.get('/api/expenses', {
@@ -130,16 +130,14 @@ const handleSave = async () => {
 </script>
 
 <style scoped>
-/* 💡 [수정] 레이아웃 관련 복잡한 CSS(vh, flex-1 등)는 모두 삭제되었습니다! */
-
 .add-container {
-  padding: 20px 0; /* 상하 여백으로 카드에 숨통을 틔워줍니다 */
+  padding: 20px 0;
 }
 
-/* 🎨 카드 디자인 통일 (INFO 페이지와 일치) */
+/* 🎨 카드 디자인: 너비를 줄여서 더 콤팩트하게 변경 */
 .challenge-add-card {
-  width: calc(100% - 40px);
-  max-width: 450px;
+  width: calc(100% - 64px); /* 좌우 여백 확대 (기존 -40px) */
+  max-width: 400px; /* 최대 너비 축소 (기존 450px) */
   background-color: #ffffff;
   border-radius: 20px;
   padding: 32px;
@@ -148,20 +146,20 @@ const handleSave = async () => {
   box-sizing: border-box;
 }
 
-/* 중간 타이틀 (메모 등) */
+/* 💡 행간 축소: 요소 사이의 간격을 좁힘 */
 .section-title {
   font-size: 16px;
   font-weight: 700;
   color: #1e293b;
-  margin-top: 32px;
-  margin-bottom: 12px;
+  margin-top: 20px; /* 위쪽 간격 축소 (기존 32px) */
+  margin-bottom: 10px; /* 아래쪽 간격 축소 (기존 12px) */
   letter-spacing: -0.02em;
 }
 
-/* 버튼 배치 (취소/저장) */
+/* 💡 버튼 그룹 간격 축소 */
 .add-action-buttons {
   display: flex;
   gap: 12px;
-  margin-top: 40px;
+  margin-top: 28px; /* 버튼과의 간격 축소 (기존 40px) */
 }
 </style>

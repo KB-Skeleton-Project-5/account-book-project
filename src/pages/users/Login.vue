@@ -41,6 +41,7 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { loginProcess } from '@/util/authUtil'
 
+
 const router = useRouter()
 
 const form = reactive({
@@ -49,6 +50,18 @@ const form = reactive({
 })
 
 function handleLogin() {
+  // 유효성 검사
+  if (!form.userId.trim()) {
+    alert('아이디를 입력하세요')
+    console.log('아이디를 입력하세요');
+    return
+  }
+  if (!form.pw.trim()) {
+    alert('비밀번호를 입력하세요')
+    console.log('비밀번호를 입력하세요');
+    
+    return
+  }
   loginProcess(
     form.userId,
     form.pw,

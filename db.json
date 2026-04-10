@@ -8,6 +8,14 @@
       "nick": "길동이",
       "email": "hong@email.com",
       "profileImage": "https://..."
+    },
+    {
+      "name": "eee",
+      "nick": "eee",
+      "email": "eee",
+      "userId": "eee",
+      "pw": "eee",
+      "id": "1"
     }
   ],
   "expenses": [
@@ -84,38 +92,21 @@
       "memo": "스킨케어"
     },
     {
-      "amount": 15000,
+      "id": 8,
+      "userId": "1",
       "date": "2026-04-08",
       "title": "미용실",
       "memo": "기분 전환",
       "paymentMethod": "카드",
-      "isFixed": false,
+      "isFixed": true,
       "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
+        "tagid": "shopping",
+        "tagtitle": "쇼핑"
       },
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
-      },
-      "id": 8
-    },
-    {
-      "amount": 135,
-      "date": "2026-04-05",
-      "title": "통장 이자",
-      "memo": "이자",
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "id": 9
+      }
     },
     {
       "amount": 250000,
@@ -154,21 +145,40 @@
       "id": 15
     },
     {
-      "amount": 50000,
-      "date": "",
-      "title": "1",
-      "memo": "1",
-      "paymentMethod": "카드",
-      "isFixed": false,
+      "amount": 500,
+      "date": "2026-04-10",
+      "title": "실험",
+      "memo": "실험",
+      "paymentMethod": "현금",
+      "isFixed": true,
       "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
+        "tagid": "etc",
+        "tagtitle": "기타"
       },
       "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
+        "typeid": "deposit",
+        "typetitle": "수입"
       },
+      "userId": "4",
       "id": 16
+    },
+    {
+      "id": 12,
+      "userId": "1",
+      "date": "2026-04-10",
+      "title": "123",
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "amount": 100,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "memo": ""
     }
   ],
   "calendars": [
@@ -179,7 +189,52 @@
       "date": "2026-04-01",
       "time": "09:00",
       "expenseId": "exp_042",
-      "memo": "급여 입금 예정"
+      "memo": "급여 입금 완료"
+    },
+    {
+      "id": 2,
+      "userId": "1",
+      "title": "팀 회의 수정",
+      "date": "2026-04-10",
+      "time": "14:00",
+      "expenseId": 5,
+      "memo": "ppt 준비"
+    },
+    {
+      "id": 3,
+      "userId": "1",
+      "title": "스터디",
+      "date": "2026-04-10",
+      "time": "16:00",
+      "expenseId": 6,
+      "memo": "Vue 라우터 복습 완료!"
+    },
+    {
+      "id": 4,
+      "userId": "1",
+      "title": "병원 예약",
+      "date": "2026-04-15",
+      "time": "11:00",
+      "expenseId": 34,
+      "memo": "정기 검진"
+    },
+    {
+      "id": 6,
+      "userId": "1",
+      "title": "생일파티",
+      "date": "2026-04-15",
+      "time": "07:00",
+      "expenseId": "33",
+      "memo": "선물 챙기기"
+    },
+    {
+      "id": 7,
+      "userId": "1",
+      "title": "미용실",
+      "date": "2026-04-01",
+      "time": "14:00",
+      "expenseId": "55",
+      "memo": "리뷰 쓰기"
     }
   ],
   "summary": [
@@ -190,7 +245,32 @@
       "month": 1,
       "income": 2500000,
       "expense": 1800000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 1700000,
+          "diff": 100000,
+          "diffRate": 5.9
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 650000
+        },
+        {
+          "tag": "교통비",
+          "amount": 300000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 500000
+        },
+        {
+          "tag": "기타",
+          "amount": 350000
+        }
+      ]
     },
     {
       "id": 2,
@@ -199,7 +279,32 @@
       "month": 2,
       "income": 2600000,
       "expense": 2000000,
-      "netProfit": 600000
+      "netProfit": 600000,
+      "comparison": [
+        {
+          "prevExpense": 1800000,
+          "diff": 200000,
+          "diffRate": 11.1
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 600000
+        },
+        {
+          "tag": "기타",
+          "amount": 350000
+        }
+      ]
     },
     {
       "id": 3,
@@ -208,7 +313,32 @@
       "month": 3,
       "income": 2700000,
       "expense": 1900000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": -100000,
+          "diffRate": -5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 680000
+        },
+        {
+          "tag": "교통비",
+          "amount": 320000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 530000
+        },
+        {
+          "tag": "기타",
+          "amount": 370000
+        }
+      ]
     },
     {
       "id": 4,
@@ -217,7 +347,32 @@
       "month": 4,
       "income": 2800000,
       "expense": 2100000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 1900000,
+          "diff": 200000,
+          "diffRate": 10.5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ]
     },
     {
       "id": 5,
@@ -226,7 +381,32 @@
       "month": 5,
       "income": 2500000,
       "expense": 1700000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": -400000,
+          "diffRate": -19
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 600000
+        },
+        {
+          "tag": "교통비",
+          "amount": 290000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 480000
+        },
+        {
+          "tag": "기타",
+          "amount": 330000
+        }
+      ]
     },
     {
       "id": 6,
@@ -235,7 +415,32 @@
       "month": 6,
       "income": 3000000,
       "expense": 2200000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 1700000,
+          "diff": 500000,
+          "diffRate": 29.4
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 780000
+        },
+        {
+          "tag": "교통비",
+          "amount": 360000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 680000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ]
     },
     {
       "id": 7,
@@ -244,7 +449,32 @@
       "month": 7,
       "income": 2900000,
       "expense": 1950000,
-      "netProfit": 950000
+      "netProfit": 950000,
+      "comparison": [
+        {
+          "prevExpense": 2200000,
+          "diff": -250000,
+          "diffRate": -11.4
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 700000
+        },
+        {
+          "tag": "교통비",
+          "amount": 320000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 570000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ]
     },
     {
       "id": 8,
@@ -253,7 +483,32 @@
       "month": 8,
       "income": 3100000,
       "expense": 2300000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 1950000,
+          "diff": 350000,
+          "diffRate": 17.9
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 820000
+        },
+        {
+          "tag": "교통비",
+          "amount": 380000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 700000
+        },
+        {
+          "tag": "기타",
+          "amount": 400000
+        }
+      ]
     },
     {
       "id": 9,
@@ -262,7 +517,32 @@
       "month": 9,
       "income": 2800000,
       "expense": 2000000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2300000,
+          "diff": -300000,
+          "diffRate": -13
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 580000
+        },
+        {
+          "tag": "기타",
+          "amount": 370000
+        }
+      ]
     },
     {
       "id": 10,
@@ -271,7 +551,32 @@
       "month": 10,
       "income": 3200000,
       "expense": 2100000,
-      "netProfit": 1100000
+      "netProfit": 1100000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ]
     },
     {
       "id": 11,
@@ -280,7 +585,32 @@
       "month": 11,
       "income": 3000000,
       "expense": 2400000,
-      "netProfit": 600000
+      "netProfit": 600000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": 300000,
+          "diffRate": 14.3
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 850000
+        },
+        {
+          "tag": "교통비",
+          "amount": 400000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 750000
+        },
+        {
+          "tag": "기타",
+          "amount": 400000
+        }
+      ]
     },
     {
       "id": 12,
@@ -289,7 +619,32 @@
       "month": 12,
       "income": 3500000,
       "expense": 2800000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2400000,
+          "diff": 400000,
+          "diffRate": 16.7
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 980000
+        },
+        {
+          "tag": "교통비",
+          "amount": 450000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 920000
+        },
+        {
+          "tag": "기타",
+          "amount": 450000
+        }
+      ]
     },
     {
       "id": 13,
@@ -298,7 +653,32 @@
       "month": 1,
       "income": 2600000,
       "expense": 1900000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2800000,
+          "diff": -900000,
+          "diffRate": -32.1
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 680000
+        },
+        {
+          "tag": "교통비",
+          "amount": 310000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 560000
+        },
+        {
+          "tag": "기타",
+          "amount": 350000
+        }
+      ]
     },
     {
       "id": 14,
@@ -307,7 +687,32 @@
       "month": 2,
       "income": 2700000,
       "expense": 2000000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 1900000,
+          "diff": 100000,
+          "diffRate": 5.3
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 590000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ]
     },
     {
       "id": 15,
@@ -316,7 +721,32 @@
       "month": 3,
       "income": 2800000,
       "expense": 2100000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ]
     },
     {
       "id": 16,
@@ -325,7 +755,32 @@
       "month": 4,
       "income": 2900000,
       "expense": 1800000,
-      "netProfit": 1100000
+      "netProfit": 1100000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": -300000,
+          "diffRate": -14.3
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 640000
+        },
+        {
+          "tag": "교통비",
+          "amount": 300000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 530000
+        },
+        {
+          "tag": "기타",
+          "amount": 330000
+        }
+      ]
     },
     {
       "id": 17,
@@ -334,7 +789,32 @@
       "month": 5,
       "income": 3000000,
       "expense": 2200000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 1800000,
+          "diff": 400000,
+          "diffRate": 22.2
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 780000
+        },
+        {
+          "tag": "교통비",
+          "amount": 360000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 670000
+        },
+        {
+          "tag": "기타",
+          "amount": 390000
+        }
+      ]
     },
     {
       "id": 18,
@@ -343,7 +823,32 @@
       "month": 6,
       "income": 3100000,
       "expense": 2300000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2200000,
+          "diff": 100000,
+          "diffRate": 4.5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 820000
+        },
+        {
+          "tag": "교통비",
+          "amount": 380000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 700000
+        },
+        {
+          "tag": "기타",
+          "amount": 400000
+        }
+      ]
     },
     {
       "id": 19,
@@ -352,7 +857,32 @@
       "month": 7,
       "income": 2900000,
       "expense": 2000000,
-      "netProfit": 900000
+      "netProfit": 900000,
+      "comparison": [
+        {
+          "prevExpense": 2300000,
+          "diff": -300000,
+          "diffRate": -13
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 710000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 600000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ]
     },
     {
       "id": 20,
@@ -361,7 +891,32 @@
       "month": 8,
       "income": 3200000,
       "expense": 2400000,
-      "netProfit": 800000
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 400000,
+          "diffRate": 20
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 850000
+        },
+        {
+          "tag": "교통비",
+          "amount": 400000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 740000
+        },
+        {
+          "tag": "기타",
+          "amount": 410000
+        }
+      ]
     },
     {
       "id": 21,
@@ -370,7 +925,32 @@
       "month": 9,
       "income": 3000000,
       "expense": 2100000,
-      "netProfit": 900000
+      "netProfit": 900000,
+      "comparison": [
+        {
+          "prevExpense": 2400000,
+          "diff": -300000,
+          "diffRate": -12.5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 630000
+        },
+        {
+          "tag": "기타",
+          "amount": 370000
+        }
+      ]
     },
     {
       "id": 22,
@@ -379,7 +959,32 @@
       "month": 10,
       "income": 3300000,
       "expense": 2200000,
-      "netProfit": 1100000
+      "netProfit": 1100000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": 100000,
+          "diffRate": 4.8
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 780000
+        },
+        {
+          "tag": "교통비",
+          "amount": 360000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 670000
+        },
+        {
+          "tag": "기타",
+          "amount": 390000
+        }
+      ]
     },
     {
       "id": 23,
@@ -388,7 +993,32 @@
       "month": 11,
       "income": 3100000,
       "expense": 2500000,
-      "netProfit": 600000
+      "netProfit": 600000,
+      "comparison": [
+        {
+          "prevExpense": 2200000,
+          "diff": 300000,
+          "diffRate": 13.6
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 880000
+        },
+        {
+          "tag": "교통비",
+          "amount": 420000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 780000
+        },
+        {
+          "tag": "기타",
+          "amount": 420000
+        }
+      ]
     },
     {
       "id": 24,
@@ -397,7 +1027,32 @@
       "month": 12,
       "income": 3600000,
       "expense": 2900000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2500000,
+          "diff": 400000,
+          "diffRate": 16
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 1020000
+        },
+        {
+          "tag": "교통비",
+          "amount": 460000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 980000
+        },
+        {
+          "tag": "기타",
+          "amount": 440000
+        }
+      ]
     },
     {
       "id": 25,
@@ -406,7 +1061,32 @@
       "month": 1,
       "income": 2700000,
       "expense": 2000000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2900000,
+          "diff": -900000,
+          "diffRate": -31
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 710000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 600000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ]
     },
     {
       "id": 26,
@@ -415,7 +1095,32 @@
       "month": 2,
       "income": 2800000,
       "expense": 2100000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ]
     },
     {
       "id": 27,
@@ -424,7 +1129,32 @@
       "month": 3,
       "income": 2800000,
       "expense": 2100000,
-      "netProfit": 700000
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": 0,
+          "diffRate": 0
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ]
     },
     {
       "id": 28,
@@ -433,21 +1163,45 @@
       "month": 4,
       "income": 3200000,
       "expense": 1850000,
-      "netProfit": 1350000
+      "netProfit": 1350000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": -250000,
+          "diffRate": -11.9
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 650000
+        },
+        {
+          "tag": "교통비",
+          "amount": 420000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 80000
+        },
+        {
+          "tag": "기타",
+          "amount": 100000
+        }
+      ]
     }
   ],
   "challenges": [
     {
-      "id": 1,
-      "userId": "1",
       "title": "4월 식비 절약",
-      "targetAmount": 300000,
-      "currentAmount": 50000,
-      "type": "지출",
       "tag": "식비",
+      "targetAmount": 300000,
+      "type": "지출",
       "memo": "이번 달은 외식 금지!",
+      "currentAmount": 18000,
       "year": 2026,
-      "month": 4
+      "month": 4,
+      "id": 1
     },
     {
       "id": 2,
@@ -463,14 +1217,25 @@
     },
     {
       "title": "4월 돈모으기",
-      "tag": "기타",
+      "tag": "투자",
       "targetAmount": 1800000,
       "type": "수입",
       "memo": "",
-      "currentAmount": 2750135,
+      "currentAmount": 0,
       "year": 2026,
       "month": 4,
       "id": 4
+    },
+    {
+      "title": "1",
+      "tag": "급여",
+      "targetAmount": 20000,
+      "type": "수입",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "memo": "",
+      "id": 5
     }
   ]
 }

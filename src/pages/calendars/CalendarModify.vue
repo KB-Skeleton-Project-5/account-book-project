@@ -3,10 +3,11 @@
     <template #header>
       <AppHeader title="일정 수정" :back="true" backTo="calendars/info" />
     </template>
+
     <div class="calendar-form-page">
       <div class="page-top-space"></div>
 
-      <CalendarForm :form="form" mode="input">
+      <CalendarForm v-if="form" :form="form" mode="input">
 
       <div class="button-area">
         <AppButton text="저장" @click="saveCalendar" />
@@ -22,27 +23,46 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
 import AppButton from '@/components/commons/AppButton.vue';
 import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 
+const route = useRoute();
 const router = useRouter();
 
-const saveCalendar = () => {
-  router.push({name: 'calendars'});
+const form = ref(null);
+
+const fetchCalendar = async () => {
+  try {
+    const res = await axios.get(`/api/calendars/${route.params.id}`);
+    form.value = res.data;
+    console.log(form.value);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const form = ref({
-  title: '팀회의',
-  date: '2026-04-10',
-  time: '14:00',
-  expenseId: 'exp_042',
-  memo: '2시간 동안 진행',
+const saveCalendar = async () => {
+  try {
+    await axios.put(`/api/calendars/${route.params.id}`,form.value,)
+    console.log('수정 성공');
+    
+    router.push({name: 'calendars' });
+
+  } catch (error) {
+    console.log('수정실패:',error);
+  }
+};
+
+onMounted(() => {
+  fetchCalendar();
 });
+
 </script>
 
 <style scoped>

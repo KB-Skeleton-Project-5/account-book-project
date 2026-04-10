@@ -1,4 +1,5 @@
 <template>
+    <!-- 고정 지출 등록 토글 UI 영역 -->
     <div class="wrapper">
         <label>고정 지출 등록</label>
         <label class="toggle">
@@ -13,7 +14,7 @@
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     value : [ Boolean ],

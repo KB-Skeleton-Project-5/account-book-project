@@ -51,7 +51,7 @@ const userInfo = getUserInfo();
 const challengeData = ref({
   title: '',
   tag: '식비',
-  targetAmount: 0,
+  targetAmount: 1,
   type: '지출',
 });
 
@@ -98,6 +98,19 @@ onMounted(() => {
 });
 
 const handleUpdate = async () => {
+  if (!challengeData.value.title || challengeData.value.title.trim() === '') {
+    alert('챌린지 제목 입력 필요');
+    return;
+  }
+  if (
+    !challengeData.value.targetAmount ||
+    challengeData.value.targetAmount <= 0
+  ) {
+    alert('목표 금액 설정 필요');
+    return;
+  }
+  console.log('제목/목표 금액 검사 완료');
+
   const now = new Date();
 
   try {

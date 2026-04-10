@@ -5,7 +5,8 @@
     </div>
 
     <h5 class="description-text">
-      {{ tag }}에서 {{ targetAmount }}만원 이하 지출
+      {{ tag }}에서 {{ targetAmount }}만원
+      {{ type === '지출' ? '이하 지출' : '이상 수입' }}
     </h5>
   </div>
 </template>
@@ -33,12 +34,6 @@ const tagIcon = computed(() => {
   };
 
   const fileName = iconMap[props.tag] || '기타';
-
-  /**
-   * 💡 Vite에서 동적으로 이미지를 가져올 때 사용하는 정석 방법입니다.
-   * 경로 설명: 현재 파일 위치에서 assets/icons 폴더를 찾아가도록 ../.. 를 사용했습니다.
-   * (만약 이미지가 안 나온다면 이 경로가 실제 폴더 구조와 맞는지 확인해 보세요!)
-   */
   return new URL(`../../assets/icons/${fileName}.png`, import.meta.url).href;
 });
 </script>

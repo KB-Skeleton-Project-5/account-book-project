@@ -1,4 +1,5 @@
 <template>
+    <!-- 메모 입력 UI 영역 -->
     <div class="wrapper">
         <label>메모</label>
         <textarea 
@@ -10,18 +11,20 @@
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     value : [ String ],
     readonly : Boolean,
 });
 
+const memo = ref('');
+
 watch(() => props.value, (val) => {
     if(val) memo.value = val;
 }, { immediate : true });
 
-const memo = ref('');
+
 const emit = defineEmits(['submit-memo']);
 
 const handleInput = () => {

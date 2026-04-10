@@ -1,5 +1,5 @@
 <template>
-    <!-- 제목(내역) Input -->
+    <!-- 제목(내역) 입력 UI 영역 -->
     <div class="wrapper">
         <label>제목</label>
         <input 
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     value : [ String ],
