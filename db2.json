@@ -152,6 +152,68 @@
       },
       "userId": "4",
       "id": 15
+    },
+    {
+      "amount": 50000,
+      "date": "",
+      "title": "ktx비",
+      "memo": "ㅋㅋ",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {},
+      "id": 16
+    },
+    {
+      "amount": 100000,
+      "date": "",
+      "title": "",
+      "memo": "df",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {},
+      "id": 17
+    },
+    {
+      "amount": 50000,
+      "date": "",
+      "title": "ktx",
+      "memo": "",
+      "paymentMethod": "",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 18
+    },
+    {
+      "amount": 21000,
+      "date": "2026-04-09",
+      "title": "케이패스",
+      "memo": "",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 19
     }
   ],
   "calendars": [
@@ -421,18 +483,6 @@
   ],
   "challenges": [
     {
-      "id": 1,
-      "userId": "1",
-      "title": "4월 식비 절약",
-      "targetAmount": 300000,
-      "currentAmount": 50000,
-      "type": "지출",
-      "tag": "식비",
-      "memo": "이번 달은 외식 금지!",
-      "year": 2026,
-      "month": 4
-    },
-    {
       "id": 2,
       "userId": "1",
       "title": "3월 식비 절약",
@@ -443,6 +493,50 @@
       "memo": "이번 달은 커피 금지!",
       "year": 2026,
       "month": 3
+    },
+    {
+      "title": "4월 교통비 절약",
+      "tag": "교통비",
+      "targetAmount": 200000,
+      "type": "지출",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "memo": "",
+      "id": 4
+    },
+    {
+      "title": "4월 식비 절약",
+      "tag": "전체",
+      "targetAmount": 200000,
+      "type": "지출",
+      "currentAmount": 78500,
+      "year": 2026,
+      "month": 4,
+      "memo": "",
+      "id": 5
+    },
+    {
+      "title": "4월 모은돈",
+      "tag": "전체",
+      "targetAmount": 200000,
+      "type": "수입",
+      "currentAmount": 2750135,
+      "year": 2026,
+      "month": 4,
+      "memo": "",
+      "id": 6
+    },
+    {
+      "title": "4월 월급",
+      "tag": "월급",
+      "targetAmount": 50000,
+      "type": "수입",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "memo": "",
+      "id": 7
     }
   ]
 }

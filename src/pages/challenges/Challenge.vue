@@ -47,11 +47,13 @@ const router = useRouter();
 const challenges = ref([]);
 
 const getChallenges = async () => {
-  // if (!userInfo.authenticated) {
-  //   alert('로그인 필요');
+  
+  // if (!userInfo || !userInfo.authenticated) {
+  //   alert('로그인이 필요한 서비스입니다.');
   //   router.push({ name: 'users/login' });
   //   return;
   // }
+
   console.log(
     `${dateFilter.value.year}년 ${dateFilter.value.month}월 데이터 및 지출 내역 합산 요청`,
   );
@@ -65,22 +67,30 @@ const getChallenges = async () => {
       params: userInfo?.id ? { userId: userInfo.id } : {},
     });
 
-    const myChallenges = challengeRes.data;
+    // 💡 여러 개가 담긴 배열이므로 List로 이름을 지어줍니다.
+    const challengeList = challengeRes.data;
     const myExpenses = expensesRes.data;
 
-    const updatedChallenges = myChallenges.map((challenge) => {
+    const updatedChallenges = challengeList.map((challenge) => {
       const formattedMonth = String(challenge.month).padStart(2, '0');
       const targetYearMonth = `${challenge.year}-${formattedMonth}`;
 
       const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
         if (!expense.type || !expense.tag) return totalSum;
 
-        const isSameMonth = expense.date.startsWith(targetYearMonth);
-        const isSameType = expense.type.typetitle === challenge.type;
-        const isSameTag = expense.tag.tagtitle === challenge.tag;
+        const expTypeTitle = expense.type.typetitle || expense.type;
+        const expTagTitle = expense.tag.tagtitle || expense.tag;
+
+        const isSameMonth =
+          expense.date && expense.date.includes(targetYearMonth);
+
+        // 💡 낱개 과일인 challenge.type과 challenge.tag를 비교합니다.
+        const isSameType = expTypeTitle === challenge.type;
+        const isSameTag =
+          challenge.tag === '전체' || expTagTitle === challenge.tag;
 
         if (isSameMonth && isSameType && isSameTag) {
-          return totalSum + expense.amount;
+          return totalSum + Number(expense.amount);
         }
         return totalSum;
       }, 0);
@@ -111,7 +121,6 @@ onMounted(() => {
 });
 
 const handleAdd = () => {
-  console.log('추가 버튼 클릭됨');
   router.push({ name: 'challenges/add' });
 };
 </script>

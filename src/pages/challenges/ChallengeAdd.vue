@@ -46,8 +46,8 @@ const handleCancel = () => {
 const handleSave = async () => {
   console.log('저장 버튼 클릭됨');
 
-  // if (!userInfo.authenticated) {
-  //   alert('로그인 필요');
+  // if (!userInfo || !userInfo.authenticated) {
+  //   alert('로그인이 필요한 서비스입니다.');
   //   router.push({ name: 'users/login' });
   //   return;
   // }
@@ -67,19 +67,47 @@ const handleSave = async () => {
   }
   console.log('제목/목표 금액 검사 완료');
 
-  const newChallenge = {
-    title: challengeData.value.title,
-    tag: challengeData.value.tag,
-    targetAmount: challengeData.value.targetAmount * 10000,
-    type: challengeData.value.type,
-    currentAmount: 0,
-    year: now.getFullYear(),
-    month: now.getMonth() + 1,
-    userId: userInfo.id,
-    memo: memoText.value,
-  };
-
   try {
+    const expensesRes = await axios.get('/api/expenses', {
+      params: userInfo?.id ? { userId: userInfo.id } : {},
+    });
+    const myExpenses = expensesRes.data;
+    const targetYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+    console.log('API로 가져온 전체 지출 내역:', myExpenses);
+
+    const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
+      if (!expense.type || !expense.tag) return totalSum;
+
+      const expTypeTitle = expense.type.typetitle || expense.type;
+      const expTagTitle = expense.tag.tagtitle || expense.tag;
+
+      const isSameMonth =
+        expense.date && expense.date.includes(targetYearMonth);
+
+      const isSameType = expTypeTitle === challengeData.value.type;
+      const isSameTag =
+        challengeData.value.tag === '전체' ||
+        expTagTitle === challengeData.value.tag;
+
+      if (isSameMonth && isSameType && isSameTag) {
+        return totalSum + Number(expense.amount);
+      }
+      return totalSum;
+    }, 0);
+
+    const newChallenge = {
+      title: challengeData.value.title,
+      tag: challengeData.value.tag,
+      targetAmount: challengeData.value.targetAmount * 10000,
+      type: challengeData.value.type,
+      currentAmount: calculatedAmount,
+      year: now.getFullYear(),
+      month: now.getMonth() + 1,
+      userId: userInfo.id,
+      memo: memoText.value,
+    };
+
     await axios.post('/api/challenges', newChallenge);
 
     console.log('새 챌린지 등록 완료');

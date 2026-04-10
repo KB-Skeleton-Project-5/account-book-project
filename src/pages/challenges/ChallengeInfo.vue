@@ -72,50 +72,50 @@ const challenge = ref({
 });
 
 const getChallengeInfo = async () => {
-  // if (!userInfo.authenticated) {
-  //   alert('로그인 필요');
-  //   router.push({ name: 'users/login' });
-  //   return;
-  // }
-  
   const challengeId = route.params.id;
   console.log(`${challengeId}번 챌린지 상세 정보 요청`);
 
   try {
     const challengeRes = await axios.get(`/api/challenges/${challengeId}`);
-    
-    // if (challengeRes.data.userId !== userInfo.id) {
-    //   alert('다른 사람의 챌린지');
+    const challengeData = challengeRes.data;
+
+    // if (String(challengeData.userId) !== String(userInfo.id)) {
+    //   alert('다른 사용자의 챌린지에는 접근할 수 없습니다.');
     //   router.push({ name: 'challenges' });
     //   return;
     // }
-    
-    const myChallenge = challengeRes.data;
-
-    const formattedMonth = String(myChallenge.month).padStart(2, '0');
-    const targetYearMonth = `${myChallenge.year}-${formattedMonth}`;
+    const formattedMonth = String(challengeData.month).padStart(2, '0');
+    const targetYearMonth = `${challengeData.year}-${formattedMonth}`;
 
     const expensesRes = await axios.get(`/api/expenses`, {
-      params: userInfo?.id ? { userId: userInfo.id } : {}
+      params: userInfo?.id ? { userId: userInfo.id } : {},
     });
     const myExpenses = expensesRes.data;
 
     const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
       if (!expense.type || !expense.tag) return totalSum;
 
-      const isSameMonth = expense.date.startsWith(targetYearMonth);
-      const isSameType = expense.type.typetitle === myChallenge.type;
-      const isSameTag = expense.tag.tagtitle === myChallenge.tag;
+      const expTypeTitle = expense.type.typetitle || expense.type;
+      const expTagTitle = expense.tag.tagtitle || expense.tag;
+
+      const isSameMonth =
+        expense.date && expense.date.includes(targetYearMonth);
+
+      // 💡 여기서 모두 'challengeData'를 사용해서 비교하도록 통일했습니다!
+      const isSameType = expTypeTitle === challengeData.type;
+      const isSameTag =
+        challengeData.tag === '전체' || expTagTitle === challengeData.tag;
 
       if (isSameMonth && isSameType && isSameTag) {
-        return totalSum + expense.amount;
+        return totalSum + Number(expense.amount);
       }
       return totalSum;
     }, 0);
 
-    myChallenge.currentAmount = calculatedAmount;
-    challenge.value = myChallenge;
-    
+    challengeData.currentAmount = calculatedAmount;
+
+    // 계산이 다 끝난 완벽한 데이터를 드디어 화면에 보이는 'challenge'에 넣어줍니다.
+    challenge.value = challengeData;
   } catch (error) {
     console.error('상세 정보 및 지출 내역 합산 실패', error);
   }
@@ -126,7 +126,8 @@ onMounted(() => {
 });
 
 const percentage = computed(() => {
-  if (!challenge.value.targetAmount || challenge.value.targetAmount === 0) return 0;
+  if (!challenge.value.targetAmount || challenge.value.targetAmount === 0)
+    return 0;
   return (challenge.value.currentAmount / challenge.value.targetAmount) * 100;
 });
 
@@ -148,27 +149,29 @@ const handleHistory = () => {
 
   const lastDay = new Date(year, month, 0).getDate();
   const formattedMonth = String(month).padStart(2, '0');
-  
+
   const startDate = `${year}-${formattedMonth}-01`;
   const endDate = `${year}-${formattedMonth}-${String(lastDay).padStart(2, '0')}`;
 
-  const tagMap = {
-    식비: 'eat',
-    교통비: 'traffic',
-    쇼핑: 'shopping',
-    기타: 'etc',
+  const queryParams = {
+    startDate: startDate,
+    endDate: endDate,
+    type: challenge.value.type || '지출',
   };
 
-  const translatedTag = tagMap[challenge.value.tag] || challenge.value.tag;
+  if (challenge.value.tag !== '전체') {
+    const tagMap = {
+      식비: 'eat',
+      교통비: 'traffic',
+      쇼핑: 'shopping',
+      기타: 'etc',
+    };
+    queryParams.tags = tagMap[challenge.value.tag] || challenge.value.tag;
+  }
 
   router.push({
     name: 'expenses',
-    query: {
-      startDate: startDate,
-      endDate: endDate,
-      tags: translatedTag,
-      type: challenge.value.type || '지출',
-    },
+    query: queryParams,
   });
 };
 
