@@ -1,6 +1,8 @@
 <template>
   <DefaultLayout>
-    <AppHeader title="챌린지 HOME" />
+    <template #header>
+      <AppHeader title="챌린지 HOME" />
+    </template>
 
     <div class="challenge-container">
       <header class="challenge-header">
@@ -8,7 +10,7 @@
         <AppButton text="추가" type="single" @click="handleAdd" />
       </header>
 
-      <main class="card-list">
+      <div class="card-list">
         <router-link
           v-for="item in filteredChallenges"
           :key="item.id"
@@ -17,10 +19,12 @@
         >
           <ChallengeCard :challenge="item" />
         </router-link>
-      </main>
+      </div>
     </div>
 
-    <AppFooter />
+    <template #footer>
+      <AppFooter />
+    </template>
   </DefaultLayout>
 </template>
 
@@ -125,14 +129,9 @@ const handleAdd = () => {
 </script>
 
 <style scoped>
-/* 1. 어항(전체 화면) 크기 고정 및 반응형 처리 */
+/* 1. 💡 레이아웃: 이제 높이 계산(100vh)이 필요 없습니다! */
 .challenge-container {
-  width: 100%; /* 💡 추가: 모바일에서는 화면을 100% 꽉 채웁니다 */
-  max-width: 450px; /* PC에서는 너무 넓어지지 않게 450px로 고정 */
-  margin: 0 auto;
-  box-sizing: border-box; /* 💡 추가: 패딩을 너비에 포함시켜 삐져나가지 않게 함 */
-
-  height: calc(100vh - 140px);
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -142,51 +141,36 @@ const handleAdd = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 25px 10px 25px; /* 양옆 여백을 25px로 통일 */
+  padding: 20px 25px 10px 25px;
   flex-shrink: 0;
-  box-sizing: border-box;
 }
 
-/* 3. 스크롤되는 유리관 */
+/* 3. 카드 리스트 영역 */
 .card-list {
-  flex: 1;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 30px 25px 40px 25px;
-  box-sizing: border-box; /* 💡 추가: 스크롤바 영역이 화면 밖으로 밀려나지 않도록 보호 */
+  padding: 20px 25px 40px 25px; /* 하단 여백을 주어 푸터와 겹치지 않게 함 */
 }
 
-.card-list::-webkit-scrollbar {
-  display: none;
-}
-
-/* 4. 카드 링크 껍데기 */
+/* 4. 💖 카드 링크 껍데기 (용진님이 좋아하시는 쫀득한 효과 유지) */
 .card-link {
   text-decoration: none;
   color: inherit;
   display: block;
   width: 100%;
-
-  /* 💡 [수정] 애니메이션을 더 부드럽고 고급스럽게 (0.3초 + ease-out) */
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  will-change: transform; /* 브라우저에게 애니메이션 예고 (성능 최적화) */
+  will-change: transform;
 }
 
-/* 💡 [핵심 추가] 마우스를 올렸을 때 (Hover) */
 .card-link:hover {
-  /* 1. 위로 8px 이동하면서 1.02배 커짐 */
   transform: translateY(-8px) scale(1.02);
 }
 
-/* 💡 [핵심 추가] 마우스를 올렸을 때 자식 컴포넌트인 카드의 그림자를 더 진하게 */
 .card-link:hover :deep(.challenge-card) {
-  /* 기존 그림자보다 더 멀리 퍼지고 진하게 하여 '공중에 떴다'는 느낌을 줍니다 */
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
 }
 
-/* 터치 효과 (모바일/클릭 시) */
 .card-link:active {
   transform: scale(0.98);
 }

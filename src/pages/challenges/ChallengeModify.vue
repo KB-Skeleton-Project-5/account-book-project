@@ -1,23 +1,34 @@
 <template>
   <DefaultLayout>
-    <AppHeader title="챌린지 MODIFY" :back="true" backTo="challenges" />
-    <div v-if="isDataLoaded" class="challenge-modify-container">
-      <ChallengeSetup v-model="challengeData" />
-      <p>메모</p>
-      <MemoWrite v-model="memoText" />
-      <footer class="modify-action-buttons">
-        <AppButton
-          type="history"
-          text="취소"
-          @click="router.push({ name: 'challenges' })"
-        />
-        <AppButton type="single" text="수정" @click="handleUpdate" />
-      </footer>
+    <template #header>
+      <AppHeader title="챌린지 MODIFY" :back="true" backTo="challenges" />
+    </template>
+
+    <div class="modify-container">
+      <div v-if="isDataLoaded" class="challenge-modify-card">
+        <ChallengeSetup v-model="challengeData" />
+
+        <p class="section-title">메모</p>
+        <MemoWrite v-model="memoText" />
+
+        <footer class="modify-action-buttons">
+          <AppButton
+            type="history"
+            text="취소"
+            @click="router.push({ name: 'challenges' })"
+          />
+          <AppButton type="single" text="수정" @click="handleUpdate" />
+        </footer>
+      </div>
+
+      <div v-else class="loading-state">
+        <p>챌린지 정보 불러오는 중...</p>
+      </div>
     </div>
-    <div v-else style="text-align: center; padding: 50px; color: #666">
-      <p>챌린지 정보 불러오는 중</p>
-    </div>
-    <AppFooter />
+
+    <template #footer>
+      <AppFooter />
+    </template>
   </DefaultLayout>
 </template>
 
@@ -140,48 +151,46 @@ const handleUpdate = async () => {
 </script>
 
 <style scoped>
-/* 1. 하얀색 메인 카드 (Add/Modify 공통) */
-.challenge-modify-container {
-  width: calc(100% - 40px);
-  max-width: 450px; /* 메인 카드 폭과 맞춤 */
-  background-color: #ffffff;
-  border-radius: 20px; /* 메인 카드와 동일하게 20px */
-  padding: 32px; /* 여백을 조금 더 넓혀서 여유롭게 */
-  margin: 30px auto;
-  box-sizing: border-box;
+/* 💡 레이아웃: 이제 수동 높이 계산(100vh)이나 flex-1은 필요 없습니다! */
 
-  /* 💡 [핵심] 메인 카드와 동일한 깊고 부드러운 그림자 */
+.modify-container {
+  padding: 20px 0; /* 상하 여백으로 카드 배치 최적화 */
+}
+
+/* 🎨 카드 디자인 통일 (Add/Info 페이지와 완벽 동기화) */
+.challenge-modify-card {
+  width: calc(100% - 40px);
+  max-width: 450px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  margin: 0 auto;
+  box-sizing: border-box;
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
 
-.challenge-modify-container p {
+/* 섹션 타이틀 (메모 등) */
+.section-title {
   font-size: 16px;
   font-weight: 700;
-  color: #1e293b; /* 메인 제목과 같은 딥 블루 그레이 */
+  color: #1e293b;
   margin-top: 32px;
   margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
-/* 3. 하단 버튼 영역 */
-.challenge-modify-container footer {
-  margin-top: 40px; /* 메모 입력창과 하단 버튼 사이를 시원하게 띄워줍니다 */
-}
-
+/* 버튼 그룹 레이아웃 */
 .modify-action-buttons {
   display: flex;
-  justify-content: space-between; /* 양 끝으로 밀어내기! */
-  align-items: center;
+  gap: 12px; /* 버튼 사이 간격 */
   margin-top: 40px;
 }
 
-/* AppButton 내부의 btn-wrapper가 기본적으로 오른쪽 정렬(flex-end)을 하고 있어서,
-   공간을 골고루 차지하도록 살짝 너비를 줍니다. */
-.modify-action-buttons > div {
-  flex: 1; /* 두 버튼이 반반씩 영역을 가지도록 */
-}
-
-/* 첫 번째 버튼(취소)은 왼쪽으로 찰싹 붙이기 */
-.modify-action-buttons > div:first-child {
-  justify-content: flex-start;
+/* 로딩 상태 스타일 */
+.loading-state {
+  text-align: center;
+  padding: 50px;
+  color: #64748b;
+  font-weight: 500;
 }
 </style>

@@ -152,6 +152,23 @@
       },
       "userId": "4",
       "id": 15
+    },
+    {
+      "amount": 50000,
+      "date": "",
+      "title": "1",
+      "memo": "1",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 16
     }
   ],
   "calendars": [
@@ -435,14 +452,25 @@
     {
       "id": 2,
       "userId": "1",
-      "title": "3월 식비 절약",
+      "title": "3월 쇼핑 절약",
       "targetAmount": 300000,
-      "currentAmount": 100000,
+      "currentAmount": 500000,
       "type": "지출",
       "tag": "쇼핑",
       "memo": "이번 달은 커피 금지!",
       "year": 2026,
       "month": 3
+    },
+    {
+      "title": "4월 돈모으기",
+      "tag": "기타",
+      "targetAmount": 1800000,
+      "type": "수입",
+      "memo": "",
+      "currentAmount": 2750135,
+      "year": 2026,
+      "month": 4,
+      "id": 4
     }
   ]
 }

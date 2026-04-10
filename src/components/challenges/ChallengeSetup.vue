@@ -1,30 +1,31 @@
 <template>
   <div class="challenge-setup">
-    <input type="text" v-model="form.title" placeholder="새 목표" />
+    <p>목표 제목</p>
+    <input type="text" v-model="form.title" placeholder="예: 4월 교통비 절약" />
 
-    <div>
+    <p>챌린지 유형</p>
+    <select v-model="form.type">
+      <option value="지출">지출 챌린지 (아껴 쓰기)</option>
+      <option value="수입">수입 챌린지 (돈 모으기)</option>
+    </select>
+
+    <p>목표 금액</p>
+    <div class="amount-container">
+      <input type="number" v-model="form.targetAmount" placeholder="0" />
+      <span class="unit-label">
+        만원 {{ form.type === '지출' ? '이하 지출' : '이상 수입' }}
+      </span>
+    </div>
+
+    <p>카테고리 설정</p>
+    <div class="tag-container">
       <select v-model="form.tag">
         <option v-for="tag in availableTags" :key="tag" :value="tag">
           {{ tag }}
         </option>
       </select>
-      <span>에서</span>
+      <span class="suffix-label">에서</span>
     </div>
-
-    <div class="amount-container">
-      <input
-        type="text"
-        :value="form.targetAmount"
-        @input="validateAmount"
-        placeholder="0"
-      />
-      <span>만원 {{ form.type === '수입' ? '이상' : '이하' }}</span>
-    </div>
-
-    <select v-model="form.type">
-      <option value="수입">수입</option>
-      <option value="지출">지출</option>
-    </select>
   </div>
 </template>
 

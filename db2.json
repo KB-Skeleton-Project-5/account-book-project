@@ -516,17 +516,6 @@
       "id": 5
     },
     {
-      "title": "4월 모은돈",
-      "tag": "전체",
-      "targetAmount": 2000000,
-      "type": "수입",
-      "memo": "",
-      "currentAmount": 2750135,
-      "year": 2026,
-      "month": 4,
-      "id": 6
-    },
-    {
       "title": "부업 하기",
       "tag": "부업",
       "targetAmount": 500000,

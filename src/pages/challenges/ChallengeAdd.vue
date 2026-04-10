@@ -1,16 +1,26 @@
 <template>
   <DefaultLayout>
-    <AppHeader title="챌린지 ADD" :back="true" backTo="challenges" />
-    <div class="challenge-add-container">
-      <ChallengeSetup v-model="challengeData" />
-      <p>메모</p>
-      <MemoWrite v-model="memoText" />
-      <footer class="add-action-buttons">
-        <AppButton type="history" text="취소" @click="handleCancel" />
-        <AppButton type="single" text="저장" @click="handleSave" />
-      </footer>
+    <template #header>
+      <AppHeader title="챌린지 ADD" :back="true" backTo="challenges" />
+    </template>
+
+    <div class="add-container">
+      <div class="challenge-add-card">
+        <ChallengeSetup v-model="challengeData" />
+
+        <p class="section-title">메모</p>
+        <MemoWrite v-model="memoText" />
+
+        <footer class="add-action-buttons">
+          <AppButton type="history" text="취소" @click="handleCancel" />
+          <AppButton type="single" text="저장" @click="handleSave" />
+        </footer>
+      </div>
     </div>
-    <AppFooter />
+
+    <template #footer>
+      <AppFooter />
+    </template>
   </DefaultLayout>
 </template>
 
@@ -120,22 +130,14 @@ const handleSave = async () => {
 </script>
 
 <style scoped>
-/* 💡 [공통] 푸터 고정 레이아웃 */
-.page-viewport {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+/* 💡 [수정] 레이아웃 관련 복잡한 CSS(vh, flex-1 등)는 모두 삭제되었습니다! */
+
+.add-container {
+  padding: 20px 0; /* 상하 여백으로 카드에 숨통을 틔워줍니다 */
 }
 
-.page-content {
-  flex: 1;
-  display: flex;
-  align-items: center; /* 💡 카드를 세로 중앙에 배치하고 싶을 때 사용 */
-  padding: 20px 0;
-}
-
-/* 💡 최신식 카드 스타일 (이전에 맞춘 디자인 통일) */
-.challenge-setup-card {
+/* 🎨 카드 디자인 통일 (INFO 페이지와 일치) */
+.challenge-add-card {
   width: calc(100% - 40px);
   max-width: 450px;
   background-color: #ffffff;
@@ -143,9 +145,21 @@ const handleSave = async () => {
   padding: 32px;
   margin: 0 auto;
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 }
 
-.button-group {
+/* 중간 타이틀 (메모 등) */
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+/* 버튼 배치 (취소/저장) */
+.add-action-buttons {
   display: flex;
   gap: 12px;
   margin-top: 40px;
