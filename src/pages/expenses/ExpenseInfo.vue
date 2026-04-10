@@ -54,7 +54,7 @@ const handleEdit = () => {
 
 // 일단 삭제 후 메인으로 이동 (삭제 모달 달기 전)
 const handleDelete = async() => {
-  await deleteExpenses(Number(route.params.id))  // <- id로 삭제
+  await deleteExpenses(route.params.id)  // <- id로 삭제
   router.push({ name: 'main' });        // 삭제 후 목록으로 이동
 };
 

@@ -34,6 +34,7 @@
             >
               지출
             </button>
+            <span class="fixed-legend">⭐ 고정지출 표시</span>
           </div>
         </template>
 
@@ -68,10 +69,10 @@
                 item.tag.tagtitle
               }}</span>
               <span class="item-name">{{ item.title }}</span>
-              <span class="item-pay"
+              <span class="item-pay">
+                <span v-if="item.isFixed" class="fixed-star">⭐</span
                 >{{ item.paymentMethod }}
-                <span v-if="item.isFixed" class="fixed-star">⭐</span></span
-              >
+              </span>
               <span class="item-amount"
                 >{{ item.amount.toLocaleString() }}원</span
               >
@@ -203,6 +204,12 @@ const groupedExpenses = computed(() => {
   display: flex;
   gap: 6px;
   margin-bottom: 12px;
+  align-items: center;
+}
+.fixed-legend {
+  margin-left: auto;
+  font-size: 0.65rem;
+  color: #7a7a7a;
 }
 .tab-btn {
   background: #f0f0f0;

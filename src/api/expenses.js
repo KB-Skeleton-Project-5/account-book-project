@@ -1,16 +1,16 @@
 import api from './index.js';
 
 // 지출 목록 조회
-export const getExpenses = () => api.get('/expenses');
+export const getExpenses = () => api.get('/expensesdb');
 
 // 지출 상세 조회
-export const getExpense = (id) => api.get(`/expenses/${id}`);
+export const getExpense = (id) => api.get(`/expensesdb/${id}`);
 
 // 지출 추가
-export const createExpense = (data) => api.post('/expenses', data);
+export const createExpense = (data) => api.post('/expensesdb', data);
 
 // 지출 수정
-export const updateExpense = (id, data) => api.put(`/expenses/${id}`, data);
+export const updateExpenses = (id, data) => api.put(`/expensesdb/${id}`, data);
 
 // 지출 삭제
-export const deleteExpense = (id) => api.delete(`/expenses/${id}`);
+export const deleteExpenses = (id) => api.delete(`/expensesdb/${id}`);
