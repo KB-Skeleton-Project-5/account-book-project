@@ -2,15 +2,40 @@
     <!-- 금액 Input -->
     <div class="wrapper">
         <label>금액</label>
-        <input type="number" v-model.number="amount" placeholder="0">
+        <input 
+        type="number" 
+        v-model.number="amount" 
+        @input="handleInput" 
+        placeholder="0"
+        :readonly="props.readonly">
         <span>원</span>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const amount = ref('');
+const emit = defineEmits(['submit-amount']);
+
+const props = defineProps({
+    value : [ Number, String ],
+    readonly : Boolean,
+});
+
+// props.value를 계속 지켜보고 있음
+watch(() => props.value, (val) => {
+    // 새로운 값(val) 이 들어오면 내부 amount에 값 넣기
+    if(val) amount.value = val;
+    // 컴포넌트가 처음 생성될 때 바로 실행
+    // 만약에 이거 없으면 빈값으로 뜨고 값이 바뀔 때만 실행되서 초기 데이터가 안 뜰수도,,
+    // 즉시 실행?하는 느낌
+}, { immediate : true });
+
+const handleInput = () => {
+    // ref는 value,,
+    emit('submit-amount', amount.value)
+}
 </script>
 
 <style scoped>

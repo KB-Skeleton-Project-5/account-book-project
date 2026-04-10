@@ -1,26 +1,48 @@
 <template>
-  <!-- 수입, 지출, 이체 탭 -->
+  <!-- 수입, 지출 탭 -->
   <div class="wrapper">
     <label>분류</label>
     <div class="tab-group">
       <button
         v-for="tab in tabs"
-        :key="tab"
-        @click="selected = tab"
-        :class="{ active : selected === tab }"
+        :key="tab.typeid"
+        @click="handleSelect(tab)"
+        :class="{ active: selected.typeid === tab.typeid }"
         class="tab-btn"
+        :disabled="props.readonly"
       >
-        {{ tab }}
+        {{ tab.typetitle }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const selected = ref('지출');
-const tabs = ['수입', '지출', '이체'];
+const tabs = [
+  { typeid: 'deposit', typetitle: '수입' },
+  { typeid: 'withdrawal', typetitle: '지출' }
+]
+
+const props = defineProps({
+    value : [ Object ],
+    readonly : Boolean,
+});
+
+const selected = ref(tabs[1]);  // 기본값 '지출'
+const emit = defineEmits(['submit-tab']);
+
+watch(() => props.value, (val) => {
+    if(val) selected.value = val;
+}, { immediate : true });
+
+
+
+const handleSelect = (tab) => {
+  selected.value = tab
+  emit('submit-tab', tab)
+}
 </script>
 
 <style scoped>

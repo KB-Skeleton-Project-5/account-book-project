@@ -4,21 +4,46 @@
         <div class="tag-group">
             <button
             v-for="tag in tags"
-            :key="tag"
-            @click="selected = tag"
-            :class="{ active : selected === tag }"
+            :key="tag.tagid"
+            @click="handleSelect(tag)"
+            :class="{ active: selected.tagid === tag.tagid }"
             class="tag-btn"
+            :disabled="props.readonly"
             >
-            {{ tag }}</button>
+            {{ tag.tagtitle }}
+            </button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const selected = ref('식비');
-const tags = ['식비', '교통비', '쇼핑', '기타' , '+'];
+const tags = [
+  { tagid: 'eat', tagtitle: '식비' },
+  { tagid: 'traffic', tagtitle: '교통비' },
+  { tagid: 'shopping', tagtitle: '쇼핑' },
+  { tagid: 'etc', tagtitle: '기타' }
+]
+
+const selected = ref({});  // 초기 값 빈 객체로
+const emit = defineEmits(['submit-tag']);
+
+const props = defineProps({
+    value : [ Object ],
+    readonly : Boolean,
+});
+
+watch(() => props.value, (val) => {
+    if(val) selected.value = val;
+}, { immediate : true });
+
+
+
+const handleSelect = (tag) => {
+  selected.value = tag
+  emit('submit-tag', tag)
+}
 </script>
 
 

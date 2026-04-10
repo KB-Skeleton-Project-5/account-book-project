@@ -1,10 +1,10 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="지출 추가" :back="true" backTo="expenses"/>
+      <AppHeader title="거래 내역 등록" :back="true" backTo="expenses"/>
     </template>
 
-    <ExpenseForm />
+    <ExpenseForm ref="expenseFormRef" @submit-form="handleSubmit" />
     <AppButton text="저장" @click="handleSave" />
 
     <template #footer>
@@ -20,14 +20,24 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import axios from 'axios';
+
 
 const router = useRouter();
+const expenseFormRef = ref(null)
 
 const handleSave = () => {
-  router.push({ name: 'expenses' });
+  expenseFormRef.value.submitForm()
+}
+
+const handleSubmit = async (formData) => {
+  try{
+    console.log('저장 데이터 : ', formData);
+    await axios.post('/api/expensesdb', {...formData, userId: 1})
+    router.push({ name: 'expenses' })
+  } catch (e) {
+    console.error('저장 실패 : ', e); 
+  }
 };
 </script>
-
-<style scoped>
-
-</style>

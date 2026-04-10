@@ -2,14 +2,32 @@
     <!-- 제목(내역) Input -->
     <div class="wrapper">
         <label>제목</label>
-        <input type="text" v-model="title">
+        <input 
+        type="text" 
+        v-model="title" 
+        @input="handleInput"
+        :readonly="props.readonly">
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+    value : [ String ],
+    readonly : Boolean,
+});
+
+watch(() => props.value, (val) => {
+    if(val) title.value = val;
+}, { immediate : true });
 
 const title = ref('')
+const emit = defineEmits(['submit-title']);
+
+const handleInput = () => {
+    emit('submit-title',title.value)
+}
 </script>
 
 <style scoped>
