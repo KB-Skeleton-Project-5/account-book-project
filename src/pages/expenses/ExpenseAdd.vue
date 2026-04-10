@@ -26,7 +26,6 @@ import { getUserInfo } from '@/util/authUtil.js';
 
 
 const userInfo = getUserInfo();
-console.log(userInfo.id);
 
 
 const router = useRouter();
@@ -39,7 +38,7 @@ const handleSave = () => {
 const handleSubmit = async (formData) => {
   try{
     console.log('저장 데이터 : ', formData);
-    await axios.post('/api/expensesdb', {...formData, userId: userInfo.id})
+    await axios.post('/api/expensesdb', {...formData, userId: user.id})
     router.push({ name: 'expenses' })
   } catch (e) {
     console.error('저장 실패 : ', e); 
