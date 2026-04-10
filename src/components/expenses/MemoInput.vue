@@ -18,11 +18,13 @@ const props = defineProps({
     readonly : Boolean,
 });
 
+const memo = ref('');
+
 watch(() => props.value, (val) => {
     if(val) memo.value = val;
 }, { immediate : true });
 
-const memo = ref('');
+
 const emit = defineEmits(['submit-memo']);
 
 const handleInput = () => {

@@ -1,5 +1,5 @@
 <template>
-  <!-- 수입, 지출 탭 -->
+  <!-- 수입/지출 분류 탭 UI 영역 -->
   <div class="wrapper">
     <label>분류</label>
     <div class="tab-group">
@@ -30,7 +30,8 @@ const props = defineProps({
     readonly : Boolean,
 });
 
-const selected = ref(tabs[1]);  // 기본값 '지출'
+// tabs[1]은 배열의 두 번째 항목 즉, 기본값 '지출'
+const selected = ref(tabs[1]); 
 const emit = defineEmits(['submit-tab']);
 
 watch(() => props.value, (val) => {

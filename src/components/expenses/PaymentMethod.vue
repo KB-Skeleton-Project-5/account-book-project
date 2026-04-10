@@ -1,7 +1,10 @@
 <template>
+    <!-- 결제수단 선택 UI 영역 -->
     <div class="wrapper">
         <label>결제수단</label>
+        <!-- radio-group : 라디오 버튼 여러개 묶어주는 박스 -->
         <div class="radio-group">
+            <!-- radio-label : 라디오 버튼 + 텍스트를 함께 묶은 label -->
             <label class="radio-label">
                 <input 
                 v-model="payment" 
@@ -20,6 +23,7 @@
                 value="현금"
                 @change="handleChange"
                 :disabled="props.readonly">
+                <!-- 라디오 버튼은 readonly 속성을 지원하지 않아서 disabled 사용 -->
                 <span>현금</span>
             </label>
         </div>
@@ -38,7 +42,7 @@ watch(() => props.value, (val) => {
     if(val) payment.value = val;
 }, { immediate : true });
 
-const payment = ref('card');
+const payment = ref('');
 const emit = defineEmits(['submit-payment']);
 
 const handleChange = () => {
