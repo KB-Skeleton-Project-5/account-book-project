@@ -1,7 +1,7 @@
 // 로그인 / 로그아웃 / 세션 / 유저 정보 유틸 함수 모음
 import axios from 'axios'
 
-const USERS_URI = 'http://localhost:3000/users'
+const USERS_URI = '/api/usersdb'
 
 // ==============================
 // 1. 로그인 세션 저장 (localStorage)
@@ -111,6 +111,38 @@ const deleteUserProcess = async (id, successCallback, failCallback) => {
     alert('회원탈퇴 중 오류가 발생했습니다: ' + error)
   }
 }
+// const deleteUserProcess = async (id, successCallback, failCallback) => {
+//   try {
+//     // 1. 유저 삭제
+//     await axios.delete(`${USERS_URI}/${id}`)
+
+//     // 2. 관련 데이터 직접 삭제
+//     const expenseRes = await axios.get(`/api/expensesdb?userId=${id}`)
+//     for (const item of expenseRes.data) {
+//       await axios.delete(`/api/expensesdb/${item.id}`)
+//     }
+
+//     const calendarRes = await axios.get(`/api/calendarsdb?userId=${id}`)
+//     for (const item of calendarRes.data) {
+//       await axios.delete(`/api/calendarsdb/${item.id}`)
+//     }
+
+//     const summaryRes = await axios.get(`/api/summarydb?userId=${id}`)
+//     for (const item of summaryRes.data) {
+//       await axios.delete(`/api/summarydb/${item.id}`)
+//     }
+
+//     const challengeRes = await axios.get(`/api/challengesdb?userId=${id}`)
+//     for (const item of challengeRes.data) {
+//       await axios.delete(`/api/challengesdb/${item.id}`)
+//     }
+
+//     successCallback()
+//   } catch (error) {
+//     if (failCallback) failCallback()
+//     alert('회원탈퇴 중 오류가 발생했습니다: ' + error)
+//   }
+// }
 
 export {
   getUserInfo,

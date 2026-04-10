@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-      <AppHeader title="회원탈퇴" :back="true" backTo="users/edit" />
+      <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
     
 
     <div class="warn-box">
@@ -44,6 +44,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { deleteUserProcess,logoutProcess } from '@/util/authUtil'
 import AppHeader from '@/layouts/AppHeader.vue'
 
 const router = useRouter()
@@ -67,11 +68,33 @@ function closeModal() {
   isAgreed.value = false
 }
 
-function handleDelete() {
+async function handleDelete() {
+  // 입력한 아이디/비밀번호로 본인 확인
+  const response = await fetch(
+    `/api/usersdb?userId=${form.userId}&pw=${form.pw}`
+  )
+  const users = await response.json()
+
+  if (users.length === 0) {
+    alert('아이디 또는 비밀번호가 틀렸습니다')
+    closeModal()
+    return
+  }
   
-  console.log('탈퇴 요청:', form)
-  showModal.value = false
-  router.push({name:'users/login'})
+  const user = users[0]
+
+  deleteUserProcess(
+    user.id,
+    () => {
+      logoutProcess(() => {
+        router.push({ name: 'users/login' })
+      })
+    },
+    () => {
+      alert('탈퇴에 실패했습니다')
+      closeModal()
+    }
+  )
 }
 </script>
 

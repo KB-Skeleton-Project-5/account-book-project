@@ -59,7 +59,8 @@ const form = reactive({
 
 const pwConfirm = ref('')
 onMounted(async () => {
-
+  const userInfo = getUserInfo()
+  
   if(!userInfo.authenticated) {
     router.push({name:'users/login'})
     return
@@ -77,10 +78,10 @@ onMounted(async () => {
 
 async function handleSave() {
   if (form.newPw && form.newPw !== pwConfirm.value) {
-    console.log('비밀번호가 일치하지 않습니다')
+    alert('비밀번호가 일치하지 않습니다')
     return
   }
-  const userInfo = getUserInfo
+  const userInfo = getUserInfo()
 
 const updateData = {
     name: form.name,
@@ -94,6 +95,7 @@ if (form.newPw) {
     userInfo.id,
     updateData,
     () => {
+      alert('수정이 완료되었습니다')
       console.log('수정 성공')
       router.push({ name: 'users/info' })
     },

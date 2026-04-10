@@ -30,6 +30,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { updateUserProcess } from '@/util/authUtil'
 import AppButton from '@/components/commons/AppButton.vue'
 import AppHeader from '@/layouts/AppHeader.vue'
 
@@ -42,13 +43,32 @@ const form = reactive({
 
 const newPwConfirm = ref('')
 
-function handleReset() {
+async function handleReset() {
   if (form.newPw !== newPwConfirm.value) {
-    console.log('비밀번호가 일치하지 않습니다')
+    alert('비밀번호가 일치하지 않습니다')
     return
   }
-  // TODO: 서버 비밀번호 재설정 요청 연결
-  console.log('비밀번호 재설정:', form)
+  const response = await fetch(`/api/usersdb/?userId=${form.userId}`)
+  const users = await response.json()
+
+  if(users.length === 0 ){
+    alert('존재하지 않는 아이디입니다')
+    return
+  }
+
+  const user = users[0]
+
+  updateUserProcess(
+    user.id, 
+    { pw: form.newPw },
+    () => {
+      alert('비밀번호가 변경되었습니다')
+      router.push({ name: 'users/login'})
+    },
+    () => {
+      alert('비밀번호변경에 실패했습니다')
+    }
+  )
 }
 </script>
 
