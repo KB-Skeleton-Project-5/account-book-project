@@ -95,6 +95,7 @@ if (form.newPw) {
     userInfo.id,
     updateData,
     () => {
+      alert('수정이 완료되었습니다')
       console.log('수정 성공')
       router.push({ name: 'users/info' })
     },

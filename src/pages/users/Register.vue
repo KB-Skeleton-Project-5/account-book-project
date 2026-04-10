@@ -32,7 +32,7 @@
 
     <div class="btn-area">
       
-      <app-button text="저장" @click="handleSignup", @keyup.enter="handleSignup"/>
+      <app-button text="저장" @click="handleSignup" @keyup.enter="handleSignup"/>
     </div> 
 
   </div>
@@ -61,6 +61,7 @@ const pwConfirm = ref('')
 
  function handleSignup() {
   if (form.pw !== pwConfirm.value) {
+    alert('비밀번호가 일치하지 않습니다')
     console.log('비밀번호가 일치하지 않습니다')
     return
   }

@@ -4,7 +4,7 @@
     
 
     <div class="profile-area">
-      <div class="avatar">{{ member.name[0] }}</div>
+      <div class="avatar">{{ member.name ? member.name[0] : '' }}</div>
     </div>
 
     <div class="form-area">
@@ -72,7 +72,10 @@ if(user){
 function handleLogout() {
   // TODO: 로그인 상태 초기화 연결
   console.log('로그아웃')
-  router.push({ name: 'users/login' })
+  logoutProcess(()=> {
+     router.push({ name: 'users/login' })
+  })
+ 
 }
 </script>
 

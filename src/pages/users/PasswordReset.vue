@@ -48,7 +48,7 @@ async function handleReset() {
     alert('비밀번호가 일치하지 않습니다')
     return
   }
-  const response = await fetch(`http://localhost:3000/users?userId=${form.userId}`)
+  const response = await fetch(`/api/usersdb/?userId=${form.userId}`)
   const users = await response.json()
 
   if(users.length === 0 ){
