@@ -118,57 +118,22 @@
       "id": 9
     },
     {
-      "amount": 343,
-      "date": "2026-04-06",
-      "title": "asdf",
-      "memo": "sf",
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "id": 10
-    },
-    {
-      "amount": 1232456789,
-      "date": "2026-04-10",
-      "title": "123",
-      "memo": "",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": 1,
-      "id": 11
-    },
-    {
-      "amount": 100,
-      "date": "2026-04-10",
-      "title": "123",
+      "amount": 200,
+      "date": "2026-04-01",
+      "title": "사탕",
       "memo": "",
       "paymentMethod": "현금",
       "isFixed": false,
       "tag": {
-        "tagid": "shopping",
-        "tagtitle": "쇼핑"
+        "tagid": "eat",
+        "tagtitle": "식비"
       },
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
       "userId": 4,
-      "id": 12
+      "id": 13
     }
   ],
   "calendarsdb": [
