@@ -118,6 +118,24 @@
       "id": 9
     },
     {
+      "amount": 200,
+      "date": "2026-04-01",
+      "title": "사탕",
+      "memo": "",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": "4",
+      "id": 13
+    },
+    {
       "amount": 250000,
       "date": "2026-04-05",
       "title": "훈련장려금",
@@ -411,7 +429,7 @@
     },
     {
       "id": 28,
-      "userId": "1",
+      "userId": 1,
       "year": 2026,
       "month": 4,
       "income": 3200000,
