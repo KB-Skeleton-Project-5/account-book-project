@@ -28,6 +28,11 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
+
+
+const userInfo = getUserInfo();
+console.log(userInfo.id);
 
 
 const router = useRouter();
@@ -54,7 +59,7 @@ const handleSave = () => {
 
 const handleSubmit = async(data) => {
     try {
-        await axios.put(`/api/expensesdb/${route.params.id}`, {...data, userId : 1});
+        await axios.put(`/api/expensesdb/${route.params.id}`, {...data, userId : userInfo.id});
         router.push({ name : 'expenses' });
     } catch (e) {
         console.error('수정 실패 : ', e);

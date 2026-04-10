@@ -22,6 +22,11 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
+
+
+const userInfo = getUserInfo();
+console.log(userInfo.id);
 
 
 const router = useRouter();
@@ -34,7 +39,7 @@ const handleSave = () => {
 const handleSubmit = async (formData) => {
   try{
     console.log('저장 데이터 : ', formData);
-    await axios.post('/api/expensesdb', {...formData, userId: 1})
+    await axios.post('/api/expensesdb', {...formData, userId: userInfo.id})
     router.push({ name: 'expenses' })
   } catch (e) {
     console.error('저장 실패 : ', e); 
