@@ -116,6 +116,23 @@
         "typetitle": "수입"
       },
       "id": 9
+    },
+    {
+      "amount": 343,
+      "date": "2026-04-06",
+      "title": "asdf",
+      "memo": "sf",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 10
     }
   ],
   "calendarsdb": [
