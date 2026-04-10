@@ -1,5 +1,5 @@
 {
-  "usersdb": [
+  "users": [
     {
       "id": 1,
       "userId": "user_001",
@@ -10,10 +10,10 @@
       "profileImage": "https://..."
     }
   ],
-  "expensesdb": [
+  "expenses": [
     {
       "id": 2,
-      "userId": 1,
+      "userId": "1",
       "date": "2026-04-02",
       "title": "김밥",
       "type": {
@@ -31,7 +31,7 @@
     },
     {
       "id": 3,
-      "userId": 1,
+      "userId": "1",
       "date": "2026-04-03",
       "title": "버스비",
       "type": {
@@ -49,7 +49,7 @@
     },
     {
       "id": 4,
-      "userId": 1,
+      "userId": "1",
       "date": "2026-04-04",
       "title": "월급",
       "type": {
@@ -67,7 +67,7 @@
     },
     {
       "id": 5,
-      "userId": 1,
+      "userId": "1",
       "date": "2026-04-05",
       "title": "올리브영",
       "type": {
@@ -132,14 +132,50 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": 4,
+      "userId": "4",
       "id": 13
+    },
+    {
+      "amount": 250000,
+      "date": "2026-04-05",
+      "title": "훈련장려금",
+      "memo": "KB IT's Your Life 7기 훈련 장려금 입금",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "userId": "4",
+      "id": 14
+    },
+    {
+      "amount": 15000,
+      "date": "2026-04-10",
+      "title": "마라탕",
+      "memo": "나를 위한 선물",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": "4",
+      "id": 15
     }
   ],
   "calendarsdb": [
     {
       "id": 1,
-      "userId": 1,
+      "userId": "1",
       "title": "월급날",
       "date": "2026-04-01",
       "time": "09:00",
@@ -150,7 +186,7 @@
   "summarydb": [
     {
       "id": 1,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 1,
       "income": 2500000,
@@ -159,7 +195,7 @@
     },
     {
       "id": 2,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 2,
       "income": 2600000,
@@ -168,7 +204,7 @@
     },
     {
       "id": 3,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 3,
       "income": 2700000,
@@ -177,7 +213,7 @@
     },
     {
       "id": 4,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 4,
       "income": 2800000,
@@ -186,7 +222,7 @@
     },
     {
       "id": 5,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 5,
       "income": 2500000,
@@ -195,7 +231,7 @@
     },
     {
       "id": 6,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 6,
       "income": 3000000,
@@ -204,7 +240,7 @@
     },
     {
       "id": 7,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 7,
       "income": 2900000,
@@ -213,7 +249,7 @@
     },
     {
       "id": 8,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 8,
       "income": 3100000,
@@ -222,7 +258,7 @@
     },
     {
       "id": 9,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 9,
       "income": 2800000,
@@ -231,7 +267,7 @@
     },
     {
       "id": 10,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 10,
       "income": 3200000,
@@ -240,7 +276,7 @@
     },
     {
       "id": 11,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 11,
       "income": 3000000,
@@ -249,7 +285,7 @@
     },
     {
       "id": 12,
-      "userId": 1,
+      "userId": "1",
       "year": 2024,
       "month": 12,
       "income": 3500000,
@@ -258,7 +294,7 @@
     },
     {
       "id": 13,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 1,
       "income": 2600000,
@@ -267,7 +303,7 @@
     },
     {
       "id": 14,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 2,
       "income": 2700000,
@@ -276,7 +312,7 @@
     },
     {
       "id": 15,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 3,
       "income": 2800000,
@@ -285,7 +321,7 @@
     },
     {
       "id": 16,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 4,
       "income": 2900000,
@@ -294,7 +330,7 @@
     },
     {
       "id": 17,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 5,
       "income": 3000000,
@@ -303,7 +339,7 @@
     },
     {
       "id": 18,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 6,
       "income": 3100000,
@@ -312,7 +348,7 @@
     },
     {
       "id": 19,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 7,
       "income": 2900000,
@@ -321,7 +357,7 @@
     },
     {
       "id": 20,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 8,
       "income": 3200000,
@@ -330,7 +366,7 @@
     },
     {
       "id": 21,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 9,
       "income": 3000000,
@@ -339,7 +375,7 @@
     },
     {
       "id": 22,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 10,
       "income": 3300000,
@@ -348,7 +384,7 @@
     },
     {
       "id": 23,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 11,
       "income": 3100000,
@@ -357,7 +393,7 @@
     },
     {
       "id": 24,
-      "userId": 1,
+      "userId": "1",
       "year": 2025,
       "month": 12,
       "income": 3600000,
@@ -366,7 +402,7 @@
     },
     {
       "id": 25,
-      "userId": 1,
+      "userId": "1",
       "year": 2026,
       "month": 1,
       "income": 2700000,
@@ -375,7 +411,7 @@
     },
     {
       "id": 26,
-      "userId": 1,
+      "userId": "1",
       "year": 2026,
       "month": 2,
       "income": 2800000,
@@ -384,7 +420,7 @@
     },
     {
       "id": 27,
-      "userId": 1,
+      "userId": "1",
       "year": 2026,
       "month": 3,
       "income": 2800000,
@@ -393,7 +429,7 @@
     },
     {
       "id": 28,
-      "userId": 1,
+      "userId": "1",
       "year": 2026,
       "month": 4,
       "income": 3200000,
@@ -404,7 +440,7 @@
   "challengesdb": [
     {
       "id": 1,
-      "userId": 1,
+      "userId": "1",
       "title": "4월 식비 절약",
       "targetAmount": 300000,
       "type": "SPENDING",
@@ -412,6 +448,17 @@
       "memo": "이번 달은 외식 금지!",
       "year": 2026,
       "month": 4
+    },
+    {
+      "id": 2,
+      "userId": "1",
+      "title": "3월 식비 절약",
+      "targetAmount": 300000,
+      "type": "SPENDING",
+      "tag": "커피 값",
+      "memo": "이번 달은 커피 금지!",
+      "year": 2026,
+      "month": 3
     }
   ]
 }
