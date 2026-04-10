@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const date = ref(new Date().toISOString().split('T')[0]);
 /// new Date().toISOString().split('T')[0]는 JS에서 현재 날짜를 YYYY-MM-DD 형식
@@ -21,11 +21,16 @@ const props = defineProps({
     readonly : Boolean,
 });
 
+
+const emit = defineEmits(['submit-date']);
+
 watch(() => props.value, (val) => {
     if(val) date.value = val;
 }, { immediate : true });
 
-const emit = defineEmits(['submit-date']);
+onMounted(() => {
+    emit('submit-date',date.value);
+});
 
 const handleInput = () => {
     emit('submit-date',date.value)

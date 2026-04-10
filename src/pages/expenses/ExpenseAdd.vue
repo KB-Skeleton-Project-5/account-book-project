@@ -33,7 +33,8 @@ const handleSave = () => {
 
 const handleSubmit = async (formData) => {
   try{
-    await axios.post('/api/expensesdb', formData)
+    console.log('저장 데이터 : ', formData);
+    await axios.post('/api/expensesdb', {...formData, userId: 1})
     router.push({ name: 'expenses' })
   } catch (e) {
     console.error('저장 실패 : ', e); 
