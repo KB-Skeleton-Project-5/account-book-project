@@ -4,12 +4,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/main',
       name: 'main',
       component: () => import('../pages/main/MainHome.vue'),
     },
     {
-      path: '/users/login',
+      path: '/',
       name: 'users/login',
       component: () => import('../pages/users/Login.vue'),
     },
@@ -111,37 +111,37 @@ const router = createRouter({
   ],
 });
 
-import { getUserInfo } from '../util/authUtil.js'
+// import { getUserInfo } from '../util/authUtil.js'
 
-// 로그인이 필요한 페이지 목록
-const authRequiredPages = [
-  'main',
-  'users/info',
-  'users/edit',
-  'users/delete',
-  'expenses',
-  'expenses/add',
-  'expenses/modify/id',
-  'expenses/info/id',
-  'summaries',
-  'calendars',
-  'calendars/add',
-  'calendars/info',
-  'calendars/modify',
-  'challenges',
-  'challenges/add',
-  'challenges/info',
-  'challenges/modify',
-]
+// // 로그인이 필요한 페이지 목록
+// const authRequiredPages = [
+//   'main',
+//   'users/info',
+//   'users/edit',
+//   'users/delete',
+//   'expenses',
+//   'expenses/add',
+//   'expenses/modify/id',
+//   'expenses/info/id',
+//   'summaries',
+//   'calendars',
+//   'calendars/add',
+//   'calendars/info',
+//   'calendars/modify',
+//   'challenges',
+//   'challenges/add',
+//   'challenges/info',
+//   'challenges/modify',
+// ]
 
-router.beforeEach((to, from, next) => {
-  const userInfo = getUserInfo()
+// router.beforeEach((to, from, next) => {
+//   const userInfo = getUserInfo()
 
-  if (authRequiredPages.includes(to.name) && !userInfo.authenticated) {
-    next({ name: 'users/login' })
-  } else {
-    next()
-  }
-})
+//   if (authRequiredPages.includes(to.name) && !userInfo.authenticated) {
+//     next({ name: 'users/login' })
+//   } else {
+//     next()
+//   }
+// })
 
 export default router;

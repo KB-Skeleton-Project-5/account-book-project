@@ -1,7 +1,7 @@
 // 로그인 / 로그아웃 / 세션 / 유저 정보 유틸 함수 모음
 import axios from 'axios'
 
-const USERS_URI = 'http://localhost:3000/users'
+const USERS_URI = 'http://localhost:3000/usersdb'
 
 // ==============================
 // 1. 로그인 세션 저장 (localStorage)
