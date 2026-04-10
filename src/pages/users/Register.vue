@@ -80,13 +80,7 @@ if (!nameRegex.test(form.name)) {
     
     return
   }
-  if (!form.userId.trim()) {
-    alert('아이디를 입력하세요')
-    console.log('아이디를 입력하세요');
-    
-    return
-  }
-  if (!form.email.trim()) {
+   if (!form.email.trim()) {
     alert('이메일을 입력하세요')
     console.log('이메일을 입력하세요');
     
@@ -99,6 +93,13 @@ if (!emailRegex.test(form.email)) {
   console.log('올바른 이메일 형식이 아닙니다');
   return
 }
+  if (!form.userId.trim()) {
+    alert('아이디를 입력하세요')
+    console.log('아이디를 입력하세요');
+    
+    return
+  }
+ 
   if (!form.pw.trim()) {
     alert('비밀번호를 입력하세요')
     console.log('비밀번호를 입력하세요');

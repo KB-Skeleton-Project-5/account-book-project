@@ -27,7 +27,7 @@ const summaryList = ref([]);
 
 // 전체 데이터 한 번만 불러오기
 onMounted(async () => {
-  const response = await axios.get('http://localhost:3000/summarydb');
+  const response = await axios.get('http://localhost:3000/summaries');
   summaryList.value = response.data;
 });
 

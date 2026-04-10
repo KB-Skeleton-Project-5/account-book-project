@@ -101,10 +101,17 @@ async function handleSave() {
     alert('올바른 이메일 형식이 아닙니다')
     return
   }
-  if (form.newPw && form.newPw !== pwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다')
-    return
-  }
+  // 비밀번호 확인창에만 입력된 경우 막기
+if (!form.newPw && pwConfirm.value) {
+  alert('새 비밀번호를 입력하세요')
+  return
+}
+
+// 둘 다 입력했는데 다른 경우
+if (form.newPw && form.newPw !== pwConfirm.value) {
+  alert('비밀번호가 일치하지 않습니다')
+  return
+}
   const userInfo = getUserInfo()
 
 const updateData = {

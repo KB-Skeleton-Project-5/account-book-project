@@ -125,7 +125,7 @@ const handleSearch = (filters) => {
 // 데이터 불러오기
 const fetchExpenses = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/expensesdb');
+    const res = await axios.get('http://localhost:3000/expenses');
     expenses.value = res.data;
   } catch (e) {
     console.error('expenses 불러오기 실패:', e);
