@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-      <AppHeader title="회원탈퇴" :back="true" backTo="users/edit" />
+      <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
     
 
     <div class="warn-box">
@@ -71,7 +71,7 @@ function closeModal() {
 async function handleDelete() {
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
-    `http://localhost:3000/users?userId=${form.userId}&pw=${form.pw}`
+    `/api/usersdb?usersId=${form.userId}&pw=${form.pw}`
   )
   const users = await response.json()
 
