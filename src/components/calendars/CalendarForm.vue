@@ -89,6 +89,7 @@
 </template>
 
 <script setup>
+import { toRefs } from 'vue';
 
 const props = defineProps({
   form: {
@@ -102,7 +103,7 @@ const props = defineProps({
   },
 });
 
-const { form, mode } = props;
+const { form, mode } = toRefs(props);
 
 </script>
 

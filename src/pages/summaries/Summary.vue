@@ -1,17 +1,17 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title=" 월별 재정 요약" />
-
-       <MonthPicker v-model="selectedDate" />
+      <AppHeader title="월별 재정 요약" />
     </template>
 
     <div class="summary-page">
-      <SummaryChart />
+      <MonthPicker v-model="selectedDate" />
 
-      <SummaryTotals :selectedDate="selectedDate"/>
+      <SummaryChart :selectedDate="selectedDate" />
 
-      <MonthlyComparison class="comparison-box"/>
+      <SummaryTotals :selectedDate="selectedDate" />
+
+      <MonthlyComparison :selectedDate="selectedDate" class="comparison-box" />
     </div>
 
     <template #footer>
@@ -21,6 +21,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import MonthPicker from '@/components/commons/MonthPicker.vue';
 import SummaryChart from '@/components/summaries/SummaryChart.vue';
 import SummaryTotals from '@/components/summaries/SummaryTotals.vue';
@@ -28,26 +29,28 @@ import MonthlyComparison from '@/components/summaries/MonthlyComparison.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
-import { ref } from 'vue';
-
 
 const now = new Date();
-const selectedDate = ref ({year : now.getFullYear(), month : now.getMonth() + 1});
+const selectedDate = ref({
+  year: now.getFullYear(),
+  month: now.getMonth() + 1,
+});
 </script>
 
 <style scoped>
 .summary-page {
-
-  padding: 18px;
-  background-color: #fdfbfb;
+  /* padding: 18px; */
+  padding: 0 24px 100px;
+  background-color: white;
   box-sizing: border-box;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
-} 
-.comparison-box {
-  flex: 1;
-  display: flex;
+  gap: 24px;
+  min-height: calc(100vh - 120px); /*header+footer 제외 높이*/
 }
 
+.comparison-box {
+  margin-top: 14px;
+}
 </style>
