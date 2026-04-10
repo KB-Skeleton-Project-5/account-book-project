@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     value : [ String ],

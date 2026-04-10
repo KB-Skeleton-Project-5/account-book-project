@@ -1,4 +1,8 @@
-import api from './index.js';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: '/api',
+});
 
 // 지출 목록 조회
 export const getExpenses = () => api.get('/expensesdb');

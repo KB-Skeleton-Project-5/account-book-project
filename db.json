@@ -12,22 +12,21 @@
   ],
   "expensesdb": [
     {
-      "id": 1,
-      "userId": 1,
-      "date": "2026-04-01",
-      "title": "스타벅스 아메리카노",
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "amount": 4500,
+      "amount": 1234123412341234,
+      "date": "2026-04-09",
+      "title": "이거 확인해보자",
+      "memo": "ㅇㅇㅇ",
+      "paymentMethod": "카드",
+      "isFixed": true,
       "tag": {
         "tagid": "eat",
         "tagtitle": "식비"
       },
-      "paymentMethod": "카드",
-      "isFixed": false,
-      "memo": "오후 커피"
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 12
     },
     {
       "id": 2,
@@ -61,7 +60,7 @@
         "tagid": "traffic",
         "tagtitle": "교통비"
       },
-      "paymentMethod": "cash",
+      "paymentMethod": "카드",
       "isFixed": true,
       "memo": "출근길"
     },
@@ -84,19 +83,53 @@
       "memo": "스킨케어"
     },
     {
-      "amount": 100,
-      "date": "2026-06-24",
-      "title": "dfdds",
-      "memo": "",
-      "paymentMethod": "",
+      "amount": 15000,
+      "date": "2026-04-08",
+      "title": "미용실",
+      "memo": "기분 전환",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 8
+    },
+    {
+      "amount": 135,
+      "date": "2026-04-05",
+      "title": "통장 이자",
+      "memo": "이자",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 9
+    },
+    {
+      "amount": 343,
+      "date": "2026-04-06",
+      "title": "asdf",
+      "memo": "sf",
+      "paymentMethod": "현금",
       "isFixed": false,
       "tag": {
         "tagid": "traffic",
         "tagtitle": "교통비"
       },
       "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
+        "typeid": "deposit",
+        "typetitle": "수입"
       },
       "id": 7
     },
