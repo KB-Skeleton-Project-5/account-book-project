@@ -1,13 +1,21 @@
 {
   "usersdb": [
     {
-      "id": 1,
+      "id": 2,
       "userId": "user_001",
       "pw": "hashed_string",
       "name": "홍길동",
       "nick": "길동이",
       "email": "hong@email.com",
       "profileImage": "https://..."
+    },
+    {
+      "name": "sia",
+      "nick": "sia",
+      "email": "tkkt",
+      "userId": "asdf",
+      "pw": "asdf",
+      "id": 1
     }
   ],
   "expensesdb": [
@@ -166,6 +174,40 @@
         "typetitle": "수입"
       },
       "id": 11
+    },
+    {
+      "amount": 1234,
+      "date": "2026-04-08",
+      "title": "1234",
+      "memo": "1234",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 13
+    },
+    {
+      "amount": 1234,
+      "date": "2026-04-09",
+      "title": "1234",
+      "memo": "1234",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 14
     }
   ],
   "calendarsdb": [
@@ -435,15 +477,40 @@
   ],
   "challengesdb": [
     {
-      "id": 1,
-      "userId": 1,
-      "title": "4월 식비 절약",
-      "targetAmount": 300000,
-      "type": "SPENDING",
+      "title": "ㅇ",
       "tag": "식비",
-      "memo": "이번 달은 외식 금지!",
+      "targetAmount": 20000,
+      "type": "수입",
+      "currentAmount": 30000,
       "year": 2026,
-      "month": 4
+      "month": 4,
+      "userId": 1,
+      "memo": "s",
+      "id": 3
+    },
+    {
+      "title": "ㄹㄹ",
+      "tag": "전체",
+      "targetAmount": 20000,
+      "type": "지출",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "userId": 1,
+      "memo": "s",
+      "id": 6
+    },
+    {
+      "title": "ㄷㄱ",
+      "tag": "투자수익",
+      "targetAmount": 2120000,
+      "type": "수입",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "userId": 1,
+      "memo": "",
+      "id": 7
     }
   ]
 }

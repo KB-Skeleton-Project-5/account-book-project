@@ -1,6 +1,10 @@
 <template>
   <div class="ChallengeDescription">
-    <h3>{{ tag }}에서 {{ targetAmount }}만원 이하 {{ challengeType }}하기</h3>
+    <h5>
+      {{ tag }}에서 {{ targetAmount }}만원
+      {{ type === '수입' ? '이상' : '이하' }}
+      {{ type }}
+    </h5>
   </div>
 </template>
 
@@ -15,7 +19,7 @@ const props = defineProps({
     type: Number,
     default: 50,
   },
-  challengeType: {
+  type: {
     type: String,
     default: '지출',
   },

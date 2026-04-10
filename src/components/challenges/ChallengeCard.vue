@@ -1,14 +1,19 @@
 <template>
   <div class="challenge-card">
     <header>
-      <h2>{{ challenge.challengeName }}</h2>
+      <h2>{{ challenge.title }}</h2>
     </header>
 
-    <ProgressBar :current="challenge.current" :total="challenge.total" />
+    <ProgressBar
+      :current="challenge.currentAmount"
+      :total="challenge.targetAmount"
+      :type="challenge.type"
+    />
 
     <ChallengeDescription
-      :targetAmount="challenge.total"
-      :challengeType="challengeType"
+      :tag="challenge.tag"
+      :targetAmount="challenge.targetAmount / 10000"
+      :type="challenge.type"
     />
 
     <div class="percentage">{{ challengeResult }}</div>
@@ -24,28 +29,34 @@ const props = defineProps({
   challenge: {
     type: Object,
     required: true,
-    default: () => ({ challengeName: '챌린지', current: 0, total: 1 }),
+    default: () => ({
+      title: '챌린지 1',
+      tag: '교통비',
+      currentAmount: 0,
+      targetAmount: 1,
+      type: '지출',
+    }),
   },
-  challengeType: { type: String, default: '지출' },
+  type: { type: String, default: '지출' },
 });
 
 const percentage = computed(() => {
-  if (props.challenge.total === 0) return 0;
-  return (props.challenge.current / props.challenge.total) * 100;
+  if (props.challenge.targetAmount === 0) return 0;
+  return (props.challenge.currentAmount / props.challenge.targetAmount) * 100;
 });
 
 const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
 
-  if (props.challengeType === '지출') {
-    return rawValue > 100 ? '목표 실패!' : `${rawValue}`;
+  if (props.challenge.type === '지출') {
+    return rawValue > 100 ? '목표 실패!' : `${rawValue}%`;
   }
 
-  if (props.challengeType === '수입') {
-    return rawValue >= 100 ? '목표 성공!' : `${rawValue}`;
+  if (props.challenge.type === '수입') {
+    return rawValue >= 100 ? '목표 성공!' : `${rawValue}%`;
   }
 
-  return `${rawValue}`;
+  return `${rawValue}%`;
 });
 </script>
 

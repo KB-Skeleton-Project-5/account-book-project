@@ -95,9 +95,11 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import ExpenseSearch from '@/components/expenses/ExpenseSearch.vue';
 import { getExpenses } from '@/api/expenses';
+import { getUserInfo } from '@/util/authUtil';
 
 const expenses = ref([]);
 const activeTab = ref('전체');
+const currentUserId = getUserInfo().id; // 로그인한 유저 id
 
 const tagColorMap = {
   eat: { background: '#FFD6D6', color: '#E57373' },
@@ -140,8 +142,12 @@ onMounted(() => {
 
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
+    // 로그인한 유저 데이터만 표시
+    if (e.userId !== currentUserId) return false;
+
     if (activeTab.value !== '전체' && e.type.typetitle !== activeTab.value)
       return false;
+    return false;
     if (
       searchFilters.value.searchText &&
       !e.title.includes(searchFilters.value.searchText)
