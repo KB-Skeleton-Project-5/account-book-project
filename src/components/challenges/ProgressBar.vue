@@ -1,17 +1,27 @@
 <template>
-  <div class="progress-container">
+  <div class="progress-container" :class="statusClass">
     <div class="track">
-      <div class="fill" :class="{ 'is-danger': isOver }" :style="fillStyle">
+      <div class="fill" :style="fillStyle">
         <div class="indicator-dot"></div>
       </div>
     </div>
 
     <div class="labels-container">
-      <div class="label moving-label" :style="{ left: movingLabelPos + '%' }">
+      <div
+        class="label moving-label"
+        :style="{ left: movingLabelPos + '%' }"
+        :class="{ 'text-success': !isOver && isSuccess }"
+      >
         {{ isOver ? formatManwon(total) : formatManwon(current) }}만원
       </div>
 
-      <div class="label end-label" :class="{ 'text-danger': isOver }">
+      <div
+        class="label end-label"
+        :class="{
+          'text-danger': isDanger,
+          'text-success': isOver && isSuccess,
+        }"
+      >
         {{ isOver ? formatManwon(current) : formatManwon(total) }}만원
       </div>
     </div>
@@ -24,6 +34,7 @@ import { computed } from 'vue';
 const props = defineProps({
   current: { type: Number, default: 0 },
   total: { type: Number, default: 1 },
+  type: { type: String, default: '지출' }, // 💡 부모가 넘겨준 type을 받습니다!
 });
 
 // 만원 단위 함수
@@ -31,27 +42,52 @@ const formatManwon = (amount) => {
   return Math.floor(amount / 10000);
 };
 
-// 초과 여부 확인
+// 💡 3가지 상태 스위치 계산기
 const isOver = computed(() => props.current > props.total);
-const maxVal = computed(() => Math.max(props.current, props.total));
+const isSuccess = computed(
+  () => props.type === '수입' && props.current >= props.total,
+);
+const isDanger = computed(() => props.type === '지출' && isOver.value);
 
-// 막대 스타일 결정 함수
+// 상태 클래스 결정 (CSS에서 활용)
+const statusClass = computed(() => {
+  if (isSuccess.value) return 'is-success';
+  if (isDanger.value) return 'is-danger';
+  return 'is-normal';
+});
+
+// 막대 스타일(길이, 그라데이션) 결정 함수
 const fillStyle = computed(() => {
+  // 1. 목표를 초과했을 때 (그라데이션 효과)
   if (isOver.value) {
     const splitPoint = (props.total / props.current) * 100;
-    return {
-      width: '100%',
-      background: `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
-    };
-  } else {
+
+    if (isSuccess.value) {
+      // 🟢 수입 초과: 초록색 그라데이션
+      return {
+        width: '100%',
+        background: `linear-gradient(to right, #10b981 ${splitPoint}%, #059669 ${splitPoint}%)`,
+      };
+    } else {
+      // 🔴 지출 초과: 빨간색 그라데이션
+      return {
+        width: '100%',
+        background: `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
+      };
+    }
+  }
+  // 2. 목표치 이내일 때 (단일 색상)
+  else {
+    // 딱 100% 수입 달성 시 초록색, 그 외엔 파란색
+    const bgColor = isSuccess.value ? '#10b981' : '#3b82f6';
     return {
       width: `${(props.current / props.total) * 100}%`,
-      backgroundColor: '#3b82f6',
+      backgroundColor: bgColor,
     };
   }
 });
 
-// 움직이는 라벨(글자)의 위치 계산
+// 움직이는 라벨 위치 계산
 const movingLabelPos = computed(() => {
   if (isOver.value) {
     return (props.total / props.current) * 100;
@@ -79,14 +115,15 @@ const movingLabelPos = computed(() => {
   height: 100%;
   border-radius: 20px;
   position: relative;
-  transition: width 0.4s ease-out; /* 막대 채워지는 애니메이션 */
+  transition: width 0.4s ease-out; /* 막대 애니메이션 */
 }
 
+/* 동그라미 인디케이터 */
 .indicator-dot {
   width: 18px;
   height: 18px;
   background-color: white;
-  border: 4px solid #3b82f6;
+  border: 4px solid #3b82f6; /* 기본 파란색 테두리 */
   border-radius: 50%;
   position: absolute;
   right: -9px;
@@ -94,10 +131,17 @@ const movingLabelPos = computed(() => {
   transform: translateY(-50%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 2;
+  transition: border-color 0.3s;
 }
 
+/* 초과 상태일 때 동그라미 위치 고정 및 색상 변경 */
 .is-danger .indicator-dot {
   border-color: #cc0000;
+  right: 0;
+}
+.is-success .indicator-dot {
+  border-color: #059669;
+  /* 수입 달성/초과 시 오른쪽 끝에 고정 */
   right: 0;
 }
 
@@ -113,18 +157,23 @@ const movingLabelPos = computed(() => {
   font-weight: 600;
   color: #333;
   white-space: nowrap;
+  transition: color 0.3s;
 }
 
 .moving-label {
   transform: translateX(-50%);
-  transition: left 0.4s ease-out; /* 글자도 막대와 함께 이동하게 추가' */
+  transition: left 0.4s ease-out;
 }
 
 .end-label {
   right: 0;
 }
 
+/* 텍스트 컬러 지정 */
 .text-danger {
   color: #ff4d4d;
+}
+.text-success {
+  color: #10b981;
 }
 </style>

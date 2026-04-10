@@ -1,5 +1,5 @@
 {
-  "users": [
+  "usersdb": [
     {
       "id": 1,
       "userId": "user_001",
@@ -26,7 +26,7 @@
       "id": 3
     }
   ],
-  "expenses": [
+  "expensesdb": [
     {
       "id": 1,
       "userId": 1,
@@ -118,7 +118,7 @@
       "memo": "스킨케어"
     }
   ],
-  "calendars": [
+  "calendarsdb": [
     {
       "id": 1,
       "userId": 1,
@@ -129,7 +129,7 @@
       "memo": "급여 입금 예정"
     }
   ],
-  "summary": [
+  "summarydb": [
     {
       "id": 1,
       "userId": 1,
@@ -165,30 +165,42 @@
       ]
     }
   ],
-  "challenges": [
+  "challengesdb": [
     {
-      "id": 1,
-      "userId": 1,
-      "title": "4월 식비 절약",
-      "targetAmount": 300000,
-      "currentAmount": 100000,
-      "type": "수입",
+      "title": "ㅇ",
       "tag": "식비",
-      "memo": "이번 달은 외식 금지!",
+      "targetAmount": 20000,
+      "type": "수입",
+      "currentAmount": 30000,
       "year": 2026,
-      "month": 4
+      "month": 4,
+      "userId": 1,
+      "memo": "s",
+      "id": 3
     },
     {
-      "id": 2,
-      "userId": 1,
-      "title": "4월 기타 절약",
-      "targetAmount": 500000,
-      "currentAmount": 150000,
+      "title": "ㄹㄹ",
+      "tag": "전체",
+      "targetAmount": 20000,
       "type": "지출",
-      "tag": "기타",
-      "memo": "이번 달은 기타 금지!",
+      "currentAmount": 0,
       "year": 2026,
-      "month": 4
+      "month": 4,
+      "userId": 1,
+      "memo": "s",
+      "id": 6
+    },
+    {
+      "title": "ㄷㄱ",
+      "tag": "투자수익",
+      "targetAmount": 2120000,
+      "type": "수입",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "userId": 1,
+      "memo": "",
+      "id": 7
     }
   ]
 }

@@ -15,12 +15,13 @@
       <ProgressBar
         :current="challenge.currentAmount"
         :total="challenge.targetAmount"
+        :type="challenge.type"
       />
 
       <ChallengeDescription
         :tag="challenge.tag"
         :targetAmount="challenge.targetAmount / 10000"
-        :challengeType="challenge.type"
+        :type="challenge.type"
       />
 
       <p>메모</p>
@@ -34,6 +35,11 @@
         />
       </footer>
     </div>
+    <DeleteConfirm
+      v-if="isModalOpen"
+      @left="cancelDelete"
+      @right="confirmDelete"
+    />
     <AppFooter />
   </DefaultLayout>
 </template>
@@ -48,6 +54,8 @@ import MemoDisplay from '@/components/challenges/MemoDisplay.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
+import axios from 'axios';
 
 const route = useRoute();
 const router = useRouter();
@@ -61,25 +69,21 @@ const challenge = ref({
   memo: '',
 });
 
-const fetchChallengeInfo = async () => {
+const getChallengeInfo = async () => {
   const challengeId = route.params.id;
   console.log(`${challengeId}번 챌린지 상세 정보 요청`);
 
   try {
-    const response = await fetch(
-      `http://localhost:3000/challenges/${challengeId}`,
-    );
-    if (!response.ok) throw new Error('서버 통신 불량!');
+    const response = await axios.get(`/api/challengesdb/${challengeId}`);
 
-    const data = await response.json();
-    challenge.value = data; // 서버가 준 진짜 데이터로 그릇을 채웁니다!
+    challenge.value = response.data;
   } catch (error) {
     console.error('상세 정보 실패', error);
   }
 };
 
 onMounted(() => {
-  fetchChallengeInfo();
+  getChallengeInfo();
 });
 
 const percentage = computed(() => {
@@ -104,7 +108,14 @@ const challengeResult = computed(() => {
 
 const handleHistory = () => {
   console.log('내역 버튼 클릭됨');
-  router.push({ name: 'expenses' });
+  router.push({
+    name: 'expenses',
+    query: {
+      year: challenge.value.year,
+      month: challenge.value.month,
+      tag: challenge.value.tag,
+    },
+  });
 };
 
 const handleEdit = () => {
@@ -116,9 +127,37 @@ const handleEdit = () => {
   });
 };
 
+const isModalOpen = ref(false);
+
 const handleDelete = () => {
   console.log('삭제 버튼 클릭됨');
-  router.push({ name: 'challenges' });
+  isModalOpen.value = true;
+};
+
+const cancelDelete = () => {
+  isModalOpen.value = false;
+};
+
+const confirmDelete = async () => {
+  const challengeId = route.params.id;
+
+  if (!challengeId || challengeId === 'undefined') {
+    console.error('id 없음');
+    alert('삭제 대상 오류');
+    return;
+  }
+
+  try {
+    await axios.delete(`/api/challengesdb/${challengeId}`);
+
+    console.log('삭제 완료, id:', challengeId);
+
+    isModalOpen.value = false;
+    router.push({ name: 'challenges' });
+  } catch (error) {
+    console.error('삭제 실패 에러:', error);
+    alert('삭제 실패');
+  }
 };
 </script>
 

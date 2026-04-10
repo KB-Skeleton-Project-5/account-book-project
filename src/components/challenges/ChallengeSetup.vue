@@ -1,10 +1,12 @@
 <template>
   <div class="challenge-setup">
-    <input type="text" v-model="form.title" placeholder="새 목표 1" />
+    <input type="text" v-model="form.title" placeholder="새 목표" />
+
     <div>
       <select v-model="form.tag">
-        <option value="식비">식비</option>
-        <option value="기타">기타</option>
+        <option v-for="tag in availableTags" :key="tag" :value="tag">
+          {{ tag }}
+        </option>
       </select>
       <span>에서</span>
     </div>
@@ -20,10 +22,15 @@
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue';
+import { reactive, watch, computed } from 'vue';
 
 const props = defineProps(['modelValue']);
 const emit = defineEmits(['update:modelValue']);
+
+const tagsByType = {
+  지출: ['식비', '쇼핑', '교통비', '문화생활', '기타'],
+  수입: ['월급', '투자수익', '부업', '기타'],
+};
 
 const form = reactive({
   title: props.modelValue?.title || '',
@@ -32,7 +39,17 @@ const form = reactive({
   type: props.modelValue?.type || '지출',
 });
 
-// 💡 포인트 2: immediate: true 를 추가해서 켜지자마자 부모와 데이터를 완벽하게 똑같이 맞춥니다!
+const availableTags = computed(() => {
+  return tagsByType[form.type] || [];
+});
+
+watch(
+  () => form.type,
+  (newType) => {
+    form.tag = tagsByType[newType][0];
+  },
+);
+
 watch(
   form,
   (newValue) => {

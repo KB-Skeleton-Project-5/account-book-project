@@ -7,12 +7,13 @@
     <ProgressBar
       :current="challenge.currentAmount"
       :total="challenge.targetAmount"
+      :type="challenge.type"
     />
 
     <ChallengeDescription
       :tag="challenge.tag"
       :targetAmount="challenge.targetAmount / 10000"
-      :challengeType="challenge.type"
+      :type="challenge.type"
     />
 
     <div class="percentage">{{ challengeResult }}</div>
@@ -36,7 +37,7 @@ const props = defineProps({
       type: '지출',
     }),
   },
-  challengeType: { type: String, default: '지출' },
+  type: { type: String, default: '지출' },
 });
 
 const percentage = computed(() => {
@@ -47,11 +48,11 @@ const percentage = computed(() => {
 const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
 
-  if (props.challengeType === '지출') {
+  if (props.challenge.type === '지출') {
     return rawValue > 100 ? '목표 실패!' : `${rawValue}%`;
   }
 
-  if (props.challengeType === '수입') {
+  if (props.challenge.type === '수입') {
     return rawValue >= 100 ? '목표 성공!' : `${rawValue}%`;
   }
 
