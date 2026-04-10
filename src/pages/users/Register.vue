@@ -60,6 +60,27 @@ const form = reactive({
 const pwConfirm = ref('')
 
  function handleSignup() {
+  // 유효성 검사 
+   if (!form.name.trim()) {
+    alert('이름을 입력하세요')
+    return
+  }
+  if(!form.nick.trim()){
+    alert('닉네임을 입력하세요')
+    return
+  }
+  if (!form.userId.trim()) {
+    alert('아이디를 입력하세요')
+    return
+  }
+  if (!form.email.trim()) {
+    alert('이메일을 입력하세요')
+    return
+  }
+  if (!form.pw.trim()) {
+    alert('비밀번호를 입력하세요')
+    return
+  }
   if (form.pw !== pwConfirm.value) {
     alert('비밀번호가 일치하지 않습니다')
     console.log('비밀번호가 일치하지 않습니다')
