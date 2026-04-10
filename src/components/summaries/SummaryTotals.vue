@@ -18,6 +18,7 @@
 <script setup>
 import axios from 'axios';
 import { ref, computed, onMounted } from 'vue';
+import { getUserInfo } from '@/util/authUtil';
 
 const props = defineProps({
   selectedDate: Object,
@@ -27,7 +28,10 @@ const summaryList = ref([]);
 
 // 전체 데이터 한 번만 불러오기
 onMounted(async () => {
-  const response = await axios.get('http://localhost:3000/summarydb');
+  const { id } = getUserInfo()  //추가
+  const response = await axios.get('/api/summarydb', {
+    params: { userId: id } // userId 파라미터 추가
+  });
   summaryList.value = response.data;
 });
 

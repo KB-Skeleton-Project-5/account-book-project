@@ -31,6 +31,7 @@ import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
 
@@ -45,7 +46,7 @@ const form = ref({
 const saveCalendar = async () => {
   try {
     await axios.post( '/api/calendarsdb', {
-      userId: 1, 
+      userId: id, 
       ...form.value,
     });
 

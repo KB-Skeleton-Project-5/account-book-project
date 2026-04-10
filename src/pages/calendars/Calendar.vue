@@ -75,6 +75,7 @@ import CalendarItem from '@/components/calendars/CalendarItem.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import { getUserInfo } from '@/util/authUtil' ;
 
 const router = useRouter();
 
@@ -125,7 +126,10 @@ const handleAdd = () => {
 
 const fetchCalendars = async () => {
   try {
-    const res = await axios.get('/api/calendarsdb');
+    const { id } = getUserInfo()  // localStorage에서 꺼내기
+    const res = await axios.get('/api/calendarsdb',{
+      params: { userId: id } // userId 파라미터로 넘기기
+    });
     calendarList.value = res.data;
   } catch (error) {
     console.log(error);
