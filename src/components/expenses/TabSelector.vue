@@ -1,7 +1,7 @@
 <template>
   <!-- 수입/지출 분류 탭 UI 영역 -->
   <div class="wrapper">
-    <label>분류</label>
+    <label>📂 분류</label>
     <div class="tab-group">
       <button
         v-for="tab in tabs"

@@ -1,7 +1,7 @@
 <template>
     <!-- 날짜 입력 UI 영역 -->
     <div class="wrapper">
-        <label>날짜</label>
+        <label>📅 날짜</label>
         <input 
         type="date" 
         v-model="date" 

@@ -1,7 +1,7 @@
 <template>
     <!-- 태그 선택 UI 영역 -->
     <div class="wrapper">
-        <label>태그</label>
+        <label>🏷️ 태그</label>
         <div class="tag-group">
             <button
             v-for="tag in tags"
