@@ -10,7 +10,7 @@
       </footer>
     </div>
     <div v-else style="text-align: center; padding: 50px; color: #666">
-      <p>기존 챌린지 정보를 불러오는 중입니다... 🏃‍♂️💨</p>
+      <p>챌린지 정보 불러오는 중</p>
     </div>
     <AppFooter />
   </DefaultLayout>
@@ -26,9 +26,11 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
 
 const route = useRoute();
 const router = useRouter();
+const userInfo = getUserInfo();
 
 const challengeData = ref({
   title: '',
@@ -43,7 +45,13 @@ const isDataLoaded = ref(false);
 
 const challengeId = route.params.id;
 
-const fetchOldData = async () => {
+const getOldData = async () => {
+  // if (!userInfo.authenticated) {
+  //   alert('로그인 필요');
+  //   router.push({ name: 'users/login' });
+  //   return;
+  // }
+
   try {
     const response = await axios.get(`/api/challengesdb/${challengeId}`);
 
@@ -57,10 +65,17 @@ const fetchOldData = async () => {
       return;
     }
 
+    // if (oldData.userId !== userInfo.id) {
+    //   alert('다른 사람의 챌린지');
+    //   router.push({ name: 'challenges' });
+    //   return;
+    // }
+
     challengeData.value = {
       title: oldData.title,
       tag: oldData.tag,
       targetAmount: oldData.targetAmount / 10000,
+      currentAmount: oldData.currentAmount / 10000,
       type: oldData.type,
     };
     memoText.value = oldData.memo || '';
@@ -74,7 +89,7 @@ const fetchOldData = async () => {
 };
 
 onMounted(() => {
-  fetchOldData();
+  getOldData();
 });
 
 const handleUpdate = async () => {
@@ -89,7 +104,7 @@ const handleUpdate = async () => {
     currentAmount: 0,
     year: now.getFullYear(),
     month: now.getMonth() + 1,
-    userId: 1,
+    userId: userInfo.id,
   };
 
   try {

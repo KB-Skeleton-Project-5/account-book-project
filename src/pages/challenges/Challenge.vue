@@ -32,7 +32,9 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppButton from '@/components/commons/AppButton.vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
 
+const userInfo = getUserInfo();
 const now = new Date();
 const dateFilter = ref({
   year: now.getFullYear(),
@@ -44,12 +46,21 @@ const router = useRouter();
 const challenges = ref([]);
 
 const getChallenges = async () => {
+  // if (!userInfo.authenticated) {
+  //   alert('로그인 필요');
+  //   router.push({ name: 'users/login' });
+  //   return;
+  // }
   console.log(
     `${dateFilter.value.year}년 ${dateFilter.value.month}월 데이터 요청`,
   );
 
   try {
-    const response = await axios.get('/api/challengesdb');
+    const response = await axios.get('/api/challengesdb', {
+      params: {
+        userId: userInfo.id,
+      },
+    });
     challenges.value = response.data;
   } catch (error) {
     console.error('에러 발생 2', error);

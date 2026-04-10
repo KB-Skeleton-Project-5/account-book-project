@@ -414,18 +414,6 @@
       "id": 3
     },
     {
-      "title": "ㄹㄹ",
-      "tag": "전체",
-      "targetAmount": 20000,
-      "type": "지출",
-      "currentAmount": 0,
-      "year": 2026,
-      "month": 4,
-      "userId": 1,
-      "memo": "s",
-      "id": 6
-    },
-    {
       "title": "ㄷㄱ",
       "tag": "투자수익",
       "targetAmount": 2120000,

@@ -23,8 +23,10 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
 
 const router = useRouter();
+const userInfo = getUserInfo();
 
 const challengeData = ref({
   title: '',
@@ -37,6 +39,12 @@ const memoText = ref('');
 
 const handleSave = async () => {
   console.log('저장 버튼 클릭됨');
+
+  // if (!userInfo.authenticated) {
+  //   alert('로그인 필요');
+  //   router.push({ name: 'users/login' });
+  //   return;
+  // }
 
   const now = new Date();
 
@@ -61,7 +69,7 @@ const handleSave = async () => {
     currentAmount: 0,
     year: now.getFullYear(),
     month: now.getMonth() + 1,
-    userId: 1,
+    userId: userInfo.id,
     memo: memoText.value,
   };
 

@@ -56,12 +56,14 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
 
 const route = useRoute();
 const router = useRouter();
+const userInfo = getUserInfo();
 
 const challenge = ref({
-  title: '불러오는 중...',
+  title: '',
   tag: '',
   currentAmount: 0,
   targetAmount: 1,
@@ -70,11 +72,22 @@ const challenge = ref({
 });
 
 const getChallengeInfo = async () => {
+  // if (!userInfo.authenticated) {
+  //   alert('로그인 필요');
+  //   router.push({ name: 'users/login' });
+  //   return;
+  // }
   const challengeId = route.params.id;
   console.log(`${challengeId}번 챌린지 상세 정보 요청`);
 
   try {
     const response = await axios.get(`/api/challengesdb/${challengeId}`);
+
+    // if (response.data.userId !== userInfo.id) {
+    //   alert('다른 사람의 챌린지');
+    //   router.push({ name: 'challenges' });
+    //   return;
+    // }
 
     challenge.value = response.data;
   } catch (error) {
