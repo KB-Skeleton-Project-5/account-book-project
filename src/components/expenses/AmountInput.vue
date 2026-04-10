@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const amount = ref('');
 const emit = defineEmits(['submit-amount']);

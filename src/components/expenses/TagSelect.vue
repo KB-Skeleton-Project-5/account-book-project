@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const tags = [
   { tagid: 'eat', tagtitle: '식비' },

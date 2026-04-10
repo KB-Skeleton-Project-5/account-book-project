@@ -45,7 +45,7 @@ import TagSelect from './TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const formData = ref({
   amount: '',

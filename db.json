@@ -12,24 +12,6 @@
   ],
   "expensesdb": [
     {
-      "id": 1,
-      "userId": 1,
-      "date": "2026-04-01",
-      "title": "스타벅스 아메리카노",
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "amount": 4500,
-      "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
-      },
-      "paymentMethod": "카드",
-      "isFixed": false,
-      "memo": "오후 커피"
-    },
-    {
       "id": 2,
       "userId": 1,
       "date": "2026-04-02",
@@ -61,7 +43,7 @@
         "tagid": "traffic",
         "tagtitle": "교통비"
       },
-      "paymentMethod": "cash",
+      "paymentMethod": "카드",
       "isFixed": true,
       "memo": "출근길"
     },
@@ -102,35 +84,38 @@
       "memo": "스킨케어"
     },
     {
-      "amount": "",
-      "date": "",
-      "title": "",
-      "memo": "",
-      "paymentMethod": "",
-      "isFixed": false,
-      "tag": {},
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "id": 6
-    },
-    {
-      "amount": 100,
-      "date": "2026-06-24",
-      "title": "dfdds",
-      "memo": "",
-      "paymentMethod": "",
+      "amount": 15000,
+      "date": "2026-04-08",
+      "title": "미용실",
+      "memo": "기분 전환",
+      "paymentMethod": "카드",
       "isFixed": false,
       "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
+        "tagid": "etc",
+        "tagtitle": "기타"
       },
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "id": 7
+      "id": 8
+    },
+    {
+      "amount": 135,
+      "date": "2026-04-05",
+      "title": "통장 이자",
+      "memo": "이자",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "id": 9
     }
   ],
   "calendarsdb": [
