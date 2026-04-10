@@ -5,15 +5,16 @@
         <input 
         type="number" 
         v-model.number="amount" 
-        @input="handleInput" 
         placeholder="0"
-        :readonly="props.readonly">
+        :readonly="props.readonly"
+        @input="preventInvalidInput">
+        <!-- keydown 누르는 순간 발생 -->
         <span>원</span>
     </div>
 </template>
 
 <script setup>
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const amount = ref('');
 const emit = defineEmits(['submit-amount']);
@@ -22,6 +23,13 @@ const props = defineProps({
     value : [ Number, String ],
     readonly : Boolean,
 });
+
+
+const preventInvalidInput = (e) => {
+    // 숫자가 아닌 입력값과 한글 입력을 필터링한다.
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    emit('submit-amount', Number(e.target.value));
+};
 
 // props.value를 계속 지켜보고 있음
 watch(() => props.value, (val) => {
@@ -32,10 +40,7 @@ watch(() => props.value, (val) => {
     // 즉시 실행?하는 느낌
 }, { immediate : true });
 
-const handleInput = () => {
-    // ref는 value,,
-    emit('submit-amount', amount.value)
-}
+
 </script>
 
 <style scoped>

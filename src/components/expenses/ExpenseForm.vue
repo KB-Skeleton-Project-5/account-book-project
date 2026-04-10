@@ -45,7 +45,7 @@ import TagSelect from './TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
-import { readonly, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const formData = ref({
   amount: '',
@@ -109,6 +109,28 @@ watch(
 const emit = defineEmits(['submit-form']);
 
 const submitForm = () => {
+  // 필수값 검사
+  if(!formData.value.type?.typetitle) {
+    alert('분류를 선택해주세요.');
+    return
+  }
+  if(!formData.value.date) {
+    alert('날짜를 선택해주세요.')
+    return
+  }
+  if(!formData.value.amount) {
+    alert('금액을 입력해주세요.')
+    return
+  }
+  if(!formData.value.title) {
+    alert('제목을 입력해주세요.')
+    return
+  }
+  if(!formData.value.paymentMethod) {
+    alert('결제수단을 선택해주세요.')
+    return
+  }
+
   emit('submit-form', formData.value);
 };
 

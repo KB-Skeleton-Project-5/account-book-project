@@ -28,8 +28,8 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import { useRoute, useRouter } from 'vue-router';
 import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
 import AppButton from '@/components/commons/AppButton.vue';
-import { getExpense, deleteExpenses } from '@/api/expenses';
 import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 
 const route = useRoute();
@@ -39,10 +39,14 @@ const router = useRouter();
 const expenseData = ref(null);
 
 // 페이지 진입 시 id로 상세 데이터 불러오기
-onMounted(async() => {
-  const response = await getExpense(route.params.id);
-  // console.log('불러온 데이터 : ', response.data);
-  expenseData.value = response.data;
+onMounted( async() => {
+  try {
+    const response = await axios.get(`/api/expensesdb/${route.params.id}`);
+    console.log('불러온 데이터 : ', response.data);
+    expenseData.value = response.data;
+  } catch (e) {
+    console.error('데이터 불러오기 실패 : ', e);
+  }
 })
 
 
@@ -54,8 +58,14 @@ const handleEdit = () => {
 
 // 일단 삭제 후 메인으로 이동 (삭제 모달 달기 전)
 const handleDelete = async() => {
-  await deleteExpenses(route.params.id)  // <- id로 삭제
-  router.push({ name: 'main' });        // 삭제 후 목록으로 이동
+  try {
+    const res = await axios.delete(`/api/expensesdb/${parseInt(route.params.id)}`);
+    console.log('삭제 성공 : ', res.data);
+    
+    router.push({ name : 'main' })
+  } catch(e) {
+    console.error('삭제 실패 : ', e);
+  }
 };
 
 
