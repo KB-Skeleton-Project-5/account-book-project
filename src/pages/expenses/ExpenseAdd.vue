@@ -1,4 +1,5 @@
 <template>
+  <!-- 거래 내역 등록 페이지 -->
   <DefaultLayout>
     <template #header>
       <AppHeader title="거래 내역 등록" :back="true" backTo="expenses"/>
@@ -24,7 +25,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil.js';
 
-
+// 현재 로그인한 유저 정보 가져오는 유틸 함수
 const userInfo = getUserInfo();
 
 
@@ -37,7 +38,7 @@ const handleSave = () => {
 
 const handleSubmit = async (formData) => {
   try{
-    console.log('저장 데이터 : ', formData);
+    // console.log('저장 데이터 : ', formData);
     await axios.post('/api/expenses', {...formData, userId: String(userInfo.id)})
     router.push({ name: 'expenses' })
   } catch (e) {

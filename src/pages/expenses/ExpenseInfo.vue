@@ -1,4 +1,5 @@
 <template>
+  <!-- 거래 내역 수정 페이지 -->
   <DefaultLayout>
     <template #header>
       <AppHeader 

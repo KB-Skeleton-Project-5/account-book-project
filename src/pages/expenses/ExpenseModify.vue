@@ -1,4 +1,5 @@
 <template>
+    <!-- 거래 내역 수정 페이지 -->
     <DefaultLayout>
         <template #header>
             <AppHeader 
@@ -32,7 +33,7 @@ import { getUserInfo } from '@/util/authUtil.js';
 
 
 const userInfo = getUserInfo();
-console.log(userInfo.id);
+// console.log(userInfo.id);
 
 
 const router = useRouter();
