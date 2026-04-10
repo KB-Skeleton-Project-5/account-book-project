@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const tabs = [
   { typeid: 'deposit', typetitle: '수입' },
@@ -45,6 +45,10 @@ const handleSelect = (tab) => {
   selected.value = tab
   emit('submit-tab', tab)
 }
+
+onMounted(() => {
+  emit('submit-tab', selected.value);
+});
 </script>
 
 <style scoped>

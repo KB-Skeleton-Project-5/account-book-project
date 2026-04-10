@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const tags = [
   { tagid: 'eat', tagtitle: '식비' },
@@ -46,6 +46,10 @@ const handleSelect = (tag) => {
   selected.value = tag
   emit('submit-tag', tag)
 }
+
+onMounted(() => {
+    emit('submit-tag', selected.value);
+});
 </script>
 
 

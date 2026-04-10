@@ -144,6 +144,24 @@
       },
       "userId": "4",
       "id": 15
+    },
+    {
+      "amount": 123,
+      "date": "2026-04-10",
+      "title": "123",
+      "memo": "",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": "2",
+      "id": 16
     }
   ],
   "calendars": [

@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps({
     value : [ String ],
@@ -48,6 +48,10 @@ const emit = defineEmits(['submit-payment']);
 const handleChange = () => {
     emit('submit-payment', payment.value)
 }
+
+onMounted(() => {
+    emit('submit-payment', payment.value)
+})
 </script>
 
 <style scoped>
