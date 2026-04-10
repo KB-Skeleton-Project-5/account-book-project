@@ -70,7 +70,7 @@
               <span class="item-name">{{ item.title }}</span>
               <span class="item-pay">{{ item.paymentMethod }}</span>
               <span class="item-amount"
-                >{{ item.amount.toLocaleString() }}원</span
+                >{{ item.amount?.toLocaleString() }}원</span
               >
             </div>
           </template>

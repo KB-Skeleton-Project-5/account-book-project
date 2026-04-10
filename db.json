@@ -143,42 +143,6 @@
       },
       "userId": "4",
       "id": 15
-    },
-    {
-      "amount": 500,
-      "date": "2026-04-10",
-      "title": "실험",
-      "memo": "실험",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "userId": "4",
-      "id": 16
-    },
-    {
-      "id": 12,
-      "userId": "1",
-      "date": "2026-04-10",
-      "title": "123",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 100,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "memo": ""
     }
   ],
   "calendars": [
