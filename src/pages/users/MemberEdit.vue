@@ -77,6 +77,30 @@ onMounted(async () => {
 
 
 async function handleSave() {
+  // 이름 문자열 유효성 검사
+  if (!form.name.trim()) {
+    alert('이름을 입력하세요')
+    return
+  }
+  const nameRegex = /^[가-힣a-zA-Z]+$/
+  if (!nameRegex.test(form.name)) {
+    alert('이름은 한글 또는 영문만 입력 가능합니다')
+    return
+  }
+  if (!form.nick.trim()) {
+  alert('닉네임을 입력하세요')
+  return
+}
+    if (!form.email.trim()) {
+    alert('이메일을 입력하세요')
+    return
+  }
+  //이메일 형식 유효성 검사
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(form.email)) {
+    alert('올바른 이메일 형식이 아닙니다')
+    return
+  }
   if (form.newPw && form.newPw !== pwConfirm.value) {
     alert('비밀번호가 일치하지 않습니다')
     return
