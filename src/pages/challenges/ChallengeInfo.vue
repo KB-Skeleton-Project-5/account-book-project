@@ -77,21 +77,47 @@ const getChallengeInfo = async () => {
   //   router.push({ name: 'users/login' });
   //   return;
   // }
+  
   const challengeId = route.params.id;
   console.log(`${challengeId}번 챌린지 상세 정보 요청`);
 
   try {
-    const response = await axios.get(`/api/challengesdb/${challengeId}`);
-
-    // if (response.data.userId !== userInfo.id) {
+    const challengeRes = await axios.get(`/api/challenges/${challengeId}`);
+    
+    // if (challengeRes.data.userId !== userInfo.id) {
     //   alert('다른 사람의 챌린지');
     //   router.push({ name: 'challenges' });
     //   return;
     // }
+    
+    const myChallenge = challengeRes.data;
 
-    challenge.value = response.data;
+    const formattedMonth = String(myChallenge.month).padStart(2, '0');
+    const targetYearMonth = `${myChallenge.year}-${formattedMonth}`;
+
+    const expensesRes = await axios.get(`/api/expenses`, {
+      params: userInfo?.id ? { userId: userInfo.id } : {}
+    });
+    const myExpenses = expensesRes.data;
+
+    const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
+      if (!expense.type || !expense.tag) return totalSum;
+
+      const isSameMonth = expense.date.startsWith(targetYearMonth);
+      const isSameType = expense.type.typetitle === myChallenge.type;
+      const isSameTag = expense.tag.tagtitle === myChallenge.tag;
+
+      if (isSameMonth && isSameType && isSameTag) {
+        return totalSum + expense.amount;
+      }
+      return totalSum;
+    }, 0);
+
+    myChallenge.currentAmount = calculatedAmount;
+    challenge.value = myChallenge;
+    
   } catch (error) {
-    console.error('상세 정보 실패', error);
+    console.error('상세 정보 및 지출 내역 합산 실패', error);
   }
 };
 
@@ -100,43 +126,57 @@ onMounted(() => {
 });
 
 const percentage = computed(() => {
-  if (!challenge.value.targetAmount || challenge.value.targetAmount === 0)
-    return 0;
+  if (!challenge.value.targetAmount || challenge.value.targetAmount === 0) return 0;
   return (challenge.value.currentAmount / challenge.value.targetAmount) * 100;
 });
 
 const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
-
   if (challenge.value.type === '지출' || challenge.value.type === 'SPENDING') {
     return rawValue > 100 ? '목표 실패!' : `${rawValue}%`;
   }
-
   if (challenge.value.type === '수입' || challenge.value.type === 'INCOME') {
     return rawValue >= 100 ? '목표 성공!' : `${rawValue}%`;
   }
-
   return `${rawValue}%`;
 });
 
 const handleHistory = () => {
   console.log('내역 버튼 클릭됨');
+  const year = challenge.value.year;
+  const month = challenge.value.month;
+
+  const lastDay = new Date(year, month, 0).getDate();
+  const formattedMonth = String(month).padStart(2, '0');
+  
+  const startDate = `${year}-${formattedMonth}-01`;
+  const endDate = `${year}-${formattedMonth}-${String(lastDay).padStart(2, '0')}`;
+
+  const tagMap = {
+    식비: 'eat',
+    교통비: 'traffic',
+    쇼핑: 'shopping',
+    기타: 'etc',
+  };
+
+  const translatedTag = tagMap[challenge.value.tag] || challenge.value.tag;
+
   router.push({
     name: 'expenses',
     query: {
-      year: challenge.value.year,
-      month: challenge.value.month,
-      tag: challenge.value.tag,
+      startDate: startDate,
+      endDate: endDate,
+      tags: translatedTag,
+      type: challenge.value.type || '지출',
     },
   });
 };
 
 const handleEdit = () => {
   console.log('수정 버튼 클릭됨');
-  const challengeId = route.params.id;
   router.push({
     name: 'challenges/modify',
-    params: { id: challengeId },
+    params: { id: route.params.id },
   });
 };
 
@@ -153,18 +193,14 @@ const cancelDelete = () => {
 
 const confirmDelete = async () => {
   const challengeId = route.params.id;
-
   if (!challengeId || challengeId === 'undefined') {
-    console.error('id 없음');
     alert('삭제 대상 오류');
     return;
   }
 
   try {
-    await axios.delete(`/api/challengesdb/${challengeId}`);
-
+    await axios.delete(`/api/challenges/${challengeId}`);
     console.log('삭제 완료, id:', challengeId);
-
     isModalOpen.value = false;
     router.push({ name: 'challenges' });
   } catch (error) {
@@ -174,16 +210,49 @@ const confirmDelete = async () => {
 };
 </script>
 
-<style>
-header {
-  display: flex;
-}
-.high-button {
-  margin-left: auto;
-}
+<style scoped>
+/* 1. 하얀색 메인 카드 (방 전체) */
 .challenge-info {
-  background-color: white;
-  border: 5px solid black;
-  min-height: 400px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px auto;
+
+  max-width: 400px;
+  box-sizing: border-box;
+
+  /* 💡 핵심 수정: 첫 번째(좌우)와 두 번째(상하) 숫자를 모두 0으로 맞춥니다! */
+  /* 이렇게 하면 윗부분도 양옆, 아래와 똑같이 진하고 뚜렷한 그림자가 생깁니다. */
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. 헤더 영역 (제목과 내역 버튼) */
+.challenge-info header {
+  display: flex; /* 양옆으로 나란히 배치 */
+  justify-content: space-between; /* 양 끝으로 밀어내기 */
+  align-items: center; /* 위아래 중앙 정렬 */
+  margin-bottom: 24px; /* 아래 프로그레스 바와의 간격 */
+}
+
+/* 3. 제목 (목표 1) */
+.challenge-info header h2 {
+  margin: 0; /* h2의 기본 여백 제거 */
+  font-size: 22px; /* 글씨 크기 */
+  font-weight: bold;
+  color: #333333; /* 완전 까만색보다 약간 부드러운 진회색 */
+}
+
+/* 4. '메모' 글자 (p 태그) */
+.challenge-info p {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 32px; /* 위의 챌린지 설명(사과 아이콘)과의 간격 */
+  margin-bottom: 12px; /* 아래 회색 메모 박스와의 간격 */
+}
+
+/* 5. 하단 버튼 영역 (수정/삭제) */
+.low-button {
+  margin-top: 40px; /* 위쪽 메모 영역과 버튼을 확실히 띄워줍니다 */
 }
 </style>

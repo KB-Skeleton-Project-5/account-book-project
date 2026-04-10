@@ -5,8 +5,9 @@
       <ChallengeSetup v-model="challengeData" />
       <p>메모</p>
       <MemoWrite v-model="memoText" />
-      <footer>
-        <AppButton type="single" @click="handleSave" />
+      <footer class="add-action-buttons">
+        <AppButton type="history" text="취소" @click="handleCancel" />
+        <AppButton type="single" text="저장" @click="handleSave" />
       </footer>
     </div>
     <AppFooter />
@@ -36,6 +37,11 @@ const challengeData = ref({
 });
 
 const memoText = ref('');
+
+const handleCancel = () => {
+  console.log('취소 버튼 클릭됨');
+  router.push({ name: 'challenges' });
+};
 
 const handleSave = async () => {
   console.log('저장 버튼 클릭됨');
@@ -74,7 +80,7 @@ const handleSave = async () => {
   };
 
   try {
-    await axios.post('/api/challengesdb', newChallenge);
+    await axios.post('/api/challenges', newChallenge);
 
     console.log('새 챌린지 등록 완료');
     router.push({ name: 'challenges' });
@@ -85,10 +91,48 @@ const handleSave = async () => {
 };
 </script>
 
-<style>
+<style scoped>
+/* 1. 하얀색 메인 도화지 (컨테이너) */
 .challenge-add-container {
-  background-color: white;
-  border: 5px solid black;
-  min-height: 400px;
+  background-color: #ffffff;
+  border-radius: 16px; /* 둥근 모서리 */
+  padding: 24px; /* 안쪽 여백 */
+  margin: 20px auto; /* 가운데 정렬 및 위아래 바깥 여백 */
+
+  max-width: 400px; /* 너무 넓어지지 않도록 고정 */
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+}
+
+/* 2. '메모' 글자 (p 태그) */
+.challenge-add-container p {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333;
+  margin-top: 32px; /* 위쪽 챌린지 설정(ChallengeSetup)과의 넉넉한 간격 */
+  margin-bottom: 12px; /* 아래 메모 입력창(MemoWrite)과의 간격 */
+}
+
+/* 3. 하단 버튼 영역 */
+.challenge-add-container footer {
+  margin-top: 40px; /* 메모 입력창과 하단 버튼 사이를 시원하게 띄워줍니다 */
+}
+
+.add-action-buttons {
+  display: flex;
+  justify-content: space-between; /* 양 끝으로 밀어내기! */
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* AppButton 내부의 btn-wrapper가 기본적으로 오른쪽 정렬(flex-end)을 하고 있어서,
+   공간을 골고루 차지하도록 살짝 너비를 줍니다. */
+.add-action-buttons > div {
+  flex: 1; /* 두 버튼이 반반씩 영역을 가지도록 */
+}
+
+/* 첫 번째 버튼(취소)은 왼쪽으로 찰싹 붙이기 */
+.add-action-buttons > div:first-child {
+  justify-content: flex-start;
 }
 </style>

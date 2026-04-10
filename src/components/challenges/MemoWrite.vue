@@ -20,7 +20,7 @@ const memoText = ref('');
 <style scoped>
 textarea {
   border-radius: 12px;
-  background-color: #555555;
+  background-color: #777777;
   padding: 20px;
   color: white;
   min-width: 100%;

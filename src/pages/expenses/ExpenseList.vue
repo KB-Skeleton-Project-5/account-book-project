@@ -164,11 +164,25 @@ const fetchExpenses = async () => {
 };
 
 onMounted(() => {
-  fetchExpenses();
+  if (route.query.startDate) {
+    searchFilters.value.startDate = route.query.startDate;
+  }
+
+  if (route.query.endDate) {
+    searchFilters.value.endDate = route.query.endDate;
+  }
+
+  if (route.query.tags) {
+    searchFilters.value.tags = Array.isArray(route.query.tags)
+      ? route.query.tags
+      : [route.query.tags];
+  }
 
   if (route.query.type) {
     activeTab.value = route.query.type;
   }
+
+  fetchExpenses();
 });
 
 const filteredExpenses = computed(() => {

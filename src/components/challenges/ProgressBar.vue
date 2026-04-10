@@ -10,7 +10,10 @@
       <div
         class="label moving-label"
         :style="{ left: movingLabelPos + '%' }"
-        :class="{ 'text-success': !isOver && isSuccess }"
+        :class="{
+          'text-success': !isOver && isSuccess,
+          'zero-align': movingLabelPos === 0,
+        }"
       >
         {{ isOver ? formatManwon(total) : formatManwon(current) }}만원
       </div>
@@ -58,30 +61,20 @@ const statusClass = computed(() => {
 
 // 막대 스타일(길이, 그라데이션) 결정 함수
 const fillStyle = computed(() => {
-  // 1. 목표를 초과했을 때 (그라데이션 효과)
   if (isOver.value) {
     const splitPoint = (props.total / props.current) * 100;
-
-    if (isSuccess.value) {
-      // 🟢 수입 초과: 초록색 그라데이션
-      return {
-        width: '100%',
-        background: `linear-gradient(to right, #10b981 ${splitPoint}%, #059669 ${splitPoint}%)`,
-      };
-    } else {
-      // 🔴 지출 초과: 빨간색 그라데이션
-      return {
-        width: '100%',
-        background: `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
-      };
-    }
-  }
-  // 2. 목표치 이내일 때 (단일 색상)
-  else {
-    // 딱 100% 수입 달성 시 초록색, 그 외엔 파란색
-    const bgColor = isSuccess.value ? '#10b981' : '#3b82f6';
     return {
-      width: `${(props.current / props.total) * 100}%`,
+      width: '100%',
+      background: isSuccess.value
+        ? `linear-gradient(to right, #10b981 ${splitPoint}%, #059669 ${splitPoint}%)`
+        : `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
+    };
+  } else {
+    const bgColor = isSuccess.value ? '#10b981' : '#3b82f6';
+    const finalWidth =
+      props.total === 0 ? 0 : (props.current / props.total) * 100;
+    return {
+      width: `${finalWidth}%`,
       backgroundColor: bgColor,
     };
   }
@@ -92,7 +85,7 @@ const movingLabelPos = computed(() => {
   if (isOver.value) {
     return (props.total / props.current) * 100;
   } else {
-    return (props.current / props.total) * 100;
+    return props.total === 0 ? 0 : (props.current / props.total) * 100;
   }
 });
 </script>
@@ -175,5 +168,10 @@ const movingLabelPos = computed(() => {
 }
 .text-success {
   color: #10b981;
+}
+
+.moving-label.zero-align {
+  /* 기존의 translateX(-50%)를 0%로 덮어씌워서, 글자의 시작점을 0% 선에 딱 맞춥니다! */
+  transform: translateX(0%);
 }
 </style>

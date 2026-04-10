@@ -53,7 +53,7 @@ const getOldData = async () => {
   // }
 
   try {
-    const response = await axios.get(`/api/challengesdb/${challengeId}`);
+    const response = await axios.get(`/api/challenges/${challengeId}`);
 
     const oldData = response.data;
 
@@ -108,7 +108,7 @@ const handleUpdate = async () => {
   };
 
   try {
-    await axios.put(`/api/challengesdb/${challengeId}`, updatedChallenge);
+    await axios.put(`/api/challenges/${challengeId}`, updatedChallenge);
 
     console.log('챌린지 수정 완료!');
 

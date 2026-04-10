@@ -1,5 +1,5 @@
 {
-  "usersdb": [
+  "users": [
     {
       "id": 1,
       "userId": "user_001",
@@ -10,7 +10,7 @@
       "profileImage": "https://..."
     }
   ],
-  "expensesdb": [
+  "expenses": [
     {
       "id": 1,
       "userId": 1,
@@ -133,9 +133,54 @@
         "typetitle": "수입"
       },
       "id": 11
+    },
+    {
+      "amount": 20000,
+      "date": "2026-03-11",
+      "title": "비행기",
+      "memo": "미국여행",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 12
+    },
+    {
+      "amount": 10000,
+      "date": "",
+      "title": "지하철",
+      "memo": "ㅇㅊ",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {},
+      "id": 13
+    },
+    {
+      "amount": 122000,
+      "date": "",
+      "title": "23",
+      "memo": "s",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {},
+      "id": 14
     }
   ],
-  "calendarsdb": [
+  "calendars": [
     {
       "id": 1,
       "userId": 1,
@@ -146,7 +191,7 @@
       "memo": "급여 입금 예정"
     }
   ],
-  "summarydb": [
+  "summary": [
     {
       "id": 1,
       "userId": 1,
@@ -400,30 +445,39 @@
       "netProfit": 1350000
     }
   ],
-  "challengesdb": [
+  "challenges": [
     {
-      "title": "ㅇ",
-      "tag": "식비",
-      "targetAmount": 20000,
-      "type": "수입",
-      "currentAmount": 30000,
+      "title": "교통비",
+      "tag": "교통비",
+      "targetAmount": 200000,
+      "type": "지출",
+      "currentAmount": 0,
       "year": 2026,
-      "month": 4,
-      "userId": 1,
-      "memo": "s",
-      "id": 3
+      "month": 3,
+      "memo": "",
+      "id": 9
     },
     {
-      "title": "ㄷㄱ",
-      "tag": "투자수익",
-      "targetAmount": 2120000,
-      "type": "수입",
+      "title": "그만먹기",
+      "tag": "식비",
+      "targetAmount": 50000,
+      "type": "지출",
       "currentAmount": 0,
       "year": 2026,
       "month": 4,
-      "userId": 1,
+      "memo": "식비절약",
+      "id": 10
+    },
+    {
+      "title": "교통",
+      "tag": "교통비",
+      "targetAmount": 30000,
+      "type": "지출",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
       "memo": "",
-      "id": 7
+      "id": 11
     }
   ]
 }

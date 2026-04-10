@@ -61,13 +61,20 @@ const challengeResult = computed(() => {
 </script>
 
 <style scoped>
-.challenge-card {
-  display: flex;
-  flex-direction: column;
-  border: 5px solid black;
-  background-color: white;
-}
 .percentage {
   align-self: flex-end;
+}
+/* ChallengeCard.vue 의 style scoped 내부 */
+
+/* (클래스 이름은 실제 코드에 맞게 변경해 주세요) */
+.challenge-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+
+  /* 💡 Info 화면과 완벽히 동일한 상하좌우 그림자를 여기에 줍니다! */
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+
+  box-sizing: border-box;
 }
 </style>
