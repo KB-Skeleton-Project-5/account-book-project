@@ -1,8 +1,10 @@
 <template>
-  <router-link :to="{ name: 'calendars/info', params: { id } }" class="calendar-item-link">
+  <router-link :to="{ name: 'calendars/info', params: { id } }" 
+    class="calendar-item-link"
+    >
       <div class="calendar-item">
         <div class="calendar-title">{{ title }}</div>
-        <div class="calendar-time">{{ time }}</div>
+        <div class="calendar-time" v-if="time">{{ time }}</div>
       </div>
   </router-link>
 </template>
@@ -15,11 +17,11 @@ defineProps({
   },
   time: {
     type: String,
-    default: '14:00',
+    default: '',
   },
   title: {
     type: String,
-    default: '회의',
+     required: true,
   },
 });
 </script>
@@ -34,6 +36,11 @@ defineProps({
   gap: 4px;
   min-height: 36px;
   justify-content: center;
+}
+
+.calendar-item-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .calendar-title {

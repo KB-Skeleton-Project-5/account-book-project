@@ -1,7 +1,7 @@
 <template>
   <div class="comparison-box">
     <div class="comparison-title">전월 대비 분석</div>
-춰
+
     <template v-if="comparison">
       <div class="comparison-row">
         <span class="label">전월 지출</span>
@@ -38,15 +38,17 @@
       <div class="diff-summary">
         <span class="diff-label">전월 대비</span>
         <span class="diff-value" :class="comparison.diff < 0 ? 'good' : 'bad'">
-          {{ comparison.diff > 0 ? '+' : ''
-          }}{{ comparison.diff.toLocaleString() }}원 ({{
-            comparison.diff > 0 ? '+' : ''
-          }}{{ comparison.diffRate }}%)
+          {{ comparison.diff > 0 ? '+' : ''}}
+          {{ (comparison.diff ?? 0 ).toLocaleString() }}원 
+          (
+          {{comparison.diff > 0 ? '+' : '' }}
+          {{ comparison.diffRate ?? 0 }}%
+          )
         </span>
       </div>
     </template>
 
-    <div v-else class="empty-text">데이터가 없습니다.</div>
+    <div v-else class="empty-text">전월 비교 데이터가 없습니다.</div>
   </div>
 </template>
 
@@ -62,9 +64,14 @@ const props = defineProps({
 const summaryList = ref([]);
 
 const fetchSummary = async () => {
-  const { id } = getUserInfo();
-  const res = await axios.get('/api/summarydb', { params: { userId: id } });
-  summaryList.value = res.data;
+  try {
+    const { id } = getUserInfo();
+    const res = await axios.get('/api/summary', { params: { userId: id } });
+    summaryList.value = res.data;
+  } catch (error) {
+    console.log(error);
+    summaryList.value = [];
+  }
 };
 
 const summaryData = computed(() => {
@@ -82,7 +89,7 @@ const comparison = computed(() => {
 });
 
 const maxExpense = computed(() => {
-  if (!comparison.value) return 1;
+  if (!comparison.value || !summaryData.value) return 1;
   return Math.max(comparison.value.prevExpense, summaryData.value.expense);
 });
 
@@ -97,7 +104,7 @@ const currentBarWidth = computed(() => {
 });
 
 onMounted(fetchSummary);
-watch(() => props.selectedDate, fetchSummary, { deep: true });
+
 </script>
 
 <style scoped>
@@ -109,7 +116,7 @@ watch(() => props.selectedDate, fetchSummary, { deep: true });
   border-radius: 12px;
   padding: 12px;
   margin-top: 14px;
-  margin-bottom: auto;
+  margin-bottom: auto;  /*이거 테스트시 이상하게 밀리면 빼기 */
   box-sizing: border-box;
 }
 

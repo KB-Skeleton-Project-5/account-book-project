@@ -78,12 +78,13 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import { getUserInfo } from '@/util/authUtil' ;
 
 const router = useRouter();
+const today = new Date();
 
 const savedDate = JSON.parse(sessionStorage.getItem('calendarSelectedDate'));
 
 const selectedDate = ref({
-  year: savedDate?.year || 2026,
-  month: savedDate?.month || 4,
+  year: savedDate?.year || today.getFullYear(),
+  month: savedDate?.month || today.getMonth() + 1,
 });
 
 const selectedDay = ref(savedDate?.day || 1);
@@ -127,7 +128,7 @@ const handleAdd = () => {
 const fetchCalendars = async () => {
   try {
     const { id } = getUserInfo()  // localStorage에서 꺼내기
-    const res = await axios.get('/api/calendarsdb',{
+    const res = await axios.get('/api/calendars',{
       params: { userId: id } // userId 파라미터로 넘기기
     });
     calendarList.value = res.data;

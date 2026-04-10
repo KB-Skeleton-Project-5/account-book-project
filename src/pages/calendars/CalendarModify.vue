@@ -7,7 +7,7 @@
     <div class="calendar-form-page">
       <div class="page-top-space"></div>
 
-      <CalendarForm v-if="form":form="form" mode="input">
+      <CalendarForm v-if="form" :form="form" mode="input">
 
       <div class="button-area">
         <AppButton text="저장" @click="saveCalendar" />
@@ -39,7 +39,7 @@ const form = ref(null);
 
 const fetchCalendar = async () => {
   try {
-    const res = await axios.get(`/api/calendarsdb/${route.params.id}`);
+    const res = await axios.get(`/api/calendars/${route.params.id}`);
     form.value = res.data;
     console.log(form.value);
   } catch (error) {
@@ -49,17 +49,13 @@ const fetchCalendar = async () => {
 
 const saveCalendar = async () => {
   try {
-    await axios.put(
-      `/api/calendarsdb/${route.params.id}`, {
-      ...form.value,
-  });
+    await axios.put(`/api/calendars/${route.params.id}`,form.value,)
+    console.log('수정 성공');
+    
+    router.push({name: 'calendars' });
 
-    router.push({
-      name: 'calendars/info',
-      params: { id: route.params.id },
-    });
   } catch (error) {
-    console.log(error);
+    console.log('수정실패:',error);
   }
 };
 

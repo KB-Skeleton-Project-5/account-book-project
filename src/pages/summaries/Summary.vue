@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title=" 월별 재정 요약" />
+      <AppHeader title="월별 재정 요약" />
     </template>
 
     <div class="summary-page">
@@ -41,7 +41,7 @@ const selectedDate = ref({
 .summary-page {
   /* padding: 18px; */
   padding: 0 24px 100px;
-  background-color: #fdfbfb;
+  background-color: white;
   box-sizing: border-box;
 
   display: flex;

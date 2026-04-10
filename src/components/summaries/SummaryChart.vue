@@ -2,6 +2,13 @@
   <div class="chart-section">
     <div class="pie-chart" :style="{ background: conicGradient }"></div>
     <div class="legend">
+
+      <!-- 데이터 없을 때 -->
+      <div v-if="!legendItems.length" class="no-data">
+        해당 월 데이터가 없습니다
+      </div>
+
+      <!-- 데이터 있을 때 -->
       <div v-for="item in legendItems" :key="item.tag" class="legend-item">
         <span
           class="legend-dot"
@@ -33,9 +40,14 @@ const TAG_COLORS = {
 const summaryList = ref([]);
 
 const fetchSummary = async () => {
-  const { id } = getUserInfo();
-  const res = await axios.get('/api/summarydb', { params: { userId: id } });
-  summaryList.value = res.data;
+  try {
+    const { id } = getUserInfo();
+    const res = await axios.get('/api/summary', { params: { userId: id } });
+    summaryList.value = res.data;
+  } catch (erroe) {
+    console.log(erroe);
+    summaryList.value = [];
+  }
 };
 
 const summaryData = computed(() => {
@@ -73,7 +85,6 @@ const conicGradient = computed(() => {
 });
 
 onMounted(fetchSummary);
-watch(() => props.selectedDate, fetchSummary, { deep: true });
 </script>
 
 <style scoped>
@@ -82,11 +93,9 @@ watch(() => props.selectedDate, fetchSummary, { deep: true });
   align-items: center;
   justify-content: center;
   /* gap: 24px; */
-  gap: 40px;      
-  margin: 40px 0 30px;
-  margin-bottom: 20px;
+  gap: 40px;
+  margin: 40px 0 20px;
 }
-
 
 .pie-chart {
   width: 220px;
@@ -95,33 +104,40 @@ watch(() => props.selectedDate, fetchSummary, { deep: true });
   flex-shrink: 0;
 }
 
+.no-data {
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  padding: 8px 0;
+}
+
 .legend {
   display: flex;
   flex-direction: column;
   gap: 16px;
   justify-content: center;
 }
- 
+
 .legend-item {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  line-height: 1;  /*글자 높이 때문에 정렬 튀는걸 방지 */
+  line-height: 1; /*글자 높이 때문에 정렬 튀는걸  */
 }
- 
+
 .legend-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
- 
+
 .legend-label {
   color: #444;
   min-width: 40px;
 }
- 
+
 .legend-value {
   color: #888;
   font-size: 12px;
