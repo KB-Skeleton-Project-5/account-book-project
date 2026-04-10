@@ -170,6 +170,24 @@
       },
       "userId": "4",
       "id": 15
+    },
+    {
+      "amount": 2,
+      "date": "2026-04-10",
+      "title": "dfsafsd",
+      "memo": "dfsa",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": "4",
+      "id": 16
     }
   ],
   "calendarsdb": [

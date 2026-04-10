@@ -6,7 +6,8 @@
         type="date" 
         v-model="date" 
         @input="handleInput"
-        :readonly="props.readonly">
+        :readonly="props.readonly"
+        :max="today">
     </div>
 </template>
 
@@ -15,6 +16,8 @@ import { onMounted, ref, watch } from 'vue';
 
 const date = ref(new Date().toISOString().split('T')[0]);
 /// new Date().toISOString().split('T')[0]는 JS에서 현재 날짜를 YYYY-MM-DD 형식
+
+const today = new Date().toISOString().split('T')[0];
 
 const props = defineProps({
     value : [ String ],
