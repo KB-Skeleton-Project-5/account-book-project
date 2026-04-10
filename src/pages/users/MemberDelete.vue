@@ -69,6 +69,17 @@ function closeModal() {
 }
 
 async function handleDelete() {
+  // 유효성 검사
+  if (!form.userId.trim()) {
+    alert('아이디를 입력하세요')
+    console.log('아이디를 입력하세요')
+    return
+  }
+  if (!form.pw.trim()) {
+    alert('비밀번호를 입력하세요')
+    console.log('비밀번호를 입력하세요')
+    return
+  }
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
     `/api/usersdb?userId=${form.userId}&pw=${form.pw}`
@@ -77,6 +88,7 @@ async function handleDelete() {
 
   if (users.length === 0) {
     alert('아이디 또는 비밀번호가 틀렸습니다')
+    console.log('아이디 또는 비밀번호가 틀렸습니다');
     closeModal()
     return
   }
@@ -92,6 +104,7 @@ async function handleDelete() {
     },
     () => {
       alert('탈퇴에 실패했습니다')
+      console.log('탈퇴에 실패했습니다')
       closeModal()
     }
   )
