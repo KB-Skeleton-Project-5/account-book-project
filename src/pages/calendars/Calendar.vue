@@ -125,7 +125,7 @@ const handleAdd = () => {
 
 const fetchCalendars = async () => {
   try {
-    const res = await axios.get('http://localhost:3000/calendars');
+    const res = await axios.get('/api/calendarsdb');
     calendarList.value = res.data;
   } catch (error) {
     console.log(error);

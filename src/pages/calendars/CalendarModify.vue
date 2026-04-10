@@ -39,9 +39,7 @@ const form = ref(null);
 
 const fetchCalendar = async () => {
   try {
-    const res = await axios.get(
-      `http://localhost:3000/calendars/${route.params.id}`
-    );
+    const res = await axios.get(`/api/calendarsdb/${route.params.id}`);
     form.value = res.data;
     console.log(form.value);
   } catch (error) {
@@ -52,9 +50,9 @@ const fetchCalendar = async () => {
 const saveCalendar = async () => {
   try {
     await axios.put(
-      `http://localhost:3000/calendars/${route.params.id}`,
-      form.value
-    );
+      `/api/calendarsdb/${route.params.id}`, {
+      ...form.value,
+  });
 
     router.push({
       name: 'calendars/info',

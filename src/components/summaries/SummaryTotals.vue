@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="total-item">
       <span>총 수입</span>
       <strong>500,000원</strong>
@@ -15,7 +14,6 @@
       <span>순이익</span>
       <strong>200,000원</strong>
     </div>
-
   </div>
 </template>
 

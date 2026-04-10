@@ -47,10 +47,11 @@ const handleDelete = async () => {
   // TODO : 삭제 모달 연결 예정
   // 우선 삭제 버튼 누르면 삭제되는걸로
   try {
-    await axios.delete(`http://localhost:3000/calendars/${route.params.id}`);
+    // ❗️오류 수정: /api/뒤에 calendars 추가
+    await axios.delete(`/api/calendarsdb/${route.params.id}`); //id로 삭제
     console.log('삭제 완료');
-    router.push({ name: 'calendars' });
-  } catch (e) {
+    router.push({ name: 'calendars' }); 
+  } catch (error) {
     console.log('삭제 실패',error);
   }
 };
@@ -58,7 +59,7 @@ const handleDelete = async () => {
 const fetchCalendar = async () => {
   try {
     const res = await axios.get(
-      `http://localhost:3000/calendars/${route.params.id}`,
+      `/api/calendarsdb/${route.params.id}`,
     );
 
     form.value = res.data;

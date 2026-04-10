@@ -44,9 +44,12 @@ const form = ref({
 
 const saveCalendar = async () => {
   try {
-    await axios.post( 'http://localhost:3000/calendars', {userId: 1, ...form.value,});
+    await axios.post( '/api/calendarsdb', {
+      userId: 1, 
+      ...form.value,
+    });
 
-    router.push({name: 'calendars'});
+    router.push({ name: 'calendars' });
   } catch(error) {
     console.log(error);
   }

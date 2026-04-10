@@ -28,6 +28,8 @@ import MonthlyComparison from '@/components/summaries/MonthlyComparison.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+
+
 </script>
 
 <style scoped>
