@@ -63,22 +63,45 @@ const pwConfirm = ref('')
   // 유효성 검사 
    if (!form.name.trim()) {
     alert('이름을 입력하세요')
+    console.log('이름을 입력하세요');
     return
   }
+  //이름 문자열 유효성 검사
+  const nameRegex = /^[가-힣a-zA-Z]+$/
+if (!nameRegex.test(form.name)) {
+  alert('이름은 한글 또는 영문만 입력 가능합니다')
+  console.log('이름은 한글 또는 영문만 입력 가능합니다');
+  
+  return
+}
   if(!form.nick.trim()){
     alert('닉네임을 입력하세요')
+    console.log('닉네임을 입력하세요');
+    
     return
   }
   if (!form.userId.trim()) {
     alert('아이디를 입력하세요')
+    console.log('아이디를 입력하세요');
+    
     return
   }
   if (!form.email.trim()) {
     alert('이메일을 입력하세요')
+    console.log('이메일을 입력하세요');
+    
     return
   }
+  //이메일 형식 유효성 검사
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+if (!emailRegex.test(form.email)) {
+  alert('올바른 이메일 형식이 아닙니다')
+  console.log('올바른 이메일 형식이 아닙니다');
+  return
+}
   if (!form.pw.trim()) {
     alert('비밀번호를 입력하세요')
+    console.log('비밀번호를 입력하세요');
     return
   }
   if (form.pw !== pwConfirm.value) {

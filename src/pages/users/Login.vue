@@ -62,9 +62,6 @@ function handleLogin() {
     
     return
   }
-
-
-
   loginProcess(
     form.userId,
     form.pw,
