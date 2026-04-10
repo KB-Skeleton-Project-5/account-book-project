@@ -12,10 +12,10 @@
     {
       "name": "eee",
       "nick": "eee",
-      "email": "eee",
+      "email": "eee@gmail.com",
       "userId": "eee",
       "pw": "eee",
-      "id": "1"
+      "id": "2"
     }
   ],
   "expenses": [
@@ -106,7 +106,8 @@
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
-      }
+      },
+      "amount": 123
     },
     {
       "amount": 250000,
