@@ -82,7 +82,7 @@ async function handleDelete() {
   }
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
-    `/api/usersdb?userId=${form.userId}&pw=${form.pw}`
+    `/api/users?userId=${form.userId}&pw=${form.pw}`
   )
   const users = await response.json()
 

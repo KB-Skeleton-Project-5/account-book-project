@@ -8,6 +8,14 @@
       "nick": "길동이",
       "email": "hong@email.com",
       "profileImage": "https://..."
+    },
+    {
+      "name": "eee",
+      "nick": "eee",
+      "email": "eee",
+      "userId": "eee",
+      "pw": "eee",
+      "id": "1"
     }
   ],
   "expenses": [
