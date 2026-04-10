@@ -59,7 +59,8 @@ const form = reactive({
 
 const pwConfirm = ref('')
 onMounted(async () => {
-
+  const userInfo = getUserInfo()
+  
   if(!userInfo.authenticated) {
     router.push({name:'users/login'})
     return
@@ -76,11 +77,35 @@ onMounted(async () => {
 
 
 async function handleSave() {
-  if (form.newPw && form.newPw !== pwConfirm.value) {
-    console.log('비밀번호가 일치하지 않습니다')
+  // 이름 문자열 유효성 검사
+  if (!form.name.trim()) {
+    alert('이름을 입력하세요')
     return
   }
-  const userInfo = getUserInfo
+  const nameRegex = /^[가-힣a-zA-Z]+$/
+  if (!nameRegex.test(form.name)) {
+    alert('이름은 한글 또는 영문만 입력 가능합니다')
+    return
+  }
+  if (!form.nick.trim()) {
+  alert('닉네임을 입력하세요')
+  return
+}
+    if (!form.email.trim()) {
+    alert('이메일을 입력하세요')
+    return
+  }
+  //이메일 형식 유효성 검사
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(form.email)) {
+    alert('올바른 이메일 형식이 아닙니다')
+    return
+  }
+  if (form.newPw && form.newPw !== pwConfirm.value) {
+    alert('비밀번호가 일치하지 않습니다')
+    return
+  }
+  const userInfo = getUserInfo()
 
 const updateData = {
     name: form.name,
@@ -94,6 +119,7 @@ if (form.newPw) {
     userInfo.id,
     updateData,
     () => {
+      alert('수정이 완료되었습니다')
       console.log('수정 성공')
       router.push({ name: 'users/info' })
     },
