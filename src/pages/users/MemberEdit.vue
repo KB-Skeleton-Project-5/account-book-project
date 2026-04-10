@@ -78,10 +78,10 @@ onMounted(async () => {
 
 async function handleSave() {
   if (form.newPw && form.newPw !== pwConfirm.value) {
-    console.log('비밀번호가 일치하지 않습니다')
+    alert('비밀번호가 일치하지 않습니다')
     return
   }
-  const userInfo = getUserInfo
+  const userInfo = getUserInfo()
 
 const updateData = {
     name: form.name,
