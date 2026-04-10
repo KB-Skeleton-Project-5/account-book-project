@@ -1,46 +1,53 @@
 <template>
   <DefaultLayout>
-    <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
-    <div class="challenge-info">
-      <header>
-        <h2>{{ challenge.title }}</h2>
-        <AppButton
-          type="history"
-          text="내역"
-          @click="handleHistory"
-          class="high-button"
-        />
-      </header>
+    <div class="info-viewport">
+      <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
 
-      <ProgressBar
-        :current="challenge.currentAmount"
-        :total="challenge.targetAmount"
-        :type="challenge.type"
-      />
+      <main class="info-content">
+        <div class="challenge-info">
+          <header>
+            <h2>{{ challenge.title }}</h2>
+            <AppButton
+              type="history"
+              text="내역"
+              @click="handleHistory"
+              class="high-button"
+            />
+          </header>
 
-      <ChallengeDescription
-        :tag="challenge.tag"
-        :targetAmount="challenge.targetAmount / 10000"
-        :type="challenge.type"
-      />
+          <ProgressBar
+            :current="challenge.currentAmount"
+            :total="challenge.targetAmount"
+            :type="challenge.type"
+          />
 
-      <p>메모</p>
-      <MemoDisplay :memo="challenge.memo" />
+          <ChallengeDescription
+            :tag="challenge.tag"
+            :targetAmount="challenge.targetAmount / 10000"
+            :type="challenge.type"
+          />
 
-      <footer class="low-button">
-        <AppButton
-          type="edit-delete"
-          @edit="handleEdit"
-          @delete="handleDelete"
-        />
-      </footer>
+          <p>메모</p>
+          <MemoDisplay :memo="challenge.memo" />
+
+          <footer class="low-button">
+            <AppButton
+              type="edit-delete"
+              @edit="handleEdit"
+              @delete="handleDelete"
+            />
+          </footer>
+        </div>
+      </main>
+
+      <AppFooter />
     </div>
+
     <DeleteConfirm
       v-if="isModalOpen"
       @left="cancelDelete"
       @right="confirmDelete"
     />
-    <AppFooter />
   </DefaultLayout>
 </template>
 
@@ -214,48 +221,71 @@ const confirmDelete = async () => {
 </script>
 
 <style scoped>
-/* 1. 하얀색 메인 카드 (방 전체) */
+.page-viewport {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 💡 화면 전체 높이를 확보 */
+}
+
+.page-content {
+  flex: 1; /* 💡 핵심: 푸터를 제외한 나머지 공간을 꽉 채워서 푸터를 바닥으로 밀어냄 */
+}
+/* 1. 하얀색 메인 카드 (컨테이너) */
 .challenge-info {
+  width: calc(100% - 40px);
+  max-width: 400px;
   background-color: #ffffff;
-  border-radius: 16px;
+  border-radius: 20px; /* 카드와 동일하게 20px */
   padding: 24px;
   margin: 20px auto;
-
-  max-width: 400px;
   box-sizing: border-box;
 
-  /* 💡 핵심 수정: 첫 번째(좌우)와 두 번째(상하) 숫자를 모두 0으로 맞춥니다! */
-  /* 이렇게 하면 윗부분도 양옆, 아래와 똑같이 진하고 뚜렷한 그림자가 생깁니다. */
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  /* 💡 카드와 동일한 깊고 부드러운 그림자 */
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
 
 /* 2. 헤더 영역 (제목과 내역 버튼) */
 .challenge-info header {
-  display: flex; /* 양옆으로 나란히 배치 */
-  justify-content: space-between; /* 양 끝으로 밀어내기 */
-  align-items: center; /* 위아래 중앙 정렬 */
-  margin-bottom: 24px; /* 아래 프로그레스 바와의 간격 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
-/* 3. 제목 (목표 1) */
+/* 3. 💡 [통일 핵심] 메인 제목 (4월 교통비 절약) */
 .challenge-info header h2 {
-  margin: 0; /* h2의 기본 여백 제거 */
-  font-size: 22px; /* 글씨 크기 */
-  font-weight: bold;
-  color: #333333; /* 완전 까만색보다 약간 부드러운 진회색 */
+  margin: 0;
+  /* ChallengeCard와 완벽 동기화 */
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #1e293b; /* 세련된 딥 블루 그레이 */
+  letter-spacing: -0.03em; /* 쫀득한 자간 */
 }
 
-/* 4. '메모' 글자 (p 태그) */
+/* 4. 💡 [통일 핵심] '메모' 같은 중간 타이틀 (p 태그) */
 .challenge-info p {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333333;
-  margin-top: 32px; /* 위의 챌린지 설명(사과 아이콘)과의 간격 */
-  margin-bottom: 12px; /* 아래 회색 메모 박스와의 간격 */
+  /* ChallengeCard 내의 텍스트 위계와 맞춤 */
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
-/* 5. 하단 버튼 영역 (수정/삭제) */
+/* 5. 💡 하단 버튼 영역 (수정/삭제 버튼 사이 간격 조절) */
 .low-button {
-  margin-top: 40px; /* 위쪽 메모 영역과 버튼을 확실히 띄워줍니다 */
+  margin-top: 40px;
+  /* 버튼들이 너무 붙어있지 않게 여유를 줍니다 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 6. 메모 디스플레이 (MemoDisplay 컴포넌트 주변 여백) */
+:deep(.memo-display-container) {
+  /* 메모 컴포넌트 내부 스타일이 카드와 어울리도록 조절 */
+  border-radius: 12px;
+  background-color: #f8fafc; /* 연한 회색 배경 */
 }
 </style>

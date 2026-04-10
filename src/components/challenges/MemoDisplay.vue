@@ -17,7 +17,7 @@ defineProps({
 <style scoped>
 p {
   border-radius: 12px;
-  background-color: #777777;
+  background-color: #999999;
   padding: 20px;
   color: white;
 }

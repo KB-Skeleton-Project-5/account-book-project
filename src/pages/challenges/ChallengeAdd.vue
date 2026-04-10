@@ -120,47 +120,34 @@ const handleSave = async () => {
 </script>
 
 <style scoped>
-/* 1. 하얀색 메인 도화지 (컨테이너) */
-.challenge-add-container {
-  background-color: #ffffff;
-  border-radius: 16px; /* 둥근 모서리 */
-  padding: 24px; /* 안쪽 여백 */
-  margin: 20px auto; /* 가운데 정렬 및 위아래 바깥 여백 */
-
-  max-width: 400px; /* 너무 넓어지지 않도록 고정 */
-  box-sizing: border-box;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
-}
-
-/* 2. '메모' 글자 (p 태그) */
-.challenge-add-container p {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333333;
-  margin-top: 32px; /* 위쪽 챌린지 설정(ChallengeSetup)과의 넉넉한 간격 */
-  margin-bottom: 12px; /* 아래 메모 입력창(MemoWrite)과의 간격 */
-}
-
-/* 3. 하단 버튼 영역 */
-.challenge-add-container footer {
-  margin-top: 40px; /* 메모 입력창과 하단 버튼 사이를 시원하게 띄워줍니다 */
-}
-
-.add-action-buttons {
+/* 💡 [공통] 푸터 고정 레이아웃 */
+.page-viewport {
   display: flex;
-  justify-content: space-between; /* 양 끝으로 밀어내기! */
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  align-items: center; /* 💡 카드를 세로 중앙에 배치하고 싶을 때 사용 */
+  padding: 20px 0;
+}
+
+/* 💡 최신식 카드 스타일 (이전에 맞춘 디자인 통일) */
+.challenge-setup-card {
+  width: calc(100% - 40px);
+  max-width: 450px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  margin: 0 auto;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
   margin-top: 40px;
-}
-
-/* AppButton 내부의 btn-wrapper가 기본적으로 오른쪽 정렬(flex-end)을 하고 있어서,
-   공간을 골고루 차지하도록 살짝 너비를 줍니다. */
-.add-action-buttons > div {
-  flex: 1; /* 두 버튼이 반반씩 영역을 가지도록 */
-}
-
-/* 첫 번째 버튼(취소)은 왼쪽으로 찰싹 붙이기 */
-.add-action-buttons > div:first-child {
-  justify-content: flex-start;
 }
 </style>

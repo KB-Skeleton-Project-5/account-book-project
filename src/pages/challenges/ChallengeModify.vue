@@ -5,8 +5,13 @@
       <ChallengeSetup v-model="challengeData" />
       <p>메모</p>
       <MemoWrite v-model="memoText" />
-      <footer>
-        <AppButton type="single" @click="handleUpdate" />
+      <footer class="modify-action-buttons">
+        <AppButton
+          type="history"
+          text="취소"
+          @click="router.push({ name: 'challenges' })"
+        />
+        <AppButton type="single" text="수정" @click="handleUpdate" />
       </footer>
     </div>
     <div v-else style="text-align: center; padding: 50px; color: #666">
@@ -134,10 +139,49 @@ const handleUpdate = async () => {
 };
 </script>
 
-<style>
-.challenge-add-container {
-  background-color: white;
-  border: 5px solid black;
-  min-height: 400px;
+<style scoped>
+/* 1. 하얀색 메인 카드 (Add/Modify 공통) */
+.challenge-modify-container {
+  width: calc(100% - 40px);
+  max-width: 450px; /* 메인 카드 폭과 맞춤 */
+  background-color: #ffffff;
+  border-radius: 20px; /* 메인 카드와 동일하게 20px */
+  padding: 32px; /* 여백을 조금 더 넓혀서 여유롭게 */
+  margin: 30px auto;
+  box-sizing: border-box;
+
+  /* 💡 [핵심] 메인 카드와 동일한 깊고 부드러운 그림자 */
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+.challenge-modify-container p {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b; /* 메인 제목과 같은 딥 블루 그레이 */
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+/* 3. 하단 버튼 영역 */
+.challenge-modify-container footer {
+  margin-top: 40px; /* 메모 입력창과 하단 버튼 사이를 시원하게 띄워줍니다 */
+}
+
+.modify-action-buttons {
+  display: flex;
+  justify-content: space-between; /* 양 끝으로 밀어내기! */
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* AppButton 내부의 btn-wrapper가 기본적으로 오른쪽 정렬(flex-end)을 하고 있어서,
+   공간을 골고루 차지하도록 살짝 너비를 줍니다. */
+.modify-action-buttons > div {
+  flex: 1; /* 두 버튼이 반반씩 영역을 가지도록 */
+}
+
+/* 첫 번째 버튼(취소)은 왼쪽으로 찰싹 붙이기 */
+.modify-action-buttons > div:first-child {
+  justify-content: flex-start;
 }
 </style>

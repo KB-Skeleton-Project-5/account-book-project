@@ -77,43 +77,85 @@ watch(
 </script>
 
 <style scoped>
+/* 1. 입력 및 선택 그룹 컨테이너 */
+.challenge-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 요소들 사이의 간격을 일정하게 */
+}
+
+/* 2. 입력창과 선택창 공통 - '조약돌' 스타일 */
 input[type='text'],
 input[type='number'],
 select {
-  width: 100%; /* 칸을 가로로 꽉 채워서 시원하게 만듭니다 */
-  padding: 12px 14px; /* 글씨와 상자 테두리 사이의 여백을 줘서 숨통을 틔웁니다 */
-  margin-top: 8px; /* 위쪽 글씨와의 간격 */
-  margin-bottom: 16px; /* 아래쪽 요소와의 간격 */
+  width: 100%;
+  padding: 16px 20px; /* 더 시원시원한 내부 여백 */
+  margin-top: 8px;
+  margin-bottom: 20px;
 
-  /* 💡 여기가 핵심! 딱딱한 모서리를 둥글게 깎아줍니다 */
-  border-radius: 8px;
+  border-radius: 14px; /* 더 둥글고 부드럽게 */
+  border: 1.5px solid #eef2f6; /* 거의 보이지 않을 정도로 연한 테두리 */
+  background-color: #f8fafc; /* 눈이 편안한 미세 회색 배경 */
 
-  /* 테두리를 아주 부드러운 연회색으로 바꿉니다 */
-  border: 1px solid #e0e0e0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #334155; /* 세련된 슬레이트 그레이 */
 
-  /* 배경색을 메모장처럼 아주 약간의 회색빛이 도는 흰색으로 설정 (원치 않으시면 지워도 됩니다) */
-  background-color: #fafafa;
-
-  font-size: 15px;
-  color: #333;
-  box-sizing: border-box; /* 패딩이 너비를 뚫고 나가지 않게 고정 */
-  transition: all 0.2s ease; /* 눌렀을 때 부드럽게 변하는 애니메이션 */
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 쫀득한 애니메이션 */
+  appearance: none; /* 브라우저 기본 스타일 제거 (특히 select) */
 }
 
-/* 2. 입력창을 클릭(포커스)했을 때의 예쁜 효과 */
+/* 3. 마우스를 올렸을 때 (Hover) */
+input[type='text']:hover,
+select:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* 4. 💡 [최신식 핵심] 클릭(Focus) 시 '헤일로' 효과 */
 input[type='text']:focus,
-input[type='number']:focus,
 select:focus {
-  outline: none; /* 못생긴 기본 파란색 테두리 제거 */
-  border-color: #ffcc00; /* 클릭하면 테두리가 앱의 메인 컬러(노란색)로 바뀝니다! */
-  background-color: #ffffff; /* 클릭하면 배경이 완전한 하얀색으로 밝아집니다 */
+  outline: none;
+  background-color: #ffffff;
+  border-color: #ffcc00; /* 앱의 메인 컬러 */
+
+  /* 부드럽게 퍼지는 노란색 광채 효과 */
+  box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.15);
+
+  /* 살짝 위로 떠오르는 인터랙션 */
+  transform: translateY(-2px);
 }
 
-/* 3. '에서', '만원 이하', '지출' 같은 글자들을 예쁘게 정렬하기 위한 팁 */
-/* 만약 입력칸과 글자가 한 줄에 있다면, 그 줄을 감싸는 div에 아래 클래스를 줘보세요 */
-.input-row {
+/* 5. 선택창(Select) 전용 디자인 */
+select {
+  cursor: pointer;
+  /* 화살표 아이콘을 직접 넣고 싶다면 배경 이미지로 추가 가능 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 18px;
+  padding-right: 45px;
+}
+
+/* 6. 레이블 글자 ('에서', '만원 이하' 등) */
+.challenge-setup span {
+  font-size: 14px;
+  font-weight: 700;
+  color: #64748b;
+  margin-left: 2px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* 금액 입력 부분 정렬 */
+.amount-container {
   display: flex;
-  align-items: center; /* 입력칸과 글자의 높낮이를 중앙으로 맞춰줍니다 */
-  gap: 10px; /* 칸과 글자 사이의 간격 */
+  align-items: center;
+  gap: 12px;
+}
+
+.amount-container input {
+  flex: 1;
 }
 </style>

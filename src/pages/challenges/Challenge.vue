@@ -47,7 +47,6 @@ const router = useRouter();
 const challenges = ref([]);
 
 const getChallenges = async () => {
-  
   // if (!userInfo || !userInfo.authenticated) {
   //   alert('로그인이 필요한 서비스입니다.');
   //   router.push({ name: 'users/login' });
@@ -126,61 +125,68 @@ const handleAdd = () => {
 </script>
 
 <style scoped>
-/* 1. 어항(전체 화면) 크기 고정하기 */
+/* 1. 어항(전체 화면) 크기 고정 및 반응형 처리 */
 .challenge-container {
-  max-width: 400px;
+  width: 100%; /* 💡 추가: 모바일에서는 화면을 100% 꽉 채웁니다 */
+  max-width: 450px; /* PC에서는 너무 넓어지지 않게 450px로 고정 */
   margin: 0 auto;
+  box-sizing: border-box; /* 💡 추가: 패딩을 너비에 포함시켜 삐져나가지 않게 함 */
 
-  /* 화면 전체 높이에서 상단바/하단바 높이만 딱 뺍니다 */
   height: calc(100vh - 140px);
-
   display: flex;
   flex-direction: column;
-
-  /* 💡 겉 상자에 있던 padding을 과감히 지워버립니다! (잘림의 원인) */
 }
 
-/* 2. 헤더 (달력과 추가 버튼) 양옆 대칭 정렬 */
+/* 2. 헤더 (달력과 추가 버튼) */
 .challenge-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* 지워버린 여백 대신, 헤더 자체에만 양옆 여백을 줍니다 */
-  padding: 20px 20px 10px 20px;
+  padding: 20px 25px 10px 25px; /* 양옆 여백을 25px로 통일 */
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
-/* 3. 스크롤되는 유리관 (그림자가 잘리던 곳) */
+/* 3. 스크롤되는 유리관 */
 .card-list {
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
-
-  /* 💡 핵심 수정: 첫 번째 숫자(위쪽 여백)를 15px에서 30px로 확 늘렸습니다! */
-  /* 그림자(25px)가 잘리지 않게 충분한 공간을 주고, 달력과의 간격도 벌려줍니다. */
   padding: 30px 25px 40px 25px;
+  box-sizing: border-box; /* 💡 추가: 스크롤바 영역이 화면 밖으로 밀려나지 않도록 보호 */
 }
 
-/* (선택사항) 스크롤바가 화면을 지저분하게 가리지 않도록 숨겨줍니다 */
 .card-list::-webkit-scrollbar {
   display: none;
 }
 
-/* 4. 카드(액자) 디자인 및 그림자 진하게 */
+/* 4. 카드 링크 껍데기 */
 .card-link {
   text-decoration: none;
   color: inherit;
   display: block;
+  width: 100%;
 
-  /* 💡 배경색, padding, box-shadow를 모두 지워서 충돌을 없앱니다! */
-
-  transition: transform 0.15s ease;
+  /* 💡 [수정] 애니메이션을 더 부드럽고 고급스럽게 (0.3초 + ease-out) */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform; /* 브라우저에게 애니메이션 예고 (성능 최적화) */
 }
 
-/* 터치 효과는 겉 포장지에 그대로 남겨둡니다 */
+/* 💡 [핵심 추가] 마우스를 올렸을 때 (Hover) */
+.card-link:hover {
+  /* 1. 위로 8px 이동하면서 1.02배 커짐 */
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* 💡 [핵심 추가] 마우스를 올렸을 때 자식 컴포넌트인 카드의 그림자를 더 진하게 */
+.card-link:hover :deep(.challenge-card) {
+  /* 기존 그림자보다 더 멀리 퍼지고 진하게 하여 '공중에 떴다'는 느낌을 줍니다 */
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+}
+
+/* 터치 효과 (모바일/클릭 시) */
 .card-link:active {
   transform: scale(0.98);
 }

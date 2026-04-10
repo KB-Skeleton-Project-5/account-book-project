@@ -20,7 +20,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "amount": 3000,
+      "amount": 90000,
       "tag": {
         "tagid": "eat",
         "tagtitle": "식비"
@@ -46,24 +46,6 @@
       "paymentMethod": "카드",
       "isFixed": true,
       "memo": "출근길"
-    },
-    {
-      "id": 4,
-      "userId": "1",
-      "date": "2026-04-04",
-      "title": "월급",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 2500000,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "paymentMethod": "카드",
-      "isFixed": true,
-      "memo": "4월 급여"
     },
     {
       "id": 5,
@@ -214,6 +196,23 @@
         "typetitle": "지출"
       },
       "id": 19
+    },
+    {
+      "amount": 100000,
+      "date": "",
+      "title": "치킨",
+      "memo": "",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "id": 20
     }
   ],
   "calendars": [
@@ -499,10 +498,10 @@
       "tag": "교통비",
       "targetAmount": 200000,
       "type": "지출",
-      "currentAmount": 0,
+      "memo": "ㅋㅌㅊㅍ",
+      "currentAmount": 22500,
       "year": 2026,
       "month": 4,
-      "memo": "",
       "id": 4
     },
     {
@@ -519,18 +518,18 @@
     {
       "title": "4월 모은돈",
       "tag": "전체",
-      "targetAmount": 200000,
+      "targetAmount": 2000000,
       "type": "수입",
+      "memo": "",
       "currentAmount": 2750135,
       "year": 2026,
       "month": 4,
-      "memo": "",
       "id": 6
     },
     {
-      "title": "4월 월급",
-      "tag": "월급",
-      "targetAmount": 50000,
+      "title": "부업 하기",
+      "tag": "부업",
+      "targetAmount": 500000,
       "type": "수입",
       "currentAmount": 0,
       "year": 2026,
