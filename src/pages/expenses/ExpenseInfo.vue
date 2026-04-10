@@ -42,6 +42,7 @@ const expenseData = ref(null);
 onMounted( async() => {
   try {
     const response = await axios.get(`/api/expensesdb/${route.params.id}`);
+    console.log('불러온 데이터 : ', response.data);
     expenseData.value = response.data;
   } catch (e) {
     console.error('데이터 불러오기 실패 : ', e);
@@ -58,7 +59,9 @@ const handleEdit = () => {
 // 일단 삭제 후 메인으로 이동 (삭제 모달 달기 전)
 const handleDelete = async() => {
   try {
-    await axios.delete(`/api/expensesdb/${route.params.id}`);
+    const res = await axios.delete(`/api/expensesdb/${parseInt(route.params.id)}`);
+    console.log('삭제 성공 : ', res.data);
+    
     router.push({ name : 'main' })
   } catch(e) {
     console.error('삭제 실패 : ', e);

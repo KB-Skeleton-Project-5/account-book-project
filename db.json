@@ -16,6 +16,14 @@
       "userId": "asdf",
       "pw": "asdf",
       "id": 1
+    },
+    {
+      "name": "eee",
+      "nick": "eee",
+      "email": "eee",
+      "userId": "eee",
+      "pw": "eee",
+      "id": 3
     }
   ],
   "expensesdb": [
@@ -208,6 +216,111 @@
         "typetitle": "수입"
       },
       "id": 14
+    },
+    {
+      "amount": 234,
+      "date": "2026-04-10",
+      "title": "234",
+      "memo": "234",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": 1,
+      "id": 15
+    },
+    {
+      "amount": 1234,
+      "date": "2026-04-10",
+      "title": "확인용",
+      "memo": "ㅂㅈㄷㄱ",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": 1,
+      "id": 16
+    },
+    {
+      "amount": 234,
+      "date": "2026-04-10",
+      "title": "2345",
+      "memo": "2345",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {},
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "userId": 1,
+      "id": 17
+    },
+    {
+      "amount": 1234,
+      "date": "2026-04-10",
+      "title": "eee",
+      "memo": "eee",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": 3,
+      "id": 18
+    },
+    {
+      "amount": 434,
+      "date": "2026-04-10",
+      "title": "324",
+      "memo": "324",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": 3,
+      "id": 19
+    },
+    {
+      "amount": 23,
+      "date": "2026-04-10",
+      "title": "ddd",
+      "memo": "ddd",
+      "paymentMethod": "현금",
+      "isFixed": true,
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통비"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "userId": 3,
+      "id": 20
     }
   ],
   "calendarsdb": [

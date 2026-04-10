@@ -143,30 +143,34 @@ onMounted(() => {
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
     // 로그인한 유저 데이터만 표시
-    if (e.userId !== currentUserId) return false;
-
+    if (currentUserId && e.userId !== currentUserId) return false;
+    // 탭 필터
     if (activeTab.value !== '전체' && e.type.typetitle !== activeTab.value)
       return false;
-    return false;
+    // 텍스트 검색
     if (
       searchFilters.value.searchText &&
       !e.title.includes(searchFilters.value.searchText)
     )
       return false;
+    // 날짜 필터
     if (searchFilters.value.startDate && e.date < searchFilters.value.startDate)
       return false;
     if (searchFilters.value.endDate && e.date > searchFilters.value.endDate)
       return false;
+    // 태그 필터
     if (
       searchFilters.value.tags.length > 0 &&
       !searchFilters.value.tags.includes(e.tag.tagid)
     )
       return false;
+    // 결제수단 필터
     if (
       searchFilters.value.payment &&
       e.paymentMethod !== searchFilters.value.payment
     )
       return false;
+    // 금액 필터
     if (
       searchFilters.value.minAmount &&
       e.amount < Number(searchFilters.value.minAmount)
