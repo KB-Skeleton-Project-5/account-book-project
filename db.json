@@ -151,6 +151,24 @@
       },
       "userId": 1,
       "id": 11
+    },
+    {
+      "amount": 100,
+      "date": "2026-04-10",
+      "title": "123",
+      "memo": "",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "shopping",
+        "tagtitle": "쇼핑"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": 4,
+      "id": 12
     }
   ],
   "calendarsdb": [
