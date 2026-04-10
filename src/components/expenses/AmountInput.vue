@@ -8,7 +8,6 @@
         placeholder="0"
         :readonly="props.readonly"
         @input="preventInvalidInput">
-        <!-- keydown 누르는 순간 발생 -->
         <span>원</span>
     </div>
 </template>
