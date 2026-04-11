@@ -1,4 +1,5 @@
 <template>
+    <!-- 거래 내역 수정 페이지 -->
     <DefaultLayout>
         <template #header>
             <AppHeader 
@@ -28,6 +29,11 @@ import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
+
+
+const userInfo = getUserInfo();
+// console.log(userInfo.id);
 
 
 const router = useRouter();
@@ -48,13 +54,13 @@ onMounted(async () => {
 
 
 const handleSave = () => {
-    expenseFormRef.value.submitForm();
+    expenseFormRef.value.submitForm();  // 자식 함수 직접 호출
 }
 
 
 const handleSubmit = async(data) => {
     try {
-        await axios.put(`/api/expenses/${route.params.id}`, {...data, userId : 1});
+        await axios.put(`/api/expenses/${route.params.id}`, {...data, user_id: String(userInfo.id)});
         router.push({ name : 'expenses' });
     } catch (e) {
         console.error('수정 실패 : ', e);

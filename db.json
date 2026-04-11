@@ -1,19 +1,34 @@
 {
   "users": [
     {
-      "id": 1,
-      "userId": "user_001",
-      "pw": "hashed_string",
-      "name": "홍길동",
-      "nick": "길동이",
-      "email": "hong@email.com",
-      "profileImage": "https://..."
+      "name": "박상호",
+      "nick": "오우",
+      "email": "wow@email.com",
+      "login_id": "if",
+      "pw": "1234",
+      "id": "108kww2"
+    },
+    {
+      "name": "메머드",
+      "nick": "커피",
+      "email": "MM@email.com",
+      "login_id": "mm",
+      "pw": "3456",
+      "id": "z2cholm"
+    },
+    {
+      "name": "메가",
+      "nick": "커피",
+      "email": "coffee@email.com",
+      "login_id": "co",
+      "pw": "5678",
+      "id": "zw5vrr1"
     }
   ],
   "expenses": [
     {
-      "id": 2,
-      "userId": "1",
+      "id": "1",
+      "user_id": "z2cholm",
       "date": "2026-04-02",
       "title": "김밥",
       "type": {
@@ -30,9 +45,9 @@
       "memo": "아침식사"
     },
     {
-      "id": 3,
-      "userId": "1",
-      "date": "2026-04-03",
+      "id": "2",
+      "user_id": "108kww2",
+      "date": "2026-04-04",
       "title": "버스비",
       "type": {
         "typeid": "withdrawal",
@@ -44,37 +59,37 @@
         "tagtitle": "교통비"
       },
       "paymentMethod": "카드",
-      "isFixed": true,
-      "memo": "출근길"
+      "isFixed": false,
+      "memo": ""
     },
     {
-      "id": 4,
-      "userId": "1",
-      "date": "2026-04-04",
+      "id": "3",
+      "user_id": "zw5vrr1",
+      "date": "2026-04-05",
       "title": "월급",
       "type": {
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "amount": 2500000,
+      "amount": 2000000,
       "tag": {
         "tagid": "etc",
         "tagtitle": "기타"
       },
-      "paymentMethod": "카드",
+      "paymentMethod": "계좌이체",
       "isFixed": true,
-      "memo": "4월 급여"
+      "memo": "4월 월급"
     },
     {
-      "id": 5,
-      "userId": "1",
-      "date": "2026-04-05",
+      "id": "4",
+      "user_id": "z2cholm",
+      "date": "2026-04-07",
       "title": "올리브영",
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "amount": 23000,
+      "amount": 35000,
       "tag": {
         "tagid": "shopping",
         "tagtitle": "쇼핑"
@@ -84,100 +99,161 @@
       "memo": "스킨케어"
     },
     {
-      "id": 8,
-      "userId": "1",
-      "date": "2026-04-08",
-      "title": "미용실",
+      "id": "5",
+      "user_id": "z2cholm",
+      "date": "2026-04-09",
+      "title": "넷플릭스",
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "amount": 15000,
+      "amount": 17000,
       "tag": {
         "tagid": "etc",
         "tagtitle": "기타"
       },
       "paymentMethod": "카드",
-      "isFixed": false,
-      "memo": "기분 전환"
+      "isFixed": true,
+      "memo": "월정액"
     },
     {
-      "id": 9,
-      "userId": "1",
-      "date": "2026-04-05",
-      "title": "통장 이자",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 135,
+      "amount": 100,
+      "date": "2026-04-11",
+      "title": "실험용",
+      "memo": "",
+      "paymentMethod": "카드",
+      "isFixed": false,
       "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
+        "tagid": "기타_1775905335912",
+        "tagtitle": "기타",
+        "color": "#F0F0F0",
+        "textColor": "#7F8C8D",
+        "type": "지출",
+        "id": "M2bub_X"
       },
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "memo": "이자"
-    },
-    {
-      "id": 10,
-      "userId": "1",
-      "date": "2026-04-06",
-      "title": "asdf",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 343,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "memo": "sf"
-    },
-    {
-      "id": 11,
-      "userId": 1,
-      "date": "2026-04-10",
-      "title": "123",
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "amount": 1232456789,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "memo": ""
+      "user_id": "108kww2",
+      "id": "godQzAL"
     },
     {
-      "id": 12,
-      "userId": "1",
-      "date": "2026-04-10",
-      "title": "123",
+      "amount": 1000,
+      "date": "2026-04-07",
+      "title": "물",
+      "memo": "목이 갑자기 말라서,,,",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "3",
+        "tagid": "shopping",
+        "tagtitle": "쇼핑",
+        "color": "#D6F0E0",
+        "textColor": "#66A882",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "108kww2",
+      "id": "2lwUQhN"
+    },
+    {
+      "amount": 250000,
+      "date": "2026-04-02",
+      "title": "훈련장려금",
+      "memo": "KB",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "기타2_1775905390540",
+        "tagtitle": "기타2",
+        "color": "#F0F0F0",
+        "textColor": "#7F8C8D",
+        "type": "수입",
+        "id": "xFpw4lH"
+      },
       "type": {
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "amount": 100,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
+      "user_id": "108kww2",
+      "id": "lwaJzTu"
+    },
+    {
+      "amount": 570000,
+      "date": "2026-04-01",
+      "title": "한달급여",
+      "memo": "알바",
       "paymentMethod": "현금",
       "isFixed": false,
-      "memo": ""
+      "tag": {
+        "id": "5",
+        "tagid": "salary",
+        "tagtitle": "급여",
+        "color": "#D6EAFF",
+        "textColor": "#5B9BD5",
+        "type": "수입",
+        "user_id": "108kww2"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "user_id": "108kww2",
+      "id": "UYVif8X"
+    },
+    {
+      "amount": 100000,
+      "date": "2026-04-03",
+      "title": "기차",
+      "memo": "기차값 흑흑",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "id": "2",
+        "tagid": "traffic",
+        "tagtitle": "교통",
+        "color": "#D6EAFF",
+        "textColor": "#5B9BD5",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "108kww2",
+      "id": "fKNyzMO"
+    },
+    {
+      "amount": 200,
+      "date": "2026-04-11",
+      "title": "사탕",
+      "memo": "냠냠",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "간식_1775910972620",
+        "tagtitle": "간식",
+        "color": "#D6F0F0",
+        "textColor": "#17A589",
+        "type": "지출",
+        "id": "YYDDO3D"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "108kww2",
+      "id": "tiP2mcI"
     }
   ],
   "calendars": [
     {
-      "id": 1,
-      "userId": "1",
+      "id": "1",
+      "user_id": "108kww2",
       "title": "월급날",
       "date": "2026-04-01",
       "time": "09:00",
@@ -185,35 +261,35 @@
       "memo": "급여 입금 완료"
     },
     {
-      "id": 2,
-      "userId": "1",
+      "id": "2",
+      "user_id": "zw5vrr1",
       "title": "팀 회의 수정",
       "date": "2026-04-10",
       "time": "14:00",
-      "expenseId": 5,
+      "expenseId": "5",
       "memo": "ppt 준비"
     },
     {
-      "id": 3,
-      "userId": "1",
+      "id": "3",
+      "user_id": "108kww2",
       "title": "스터디",
       "date": "2026-04-10",
       "time": "16:00",
-      "expenseId": 6,
+      "expenseId": "6",
       "memo": "Vue 라우터 복습 완료!"
     },
     {
-      "id": 4,
-      "userId": "1",
+      "id": "4",
+      "user_id": "zw5vrr1",
       "title": "병원 예약",
       "date": "2026-04-15",
       "time": "11:00",
-      "expenseId": 34,
+      "expenseId": "34",
       "memo": "정기 검진"
     },
     {
-      "id": 6,
-      "userId": "1",
+      "id": "5",
+      "user_id": "108kww2",
       "title": "생일파티",
       "date": "2026-04-15",
       "time": "07:00",
@@ -221,8 +297,8 @@
       "memo": "선물 챙기기"
     },
     {
-      "id": 7,
-      "userId": "1",
+      "id": "6",
+      "user_id": "z2cholm",
       "title": "미용실",
       "date": "2026-04-01",
       "time": "14:00",
@@ -288,8 +364,7 @@
   ],
   "summary": [
     {
-      "id": 1,
-      "userId": "1",
+      "id": "1",
       "year": 2024,
       "month": 1,
       "income": 2500000,
@@ -319,11 +394,11 @@
           "tag": "기타",
           "amount": 350000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 2,
-      "userId": "1",
+      "id": "2",
       "year": 2024,
       "month": 2,
       "income": 2600000,
@@ -353,11 +428,11 @@
           "tag": "기타",
           "amount": 350000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 3,
-      "userId": "1",
+      "id": "3",
       "year": 2024,
       "month": 3,
       "income": 2700000,
@@ -387,11 +462,11 @@
           "tag": "기타",
           "amount": 370000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 4,
-      "userId": "1",
+      "id": "4",
       "year": 2024,
       "month": 4,
       "income": 2800000,
@@ -421,11 +496,11 @@
           "tag": "기타",
           "amount": 380000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 5,
-      "userId": "1",
+      "id": "5",
       "year": 2024,
       "month": 5,
       "income": 2500000,
@@ -455,11 +530,11 @@
           "tag": "기타",
           "amount": 330000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 6,
-      "userId": "1",
+      "id": "6",
       "year": 2024,
       "month": 6,
       "income": 3000000,
@@ -489,11 +564,11 @@
           "tag": "기타",
           "amount": 380000
         }
-      ]
+      ],
+      "user_id": "z2cholm"
     },
     {
-      "id": 7,
-      "userId": "1",
+      "id": "7",
       "year": 2024,
       "month": 7,
       "income": 2900000,
@@ -523,11 +598,11 @@
           "tag": "기타",
           "amount": 360000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 8,
-      "userId": "1",
+      "id": "8",
       "year": 2024,
       "month": 8,
       "income": 3100000,
@@ -557,11 +632,11 @@
           "tag": "기타",
           "amount": 400000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 9,
-      "userId": 1,
+      "id": "9",
       "year": 2024,
       "month": 9,
       "income": 2800000,
@@ -591,11 +666,11 @@
           "tag": "기타",
           "amount": 370000
         }
-      ]
+      ],
+      "user_id": "z2cholm"
     },
     {
-      "id": 10,
-      "userId": "1",
+      "id": "10",
       "year": 2024,
       "month": 10,
       "income": 3200000,
@@ -625,11 +700,11 @@
           "tag": "기타",
           "amount": 380000
         }
-      ]
+      ],
+      "user_id": "z2cholm"
     },
     {
-      "id": 11,
-      "userId": "1",
+      "id": "11",
       "year": 2024,
       "month": 11,
       "income": 3000000,
@@ -659,11 +734,11 @@
           "tag": "기타",
           "amount": 400000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 12,
-      "userId": "1",
+      "id": "12",
       "year": 2024,
       "month": 12,
       "income": 3500000,
@@ -693,11 +768,11 @@
           "tag": "기타",
           "amount": 450000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 13,
-      "userId": "1",
+      "id": "13",
       "year": 2025,
       "month": 1,
       "income": 2600000,
@@ -727,11 +802,11 @@
           "tag": "기타",
           "amount": 350000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 14,
-      "userId": "1",
+      "id": "14",
       "year": 2025,
       "month": 2,
       "income": 2700000,
@@ -761,11 +836,11 @@
           "tag": "기타",
           "amount": 360000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 15,
-      "userId": "1",
+      "id": "15",
       "year": 2025,
       "month": 3,
       "income": 2800000,
@@ -795,11 +870,11 @@
           "tag": "기타",
           "amount": 380000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 16,
-      "userId": "1",
+      "id": "16",
       "year": 2025,
       "month": 4,
       "income": 2900000,
@@ -829,11 +904,11 @@
           "tag": "기타",
           "amount": 330000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 17,
-      "userId": "1",
+      "id": "17",
       "year": 2025,
       "month": 5,
       "income": 3000000,
@@ -863,11 +938,11 @@
           "tag": "기타",
           "amount": 390000
         }
-      ]
+      ],
+      "user_id": "z2cholm"
     },
     {
-      "id": 18,
-      "userId": "1",
+      "id": "18",
       "year": 2025,
       "month": 6,
       "income": 3100000,
@@ -897,11 +972,11 @@
           "tag": "기타",
           "amount": 400000
         }
-      ]
+      ],
+      "user_id": "z2cholm"
     },
     {
-      "id": 19,
-      "userId": "1",
+      "id": "19",
       "year": 2025,
       "month": 7,
       "income": 2900000,
@@ -931,11 +1006,11 @@
           "tag": "기타",
           "amount": 360000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 20,
-      "userId": "1",
+      "id": "20",
       "year": 2025,
       "month": 8,
       "income": 3200000,
@@ -965,11 +1040,11 @@
           "tag": "기타",
           "amount": 410000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 21,
-      "userId": "1",
+      "id": "21",
       "year": 2025,
       "month": 9,
       "income": 3000000,
@@ -999,11 +1074,11 @@
           "tag": "기타",
           "amount": 370000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 22,
-      "userId": "1",
+      "id": "22",
       "year": 2025,
       "month": 10,
       "income": 3300000,
@@ -1033,11 +1108,11 @@
           "tag": "기타",
           "amount": 390000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 23,
-      "userId": "1",
+      "id": "23",
       "year": 2025,
       "month": 11,
       "income": 3100000,
@@ -1067,11 +1142,11 @@
           "tag": "기타",
           "amount": 420000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 24,
-      "userId": "1",
+      "id": "24",
       "year": 2025,
       "month": 12,
       "income": 3600000,
@@ -1101,11 +1176,11 @@
           "tag": "기타",
           "amount": 440000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     },
     {
-      "id": 25,
-      "userId": "1",
+      "id": "25",
       "year": 2026,
       "month": 1,
       "income": 2700000,
@@ -1135,11 +1210,11 @@
           "tag": "기타",
           "amount": 360000
         }
-      ]
+      ],
+      "user_id": "z2cholm"
     },
     {
-      "id": 26,
-      "userId": "1",
+      "id": "26",
       "year": 2026,
       "month": 2,
       "income": 2800000,
@@ -1169,11 +1244,11 @@
           "tag": "기타",
           "amount": 380000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 27,
-      "userId": "1",
+      "id": "27",
       "year": 2026,
       "month": 3,
       "income": 2800000,
@@ -1203,11 +1278,11 @@
           "tag": "기타",
           "amount": 380000
         }
-      ]
+      ],
+      "user_id": "zw5vrr1"
     },
     {
-      "id": 28,
-      "userId": "1",
+      "id": "28",
       "year": 2026,
       "month": 4,
       "income": 3200000,
@@ -1237,20 +1312,120 @@
           "tag": "기타",
           "amount": 100000
         }
-      ]
+      ],
+      "user_id": "108kww2"
     }
   ],
   "challenges": [
     {
-      "id": 1,
-      "userId": "1",
-      "title": "4월 식비 절약",
-      "targetAmount": 300000,
-      "type": "SPENDING",
-      "tag": "식비",
-      "memo": "이번 달은 외식 금지!",
+      "title": "4월 교통비 절약",
+      "tag": "교통",
+      "targetAmount": 150000,
+      "type": "지출",
+      "memo": "으음,, 기차 그만 타고싶다.",
+      "currentAmount": 100000,
       "year": 2026,
-      "month": 4
+      "month": 4,
+      "user_id": "108kww2",
+      "id": 1
+    },
+    {
+      "title": "돈벌자",
+      "tag": "급여",
+      "targetAmount": 1000000,
+      "type": "수입",
+      "memo": "돈 많이 벌고 싶소",
+      "currentAmount": 570000,
+      "year": 2026,
+      "month": 4,
+      "user_id": "108kww2",
+      "id": 2
+    }
+  ],
+  "tags": [
+    {
+      "id": "1",
+      "tagid": "eat",
+      "tagtitle": "식비",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "지출"
+    },
+    {
+      "id": "2",
+      "tagid": "traffic",
+      "tagtitle": "교통",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "지출"
+    },
+    {
+      "id": "3",
+      "tagid": "shopping",
+      "tagtitle": "쇼핑",
+      "color": "#D6F0E0",
+      "textColor": "#66A882",
+      "type": "지출"
+    },
+    {
+      "id": "4",
+      "tagid": "medical",
+      "tagtitle": "의료",
+      "color": "#E8D6FF",
+      "textColor": "#9B59B6",
+      "type": "지출",
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "5",
+      "tagid": "salary",
+      "tagtitle": "급여",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "수입",
+      "user_id": "108kww2"
+    },
+    {
+      "id": "6",
+      "tagid": "finance",
+      "tagtitle": "금융",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "수입",
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "7",
+      "tagid": "sideJob",
+      "tagtitle": "부수입",
+      "color": "#FFF3C4",
+      "textColor": "#B8860B",
+      "type": "수입",
+      "user_id": "108kww2"
+    },
+    {
+      "tagid": "기타_1775905335912",
+      "tagtitle": "기타",
+      "color": "#F0F0F0",
+      "textColor": "#7F8C8D",
+      "type": "지출",
+      "id": "M2bub_X"
+    },
+    {
+      "tagid": "기타2_1775905390540",
+      "tagtitle": "기타2",
+      "color": "#F0F0F0",
+      "textColor": "#7F8C8D",
+      "type": "수입",
+      "id": "xFpw4lH"
+    },
+    {
+      "tagid": "간식_1775910972620",
+      "tagtitle": "간식",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "지출",
+      "id": "YYDDO3D"
     }
   ]
 }

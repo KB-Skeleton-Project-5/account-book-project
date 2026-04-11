@@ -2,15 +2,25 @@
   <div>
     <div class="total-item">
       <span>총 수입</span>
-      <strong>{{ summaryData ? summaryData.income.toLocaleString():'0' }}원</strong>
+      <strong
+        >{{ summaryData ? summaryData.income.toLocaleString() : '0' }}원</strong
+      >
     </div>
     <div class="total-item">
       <span>총 지출</span>
-      <strong>{{ summaryData? summaryData.expense.toLocaleString(): '0' }}원</strong>
+      <strong
+        >{{
+          summaryData ? summaryData.expense.toLocaleString() : '0'
+        }}원</strong
+      >
     </div>
     <div class="total-item">
       <span>순이익</span>
-      <strong>{{ summaryData ? summaryData.netProfit.toLocaleString() : '0'}}원</strong>
+      <strong
+        >{{
+          summaryData ? summaryData.netProfit.toLocaleString() : '0'
+        }}원</strong
+      >
     </div>
   </div>
 </template>
@@ -29,9 +39,9 @@ const summaryList = ref([]);
 // 전체 데이터 한 번만 불러오기
 onMounted(async () => {
   try {
-    const { id } = getUserInfo()  //추가
+    const { id } = getUserInfo(); //추가
     const response = await axios.get('/api/summary', {
-      params: { userId: id } // userId 파라미터 추가
+      params: { user_id: id }, // user_id 파라미터 추가
     });
     summaryList.value = response.data;
   } catch (error) {
@@ -66,6 +76,6 @@ const summaryData = computed(() => {
   margin-bottom: 12px;
   box-sizing: border-box;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 </style>
