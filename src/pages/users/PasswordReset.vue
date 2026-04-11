@@ -7,7 +7,7 @@
         <label>아이디</label>
         <input
           type="text"
-          v-model="form.user_id"
+          v-model="form.login_id"
           placeholder="아이디를 입력하세요"
         />
       </div>
@@ -37,65 +37,57 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { updateUserProcess } from '@/util/authUtil'
-import AppButton from '@/components/commons/AppButton.vue'
-import AppHeader from '@/layouts/AppHeader.vue'
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { updateUserProcess } from '@/util/authUtil';
+import AppButton from '@/components/commons/AppButton.vue';
+import AppHeader from '@/layouts/AppHeader.vue';
 
-const router = useRouter()
+const router = useRouter();
 
 const form = reactive({
-  user_id: '',
-  newPw: ''
-})
+  login_id: '',
+  newPw: '',
+});
 
-const newPwConfirm = ref('')
+const newPwConfirm = ref('');
 
 async function handleReset() {
-<<<<<<< HEAD
-  if (form.newPw !== newPwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다')
-    return
-  }
-  const response = await fetch(`/api/usersdb/?user_id=${form.user_id}`)
-=======
   //아이디 유효성 검사
-  if (!form.user_id.trim()) {
-    alert('아이디를 입력하세요')
-    return
+  if (!form.login_id.trim()) {
+    alert('아이디를 입력하세요');
+    return;
   }
   //비밀번호 유효성 검사
   if (!form.newPw.trim()) {
-    alert('새 비밀번호를 입력하세요')
-    return
+    alert('새 비밀번호를 입력하세요');
+    return;
   }
   if (form.newPw !== newPwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다')
-    return
+    alert('비밀번호가 일치하지 않습니다');
+    return;
   }
-  const response = await fetch(`/api/users/?user_id=${form.user_id}`)
->>>>>>> origin/Yongjin
-  const users = await response.json()
+  const response = await fetch(`/api/users/?login_id=${form.login_id}`);
+  const users = await response.json();
 
-  if(users.length === 0 ){
-    alert('존재하지 않는 아이디입니다')
-    return
+  if (users.length === 0) {
+    alert('존재하지 않는 아이디입니다');
+    return;
   }
 
-  const user = users[0]
+  const user = users[0];
 
   updateUserProcess(
     user.id,
     { pw: form.newPw },
     () => {
-      alert('비밀번호가 변경되었습니다')
-      router.push({ name: 'users/login'})
+      alert('비밀번호가 변경되었습니다');
+      router.push({ name: 'users/login' });
     },
     () => {
-      alert('비밀번호변경에 실패했습니다')
-    }
-  )
+      alert('비밀번호변경에 실패했습니다');
+    },
+  );
 }
 </script>
 

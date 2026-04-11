@@ -8,7 +8,7 @@
         <label>아이디</label>
         <input
           type="text"
-          v-model="form.user_id"
+          v-model="form.login_id"
           placeholder="아이디를 입력하세요"
           @keyup.enter="handleLogin"
         />
@@ -48,13 +48,13 @@ import { loginProcess } from '@/util/authUtil';
 const router = useRouter();
 
 const form = reactive({
-  user_id: '',
+  login_id: '',
   pw: '',
 });
 
 function handleLogin() {
   // 유효성 검사
-  if (!form.user_id.trim()) {
+  if (!form.login_id.trim()) {
     alert('아이디를 입력하세요');
     console.log('아이디를 입력하세요');
     return;
@@ -66,7 +66,7 @@ function handleLogin() {
     return;
   }
   loginProcess(
-    form.user_id,
+    form.login_id,
     form.pw,
     () => {
       console.log('로그인 성공');

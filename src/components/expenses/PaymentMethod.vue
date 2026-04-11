@@ -1,7 +1,7 @@
 <template>
     <!-- 결제수단 선택 UI 영역 -->
     <div class="wrapper">
-        <label>결제수단</label>
+        <label>💳 결제수단</label>
         <!-- radio-group : 라디오 버튼 여러개 묶어주는 박스 -->
         <div class="radio-group">
             <!-- radio-label : 라디오 버튼 + 텍스트를 함께 묶은 label -->
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps({
     value : [ String ],
@@ -48,6 +48,10 @@ const emit = defineEmits(['submit-payment']);
 const handleChange = () => {
     emit('submit-payment', payment.value)
 }
+
+onMounted(() => {
+    emit('submit-payment', payment.value)
+})
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <!-- 태그 선택 UI 영역 -->
   <div class="wrapper">
-    <label>태그</label>
+    <label>🏷️ 태그</label>
     <div class="tag-group">
       <button
         v-for="tag in tags"
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const tags = [
   { tagid: 'eat', tagtitle: '식비' },
@@ -35,19 +35,22 @@ const props = defineProps({
   readonly: Boolean,
 });
 
-watch(
-  () => props.value,
-  (val) => {
+watch(() => props.value, (val) => {
     // tagid가 있을 때만 세팅 (빈 객체가 기본값 덮어쓰는 것 방지)
-    if (val?.tagid) selected.value = val;
-  },
-  { immediate: true },
-);
+    if(val?.tagid) selected.value = val;
+}, { immediate : true });
+
+
 
 const handleSelect = (tag) => {
-  selected.value = tag;
-  emit('submit-tag', tag);
-};
+  selected.value = tag
+  emit('submit-tag', tag)
+}
+
+// 컴포넌트가 마운트 될 때 기본값(지출)을 부모에게 즉시 전달
+onMounted(() => {
+    emit('submit-tag', selected.value);
+});
 </script>
 
 <style scoped>

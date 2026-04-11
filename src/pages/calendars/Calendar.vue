@@ -11,6 +11,7 @@
           <!--왼쪽 : 날짜 선택 -->
           <div class="month-left">
             <MonthPicker v-model="selectedDate" />
+            <button class="today-btn" @click="goToday">오늘</button>
           </div>
           <!-- 오른쪽: 추가 버튼 -->
           <div class="month-right">
@@ -34,7 +35,7 @@
               @click="selectDay(day)"
             >
               <template v-if="day">
-                <span class="day-number">{{ day }}</span>
+                <span class="day-number" :class="{ today: isToday(day) }" >{{ day }}</span>
                 <span v-if="eventDays.includes(day)" class="event-dot"></span>
               </template>
             </div>
@@ -89,6 +90,15 @@ const selectedDate = ref({
 
 const selectedDay = ref(savedDate?.day || 1);
 
+// 여기에 추가
+const isToday = (day) => {
+  return (
+    day === today.getDate() &&
+    selectedDate.value.year === today.getFullYear() &&
+    selectedDate.value.month === today.getMonth() + 1
+  );
+};
+
 watch(
   [selectedDate, selectedDay],
   () => {
@@ -118,6 +128,14 @@ const selectedDayText = computed(() => {
 });
 
 const calendarList = ref([]);
+
+const goToday = () => {
+  selectedDate.value = {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  };
+  selectedDay.value = today.getDate();
+};
 
 const handleAdd = () => {
   router.push({ name: 'calendars/add' });
@@ -214,11 +232,25 @@ onMounted(() => {
 .month-left {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .month-right {
   display: flex;
   align-items: center;
+}
+
+.today-btn {
+  background: #b5b2b2;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 14px;;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  /* text-decoration: underline; */
+
 }
 
 .calendar-box {
@@ -279,6 +311,11 @@ onMounted(() => {
   border-radius: 50%;
   background-color: #ffbc00;
   margin-top: 4px;
+}
+
+.today {
+  font-weight: 700;
+  text-decoration: underline;  /* 언더라인으로 오늘 표시 */
 }
 
 .empty-text {

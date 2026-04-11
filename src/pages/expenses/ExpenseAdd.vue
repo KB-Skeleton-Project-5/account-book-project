@@ -25,24 +25,21 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil.js';
 
+// 현재 로그인한 유저 정보 가져오는 유틸 함수
 const userInfo = getUserInfo();
-console.log(userInfo.id);
 
 const router = useRouter();
 const expenseFormRef = ref(null);
 
 const handleSave = () => {
-  expenseFormRef.value.submitForm();
-};
+  expenseFormRef.value.submitForm()   // 자식 함수 직접 호출
+}
 
 const handleSubmit = async (formData) => {
   try {
     // console.log('저장 데이터 : ', formData);
-    await axios.post('/api/expenses', {
-      ...formData,
-      user_id: String(userInfo.id),
-    });
-    router.push({ name: 'expenses' });
+    await axios.post('/api/expenses', {...formData, user_id: String(userInfo.id)})
+    router.push({ name: 'expenses' })
   } catch (e) {
     console.error('저장 실패 : ', e);
   }

@@ -56,7 +56,7 @@
                 class="item-amount"
                 :class="item.type?.typetitle === '수입' ? 'text-success' : ''"
               >
-                {{ item.amount.toLocaleString() }}원
+                {{ item.amount?.toLocaleString() }}원
               </span>
             </div>
           </template>
@@ -77,7 +77,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import ExpenseSearch from '@/components/expenses/ExpenseSearch.vue';
-import { getExpenses } from '@/api/expenses';
+import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
@@ -86,7 +86,7 @@ const userInfo = getUserInfo();
 
 const expenses = ref([]);
 const activeTab = ref('전체');
-const currentuser_id = Number(userInfo?.id);
+const currentuser_id = userInfo?.id;
 
 const searchFilters = ref({
   searchText: '',
@@ -109,7 +109,7 @@ const getTagStyle = (tag) => {
 
 // API 파라미터 빌드
 const buildParams = (filters, tab) => {
-  const params = { user_id: currentuser_id };
+  const params = { user_id: String(currentuser_id) };
 
   if (filters.searchText) params.title_like = filters.searchText;
   if (filters.startDate) params.date_gte = filters.startDate;
@@ -140,6 +140,9 @@ const fetchExpenses = async (
   filters = searchFilters.value,
   tab = activeTab.value,
 ) => {
+  // 목록 에러 이슈로 확인차 찍음.
+  // console.log('userInfo:', userInfo); 
+  // console.log('currentuser_id:', currentuser_id);
   if (!userInfo || !userInfo.authenticated) {
     alert('로그인이 필요한 서비스입니다.');
     router.push({ name: 'users/login' });
@@ -148,7 +151,7 @@ const fetchExpenses = async (
 
   try {
     const params = buildParams(filters, tab);
-    const res = await getExpenses(params);
+    const res = await axios.get('/api/expenses', { params });
     expenses.value = res.data;
   } catch (e) {
     console.error('내역 로드 실패:', e);
@@ -186,7 +189,7 @@ onMounted(() => {
 // 필터링 및 그룹화
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
-    if (Number(e.user_id) !== currentuser_id) return false;
+    if ((e.user_id) !== currentuser_id) return false;
 
     // 태그 필터링 (JSON 서버에서 처리하기 까다로운 다중 선택 필터)
     if (searchFilters.value.tags.length > 0) {

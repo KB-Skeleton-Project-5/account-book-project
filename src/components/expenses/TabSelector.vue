@@ -1,7 +1,7 @@
 <template>
   <!-- 수입/지출 분류 탭 UI 영역 -->
   <div class="wrapper">
-    <label>분류</label>
+    <label>📂 분류</label>
     <div class="tab-group">
       <button
         v-for="tab in tabs"
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const tabs = [
   { typeid: 'deposit', typetitle: '수입' },
@@ -45,6 +45,11 @@ const handleSelect = (tab) => {
   selected.value = tab
   emit('submit-tab', tab)
 }
+
+// 컴포넌트가 마운트 될 때 기본값(지출)을 부모에게 즉시 전달
+onMounted(() => {
+  emit('submit-tab', selected.value);
+});
 </script>
 
 <style scoped>

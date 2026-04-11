@@ -21,7 +21,7 @@
       </div>
       <div class="field">
         <label>아이디</label>
-        <input type="text" :value="member.user_id" readonly />
+        <input type="text" :value="member.login_id" readonly />
       </div>
     </div>
 
@@ -52,7 +52,7 @@ const router = useRouter();
 
 // TODO: 서버에서 실제 데이터 불러오기
 const member = reactive({
-  user_id: '',
+  login_id: '',
   name: '',
   nick: '',
   email: '',

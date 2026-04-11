@@ -1,7 +1,7 @@
 <template>
     <!-- 메모 입력 UI 영역 -->
     <div class="wrapper">
-        <label>메모</label>
+        <label>📝 메모</label>
         <textarea 
         v-model="memo" 
         @input="handleInput" 

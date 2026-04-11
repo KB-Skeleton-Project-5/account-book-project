@@ -31,7 +31,7 @@
         <label>아이디</label>
         <input
           type="text"
-          v-model="form.user_id"
+          v-model="form.login_id"
           placeholder="아이디를 입력하세요"
         />
       </div>
@@ -76,7 +76,7 @@ const form = reactive({
   name: '',
   nick: '',
   email: '',
-  user_id: '',
+  login_id: '',
   pw: '',
 });
 
@@ -103,7 +103,7 @@ function handleSignup() {
 
     return;
   }
-  if (!form.user_id.trim()) {
+  if (!form.login_id.trim()) {
     alert('아이디를 입력하세요');
     console.log('아이디를 입력하세요');
 

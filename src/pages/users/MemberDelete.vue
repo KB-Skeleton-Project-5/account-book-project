@@ -12,7 +12,7 @@
         <label>아이디 확인</label>
         <input
           type="text"
-          v-model="form.user_id"
+          v-model="form.login_id"
           placeholder="아이디를 입력하세요"
         />
       </div>
@@ -55,84 +55,72 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { deleteUserProcess,logoutProcess } from '@/util/authUtil'
-import AppHeader from '@/layouts/AppHeader.vue'
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { deleteUserProcess, logoutProcess } from '@/util/authUtil';
+import AppHeader from '@/layouts/AppHeader.vue';
 
-const router = useRouter()
+const router = useRouter();
 
 const form = reactive({
-  user_id: '',
-  pw: ''
-})
+  login_id: '',
+  pw: '',
+});
 
-const isAgreed = ref(false)
-const showModal = ref(false)
+const isAgreed = ref(false);
+const showModal = ref(false);
 
 function onAgreeChange() {
   if (isAgreed.value) {
-    showModal.value = true
+    showModal.value = true;
   }
 }
 
 function closeModal() {
-  showModal.value = false
-  isAgreed.value = false
+  showModal.value = false;
+  isAgreed.value = false;
 }
 
 async function handleDelete() {
-<<<<<<< HEAD
-  // 입력한 아이디/비밀번호로 본인 확인
-  const response = await fetch(
-    `/api/usersdb?user_id=${form.user_id}&pw=${form.pw}`
-=======
   // 유효성 검사
-  if (!form.user_id.trim()) {
-    alert('아이디를 입력하세요')
-    console.log('아이디를 입력하세요')
-    return
+  if (!form.login_id.trim()) {
+    alert('아이디를 입력하세요');
+    console.log('아이디를 입력하세요');
+    return;
   }
   if (!form.pw.trim()) {
-    alert('비밀번호를 입력하세요')
-    console.log('비밀번호를 입력하세요')
-    return
+    alert('비밀번호를 입력하세요');
+    console.log('비밀번호를 입력하세요');
+    return;
   }
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
-    `/api/users?user_id=${form.user_id}&pw=${form.pw}`
->>>>>>> origin/Yongjin
-  )
-  const users = await response.json()
+    `/api/users?login_id=${form.login_id}&pw=${form.pw}`,
+  );
+  const users = await response.json();
 
   if (users.length === 0) {
-    alert('아이디 또는 비밀번호가 틀렸습니다')
-<<<<<<< HEAD
-=======
+    alert('아이디 또는 비밀번호가 틀렸습니다');
     console.log('아이디 또는 비밀번호가 틀렸습니다');
->>>>>>> origin/Yongjin
-    closeModal()
-    return
+    closeModal();
+    return;
   }
 
-  const user = users[0]
+  const user = users[0];
 
   deleteUserProcess(
     user.id,
     () => {
       logoutProcess(() => {
-        router.push({ name: 'users/login' })
-      })
+        router.push({ name: 'users/login' });
+      });
     },
     () => {
-      alert('탈퇴에 실패했습니다')
-<<<<<<< HEAD
-=======
-      console.log('탈퇴에 실패했습니다')
->>>>>>> origin/Yongjin
-      closeModal()
-    }
-  )
+      alert('탈퇴에 실패했습니다');
+      console.log('탈퇴에 실패했습니다');
+      closeModal();
+    },
+  );
 }
 </script>
 

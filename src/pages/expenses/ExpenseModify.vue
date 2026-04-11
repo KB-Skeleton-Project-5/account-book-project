@@ -29,7 +29,7 @@ import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil.js';
 
 const userInfo = getUserInfo();
-console.log(userInfo.id);
+// console.log(userInfo.id);
 
 const router = useRouter();
 const route = useRoute();
@@ -47,20 +47,18 @@ onMounted(async () => {
 });
 
 const handleSave = () => {
-  expenseFormRef.value.submitForm();
-};
+    expenseFormRef.value.submitForm();  // 자식 함수 직접 호출
+}
 
-const handleSubmit = async (data) => {
-  try {
-    await axios.put(`/api/expenses/${route.params.id}`, {
-      ...data,
-      user_id: userInfo.id,
-    });
-    router.push({ name: 'expenses' });
-  } catch (e) {
-    console.error('수정 실패 : ', e);
-  }
-};
+
+const handleSubmit = async(data) => {
+    try {
+        await axios.put(`/api/expenses/${route.params.id}`, {...data, user_id: String(userInfo.id)});
+        router.push({ name : 'expenses' });
+    } catch (e) {
+        console.error('수정 실패 : ', e);
+    }
+}
 </script>
 
 <style scoped></style>

@@ -2,7 +2,7 @@
     <!-- 금액 입력 UI 영역 -->
     <!-- wrapper : 라벨 + 텍스트 영역을 묶어주는 박스 -->
     <div class="wrapper">
-        <label>금액</label>
+        <label>💰 금액</label>
         <!-- v-model.number="amount" : amount 변수를 양방향 바인딩 -->
         <!-- :readonly="props.readonly" 
             부모 컴포넌트에서 readonly를 true로 보내서 읽기 전용
