@@ -36,12 +36,12 @@ const props = defineProps({
 
 const summaryList = ref([]);
 
-// 전체 데이터 한 번만 불러오기
+
 onMounted(async () => {
   try {
-    const { id } = getUserInfo(); //추가
-    const response = await axios.get('/api/summary', {
-      params: { user_id: id }, // user_id 파라미터 추가
+    const { id } = getUserInfo();
+    const response = await axios.get('/api/expenses', {
+      params: { user_id: id },
     });
     summaryList.value = response.data;
   } catch (error) {
@@ -50,17 +50,25 @@ onMounted(async () => {
   }
 });
 
-// for문으로 선택한 월 찾기
+// expenses 데이터로 직접 계산
 const summaryData = computed(() => {
-  for (let i = 0; i < summaryList.value.length; i++) {
-    if (
-      summaryList.value[i].year === props.selectedDate.year &&
-      summaryList.value[i].month === props.selectedDate.month
-    ) {
-      return summaryList.value[i];
-    }
-  }
-  return null;
+  const filtered = summaryList.value.filter((e) => {
+    const d = new Date(e.date);
+    return (
+      d.getFullYear() === props.selectedDate.year &&
+      d.getMonth() + 1 === props.selectedDate.month
+    );
+  });
+
+  const income = filtered
+    .filter((e) => e.type?.typetitle === '수입')
+    .reduce((sum, e) => sum + e.amount, 0);
+
+  const expense = filtered
+    .filter((e) => e.type?.typetitle === '지출')
+    .reduce((sum, e) => sum + e.amount, 0);
+
+  return { income, expense, netProfit: income - expense };
 });
 </script>
 
