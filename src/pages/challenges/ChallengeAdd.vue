@@ -172,10 +172,22 @@ const executeSave = async () => {
   const currentMonth = now.getMonth() + 1;
 
   try {
-    const expensesRes = await axios.get('/api/expenses', {
-      params: { user_id: userInfo.id },
-    });
+    const [expensesRes, allChallengesRes] = await Promise.all([
+      axios.get('/api/expenses', { params: { user_id: userInfo.id } }),
+      axios.get('/api/challenges'),
+    ]);
+
     const myExpenses = expensesRes.data;
+    const totalDbChallenges = allChallengesRes.data;
+
+    let nextId = '1';
+    if (totalDbChallenges.length > 0) {
+      const maxId = Math.max(
+        ...totalDbChallenges.map((c) => Number(c.id) || 0),
+      );
+      nextId = String(maxId + 1);
+    }
+
     const targetYearMonth = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
 
     const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
@@ -198,6 +210,7 @@ const executeSave = async () => {
     }, 0);
 
     const newChallenge = {
+      id: nextId,
       title: challengeData.value.title,
       tag: challengeData.value.tag,
       targetAmount: challengeData.value.targetAmount * 10000,
