@@ -2,7 +2,7 @@
   <!-- 거래 내역 등록 페이지 -->
   <DefaultLayout>
     <template #header>
-      <AppHeader title="거래 내역 등록" :back="true" backTo="expenses"/>
+      <AppHeader title="거래 내역 등록" :back="true" backTo="expenses" />
     </template>
 
     <div class="add-container">
@@ -34,14 +34,15 @@ import { getUserInfo } from '@/util/authUtil.js';
 const userInfo = getUserInfo();
 
 const router = useRouter();
-const expenseFormRef = ref(null)
+const expenseFormRef = ref(null);
 
 const handleSave = () => {
   expenseFormRef.value.submitForm()
 }
 
 const handleSubmit = async (formData) => {
-  try{
+  try {
+    // console.log('저장 데이터 : ', formData);
     await axios.post('/api/expenses', {...formData, user_id: String(userInfo.id)})
     router.push({ name: 'expenses' })
   } catch (e) {

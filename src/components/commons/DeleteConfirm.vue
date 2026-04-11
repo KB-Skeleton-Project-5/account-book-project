@@ -5,11 +5,19 @@
       <p>{{ message }}</p>
 
       <div class="modal-buttons">
-        <button class="btn-left" @click="$emit('left')">
+        <button
+          class="btn-left"
+          :style="{ backgroundColor: leftColor, color: leftTextColor }"
+          @click="$emit('left')"
+        >
           {{ leftText }}
         </button>
 
-        <button class="btn-right" @click="$emit('right')">
+        <button
+          class="btn-right"
+          :style="{ backgroundColor: rightColor, color: rightTextColor }"
+          @click="$emit('right')"
+        >
           {{ rightText }}
         </button>
       </div>
@@ -21,9 +29,12 @@
 defineProps({
   title: { type: String, default: '삭제하시겠습니까?' },
   message: { type: String, default: '삭제하면 되돌릴 수 없어요.' },
-
   leftText: { type: String, default: '취소' },
   rightText: { type: String, default: '삭제' },
+  leftColor: { type: String, default: 'white' },
+  rightColor: { type: String, default: '#ff4d4d' },
+  leftTextColor: { type: String, default: '#333' },
+  rightTextColor: { type: String, default: 'white' },
 });
 
 defineEmits(['left', 'right']);
@@ -80,13 +91,6 @@ defineEmits(['left', 'right']);
 }
 
 .btn-left {
-  background-color: white;
-  color: #333;
   border: 1px solid #ddd !important;
-}
-
-.btn-right {
-  background-color: #ff4d4d;
-  color: white;
 }
 </style>

@@ -19,17 +19,17 @@
           </div>
         </div>
 
-        <template #footer>
-            <AppFooter />
-        </template>
-    </DefaultLayout>
+    <template #footer>
+      <AppFooter />
+    </template>
+  </DefaultLayout>
 </template>
 
 <script setup>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import ExpenseForm from '@/components/expenses/ExpenseForm.vue'
-import AppButton from '@/components/commons/AppButton.vue'
-import { useRoute, useRouter } from 'vue-router'
+import ExpenseForm from '@/components/expenses/ExpenseForm.vue';
+import AppButton from '@/components/commons/AppButton.vue';
+import { useRoute, useRouter } from 'vue-router';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import { ref, onMounted } from 'vue';

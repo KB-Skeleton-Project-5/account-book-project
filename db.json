@@ -535,26 +535,35 @@
   ],
   "challenges": [
     {
-      "id": "1",
-      "user_id": "z2cholm",
-      "title": "2월 식비 절약",
-      "tag": "식비",
-      "targetAmount": 50000,
+      "title": "3월  절약",
+      "tag": "all",
+      "targetAmount": 1000000,
       "type": "지출",
-      "memo": "외식 줄이기",
-      "currentAmount": 0,
+      "currentAmount": 1000000,
       "year": 2026,
-      "month": 2
+      "month": 3,
+      "user_id": "108kww2",
+      "memo": "",
+      "id": "1"
     },
     {
-      "id": "2",
-      "user_id": "108kww2",
-      "title": "2월 쇼핑 절약",
-      "tag": "쇼핑",
-      "targetAmount": 100000,
+      "title": "3월 식비 절약",
+      "tag": "eat",
+      "targetAmount": 200000,
       "type": "지출",
-      "memo": "충동구매 금지",
-      "currentAmount": 0,
+      "currentAmount": 1000000,
+      "year": 2026,
+      "month": 3,
+      "user_id": "108kww2",
+      "memo": "",
+      "id": "2"
+    },
+    {
+      "title": "4월  절약",
+      "tag": "all",
+      "targetAmount": 1000000,
+      "type": "지출",
+      "currentAmount": 202700,
       "year": 2026,
       "month": 2
     },
@@ -592,7 +601,19 @@
       "month": 4,
       "user_id": "zw5vrr1",
       "memo": "",
-      "id": "hBd1Apc"
+      "id": "3"
+    },
+    {
+      "title": "4월 교통비 절약",
+      "tag": "traffic",
+      "targetAmount": 50000,
+      "type": "지출",
+      "currentAmount": 101500,
+      "year": 2026,
+      "month": 4,
+      "user_id": "108kww2",
+      "memo": "",
+      "id": "4"
     }
   ],
   "tags": [
