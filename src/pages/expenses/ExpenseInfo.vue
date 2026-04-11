@@ -1,4 +1,5 @@
 <template>
+  <!-- 거래 내역 수정 페이지 -->
   <DefaultLayout>
     <template #header>
       <AppHeader 
@@ -41,7 +42,7 @@ const expenseData = ref(null);
 // 페이지 진입 시 id로 상세 데이터 불러오기
 onMounted( async() => {
   try {
-    const response = await axios.get(`/api/expensesdb/${route.params.id}`);
+    const response = await axios.get(`/api/expenses/${route.params.id}`);
     console.log('불러온 데이터 : ', response.data);
     expenseData.value = response.data;
   } catch (e) {
@@ -59,7 +60,7 @@ const handleEdit = () => {
 // 일단 삭제 후 메인으로 이동 (삭제 모달 달기 전)
 const handleDelete = async() => {
   try {
-    const res = await axios.delete(`/api/expensesdb/${parseInt(route.params.id)}`);
+    const res = await axios.delete(`/api/expenses/${parseInt(route.params.id)}`);
     console.log('삭제 성공 : ', res.data);
     
     router.push({ name : 'main' })

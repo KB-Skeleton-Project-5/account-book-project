@@ -10,6 +10,7 @@
 
 <script setup>
 import { ref } from 'vue';
+
 const props = defineProps(['modelValue']);
 const emit = defineEmits(['update:modelValue']);
 
@@ -19,7 +20,7 @@ const memoText = ref('');
 <style scoped>
 textarea {
   border-radius: 12px;
-  background-color: #555555;
+  background-color: #999999;
   padding: 20px;
   color: white;
   min-width: 100%;

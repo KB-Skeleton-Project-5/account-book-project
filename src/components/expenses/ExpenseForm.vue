@@ -1,4 +1,5 @@
 <template>
+  <!-- 전체 폼 UI 영역 -->
   <div>
     <TabSelector
       :value="formData.type"
@@ -93,6 +94,7 @@ const handleTab = (value) => {
 };
 
 const props = defineProps({
+  // initialDate : 수정화면에서 기존 데이터를 전체로 받아옴.
   initialData: Object,
   readonly: Boolean,
 });
@@ -108,26 +110,35 @@ watch(
 const emit = defineEmits(['submit-form']);
 
 const submitForm = () => {
-  if (!formData.value.type?.typetitle) {
+  // 필수값 검사
+  // ?. : 옵셔널 체이닝
+  // type이 빈 객체면, type.typetitle은 undefined를 반환해서
+  // !undefined는 true이므로 alert가 뜨고 return으로 중단 됨.
+  if(!formData.value.type?.typetitle) {
     alert('분류를 선택해주세요.');
-    return;
+    return
   }
-  if (!formData.value.date) {
-    alert('날짜를 선택해주세요.');
-    return;
+  if(!formData.value.date) {
+    alert('날짜를 선택해주세요.')
+    return
   }
-  if (!formData.value.amount) {
-    alert('금액을 입력해주세요.');
-    return;
+  if(!formData.value.amount) {
+    alert('금액을 입력해주세요.')
+    return
   }
-  if (!formData.value.title) {
-    alert('제목을 입력해주세요.');
-    return;
+  if(!formData.value.title) {
+    alert('제목을 입력해주세요.')
+    return
   }
-  if (!formData.value.paymentMethod) {
-    alert('결제수단을 선택해주세요.');
-    return;
+  if(!formData.value.tag?.tagtitle) {
+    alert('태그를 선택해주세요.');
+    return
   }
+  if(!formData.value.paymentMethod) {
+    alert('결제수단을 선택해주세요.')
+    return
+  }
+
   emit('submit-form', formData.value);
 };
 

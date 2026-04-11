@@ -20,6 +20,7 @@
             >
               전체
             </button>
+
             <button
               class="tab-btn"
               :class="{ active: activeTab === '수입' }"
@@ -27,6 +28,7 @@
             >
               수입
             </button>
+
             <button
               class="tab-btn"
               :class="{ active: activeTab === '지출' }"
@@ -34,6 +36,7 @@
             >
               지출
             </button>
+
             <span class="fixed-legend">⭐ 고정지출 표시</span>
           </div>
         </template>
@@ -90,12 +93,16 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import ExpenseSearch from '@/components/expenses/ExpenseSearch.vue';
 import { getExpenses } from '@/api/expenses';
 import { getUserInfo } from '@/util/authUtil';
+
+const router = useRouter();
+const route = useRoute();
 
 const expenses = ref([]);
 const activeTab = ref('전체');
@@ -162,6 +169,40 @@ const buildParams = (filters, tab) => {
   if (tab !== '전체') params['type.typetitle'] = tab;
 
   return params;
+const searchFilters = ref({
+  searchText: '',
+  startDate: '',
+  endDate: '',
+  tags: [],
+  payment: '',
+  minAmount: '',
+  maxAmount: '',
+});
+// query 관련 코드 추가
+const updateRouterQuery = () => {
+  const query = {};
+
+  if (searchFilters.value.startDate)
+    query.startDate = searchFilters.value.startDate;
+  if (searchFilters.value.endDate) query.endDate = searchFilters.value.endDate;
+  if (searchFilters.value.tags && searchFilters.value.tags.length > 0)
+    query.tags = searchFilters.value.tags;
+
+  if (activeTab.value !== '전체') {
+    query.type = activeTab.value;
+  }
+
+  router.push({ query });
+};
+
+const handleSearch = (filters) => {
+  searchFilters.value = filters;
+  updateRouterQuery();
+};
+
+const changeTab = (tabName) => {
+  activeTab.value = tabName;
+  updateRouterQuery();
 };
 
 const fetchExpenses = async (
@@ -177,11 +218,11 @@ const fetchExpenses = async (
   }
 };
 
-// 검색 컴포넌트에서 emit 받으면 파라미터로 서버 요청
-const handleSearch = (filters) => {
-  lastFilters.value = filters;
-  fetchExpenses(filters, activeTab.value);
-};
+// // 검색 컴포넌트에서 emit 받으면 파라미터로 서버 요청
+// const handleSearch = (filters) => {
+//   lastFilters.value = filters;
+//   fetchExpenses(filters, activeTab.value);
+// };
 
 // 탭 변경 시에도 서버 재요청
 const onTabChange = (tab) => {
@@ -190,6 +231,24 @@ const onTabChange = (tab) => {
 };
 
 onMounted(() => {
+  if (route.query.startDate) {
+    searchFilters.value.startDate = route.query.startDate;
+  }
+
+  if (route.query.endDate) {
+    searchFilters.value.endDate = route.query.endDate;
+  }
+
+  if (route.query.tags) {
+    searchFilters.value.tags = Array.isArray(route.query.tags)
+      ? route.query.tags
+      : [route.query.tags];
+  }
+
+  if (route.query.type) {
+    activeTab.value = route.query.type;
+  }
+
   fetchExpenses();
 });
 

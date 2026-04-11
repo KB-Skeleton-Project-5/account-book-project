@@ -1,47 +1,56 @@
 <template>
   <DefaultLayout>
-    <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
-    <div class="challenge-info">
-      <header>
-        <h2>{{ challenge.title }}</h2>
-        <AppButton
-          type="history"
-          text="내역"
-          @click="handleHistory"
-          class="high-button"
+    <template #header>
+      <AppHeader title="챌린지 INFO" :back="true" backTo="challenges" />
+    </template>
+
+    <div class="info-container">
+      <div class="challenge-info">
+        <header>
+          <h2>{{ challenge.title }}</h2>
+          <AppButton
+            type="history"
+            text="내역"
+            @click="handleHistory"
+            class="high-button"
+          />
+        </header>
+
+        <ProgressBar
+          :current="challenge.currentAmount"
+          :total="challenge.targetAmount"
+          :type="challenge.type"
         />
-      </header>
 
-      <ProgressBar
-        :current="challenge.currentAmount"
-        :total="challenge.targetAmount"
-        :type="challenge.type"
-      />
-
-      <ChallengeDescription
-        :tag="challenge.tag"
-        :targetAmount="challenge.targetAmount / 10000"
-        :type="challenge.type"
-      />
-
-      <p>메모</p>
-      <MemoDisplay :memo="challenge.memo" />
-
-      <footer class="low-button">
-        <AppButton
-          type="edit-delete"
-          @edit="handleEdit"
-          @delete="handleDelete"
+        <ChallengeDescription
+          :tag="challenge.tag"
+          :targetAmount="challenge.targetAmount / 10000"
+          :type="challenge.type"
         />
-      </footer>
+
+        <p>메모</p>
+        <MemoDisplay :memo="challenge.memo" />
+
+        <footer class="low-button">
+          <AppButton
+            type="edit-delete"
+            @edit="handleEdit"
+            @delete="handleDelete"
+          />
+        </footer>
+      </div>
     </div>
-    <DeleteConfirm
-      v-if="isModalOpen"
-      @left="cancelDelete"
-      @right="confirmDelete"
-    />
-    <AppFooter />
+
+    <template #footer>
+      <AppFooter />
+    </template>
   </DefaultLayout>
+
+  <DeleteConfirm
+    v-if="isModalOpen"
+    @left="cancelDelete"
+    @right="confirmDelete"
+  />
 </template>
 
 <script setup>
@@ -56,12 +65,14 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
 import axios from 'axios';
+import { getUserInfo } from '@/util/authUtil.js';
 
 const route = useRoute();
 const router = useRouter();
+const userInfo = getUserInfo();
 
 const challenge = ref({
-  title: '불러오는 중...',
+  title: '',
   tag: '',
   currentAmount: 0,
   targetAmount: 1,
@@ -74,11 +85,48 @@ const getChallengeInfo = async () => {
   console.log(`${challengeId}번 챌린지 상세 정보 요청`);
 
   try {
-    const response = await axios.get(`/api/challengesdb/${challengeId}`);
+    const challengeRes = await axios.get(`/api/challenges/${challengeId}`);
+    const challengeData = challengeRes.data;
 
-    challenge.value = response.data;
+    // if (String(challengeData.userId) !== String(userInfo.id)) {
+    //   alert('다른 사용자의 챌린지에는 접근할 수 없습니다.');
+    //   router.push({ name: 'challenges' });
+    //   return;
+    // }
+    const formattedMonth = String(challengeData.month).padStart(2, '0');
+    const targetYearMonth = `${challengeData.year}-${formattedMonth}`;
+
+    const expensesRes = await axios.get(`/api/expenses`, {
+      params: userInfo?.id ? { userId: userInfo.id } : {},
+    });
+    const myExpenses = expensesRes.data;
+
+    const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
+      if (!expense.type || !expense.tag) return totalSum;
+
+      const expTypeTitle = expense.type.typetitle || expense.type;
+      const expTagTitle = expense.tag.tagtitle || expense.tag;
+
+      const isSameMonth =
+        expense.date && expense.date.includes(targetYearMonth);
+
+      // 💡 여기서 모두 'challengeData'를 사용해서 비교하도록 통일했습니다!
+      const isSameType = expTypeTitle === challengeData.type;
+      const isSameTag =
+        challengeData.tag === '전체' || expTagTitle === challengeData.tag;
+
+      if (isSameMonth && isSameType && isSameTag) {
+        return totalSum + Number(expense.amount);
+      }
+      return totalSum;
+    }, 0);
+
+    challengeData.currentAmount = calculatedAmount;
+
+    // 계산이 다 끝난 완벽한 데이터를 드디어 화면에 보이는 'challenge'에 넣어줍니다.
+    challenge.value = challengeData;
   } catch (error) {
-    console.error('상세 정보 실패', error);
+    console.error('상세 정보 및 지출 내역 합산 실패', error);
   }
 };
 
@@ -94,36 +142,53 @@ const percentage = computed(() => {
 
 const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
-
   if (challenge.value.type === '지출' || challenge.value.type === 'SPENDING') {
     return rawValue > 100 ? '목표 실패!' : `${rawValue}%`;
   }
-
   if (challenge.value.type === '수입' || challenge.value.type === 'INCOME') {
     return rawValue >= 100 ? '목표 성공!' : `${rawValue}%`;
   }
-
   return `${rawValue}%`;
 });
 
 const handleHistory = () => {
   console.log('내역 버튼 클릭됨');
+  const year = challenge.value.year;
+  const month = challenge.value.month;
+
+  const lastDay = new Date(year, month, 0).getDate();
+  const formattedMonth = String(month).padStart(2, '0');
+
+  const startDate = `${year}-${formattedMonth}-01`;
+  const endDate = `${year}-${formattedMonth}-${String(lastDay).padStart(2, '0')}`;
+
+  const queryParams = {
+    startDate: startDate,
+    endDate: endDate,
+    type: challenge.value.type || '지출',
+  };
+
+  if (challenge.value.tag !== '전체') {
+    const tagMap = {
+      식비: 'eat',
+      교통비: 'traffic',
+      쇼핑: 'shopping',
+      기타: 'etc',
+    };
+    queryParams.tags = tagMap[challenge.value.tag] || challenge.value.tag;
+  }
+
   router.push({
     name: 'expenses',
-    query: {
-      year: challenge.value.year,
-      month: challenge.value.month,
-      tag: challenge.value.tag,
-    },
+    query: queryParams,
   });
 };
 
 const handleEdit = () => {
   console.log('수정 버튼 클릭됨');
-  const challengeId = route.params.id;
   router.push({
     name: 'challenges/modify',
-    params: { id: challengeId },
+    params: { id: route.params.id },
   });
 };
 
@@ -140,18 +205,14 @@ const cancelDelete = () => {
 
 const confirmDelete = async () => {
   const challengeId = route.params.id;
-
   if (!challengeId || challengeId === 'undefined') {
-    console.error('id 없음');
     alert('삭제 대상 오류');
     return;
   }
 
   try {
-    await axios.delete(`/api/challengesdb/${challengeId}`);
-
+    await axios.delete(`/api/challenges/${challengeId}`);
     console.log('삭제 완료, id:', challengeId);
-
     isModalOpen.value = false;
     router.push({ name: 'challenges' });
   } catch (error) {
@@ -161,16 +222,63 @@ const confirmDelete = async () => {
 };
 </script>
 
-<style>
-header {
-  display: flex;
+<style scoped>
+/* 💡 [수정] 복잡했던 viewport 관련 CSS는 모두 삭제했습니다! */
+
+.info-container {
+  padding: 20px 0; /* 상하 여백만 살짝 줍니다 */
 }
-.high-button {
-  margin-left: auto;
-}
+
+/* 1. 하얀색 메인 카드 (디자인 통일 유지) */
 .challenge-info {
-  background-color: white;
-  border: 5px solid black;
-  min-height: 400px;
+  width: calc(100% - 40px);
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 0 auto; /* 중앙 정렬 */
+  box-sizing: border-box;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+/* 2. 헤더 영역 (제목과 내역 버튼) */
+.challenge-info header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* 3. 메인 제목 스타일 */
+.challenge-info header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.03em;
+}
+
+/* 4. 중간 타이틀 (메모 등) */
+.challenge-info p {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+/* 5. 하단 버튼 영역 */
+.low-button {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 6. 메모 디스플레이 커스텀 */
+:deep(.memo-display-container) {
+  border-radius: 12px;
+  background-color: #f8fafc;
 }
 </style>

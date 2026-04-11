@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+
 defineProps({
   memo: {
     type: String,
@@ -16,7 +17,7 @@ defineProps({
 <style scoped>
 p {
   border-radius: 12px;
-  background-color: #555555;
+  background-color: #999999;
   padding: 20px;
   color: white;
 }

@@ -44,11 +44,29 @@ const form = reactive({
 const newPwConfirm = ref('')
 
 async function handleReset() {
+<<<<<<< HEAD
   if (form.newPw !== newPwConfirm.value) {
     alert('비밀번호가 일치하지 않습니다')
     return
   }
   const response = await fetch(`/api/usersdb/?userId=${form.userId}`)
+=======
+  //아이디 유효성 검사
+  if (!form.userId.trim()) {
+    alert('아이디를 입력하세요')
+    return
+  }
+  //비밀번호 유효성 검사
+  if (!form.newPw.trim()) {
+    alert('새 비밀번호를 입력하세요')
+    return
+  }
+  if (form.newPw !== newPwConfirm.value) {
+    alert('비밀번호가 일치하지 않습니다')
+    return
+  }
+  const response = await fetch(`/api/users/?userId=${form.userId}`)
+>>>>>>> origin/Yongjin
   const users = await response.json()
 
   if(users.length === 0 ){
