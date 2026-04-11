@@ -59,9 +59,9 @@ const router = createRouter({
       component: () => import('../pages/expenses/ExpenseInfo.vue'),
     },
     {
-      path: '/summaries',
-      name: 'summaries',
-      component: () => import('../pages/summaries/Summary.vue'),
+      path: '/summary',
+      name: 'summary',
+      component: () => import('../pages/summaries/Summary.vue')
     },
 
     {
@@ -104,9 +104,9 @@ const router = createRouter({
       component: () => import('../pages/challenges/ChallengeInfo.vue'),
     },
     {
-      path: '/challenges/modify:id/',
+      path: '/challenges/modify/:id',
       name: 'challenges/modify',
-      component: () => import('../pages/challenges/ChallengeAdd.vue'),
+      component: () => import('../pages/challenges/ChallengeModify.vue'),
     },
   ],
 });
@@ -123,7 +123,7 @@ const router = createRouter({
 //   'expenses/add',
 //   'expenses/modify/id',
 //   'expenses/info/id',
-//   'summaries',
+//   'summary',
 //   'calendars',
 //   'calendars/add',
 //   'calendars/info',

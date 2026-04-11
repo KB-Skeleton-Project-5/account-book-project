@@ -83,22 +83,22 @@ const deleteUserProcess = async (id, login_id, successCallback, failCallback) =>
     await axios.delete(`${USERS_URI}/${id}`)
 
     // 2. 관련 데이터 직접 삭제 (login_id 기준)
-    const expenseRes = await axios.get(`/api/expenses?user_id=${login_id}`)
+    const expenseRes = await axios.get(`/api/expenses?user_id=${id}`)
     for (const item of expenseRes.data) {
       await axios.delete(`/api/expenses/${item.id}`)
     }
 
-    const calendarRes = await axios.get(`/api/calendars?user_id=${login_id}`)
+    const calendarRes = await axios.get(`/api/calendars?user_id=${id}`)
     for (const item of calendarRes.data) {
       await axios.delete(`/api/calendars/${item.id}`)
     }
 
-    const summaryRes = await axios.get(`/api/summaries?user_id=${login_id}`)
+    const summaryRes = await axios.get(`/api/summary?user_id=${id}`)
     for (const item of summaryRes.data) {
-      await axios.delete(`/api/summaries/${item.id}`)
+      await axios.delete(`/api/summary/${item.id}`)
     }
 
-    const challengeRes = await axios.get(`/api/challenges?user_id=${login_id}`)
+    const challengeRes = await axios.get(`/api/challenges?user_id=${id}`)
     for (const item of challengeRes.data) {
       await axios.delete(`/api/challenges/${item.id}`)
     }

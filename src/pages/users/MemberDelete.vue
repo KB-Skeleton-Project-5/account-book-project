@@ -37,12 +37,12 @@
       </div>
     </div>
 
-    <!-- AlertModal 추가 -->
+    <!-- AlertModal -->
     <AlertModal
       v-if="modal.show"
       :title="modal.title"
       :message="modal.message"
-      @confirm="modal.show = false"
+      @confirm="handleModalConfirm"
     />
   </div>
 </template>
@@ -52,7 +52,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getUserInfo, deleteUserProcess, logoutProcess } from '@/util/authUtil'
 import AppHeader from '@/layouts/AppHeader.vue'
-import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
+import AlertModal from '@/components/commons/AlertModal.vue'
 
 const router = useRouter()
 
@@ -64,18 +64,27 @@ const form = reactive({
 const isAgreed = ref(false)
 const showModal = ref(false)
 
-// 모달 상태 변수 추가
 const modal = reactive({
   show: false,
   title: '',
-  message: ''
+  message: '',
+  isSuccess: false
 })
 
-// showAlert 함수 추가
-function showAlert(title, message) {
+function showAlert(title, message, isSuccess = false) {
   modal.title = title
   modal.message = message
+  modal.isSuccess = isSuccess
   modal.show = true
+}
+//
+function handleModalConfirm() {
+  modal.show = false
+  if (modal.isSuccess) {
+    logoutProcess(() => {
+      router.push({ name: 'users/login' })
+    })
+  }
 }
 
 function onAgreeChange() {
@@ -108,7 +117,6 @@ async function handleDelete() {
 
   if (users.length === 0) {
     showAlert('탈퇴 실패', '아이디 또는 비밀번호가 틀렸습니다')
-    console.log('아이디 또는 비밀번호가 틀렸습니다')
     closeModal()
     return
   }
@@ -120,26 +128,16 @@ async function handleDelete() {
     userInfo.id,
     userInfo.login_id,
     () => {
-      showAlert('탈퇴 완료', '탈퇴되셨습니다')
-      modal.show = true
-      // 확인 버튼 누르면 로그인 페이지로
-      const originalConfirm = () => {
-        modal.show = false
-        logoutProcess(() => {
-          router.push({ name: 'users/login' })
-        })
-      }
-      modal.onConfirm = originalConfirm
+      closeModal()
+      showAlert('탈퇴 완료', '탈퇴되셨습니다', true)  // isSuccess = true
     },
     () => {
       showAlert('탈퇴 실패', '탈퇴에 실패했습니다')
-      console.log('탈퇴에 실패했습니다')
       closeModal()
     }
   )
 }
 </script>
-
 <style scoped>
 .wrapper {
   min-height: 100dvh;
