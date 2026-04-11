@@ -146,15 +146,15 @@
       "id": 15
     },
     {
-      "amount": 123,
+      "amount": 1500,
       "date": "2026-04-10",
-      "title": "123",
+      "title": "버스",
       "memo": "",
-      "paymentMethod": "카드",
-      "isFixed": false,
+      "paymentMethod": "현금",
+      "isFixed": true,
       "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
+        "tagid": "traffic",
+        "tagtitle": "교통비"
       },
       "type": {
         "typeid": "withdrawal",
@@ -162,6 +162,24 @@
       },
       "userId": "2",
       "id": 16
+    },
+    {
+      "amount": 123,
+      "date": "2026-04-11",
+      "title": "123",
+      "memo": "123",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "userId": "2",
+      "id": 17
     }
   ],
   "calendars": [

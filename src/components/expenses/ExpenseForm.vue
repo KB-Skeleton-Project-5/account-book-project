@@ -34,6 +34,9 @@
     :value="formData.isFixed" 
     @submit-isFixed="handleIsFixed"
     :readonly="props.readonly" />
+
+    <!-- 경고창 모달 컴포넌트
+    <AlertModal v-model="showModal" :message="modalMessage" /> -->
   </div>
 </template>
 
@@ -47,6 +50,9 @@ import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
 import { ref, watch } from 'vue';
+
+// 경고창 모달 실행시킬 때
+// import AlertModal from '@/components/commons/AlertModal.vue';
 
 const formData = ref({
   amount: '',
@@ -110,39 +116,66 @@ watch(
 
 const emit = defineEmits(['submit-form']);
 
+
+// 경고창 모달 실행시킬 때
+// const showModal = ref(false);
+// const modalMessage = ref('');
+
 const submitForm = () => {
   // 필수값 검사
   // ?. : 옵셔널 체이닝
   // type이 빈 객체면, type.typetitle은 undefined를 반환해서
   // !undefined는 true이므로 alert가 뜨고 return으로 중단 됨.
   if(!formData.value.type?.typetitle) {
-    alert('분류를 선택해주세요.');
-    return
+    // 경고창 모달 실행시킬 때
+    // modalMessage.value = '분류를 선택해주세요.';
+    // showModal.value = true;
+    alert('분류를 선택해주세요.')
+    return;
   }
   if(!formData.value.date) {
+    // 경고창 모달 실행시킬 때
+    // modalMessage.value = '날짜를 선택해주세요.';
+    // showModal.value = true;
+
     alert('날짜를 선택해주세요.')
-    return
+    return;
   }
   if(!formData.value.amount) {
+    // 경고창 모달 실행시킬 때
+    // modalMessage.value = '금액을 입력해주세요.';
+    // showModal.value = true;
+
     alert('금액을 입력해주세요.')
-    return
+    return;
   }
   if(!formData.value.title) {
+    // 경고창 모달 실행시킬 때
+    // modalMessage.value = '제목을 입력해주세요.';
+    // showModal.value = true;
+
     alert('제목을 입력해주세요.')
-    return
+    return;
   }
   if(!formData.value.tag?.tagtitle) {
+    // 경고창 모달 실행시킬 때
+    // modalMessage.value = '태그를 선택해주세요.';
+    // showModal.value = true;
+
     alert('태그를 선택해주세요.');
-    return
+    return;
   }
   if(!formData.value.paymentMethod) {
+    // 경고창 모달 실행시킬 때
+    // modalMessage.value = '결제수단을 선택해주세요.';
+    // showModal.value = true;
+
     alert('결제수단을 선택해주세요.')
-    return
+    return;
   }
 
   emit('submit-form', formData.value);
 };
-
 
 // 자식 컴포넌트의 함수나 변수를 부모에서 쓸 수 있게 열어주는 것
 // submitForm을 부모에게 공개
