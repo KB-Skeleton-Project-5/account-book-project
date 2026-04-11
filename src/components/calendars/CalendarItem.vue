@@ -34,7 +34,7 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-height: 36px;
+  height: 56px;
   justify-content: center;
 }
 

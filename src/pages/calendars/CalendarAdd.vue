@@ -8,7 +8,7 @@
       <div class="page-top-space"></div>
 
       <!-- 입력 폼 -->
-      <CalendarForm :form="form" mode="input">
+      <CalendarForm :form="form" mode="input" @update:form="(val) => form = val">
         <div class="button-area">
           <AppButton text="저장" @click="saveCalendar" />
         </div>
@@ -59,6 +59,18 @@ const saveCalendar = async () => {
       userId: id, 
       ...form.value,
     });
+
+    // ⭐ 추가: 선택 날짜 저장
+    const selected = new Date(form.value.date);
+
+    sessionStorage.setItem(
+      'calendarSelectedDate',
+      JSON.stringify({
+        year: selected.getFullYear(),
+        month: selected.getMonth() + 1,
+        day: selected.getDate(),
+      })
+    );
 
     router.push({ name: 'calendars' });
   } catch(error) {

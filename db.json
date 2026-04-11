@@ -228,6 +228,62 @@
       "time": "14:00",
       "expenseId": "55",
       "memo": "리뷰 쓰기"
+    },
+    {
+      "title": "병원",
+      "date": "2026-04-01",
+      "time": "02:40",
+      "expenseId": "5000",
+      "memo": "아싸",
+      "id": 8
+    },
+    {
+      "title": "아앙",
+      "date": "",
+      "time": "00:37",
+      "expenseId": "오케이",
+      "memo": "",
+      "id": 9
+    },
+    {
+      "title": "저장",
+      "date": "2026-03-12",
+      "time": "",
+      "expenseId": "",
+      "memo": "",
+      "id": 11
+    },
+    {
+      "title": "소풍",
+      "date": "2026-04-08",
+      "time": "14:40",
+      "expenseId": "",
+      "memo": "재밌겠당\n",
+      "id": 12
+    },
+    {
+      "title": "",
+      "date": "",
+      "time": "01:44",
+      "expenseId": "",
+      "memo": "",
+      "id": 13
+    },
+    {
+      "title": "카페가기",
+      "date": "2026-04-11",
+      "time": "01:39",
+      "expenseId": "5000",
+      "memo": "친구랑",
+      "id": 14
+    },
+    {
+      "title": "노래방가기",
+      "date": "2026-04-10",
+      "time": "15:42",
+      "expenseId": "1000",
+      "memo": "",
+      "id": 15
     }
   ],
   "summary": [

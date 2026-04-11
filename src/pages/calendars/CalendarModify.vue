@@ -48,6 +48,14 @@ const fetchCalendar = async () => {
 };
 
 const saveCalendar = async () => {
+  if (!form.value.title) {
+    alert('제목을 입력해주세요.');
+    return;
+  }
+    if (!form.value.date) {
+    alert('날짜를 선택해주세요.');
+    return;
+  }
   try {
     await axios.put(`/api/calendars/${route.params.id}`,form.value,)
     console.log('수정 성공');
