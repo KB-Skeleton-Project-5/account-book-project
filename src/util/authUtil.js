@@ -102,6 +102,10 @@ const deleteUserProcess = async (id, login_id, successCallback, failCallback) =>
     for (const item of challengeRes.data) {
       await axios.delete(`/api/challenges/${item.id}`)
     }
+    const tagRes = await axios.get(`/api/tags?user_id=${id}`)
+    for (const item of tagRes.data) {
+      await axios.delete(`/api/tags/${item.id}`)
+    }
 
     successCallback()
   } catch (error) {
