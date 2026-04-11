@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 // 지출 목록 조회
-export const getExpenses = () => api.get('/expensesdb');
+export const getExpenses = (id) => api.get('/expensesdb', { params: id });
 
 // 지출 상세 조회
 export const getExpense = (id) => api.get(`/expensesdb/${id}`);

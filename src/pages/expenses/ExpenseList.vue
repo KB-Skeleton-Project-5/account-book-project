@@ -16,21 +16,21 @@
             <button
               class="tab-btn"
               :class="{ active: activeTab === '전체' }"
-              @click="activeTab = '전체'"
+              @click="onTabChange('전체')"
             >
               전체
             </button>
             <button
               class="tab-btn"
               :class="{ active: activeTab === '수입' }"
-              @click="activeTab = '수입'"
+              @click="onTabChange('수입')"
             >
               수입
             </button>
             <button
               class="tab-btn"
               :class="{ active: activeTab === '지출' }"
-              @click="activeTab = '지출'"
+              @click="onTabChange('지출')"
             >
               지출
             </button>
@@ -99,7 +99,19 @@ import { getUserInfo } from '@/util/authUtil';
 
 const expenses = ref([]);
 const activeTab = ref('전체');
-const currentUserId = getUserInfo().id; // 로그인한 유저 id
+// 로그인한 유저 id — DB가 숫자로 저장하므로 Number로 통일
+const currentUserId = Number(getUserInfo().id);
+
+// 현재 적용된 검색 필터 (마지막으로 검색한 값 보관)
+const lastFilters = ref({
+  searchText: '',
+  startDate: '',
+  endDate: '',
+  tags: [],
+  payment: '',
+  minAmount: '',
+  maxAmount: '',
+});
 
 const tagColorMap = {
   eat: { background: '#FFD6D6', color: '#E57373' },
@@ -113,72 +125,83 @@ const getTagStyle = (tagid) => ({
   color: tagColorMap[tagid]?.color || '#9e9e9e',
 });
 
-const searchFilters = ref({
-  searchText: '',
-  startDate: '',
-  endDate: '',
-  tags: [],
-  payment: '',
-  minAmount: '',
-  maxAmount: '',
-});
+/**
+ * 서버로 보낼 쿼리 파라미터 조립
+ * json-server 지원 쿼리:
+ *   userId        → 로그인 유저 필터 (필수)
+ *   title_like    → 키워드 검색 (부분 일치)
+ *   date_gte      → 시작 날짜 이상
+ *   date_lte      → 종료 날짜 이하
+ *   paymentMethod → 결제 수단
+ *   amount_gte    → 최소 금액
+ *   amount_lte    → 최대 금액
+ *   type.typetitle → 수입/지출 탭 (탭 변경 시 사용)
+ * 태그는 json-server가 OR 다중값을 지원하지 않으므로 응답 후 프론트에서 보조 필터
+ */
+const buildParams = (filters, tab) => {
+  const params = {};
 
-const handleSearch = (filters) => {
-  searchFilters.value = filters;
+  // 로그인 유저 데이터만 요청 (필수) —0 숫자 타입으로 통일
+  if (currentUserId) params.userId = Number(currentUserId);
+
+  // 키워드 검색
+  if (filters.searchText) params.title_like = filters.searchText;
+
+  // 날짜 범위
+  if (filters.startDate) params.date_gte = filters.startDate;
+  if (filters.endDate) params.date_lte = filters.endDate;
+
+  // 결제 수단
+  if (filters.payment) params.paymentMethod = filters.payment;
+
+  // 금액 범위
+  if (filters.minAmount) params.amount_gte = Number(filters.minAmount);
+  if (filters.maxAmount) params.amount_lte = Number(filters.maxAmount);
+
+  // 수입/지출 탭 (전체면 파라미터 생략)
+  if (tab !== '전체') params['type.typetitle'] = tab;
+
+  return params;
 };
 
-const fetchExpenses = async () => {
+const fetchExpenses = async (
+  filters = lastFilters.value,
+  tab = activeTab.value,
+) => {
   try {
-    const res = await getExpenses();
+    const params = buildParams(filters, tab);
+    const res = await getExpenses(params);
     expenses.value = res.data;
   } catch (e) {
     console.error('expenses 불러오기 실패:', e);
   }
 };
 
+// 검색 컴포넌트에서 emit 받으면 파라미터로 서버 요청
+const handleSearch = (filters) => {
+  lastFilters.value = filters;
+  fetchExpenses(filters, activeTab.value);
+};
+
+// 탭 변경 시에도 서버 재요청
+const onTabChange = (tab) => {
+  activeTab.value = tab;
+  fetchExpenses(lastFilters.value, tab);
+};
+
 onMounted(() => {
   fetchExpenses();
 });
 
+// 보조 필터:
+// 1) userId 없는 데이터(불완전한 레코드) 제거 — 서버 파라미터만으로 완벽히 못 잡는 경우 대비
+// 2) 태그 다중 선택 — json-server OR 미지원으로 프론트에서 처리
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
-    // 로그인한 유저 데이터만 표시
-    if (currentUserId && e.userId !== currentUserId) return false;
-    // 탭 필터
-    if (activeTab.value !== '전체' && e.type.typetitle !== activeTab.value)
-      return false;
-    // 텍스트 검색
+    if (Number(e.userId) !== currentUserId) return false;
     if (
-      searchFilters.value.searchText &&
-      !e.title.includes(searchFilters.value.searchText)
-    )
-      return false;
-    // 날짜 필터
-    if (searchFilters.value.startDate && e.date < searchFilters.value.startDate)
-      return false;
-    if (searchFilters.value.endDate && e.date > searchFilters.value.endDate)
-      return false;
-    // 태그 필터
-    if (
-      searchFilters.value.tags.length > 0 &&
-      !searchFilters.value.tags.includes(e.tag.tagid)
-    )
-      return false;
-    // 결제수단 필터
-    if (
-      searchFilters.value.payment &&
-      e.paymentMethod !== searchFilters.value.payment
-    )
-      return false;
-    // 금액 필터
-    if (
-      searchFilters.value.minAmount &&
-      e.amount < Number(searchFilters.value.minAmount)
-    )
-      return false;
-    if (
-      searchFilters.value.maxAmount &&
-      e.amount > Number(searchFilters.value.maxAmount)
+      lastFilters.value.tags.length > 0 &&
+      !lastFilters.value.tags.includes(e.tag?.tagid)
     )
       return false;
     return true;
@@ -203,6 +226,7 @@ const groupedExpenses = computed(() => {
   flex-direction: column;
   gap: 16px;
   padding: 16px;
+  padding-bottom: 80px;
 }
 .section-title {
   font-size: 0.95rem;

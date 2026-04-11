@@ -1,8 +1,8 @@
 {
   "usersdb": [
     {
-      "id": 2,
-      "userId": "user_001",
+      "id": "3",
+      "userId": "asdf",
       "pw": "hashed_string",
       "name": "홍길동",
       "nick": "길동이",
@@ -15,7 +15,7 @@
       "email": "tkkt",
       "userId": "asdf",
       "pw": "asdf",
-      "id": 1
+      "id": "2"
     },
     {
       "name": "eee",
@@ -23,7 +23,7 @@
       "email": "eee",
       "userId": "eee",
       "pw": "eee",
-      "id": 3
+      "id": "1"
     }
   ],
   "expensesdb": [
@@ -42,11 +42,12 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 12
+      "id": "12",
+      "userId": 2
     },
     {
       "id": 2,
-      "userId": 1,
+      "userId": 2,
       "date": "2026-04-02",
       "title": "김밥",
       "type": {
@@ -113,7 +114,8 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "id": 8
+      "id": 8,
+      "userId": 2
     },
     {
       "amount": 135,
@@ -130,7 +132,8 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 9
+      "id": 9,
+      "userId": 1
     },
     {
       "amount": 343,
@@ -147,7 +150,8 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 7
+      "id": 7,
+      "userId": 1
     },
     {
       "amount": 22,
@@ -164,7 +168,8 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "id": 10
+      "id": 10,
+      "userId": 2
     },
     {
       "amount": 22,
@@ -181,7 +186,8 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 11
+      "id": 11,
+      "userId": 1
     },
     {
       "amount": 1234,
@@ -198,7 +204,8 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 13
+      "id": 13,
+      "userId": 1
     },
     {
       "amount": 1234,
@@ -215,112 +222,8 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 14
-    },
-    {
-      "amount": 234,
-      "date": "2026-04-10",
-      "title": "234",
-      "memo": "234",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": 1,
-      "id": 15
-    },
-    {
-      "amount": 1234,
-      "date": "2026-04-10",
-      "title": "확인용",
-      "memo": "ㅂㅈㄷㄱ",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": 1,
-      "id": 16
-    },
-    {
-      "amount": 234,
-      "date": "2026-04-10",
-      "title": "2345",
-      "memo": "2345",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {},
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "userId": 1,
-      "id": 17
-    },
-    {
-      "amount": 1234,
-      "date": "2026-04-10",
-      "title": "eee",
-      "memo": "eee",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": 3,
-      "id": 18
-    },
-    {
-      "amount": 434,
-      "date": "2026-04-10",
-      "title": "324",
-      "memo": "324",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "userId": 3,
-      "id": 19
-    },
-    {
-      "amount": 23,
-      "date": "2026-04-10",
-      "title": "ddd",
-      "memo": "ddd",
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "userId": 3,
-      "id": 20
+      "id": 14,
+      "userId": 2
     }
   ],
   "calendarsdb": [
@@ -624,6 +527,64 @@
       "userId": 1,
       "memo": "",
       "id": 7
+    }
+  ],
+  "tagsdb": [
+    {
+      "id": 1,
+      "tagid": "eat",
+      "tagtitle": "식비",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "지출"
+    },
+    {
+      "id": 2,
+      "tagid": "traffic",
+      "tagtitle": "교통",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "지출"
+    },
+    {
+      "id": 3,
+      "tagid": "shopping",
+      "tagtitle": "쇼핑",
+      "color": "#D6F0E0",
+      "textColor": "#66A882",
+      "type": "지출"
+    },
+    {
+      "id": 4,
+      "tagid": "medical",
+      "tagtitle": "의료",
+      "color": "#E8D6FF",
+      "textColor": "#9B59B6",
+      "type": "지출"
+    },
+    {
+      "id": 5,
+      "tagid": "salary",
+      "tagtitle": "급여",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "수입"
+    },
+    {
+      "id": 6,
+      "tagid": "finance",
+      "tagtitle": "금융",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "수입"
+    },
+    {
+      "id": 7,
+      "tagid": "sideJob",
+      "tagtitle": "부수입",
+      "color": "#FFF3C4",
+      "textColor": "#B8860B",
+      "type": "수입"
     }
   ]
 }

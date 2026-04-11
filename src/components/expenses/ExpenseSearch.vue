@@ -23,29 +23,65 @@
       <div class="filter-row">
         <span class="filter-label">날짜</span>
         <div class="filter-inputs">
-          <input type="date" class="filter-input" v-model="startDate" />
-          <input type="date" class="filter-input" v-model="endDate" />
+          <input
+            type="date"
+            class="filter-input"
+            v-model="startDate"
+            :max="formatDate(today)"
+          />
+          <input
+            type="date"
+            class="filter-input"
+            v-model="endDate"
+            :max="formatDate(today)"
+          />
         </div>
       </div>
 
-      <!-- 태그 -->
+      <!-- 지출 태그 -->
       <div class="filter-row">
-        <span class="filter-label">태그</span>
+        <span class="filter-label">지출</span>
         <div class="tag-list">
           <button
-            v-for="tag in tags"
-            :key="tag.id"
+            v-for="tag in expenseTags"
+            :key="tag.tagid"
             class="tag-btn"
-            :class="{ active: selectedTags.includes(tag.id) }"
+            :class="{ active: selectedTags.includes(tag.tagid) }"
             :style="{
-              backgroundColor: selectedTags.includes(tag.id)
+              backgroundColor: selectedTags.includes(tag.tagid)
                 ? tag.color
                 : '#f0f0f0',
-              color: selectedTags.includes(tag.id) ? tag.textColor : '#9e9e9e',
+              color: selectedTags.includes(tag.tagid)
+                ? tag.textColor
+                : '#9e9e9e',
             }"
-            @click="toggleTag(tag.id)"
+            @click="toggleTag(tag.tagid)"
           >
-            {{ tag.label }}
+            {{ tag.tagtitle }}
+          </button>
+        </div>
+      </div>
+
+      <!-- 수입 태그 -->
+      <div class="filter-row">
+        <span class="filter-label">수입</span>
+        <div class="tag-list">
+          <button
+            v-for="tag in incomeTags"
+            :key="tag.tagid"
+            class="tag-btn"
+            :class="{ active: selectedTags.includes(tag.tagid) }"
+            :style="{
+              backgroundColor: selectedTags.includes(tag.tagid)
+                ? tag.color
+                : '#f0f0f0',
+              color: selectedTags.includes(tag.tagid)
+                ? tag.textColor
+                : '#9e9e9e',
+            }"
+            @click="toggleTag(tag.tagid)"
+          >
+            {{ tag.tagtitle }}
           </button>
         </div>
       </div>
@@ -74,13 +110,14 @@
       <!-- 금액 -->
       <div class="filter-row">
         <span class="filter-label">금액</span>
-        <div class="filter-inputs">
+        <div class="amount-inputs">
           <input
             type="number"
             class="filter-input"
             placeholder="최소 금액"
             v-model="minAmount"
           />
+          <span class="amount-divider">~</span>
           <input
             type="number"
             class="filter-input"
@@ -96,32 +133,41 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import AppButton from '@/components/commons/AppButton.vue';
+import { getTags } from '@/api/tags';
 
 const emit = defineEmits(['search']);
 
 const searchText = ref('');
 const showFilter = ref(false);
 const selectedTags = ref([]);
+const tags = ref([]);
+
+onMounted(async () => {
+  try {
+    const res = await getTags();
+    tags.value = res.data;
+  } catch (e) {
+    console.error('태그 불러오기 실패:', e);
+  }
+});
+
+// 지출 태그만
+const expenseTags = computed(() => tags.value.filter((t) => t.type === '지출'));
+// 수입 태그만
+const incomeTags = computed(() => tags.value.filter((t) => t.type === '수입'));
+
 const selectedPayment = ref('');
 const minAmount = ref('');
 const maxAmount = ref('');
 
-// 오늘 날짜 기준 한 달 전 ~ 오늘
 const today = new Date();
 const oneMonthAgo = new Date(today);
 oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 const formatDate = (date) => date.toISOString().split('T')[0];
 const startDate = ref(formatDate(oneMonthAgo));
 const endDate = ref(formatDate(today));
-
-const tags = [
-  { id: 'eat', label: '식비', color: '#FFD6D6', textColor: '#E57373' },
-  { id: 'traffic', label: '교통비', color: '#D6EAFF', textColor: '#5B9BD5' },
-  { id: 'shopping', label: '쇼핑', color: '#D6F0E0', textColor: '#66A882' },
-  { id: 'etc', label: '기타', color: '#FFF3C4', textColor: '#B8860B' },
-];
 
 const toggleTag = (id) => {
   const idx = selectedTags.value.indexOf(id);
@@ -159,7 +205,6 @@ const handleSearch = () => {
   flex-direction: column;
   gap: 12px;
 }
-
 .search-bar {
   display: flex;
   align-items: center;
@@ -184,7 +229,6 @@ const handleSearch = () => {
   cursor: pointer;
   font-size: 1rem;
 }
-
 .filter-card {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
@@ -211,8 +255,21 @@ const handleSearch = () => {
   gap: 8px;
   flex: 1;
 }
+.amount-inputs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  overflow: hidden;
+}
+.amount-divider {
+  font-size: 0.85rem;
+  color: #9e9e9e;
+  flex-shrink: 0;
+}
 .filter-input {
   flex: 1;
+  min-width: 0;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   padding: 5px 8px;
