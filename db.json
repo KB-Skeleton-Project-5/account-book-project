@@ -1,14 +1,6 @@
 {
   "users": [
     {
-      "name": "박상호",
-      "nick": "오우",
-      "email": "wow@email.com",
-      "login_id": "if",
-      "pw": "1234",
-      "id": "108kww2"
-    },
-    {
       "name": "메머드",
       "nick": "커피",
       "email": "MM@email.com",
@@ -23,85 +15,21 @@
       "login_id": "co",
       "pw": "5678",
       "id": "zw5vrr1"
+    },
+    {
+      "name": "아이폰",
+      "nick": "앱",
+      "email": "app@apple.com",
+      "login_id": "iff",
+      "pw": "0000",
+      "id": "b58d3ut"
     }
   ],
   "expenses": [
     {
       "id": "1",
-      "user_id": "user_001",
-      "date": "2026-04-01",
-      "title": "스타벅스 아메리카노",
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "amount": 4500,
-      "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
-      },
-      "paymentMethod": "카드",
-      "isFixed": false,
-      "memo": "오전 커피"
-    },
-    {
-      "id": "2",
-      "user_id": "user_001",
+      "user_id": "z2cholm",
       "date": "2026-04-02",
-      "title": "버스비",
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "amount": 1500,
-      "tag": {
-        "tagid": "traffic",
-        "tagtitle": "교통비"
-      },
-      "paymentMethod": "현금",
-      "isFixed": true,
-      "memo": "출근길"
-    },
-    {
-      "id": "3",
-      "user_id": "user_001",
-      "date": "2026-04-03",
-      "title": "올리브영",
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "amount": 23000,
-      "tag": {
-        "tagid": "shopping",
-        "tagtitle": "쇼핑"
-      },
-      "paymentMethod": "카드",
-      "isFixed": false,
-      "memo": "스킨케어"
-    },
-    {
-      "id": "4",
-      "user_id": "user_001",
-      "date": "2026-04-04",
-      "title": "월급",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 2500000,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "paymentMethod": "계좌이체",
-      "isFixed": true,
-      "memo": "4월 급여"
-    },
-    {
-      "id": "5",
-      "user_id": "user_001",
-      "date": "2026-04-05",
       "title": "김밥",
       "type": {
         "typeid": "withdrawal",
@@ -117,115 +45,878 @@
       "memo": "아침식사"
     },
     {
-      "id": "6",
-      "user_id": "user_002",
-      "date": "2026-04-01",
-      "title": "점심식사",
+      "id": "3",
+      "user_id": "zw5vrr1",
+      "date": "2026-04-05",
+      "title": "월급",
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "amount": 2000000,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "paymentMethod": "계좌이체",
+      "isFixed": true,
+      "memo": "4월 월급"
+    },
+    {
+      "id": "4",
+      "user_id": "z2cholm",
+      "date": "2026-04-07",
+      "title": "올리브영",
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "amount": 8000,
+      "amount": 35000,
       "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
+        "tagid": "shopping",
+        "tagtitle": "쇼핑"
       },
       "paymentMethod": "카드",
       "isFixed": false,
-      "memo": "김치찌개"
-    }
-  ],
-  "summaries": [
-    {
-      "id": "1",
-      "user_id": "user_001",
-      "year": 2026,
-      "month": 4,
-      "income": 2500000,
-      "expense": 31000,
-      "netProfit": 2469000
+      "memo": "스킨케어"
     },
     {
-      "id": "2",
-      "user_id": "user_001",
-      "year": 2026,
-      "month": 3,
-      "income": 2500000,
-      "expense": 1800000,
-      "netProfit": 700000
+      "id": "5",
+      "user_id": "z2cholm",
+      "date": "2026-04-09",
+      "title": "넷플릭스",
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "amount": 17000,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "paymentMethod": "카드",
+      "isFixed": true,
+      "memo": "월정액"
     },
     {
-      "id": "3",
-      "user_id": "user_002",
-      "year": 2026,
-      "month": 4,
-      "income": 3000000,
-      "expense": 8000,
-      "netProfit": 2992000
+      "amount": 10000,
+      "date": "2026-04-11",
+      "title": "밥먹으러 택시탐",
+      "memo": "ㅇㄹㄴㅇㄹ",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "id": "2",
+        "tagid": "traffic",
+        "tagtitle": "교통",
+        "color": "#D6EAFF",
+        "textColor": "#5B9BD5",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "z2cholm",
+      "id": "bA0tUbq"
     }
   ],
   "calendars": [
     {
-      "id": "1",
-      "user_id": "user_001",
-      "title": "월급날",
-      "date": "2026-04-04",
-      "time": "09:00",
-      "expenseId": "4",
-      "memo": "급여 입금"
+      "id": "2",
+      "user_id": "zw5vrr1",
+      "title": "팀 회의 수정",
+      "date": "2026-04-10",
+      "time": "14:00",
+      "expenseId": "5",
+      "memo": "ppt 준비"
     },
     {
-      "id": "2",
-      "user_id": "user_001",
+      "id": "4",
+      "user_id": "zw5vrr1",
       "title": "병원 예약",
       "date": "2026-04-15",
-      "time": "14:00",
-      "expenseId": null,
+      "time": "11:00",
+      "expenseId": "34",
       "memo": "정기 검진"
     },
     {
-      "id": "3",
-      "user_id": "user_002",
-      "title": "친구 생일",
-      "date": "2026-04-10",
-      "time": "19:00",
-      "expenseId": null,
-      "memo": "선물 챙기기"
+      "id": "6",
+      "user_id": "z2cholm",
+      "title": "미용실",
+      "date": "2026-04-01",
+      "time": "14:00",
+      "expenseId": "55",
+      "memo": "리뷰 쓰기"
     }
   ],
-  "challenges": [
+  "summary": [
+    {
+      "id": "2",
+      "year": 2024,
+      "month": 2,
+      "income": 2600000,
+      "expense": 2000000,
+      "netProfit": 600000,
+      "comparison": [
+        {
+          "prevExpense": 1800000,
+          "diff": 200000,
+          "diffRate": 11.1
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 600000
+        },
+        {
+          "tag": "기타",
+          "amount": 350000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "3",
+      "year": 2024,
+      "month": 3,
+      "income": 2700000,
+      "expense": 1900000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": -100000,
+          "diffRate": -5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 680000
+        },
+        {
+          "tag": "교통비",
+          "amount": 320000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 530000
+        },
+        {
+          "tag": "기타",
+          "amount": 370000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "5",
+      "year": 2024,
+      "month": 5,
+      "income": 2500000,
+      "expense": 1700000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": -400000,
+          "diffRate": -19
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 600000
+        },
+        {
+          "tag": "교통비",
+          "amount": 290000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 480000
+        },
+        {
+          "tag": "기타",
+          "amount": 330000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "6",
+      "year": 2024,
+      "month": 6,
+      "income": 3000000,
+      "expense": 2200000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 1700000,
+          "diff": 500000,
+          "diffRate": 29.4
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 780000
+        },
+        {
+          "tag": "교통비",
+          "amount": 360000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 680000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ],
+      "user_id": "z2cholm"
+    },
+    {
+      "id": "7",
+      "year": 2024,
+      "month": 7,
+      "income": 2900000,
+      "expense": 1950000,
+      "netProfit": 950000,
+      "comparison": [
+        {
+          "prevExpense": 2200000,
+          "diff": -250000,
+          "diffRate": -11.4
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 700000
+        },
+        {
+          "tag": "교통비",
+          "amount": 320000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 570000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "8",
+      "year": 2024,
+      "month": 8,
+      "income": 3100000,
+      "expense": 2300000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 1950000,
+          "diff": 350000,
+          "diffRate": 17.9
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 820000
+        },
+        {
+          "tag": "교통비",
+          "amount": 380000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 700000
+        },
+        {
+          "tag": "기타",
+          "amount": 400000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "9",
+      "year": 2024,
+      "month": 9,
+      "income": 2800000,
+      "expense": 2000000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2300000,
+          "diff": -300000,
+          "diffRate": -13
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 580000
+        },
+        {
+          "tag": "기타",
+          "amount": 370000
+        }
+      ],
+      "user_id": "z2cholm"
+    },
+    {
+      "id": "10",
+      "year": 2024,
+      "month": 10,
+      "income": 3200000,
+      "expense": 2100000,
+      "netProfit": 1100000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ],
+      "user_id": "z2cholm"
+    },
+    {
+      "id": "12",
+      "year": 2024,
+      "month": 12,
+      "income": 3500000,
+      "expense": 2800000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2400000,
+          "diff": 400000,
+          "diffRate": 16.7
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 980000
+        },
+        {
+          "tag": "교통비",
+          "amount": 450000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 920000
+        },
+        {
+          "tag": "기타",
+          "amount": 450000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "13",
+      "year": 2025,
+      "month": 1,
+      "income": 2600000,
+      "expense": 1900000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2800000,
+          "diff": -900000,
+          "diffRate": -32.1
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 680000
+        },
+        {
+          "tag": "교통비",
+          "amount": 310000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 560000
+        },
+        {
+          "tag": "기타",
+          "amount": 350000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "14",
+      "year": 2025,
+      "month": 2,
+      "income": 2700000,
+      "expense": 2000000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 1900000,
+          "diff": 100000,
+          "diffRate": 5.3
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 720000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 590000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "15",
+      "year": 2025,
+      "month": 3,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "17",
+      "year": 2025,
+      "month": 5,
+      "income": 3000000,
+      "expense": 2200000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 1800000,
+          "diff": 400000,
+          "diffRate": 22.2
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 780000
+        },
+        {
+          "tag": "교통비",
+          "amount": 360000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 670000
+        },
+        {
+          "tag": "기타",
+          "amount": 390000
+        }
+      ],
+      "user_id": "z2cholm"
+    },
+    {
+      "id": "18",
+      "year": 2025,
+      "month": 6,
+      "income": 3100000,
+      "expense": 2300000,
+      "netProfit": 800000,
+      "comparison": [
+        {
+          "prevExpense": 2200000,
+          "diff": 100000,
+          "diffRate": 4.5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 820000
+        },
+        {
+          "tag": "교통비",
+          "amount": 380000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 700000
+        },
+        {
+          "tag": "기타",
+          "amount": 400000
+        }
+      ],
+      "user_id": "z2cholm"
+    },
+    {
+      "id": "21",
+      "year": 2025,
+      "month": 9,
+      "income": 3000000,
+      "expense": 2100000,
+      "netProfit": 900000,
+      "comparison": [
+        {
+          "prevExpense": 2400000,
+          "diff": -300000,
+          "diffRate": -12.5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 630000
+        },
+        {
+          "tag": "기타",
+          "amount": 370000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "22",
+      "year": 2025,
+      "month": 10,
+      "income": 3300000,
+      "expense": 2200000,
+      "netProfit": 1100000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": 100000,
+          "diffRate": 4.8
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 780000
+        },
+        {
+          "tag": "교통비",
+          "amount": 360000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 670000
+        },
+        {
+          "tag": "기타",
+          "amount": 390000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "23",
+      "year": 2025,
+      "month": 11,
+      "income": 3100000,
+      "expense": 2500000,
+      "netProfit": 600000,
+      "comparison": [
+        {
+          "prevExpense": 2200000,
+          "diff": 300000,
+          "diffRate": 13.6
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 880000
+        },
+        {
+          "tag": "교통비",
+          "amount": 420000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 780000
+        },
+        {
+          "tag": "기타",
+          "amount": 420000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "25",
+      "year": 2026,
+      "month": 1,
+      "income": 2700000,
+      "expense": 2000000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2900000,
+          "diff": -900000,
+          "diffRate": -31
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 710000
+        },
+        {
+          "tag": "교통비",
+          "amount": 330000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 600000
+        },
+        {
+          "tag": "기타",
+          "amount": 360000
+        }
+      ],
+      "user_id": "z2cholm"
+    },
+    {
+      "id": "26",
+      "year": 2026,
+      "month": 2,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2000000,
+          "diff": 100000,
+          "diffRate": 5
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "27",
+      "year": 2026,
+      "month": 3,
+      "income": 2800000,
+      "expense": 2100000,
+      "netProfit": 700000,
+      "comparison": [
+        {
+          "prevExpense": 2100000,
+          "diff": 0,
+          "diffRate": 0
+        }
+      ],
+      "tagBreakdown": [
+        {
+          "tag": "식비",
+          "amount": 750000
+        },
+        {
+          "tag": "교통비",
+          "amount": 350000
+        },
+        {
+          "tag": "쇼핑",
+          "amount": 620000
+        },
+        {
+          "tag": "기타",
+          "amount": 380000
+        }
+      ],
+      "user_id": "zw5vrr1"
+    }
+  ],
+  "challenges": [],
+  "tags": [
     {
       "id": "1",
-      "user_id": "user_001",
-      "title": "4월 식비 절약",
-      "targetAmount": 300000,
-      "type": "SPENDING",
-      "tag": "식비",
-      "memo": "이번 달은 외식 금지!",
-      "year": 2026,
-      "month": 4
+      "tagid": "eat",
+      "tagtitle": "식비",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "지출"
     },
     {
       "id": "2",
-      "user_id": "user_001",
-      "title": "4월 교통비 줄이기",
-      "targetAmount": 50000,
-      "type": "SPENDING",
-      "tag": "교통비",
-      "memo": "걸어다니기",
-      "year": 2026,
-      "month": 4
+      "tagid": "traffic",
+      "tagtitle": "교통",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "지출"
     },
     {
       "id": "3",
-      "user_id": "user_002",
-      "title": "4월 쇼핑 절약",
-      "targetAmount": 100000,
-      "type": "SPENDING",
-      "tag": "쇼핑",
-      "memo": "충동구매 금지",
-      "year": 2026,
-      "month": 4
+      "tagid": "shopping",
+      "tagtitle": "쇼핑",
+      "color": "#D6F0E0",
+      "textColor": "#66A882",
+      "type": "지출"
+    },
+    {
+      "id": "4",
+      "tagid": "medical",
+      "tagtitle": "의료",
+      "color": "#E8D6FF",
+      "textColor": "#9B59B6",
+      "type": "지출",
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "5",
+      "tagid": "salary",
+      "tagtitle": "급여",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "수입",
+      "user_id": "108kww2"
+    },
+    {
+      "id": "6",
+      "tagid": "finance",
+      "tagtitle": "금융",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "수입",
+      "user_id": "zw5vrr1"
+    },
+    {
+      "id": "7",
+      "tagid": "sideJob",
+      "tagtitle": "부수입",
+      "color": "#FFF3C4",
+      "textColor": "#B8860B",
+      "type": "수입",
+      "user_id": "108kww2"
+    },
+    {
+      "tagid": "기타_1775905335912",
+      "tagtitle": "기타",
+      "color": "#F0F0F0",
+      "textColor": "#7F8C8D",
+      "type": "지출",
+      "id": "M2bub_X"
+    },
+    {
+      "tagid": "기타2_1775905390540",
+      "tagtitle": "기타2",
+      "color": "#F0F0F0",
+      "textColor": "#7F8C8D",
+      "type": "수입",
+      "id": "xFpw4lH"
+    },
+    {
+      "tagid": "간식_1775910972620",
+      "tagtitle": "간식",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "지출",
+      "id": "YYDDO3D"
     }
   ]
 }

@@ -154,19 +154,23 @@ async function handleSave() {
     showAlert('입력 확인', '올바른 이메일 형식이 아닙니다')
     return
   }
+  if (pwEnabled.value) {
   if (!form.newPw && pwConfirm.value) {
     showAlert('입력 확인', '새 비밀번호를 입력하세요')
     return
   }
   if (form.newPw && form.newPw !== pwConfirm.value) {
     showAlert('입력 확인', '비밀번호가 일치하지 않습니다')
+    form.newPw = ''
+    pwConfirm.value = ''
     return
   }
+}
   if (
     form.name === originalData.value.name &&
     form.nick === originalData.value.nick &&
     form.email === originalData.value.email &&
-    !form.newPw
+    (!pwEnabled.value || !form.newPw)  // pwEnabled가 false거나 비밀번호 없으면
   ) {
     showAlert('알림', '이미 회원정보와 동일합니다')
     return
@@ -180,9 +184,9 @@ async function handleSave() {
     email: form.email,
   }
 
-  if (form.newPw) {
-    updateData.pw = form.newPw
-  }
+  if (pwEnabled.value && form.newPw) {
+  updateData.pw = form.newPw
+}
 
   updateUserProcess(
     userInfo.id,
