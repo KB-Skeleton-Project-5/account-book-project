@@ -1,22 +1,27 @@
 <template>
   <div class="login-wrapper">
     <div class="login-card">
-
       <h2 class="login-title">로그인</h2>
       <p class="login-sub">계정에 로그인하세요</p>
 
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.userId" 
-          placeholder="아이디를 입력하세요" 
-          @keyup.enter="handleLogin" />
+        <input
+          type="text"
+          v-model="form.login_id"
+          placeholder="아이디를 입력하세요"
+          @keyup.enter="handleLogin"
+        />
       </div>
 
       <div class="field">
         <label>비밀번호</label>
-        <input type="password" v-model="form.pw" 
-          placeholder="비밀번호를 입력하세요" 
-          @keyup.enter="handleLogin"/>
+        <input
+          type="password"
+          v-model="form.pw"
+          placeholder="비밀번호를 입력하세요"
+          @keyup.enter="handleLogin"
+        />
       </div>
 
       <button class="btn-login" @click="handleLogin">로그인</button>
@@ -31,51 +36,47 @@
         계정이 없으신가요?
         <router-link to="/users/register">회원가입</router-link>
       </p>
-
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { loginProcess } from '@/util/authUtil'
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { loginProcess } from '@/util/authUtil';
 
-
-const router = useRouter()
+const router = useRouter();
 
 const form = reactive({
-  userId: '',
-  pw: ''
-})
+  login_id: '',
+  pw: '',
+});
 
 function handleLogin() {
   // 유효성 검사
-  if (!form.userId.trim()) {
-    alert('아이디를 입력하세요')
+  if (!form.login_id.trim()) {
+    alert('아이디를 입력하세요');
     console.log('아이디를 입력하세요');
-    return
+    return;
   }
   if (!form.pw.trim()) {
-    alert('비밀번호를 입력하세요')
+    alert('비밀번호를 입력하세요');
     console.log('비밀번호를 입력하세요');
-    
-    return
+
+    return;
   }
   loginProcess(
-    form.userId,
+    form.login_id,
     form.pw,
     () => {
-       console.log('로그인 성공')
-       router.push({name:'main'})
+      console.log('로그인 성공');
+      router.push({ name: 'main' });
     },
     () => {
-  alert('아이디 또는 비밀번호가 틀렸습니다.')
-    }
-  )
+      alert('아이디 또는 비밀번호가 틀렸습니다.');
+    },
+  );
 }
-
-
 </script>
 
 <style scoped>
@@ -166,4 +167,3 @@ function handleLogin() {
   text-decoration: none;
 }
 </style>
-

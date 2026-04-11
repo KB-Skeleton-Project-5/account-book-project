@@ -75,7 +75,7 @@ import CalendarItem from '@/components/calendars/CalendarItem.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
-import { getUserInfo } from '@/util/authUtil' ;
+import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
 const today = new Date();
@@ -98,22 +98,20 @@ watch(
         year: selectedDate.value.year,
         month: selectedDate.value.month,
         day: selectedDay.value,
-      })
+      }),
     );
   },
-  { deep: true }
+  { deep: true },
 );
 
 watch(
   () => `${selectedDate.value.year}-${selectedDate.value.month}`,
   () => {
     selectedDay.value = 1;
-  }
+  },
 );
 
-
 const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
-
 
 const selectedDayText = computed(() => {
   return `${selectedDate.value.year}년 ${selectedDate.value.month}월 ${selectedDay.value}일`;
@@ -127,9 +125,9 @@ const handleAdd = () => {
 
 const fetchCalendars = async () => {
   try {
-    const { id } = getUserInfo()  // localStorage에서 꺼내기
-    const res = await axios.get('/api/calendars',{
-      params: { userId: id } // userId 파라미터로 넘기기
+    const { id } = getUserInfo(); // localStorage에서 꺼내기
+    const res = await axios.get('/api/calendars', {
+      params: { user_id: id }, // user_id 파라미터로 넘기기
     });
     calendarList.value = res.data;
   } catch (error) {
@@ -185,7 +183,6 @@ const selectDay = (day) => {
   if (!day) return;
   selectedDay.value = day;
 };
-
 
 onMounted(() => {
   fetchCalendars();

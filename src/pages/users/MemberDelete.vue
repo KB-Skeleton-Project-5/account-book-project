@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-      <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
-    
+    <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
 
     <div class="warn-box">
       탈퇴 시 모든 데이터(지출, 캘린더, 챌린지)가 영구 삭제됩니다.<br />
@@ -11,17 +10,32 @@
     <div class="form-area">
       <div class="field">
         <label>아이디 확인</label>
-        <input type="text" v-model="form.userId" placeholder="아이디를 입력하세요" />
+        <input
+          type="text"
+          v-model="form.login_id"
+          placeholder="아이디를 입력하세요"
+        />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
-        <input type="password" v-model="form.pw" placeholder="비밀번호를 입력하세요" />
+        <input
+          type="password"
+          v-model="form.pw"
+          placeholder="비밀번호를 입력하세요"
+        />
       </div>
     </div>
 
     <div class="agree-row">
-      <input type="checkbox" id="agree-check" v-model="isAgreed" @change="onAgreeChange" />
-      <label for="agree-check">위 내용을 모두 확인했으며 탈퇴에 동의합니다</label>
+      <input
+        type="checkbox"
+        id="agree-check"
+        v-model="isAgreed"
+        @change="onAgreeChange"
+      />
+      <label for="agree-check"
+        >위 내용을 모두 확인했으며 탈퇴에 동의합니다</label
+      >
     </div>
 
     <!-- 모달 후에 교체 예정 -->
@@ -38,76 +52,75 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { deleteUserProcess,logoutProcess } from '@/util/authUtil'
-import AppHeader from '@/layouts/AppHeader.vue'
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { deleteUserProcess, logoutProcess } from '@/util/authUtil';
+import AppHeader from '@/layouts/AppHeader.vue';
 
-const router = useRouter()
+const router = useRouter();
 
 const form = reactive({
-  userId: '',
-  pw: ''
-})
+  login_id: '',
+  pw: '',
+});
 
-const isAgreed = ref(false)
-const showModal = ref(false)
+const isAgreed = ref(false);
+const showModal = ref(false);
 
 function onAgreeChange() {
   if (isAgreed.value) {
-    showModal.value = true
+    showModal.value = true;
   }
 }
 
 function closeModal() {
-  showModal.value = false
-  isAgreed.value = false
+  showModal.value = false;
+  isAgreed.value = false;
 }
 
 async function handleDelete() {
   // 유효성 검사
-  if (!form.userId.trim()) {
-    alert('아이디를 입력하세요')
-    console.log('아이디를 입력하세요')
-    return
+  if (!form.login_id.trim()) {
+    alert('아이디를 입력하세요');
+    console.log('아이디를 입력하세요');
+    return;
   }
   if (!form.pw.trim()) {
-    alert('비밀번호를 입력하세요')
-    console.log('비밀번호를 입력하세요')
-    return
+    alert('비밀번호를 입력하세요');
+    console.log('비밀번호를 입력하세요');
+    return;
   }
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
-    `/api/users?userId=${form.userId}&pw=${form.pw}`
-  )
-  const users = await response.json()
+    `/api/users?login_id=${form.login_id}&pw=${form.pw}`,
+  );
+  const users = await response.json();
 
   if (users.length === 0) {
-    alert('아이디 또는 비밀번호가 틀렸습니다')
+    alert('아이디 또는 비밀번호가 틀렸습니다');
     console.log('아이디 또는 비밀번호가 틀렸습니다');
-    closeModal()
-    return
+    closeModal();
+    return;
   }
-  
-  const user = users[0]
+
+  const user = users[0];
 
   deleteUserProcess(
     user.id,
     () => {
       logoutProcess(() => {
-        router.push({ name: 'users/login' })
-      })
+        router.push({ name: 'users/login' });
+      });
     },
     () => {
-      alert('탈퇴에 실패했습니다')
-      console.log('탈퇴에 실패했습니다')
-      closeModal()
-    }
-  )
+      alert('탈퇴에 실패했습니다');
+      console.log('탈퇴에 실패했습니다');
+      closeModal();
+    },
+  );
 }
 </script>
 
@@ -122,9 +135,6 @@ async function handleDelete() {
   margin: 0 auto;
   position: relative;
 }
-
-
-
 
 .warn-box {
   background-color: #fff5f5;
@@ -254,4 +264,3 @@ async function handleDelete() {
   background-color: #fff5f5;
 }
 </style>
-

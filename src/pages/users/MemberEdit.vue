@@ -1,8 +1,6 @@
 <template>
   <div class="wrapper">
-
     <AppHeader title="회원수정" :back="true" backTo="users/info" />
-    
 
     <div class="form-area">
       <div class="field">
@@ -19,15 +17,28 @@
       </div>
       <div class="field">
         <label>아이디 <span class="disabled-label">(수정불가)</span></label>
-        <input type="text" :value="form.userId" disabled class="input-disabled" />
+        <input
+          type="text"
+          :value="form.login_id"
+          disabled
+          class="input-disabled"
+        />
       </div>
       <div class="field">
         <label>새 비밀번호</label>
-        <input type="password" v-model="form.newPw" placeholder="변경할 비밀번호를 입력하세요" />
+        <input
+          type="password"
+          v-model="form.newPw"
+          placeholder="변경할 비밀번호를 입력하세요"
+        />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
-        <input type="password" v-model="pwConfirm" placeholder="비밀번호를 다시 입력하세요" />
+        <input
+          type="password"
+          v-model="pwConfirm"
+          placeholder="비밀번호를 다시 입력하세요"
+        />
       </div>
     </div>
 
@@ -35,98 +46,100 @@
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
       <AppButton text="저장" @click="handleSave" />
     </div>
-    </div>
-  
+  </div>
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { getUserInfo, fetchUserById, updateUserProcess } from '@/util/authUtil.js'
-import AppButton from '@/components/commons/AppButton.vue'
-import AppHeader from '@/layouts/AppHeader.vue'
+import { reactive, ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import {
+  getUserInfo,
+  fetchUserById,
+  updateUserProcess,
+} from '@/util/authUtil.js';
+import AppButton from '@/components/commons/AppButton.vue';
+import AppHeader from '@/layouts/AppHeader.vue';
 
-const router = useRouter()
+const router = useRouter();
 
 // TODO: 서버에서 기존 데이터 불러오기
 const form = reactive({
   name: '',
   nick: '',
   email: '',
-  userId: '',
-  newPw: ''
-})
+  login_id: '',
+  newPw: '',
+});
 
-const pwConfirm = ref('')
+const pwConfirm = ref('');
 onMounted(async () => {
-  const userInfo = getUserInfo()
-  
-  if(!userInfo.authenticated) {
-    router.push({name:'users/login'})
-    return
-  }
-  const user = await fetchUserById(userInfo.id)
-  if(user){
-    form.name =user.name
-    form.nick =user.nick
-    form.email =user.email
-    form.userId =user.userId
-      
-  }
-})
+  const userInfo = getUserInfo();
 
+  if (!userInfo.authenticated) {
+    router.push({ name: 'users/login' });
+    return;
+  }
+  const user = await fetchUserById(userInfo.id);
+  if (user) {
+    form.name = user.name;
+    form.nick = user.nick;
+    form.email = user.email;
+    form.login_id = user.login_id;
+  }
+});
 
 async function handleSave() {
   // 이름 문자열 유효성 검사
   if (!form.name.trim()) {
-    alert('이름을 입력하세요')
-    return
+    alert('이름을 입력하세요');
+    return;
   }
-  const nameRegex = /^[가-힣a-zA-Z]+$/
+  const nameRegex = /^[가-힣a-zA-Z]+$/;
   if (!nameRegex.test(form.name)) {
-    alert('이름은 한글 또는 영문만 입력 가능합니다')
-    return
+    alert('이름은 한글 또는 영문만 입력 가능합니다');
+    return;
   }
   if (!form.nick.trim()) {
-  alert('닉네임을 입력하세요')
-  return
-}
-    if (!form.email.trim()) {
-    alert('이메일을 입력하세요')
-    return
+    alert('닉네임을 입력하세요');
+    return;
+  }
+  if (!form.email.trim()) {
+    alert('이메일을 입력하세요');
+    return;
   }
   //이메일 형식 유효성 검사
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(form.email)) {
-    alert('올바른 이메일 형식이 아닙니다')
-    return
+    alert('올바른 이메일 형식이 아닙니다');
+    return;
   }
   if (form.newPw && form.newPw !== pwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다')
-    return
+    alert('비밀번호가 일치하지 않습니다');
+    return;
   }
-  const userInfo = getUserInfo()
 
-const updateData = {
+  const userInfo = getUserInfo();
+
+  const updateData = {
     name: form.name,
     nick: form.nick,
     email: form.email,
-  }
-if (form.newPw) {
-    updateData.pw = form.newPw
+  };
+  if (form.newPw) {
+    updateData.pw = form.newPw;
   }
   updateUserProcess(
     userInfo.id,
     updateData,
     () => {
-      alert('수정이 완료되었습니다')
-      console.log('수정 성공')
-      router.push({ name: 'users/info' })
+      alert('수정이 완료되었습니다');
+      console.log('수정 성공');
+      router.push({ name: 'users/info' });
     },
     () => {
-      alert('수정에 실패했습니다')
-    }
-  )
+      alert('수정에 실패했습니다');
+    },
+  );
 }
 </script>
 

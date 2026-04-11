@@ -1,20 +1,28 @@
 <template>
-  <div class="memo-display">
-    <p>{{ userMemo }}</p>
+  <div class="memo-display-container">
+    <p>{{ memo || '등록된 메모가 없습니다.' }}</p>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const userMemo = ref('여기는 메모입니다.');
+defineProps({
+  memo: {
+    type: String,
+    default: '',
+  },
+});
 </script>
 
 <style scoped>
-p {
+.memo-display-container p {
   border-radius: 12px;
-  background-color: #555555;
+  background-color: #f8fafc;
   padding: 20px;
-  color: white;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 </style>

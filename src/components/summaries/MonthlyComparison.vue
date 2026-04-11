@@ -38,12 +38,10 @@
       <div class="diff-summary">
         <span class="diff-label">전월 대비</span>
         <span class="diff-value" :class="comparison.diff < 0 ? 'good' : 'bad'">
-          {{ comparison.diff > 0 ? '+' : ''}}
-          {{ (comparison.diff ?? 0 ).toLocaleString() }}원 
-          (
-          {{comparison.diff > 0 ? '+' : '' }}
-          {{ comparison.diffRate ?? 0 }}%
-          )
+          {{ comparison.diff > 0 ? '+' : '' }}
+          {{ (comparison.diff ?? 0).toLocaleString() }}원 (
+          {{ comparison.diff > 0 ? '+' : '' }}
+          {{ comparison.diffRate ?? 0 }}% )
         </span>
       </div>
     </template>
@@ -66,7 +64,7 @@ const summaryList = ref([]);
 const fetchSummary = async () => {
   try {
     const { id } = getUserInfo();
-    const res = await axios.get('/api/summary', { params: { userId: id } });
+    const res = await axios.get('/api/summary', { params: { user_id: id } });
     summaryList.value = res.data;
   } catch (error) {
     console.log(error);
@@ -104,7 +102,6 @@ const currentBarWidth = computed(() => {
 });
 
 onMounted(fetchSummary);
-
 </script>
 
 <style scoped>
@@ -116,7 +113,7 @@ onMounted(fetchSummary);
   border-radius: 12px;
   padding: 12px;
   margin-top: 14px;
-  margin-bottom: auto;  /*이거 테스트시 이상하게 밀리면 빼기 */
+  margin-bottom: auto; /*이거 테스트시 이상하게 밀리면 빼기 */
   box-sizing: border-box;
 }
 
@@ -183,7 +180,7 @@ onMounted(fetchSummary);
   height: 100%;
   border-radius: 99px;
   transition: width 0.4s ease;
-  min-width: 4px; 
+  min-width: 4px;
 }
 
 .bar.prev {

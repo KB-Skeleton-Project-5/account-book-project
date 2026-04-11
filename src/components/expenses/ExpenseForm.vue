@@ -1,30 +1,37 @@
 <template>
   <!-- 전체 폼 UI 영역 -->
   <div>
-    <TabSelector 
-    :value="formData.type" 
-    @submit-tab="handleTab"
-    :readonly="props.readonly" />
-    <DateInput 
-    :value="formData.date" 
-    @submit-date="handleDate"
-    :readonly="props.readonly" />
-    <AmountInput 
-    :value="formData.amount" 
-    @submit-amount="handleAmount"
-    :readonly="props.readonly" />
-    <TitleInput 
-    :value="formData.title" 
-    @submit-title="handleTitle"
-    :readonly="props.readonly" />
-    <TagSelect 
-    :value="formData.tag" 
-    @submit-tag="handleTag" 
-    :readonly="props.readonly"/>
-    <MemoInput 
-    :value="formData.memo" 
-    @submit-memo="handleMemo" 
-    :readonly="props.readonly"/>
+    <TabSelector
+      :value="formData.type"
+      @submit-tab="handleTab"
+      :readonly="props.readonly"
+    />
+    <DateInput
+      :value="formData.date"
+      @submit-date="handleDate"
+      :readonly="props.readonly"
+    />
+    <AmountInput
+      :value="formData.amount"
+      @submit-amount="handleAmount"
+      :readonly="props.readonly"
+    />
+    <TitleInput
+      :value="formData.title"
+      @submit-title="handleTitle"
+      :readonly="props.readonly"
+    />
+    <TagSelect
+      :value="formData.tag"
+      :type="formData.type.typetitle"
+      @submit-tag="handleTag"
+      :readonly="props.readonly"
+    />
+    <MemoInput
+      :value="formData.memo"
+      @submit-memo="handleMemo"
+      :readonly="props.readonly"
+    />
     <PaymentMethod
       :value="formData.paymentMethod"
       @submit-payment="handlePayment"
@@ -48,12 +55,15 @@ import TabSelector from './TabSelector.vue';
 import DateInput from './DateInput.vue';
 import AmountInput from './AmountInput.vue';
 import TitleInput from './TitleInput.vue';
-import TagSelect from './TagSelect.vue';
+import TagSelect from '@/components/tags/TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
 import AlertModal from '@/components/commons/AlertModal.vue';
 import { ref, watch } from 'vue';
+import { getUserInfo } from '@/util/authUtil';
+
+const userInfo = getUserInfo();
 
 const formData = ref({
   amount: '',
@@ -63,31 +73,46 @@ const formData = ref({
   paymentMethod: '',
   isFixed: false,
   tag: {},
-  type: {},
+  type: { typeid: 'withdrawal', typetitle: '지출' },
+  user_id : userInfo.id
 });
 
-const handleAmount = (value) => { formData.value.amount = value; };
-const handleDate = (value) => { formData.value.date = value; };
-const handleTitle = (value) => { formData.value.title = value; };
-const handleMemo = (value) => { formData.value.memo = value; };
-const handlePayment = (value) => { formData.value.paymentMethod = value; };
-const handleIsFixed = (value) => { formData.value.isFixed = value; };
-const handleTag = (value) => { formData.value.tag = value; };
-const handleTab = (value) => { formData.value.type = value; };
+const handleAmount = (value) => {
+  formData.value.amount = value;
+};
+const handleDate = (value) => {
+  formData.value.date = value;
+};
+const handleTitle = (value) => {
+  formData.value.title = value;
+};
+const handleMemo = (value) => {
+  formData.value.memo = value;
+};
+const handlePayment = (value) => {
+  formData.value.paymentMethod = value;
+};
+const handleIsFixed = (value) => {
+  formData.value.isFixed = value;
+};
+const handleTag = (value) => {
+  formData.value.tag = value;
+};
+const handleTab = (value) => {
+  formData.value.type = value;
+  formData.value.tag = {}; // 분류 바뀌면 태그 초기화
+};
 
-// 부모 (ExpenseInfo)에서 전달받은 초기 데이터
 const props = defineProps({
-  // initialData : 수정화면에서 기존 데이터를 전체로 받아옴.
+  // initialDate : 수정화면에서 기존 데이터를 전체로 받아옴.
   initialData: Object,
   readonly: Boolean,
 });
 
-// initialData가 들어오면 formData에 세팅
 watch(
   () => props.initialData,
   (val) => {
     if (val) formData.value = { ...val };
-    // immediate : 컴포넌트 생성 시 즉시 실행
   },
   { immediate: true },
 );
