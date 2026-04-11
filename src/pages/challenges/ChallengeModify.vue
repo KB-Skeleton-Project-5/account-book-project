@@ -17,7 +17,7 @@
       </div>
 
       <div v-else class="loading-state">
-        <p>챌린지 정보 불러오는 중...</p>
+        <p>챌린지 정보 불러오는 중</p>
       </div>
     </div>
 
@@ -47,7 +47,7 @@ const challengeId = route.params.id;
 
 const challengeData = ref({
   title: '',
-  tag: '전체',
+  tag: 'all',
   targetAmount: 1,
   type: '지출',
 });
@@ -111,14 +111,14 @@ const handleUpdate = async () => {
       if (!expense.type || !expense.tag) return totalSum;
 
       const expTypeTitle = expense.type.typetitle || expense.type;
-      const expTagTitle = expense.tag.tagtitle || expense.tag;
+      const expTagId = expense.tag.tagid || expense.tag;
 
       const isSameMonth =
         expense.date && expense.date.includes(targetYearMonth);
       const isSameType = expTypeTitle === challengeData.value.type;
       const isSameTag =
-        challengeData.value.tag === '전체' ||
-        expTagTitle === challengeData.value.tag;
+        challengeData.value.tag === 'all' ||
+        expTagId === challengeData.value.tag;
 
       return isSameMonth && isSameType && isSameTag
         ? totalSum + Number(expense.amount)

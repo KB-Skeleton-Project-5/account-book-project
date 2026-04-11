@@ -1,7 +1,12 @@
 <template>
   <div class="challenge-setup">
     <p>목표 제목</p>
-    <input type="text" v-model="form.title" placeholder="예: 4월 교통비 절약" />
+    <input
+      type="text"
+      v-model="form.title"
+      maxlength="20"
+      placeholder="예: 4월 교통비 절약"
+    />
 
     <p>챌린지 유형</p>
     <select v-model="form.type">
@@ -14,10 +19,10 @@
       <select v-model="form.tag" class="tag-select">
         <option
           v-for="tag in availableTags"
-          :key="tag.id"
-          :value="tag.tagtitle"
+          :key="tag.tagid"
+          :value="tag.tagid"
         >
-          {{ tag.tagtitle }}
+          {{ getTagTitle(tag.tagid, dbTags) }}
         </option>
       </select>
       <span class="suffix-label">에서</span>
@@ -25,7 +30,13 @@
 
     <p>목표 금액</p>
     <div class="amount-container">
-      <input type="number" v-model="form.targetAmount" placeholder="0" />
+      <input
+        type="number"
+        v-model.number="form.targetAmount"
+        @input="handleAmountInput"
+        min="0"
+        placeholder="0"
+      />
       <span class="unit-label">
         만원 {{ form.type === '지출' ? '이하 지출' : '이상 수입' }}
       </span>
@@ -36,6 +47,7 @@
 <script setup>
 import { ref, reactive, onMounted, watch, computed } from 'vue';
 import { getTags } from '@/api/tags';
+import { getTagTitle } from '@/util/tagUtil.js';
 
 const props = defineProps(['modelValue']);
 const emit = defineEmits(['update:modelValue']);
@@ -52,29 +64,46 @@ onMounted(async () => {
 });
 
 const form = reactive({
-  title: props.modelValue?.title || '',
-  tag: props.modelValue?.tag || '전체',
+  title: props.modelValue?.title?.substring(0, 20) || '',
+  tag:
+    props.modelValue?.tag === '전체' || !props.modelValue?.tag
+      ? 'all'
+      : props.modelValue.tag,
   targetAmount: props.modelValue?.targetAmount ?? 0,
   type: props.modelValue?.type || '지출',
 });
 
 const availableTags = computed(() => {
   const filtered = dbTags.value.filter((tag) => tag.type === form.type);
-  return [{ id: 'all', tagtitle: '전체' }, ...filtered];
+  return [{ tagid: 'all' }, ...filtered];
 });
+
+const handleAmountInput = (e) => {
+  let val = e.target.value;
+  val = val.replace(/[^0-9]/g, '');
+
+  if (val.length > 1 && val.startsWith('0')) {
+    val = val.replace(/^0+/, '');
+  }
+
+  form.targetAmount = val === '' ? 0 : parseInt(val, 10);
+  e.target.value = val;
+};
 
 watch(
   () => form.type,
   () => {
-    if (availableTags.value.length > 0) {
-      form.tag = availableTags.value[0].tagtitle;
-    }
+    form.tag = 'all';
   },
 );
 
 watch(
   form,
   (newValue) => {
+    if (newValue.title && newValue.title.length > 20) {
+      newValue.title = newValue.title.substring(0, 20);
+    }
+
     emit('update:modelValue', { ...newValue });
   },
   { deep: true, immediate: true },
