@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-      <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
-    
+    <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
 
     <div class="warn-box">
       탈퇴 시 모든 데이터(지출, 캘린더, 챌린지)가 영구 삭제됩니다.<br />
@@ -11,17 +10,32 @@
     <div class="form-area">
       <div class="field">
         <label>아이디 확인</label>
-        <input type="text" v-model="form.userId" placeholder="아이디를 입력하세요" />
+        <input
+          type="text"
+          v-model="form.user_id"
+          placeholder="아이디를 입력하세요"
+        />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
-        <input type="password" v-model="form.pw" placeholder="비밀번호를 입력하세요" />
+        <input
+          type="password"
+          v-model="form.pw"
+          placeholder="비밀번호를 입력하세요"
+        />
       </div>
     </div>
 
     <div class="agree-row">
-      <input type="checkbox" id="agree-check" v-model="isAgreed" @change="onAgreeChange" />
-      <label for="agree-check">위 내용을 모두 확인했으며 탈퇴에 동의합니다</label>
+      <input
+        type="checkbox"
+        id="agree-check"
+        v-model="isAgreed"
+        @change="onAgreeChange"
+      />
+      <label for="agree-check"
+        >위 내용을 모두 확인했으며 탈퇴에 동의합니다</label
+      >
     </div>
 
     <!-- 모달 후에 교체 예정 -->
@@ -38,7 +52,6 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script setup>
@@ -50,7 +63,7 @@ import AppHeader from '@/layouts/AppHeader.vue'
 const router = useRouter()
 
 const form = reactive({
-  userId: '',
+  user_id: '',
   pw: ''
 })
 
@@ -72,10 +85,10 @@ async function handleDelete() {
 <<<<<<< HEAD
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
-    `/api/usersdb?userId=${form.userId}&pw=${form.pw}`
+    `/api/usersdb?user_id=${form.user_id}&pw=${form.pw}`
 =======
   // 유효성 검사
-  if (!form.userId.trim()) {
+  if (!form.user_id.trim()) {
     alert('아이디를 입력하세요')
     console.log('아이디를 입력하세요')
     return
@@ -87,7 +100,7 @@ async function handleDelete() {
   }
   // 입력한 아이디/비밀번호로 본인 확인
   const response = await fetch(
-    `/api/users?userId=${form.userId}&pw=${form.pw}`
+    `/api/users?user_id=${form.user_id}&pw=${form.pw}`
 >>>>>>> origin/Yongjin
   )
   const users = await response.json()
@@ -101,7 +114,7 @@ async function handleDelete() {
     closeModal()
     return
   }
-  
+
   const user = users[0]
 
   deleteUserProcess(
@@ -134,9 +147,6 @@ async function handleDelete() {
   margin: 0 auto;
   position: relative;
 }
-
-
-
 
 .warn-box {
   background-color: #fff5f5;
@@ -266,4 +276,3 @@ async function handleDelete() {
   background-color: #fff5f5;
 }
 </style>
-

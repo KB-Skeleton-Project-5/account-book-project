@@ -158,7 +158,7 @@ const getChallengeInfo = async () => {
     const challengeRes = await axios.get(`/api/challenges/${challengeId}`);
     const challengeData = challengeRes.data;
 
-    if (String(challengeData.userId) !== String(userInfo.id)) {
+    if (String(challengeData.user_id) !== String(userInfo.id)) {
       alert('접근 권한이 없습니다.');
       router.push({ name: 'challenges' });
       return;
@@ -168,7 +168,7 @@ const getChallengeInfo = async () => {
     const targetYearMonth = `${challengeData.year}-${formattedMonth}`;
 
     const expensesRes = await axios.get(`/api/expenses`, {
-      params: { userId: userInfo.id },
+      params: { user_id: userInfo.id },
     });
     const myExpenses = expensesRes.data;
 

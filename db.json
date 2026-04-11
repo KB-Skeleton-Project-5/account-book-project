@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "3",
-      "userId": "asdf",
+      "user_id": "asdf",
       "pw": "hashed_string",
       "name": "홍길동",
       "nick": "길동이",
@@ -13,7 +13,7 @@
       "name": "sia",
       "nick": "sia",
       "email": "tkkt",
-      "userId": "asdf",
+      "user_id": "asdf",
       "pw": "asdf",
       "id": "2"
     },
@@ -21,7 +21,7 @@
       "name": "eee",
       "nick": "eee",
       "email": "eee",
-      "userId": "eee",
+      "user_id": "eee",
       "pw": "eee",
       "id": "1"
     }
@@ -29,7 +29,7 @@
   "expenses": [
     {
       "id": 2,
-      "userId": 2,
+      "user_id": 2,
       "date": "2026-04-02",
       "title": "김밥",
       "type": {
@@ -61,7 +61,7 @@
         "typetitle": "지출"
       },
       "id": 8,
-      "userId": 2
+      "user_id": 2
     },
     {
       "amount": 343,
@@ -78,7 +78,7 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "userId": "4",
+      "user_id": "4",
       "id": 14
     },
     {
@@ -97,7 +97,7 @@
         "typetitle": "수입"
       },
       "id": 10,
-      "userId": 2
+      "user_id": 2
     },
     {
       "amount": 1234,
@@ -115,7 +115,7 @@
         "typetitle": "수입"
       },
       "id": 14,
-      "userId": 2
+      "user_id": 2
     },
     {
       "amount": 20000,
@@ -136,7 +136,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 15
     },
     {
@@ -158,7 +158,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 16
     },
     {
@@ -180,7 +180,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 17
     },
     {
@@ -202,7 +202,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 18
     },
     {
@@ -224,7 +224,7 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 19
     },
     {
@@ -246,7 +246,7 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 20
     },
     {
@@ -268,7 +268,7 @@
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 21
     },
     {
@@ -290,7 +290,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 22
     },
     {
@@ -312,7 +312,7 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 23
     },
     {
@@ -334,14 +334,14 @@
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": "1",
+      "user_id": "1",
       "id": 24
     }
   ],
   "calendars": [
     {
       "id": 1,
-      "userId": "1",
+      "user_id": "1",
       "title": "월급날",
       "date": "2026-04-01",
       "time": "09:00",
@@ -350,7 +350,7 @@
     },
     {
       "id": 2,
-      "userId": "1",
+      "user_id": "1",
       "title": "팀 회의 수정",
       "date": "2026-04-10",
       "time": "14:00",
@@ -359,7 +359,7 @@
     },
     {
       "id": 3,
-      "userId": "1",
+      "user_id": "1",
       "title": "스터디",
       "date": "2026-04-10",
       "time": "16:00",
@@ -368,7 +368,7 @@
     },
     {
       "id": 4,
-      "userId": "1",
+      "user_id": "1",
       "title": "병원 예약",
       "date": "2026-04-15",
       "time": "11:00",
@@ -377,7 +377,7 @@
     },
     {
       "id": 6,
-      "userId": "1",
+      "user_id": "1",
       "title": "생일파티",
       "date": "2026-04-15",
       "time": "07:00",
@@ -386,7 +386,7 @@
     },
     {
       "id": 7,
-      "userId": "1",
+      "user_id": "1",
       "title": "미용실",
       "date": "2026-04-01",
       "time": "14:00",
@@ -397,7 +397,7 @@
   "summary": [
     {
       "id": 1,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 1,
       "income": 2500000,
@@ -431,7 +431,7 @@
     },
     {
       "id": 2,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 2,
       "income": 2600000,
@@ -465,7 +465,7 @@
     },
     {
       "id": 3,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 3,
       "income": 2700000,
@@ -499,7 +499,7 @@
     },
     {
       "id": 4,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 4,
       "income": 2800000,
@@ -533,7 +533,7 @@
     },
     {
       "id": 5,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 5,
       "income": 2500000,
@@ -567,7 +567,7 @@
     },
     {
       "id": 6,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 6,
       "income": 3000000,
@@ -601,7 +601,7 @@
     },
     {
       "id": 7,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 7,
       "income": 2900000,
@@ -635,7 +635,7 @@
     },
     {
       "id": 8,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 8,
       "income": 3100000,
@@ -669,7 +669,7 @@
     },
     {
       "id": 9,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 9,
       "income": 2800000,
@@ -703,7 +703,7 @@
     },
     {
       "id": 10,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 10,
       "income": 3200000,
@@ -737,7 +737,7 @@
     },
     {
       "id": 11,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 11,
       "income": 3000000,
@@ -771,7 +771,7 @@
     },
     {
       "id": 12,
-      "userId": "1",
+      "user_id": "1",
       "year": 2024,
       "month": 12,
       "income": 3500000,
@@ -805,7 +805,7 @@
     },
     {
       "id": 13,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 1,
       "income": 2600000,
@@ -839,7 +839,7 @@
     },
     {
       "id": 14,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 2,
       "income": 2700000,
@@ -873,7 +873,7 @@
     },
     {
       "id": 15,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 3,
       "income": 2800000,
@@ -907,7 +907,7 @@
     },
     {
       "id": 16,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 4,
       "income": 2900000,
@@ -941,7 +941,7 @@
     },
     {
       "id": 17,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 5,
       "income": 3000000,
@@ -975,7 +975,7 @@
     },
     {
       "id": 18,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 6,
       "income": 3100000,
@@ -1009,7 +1009,7 @@
     },
     {
       "id": 19,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 7,
       "income": 2900000,
@@ -1043,7 +1043,7 @@
     },
     {
       "id": 20,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 8,
       "income": 3200000,
@@ -1077,7 +1077,7 @@
     },
     {
       "id": 21,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 9,
       "income": 3000000,
@@ -1111,7 +1111,7 @@
     },
     {
       "id": 22,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 10,
       "income": 3300000,
@@ -1145,7 +1145,7 @@
     },
     {
       "id": 23,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 11,
       "income": 3100000,
@@ -1179,7 +1179,7 @@
     },
     {
       "id": 24,
-      "userId": "1",
+      "user_id": "1",
       "year": 2025,
       "month": 12,
       "income": 3600000,
@@ -1213,7 +1213,7 @@
     },
     {
       "id": 25,
-      "userId": "1",
+      "user_id": "1",
       "year": 2026,
       "month": 1,
       "income": 2700000,
@@ -1247,7 +1247,7 @@
     },
     {
       "id": 26,
-      "userId": "1",
+      "user_id": "1",
       "year": 2026,
       "month": 2,
       "income": 2800000,
@@ -1281,7 +1281,7 @@
     },
     {
       "id": 27,
-      "userId": "1",
+      "user_id": "1",
       "year": 2026,
       "month": 3,
       "income": 2800000,
@@ -1315,7 +1315,7 @@
     },
     {
       "id": 28,
-      "userId": "1",
+      "user_id": "1",
       "year": 2026,
       "month": 4,
       "income": 3200000,
@@ -1358,7 +1358,7 @@
       "currentAmount": 320000,
       "year": 2026,
       "month": 4,
-      "userId": "1",
+      "user_id": "1",
       "id": 1
     },
     {
@@ -1370,7 +1370,7 @@
       "currentAmount": 0,
       "year": 2026,
       "month": 3,
-      "userId": "1",
+      "user_id": "1",
       "id": 4
     },
     {
@@ -1381,7 +1381,7 @@
       "currentAmount": 30000,
       "year": 2026,
       "month": 4,
-      "userId": "1",
+      "user_id": "1",
       "memo": "",
       "id": 2
     }

@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-        <AppHeader title="내 정보" :back="true" backTo="main" />
-    
+    <AppHeader title="내 정보" :back="true" backTo="main" />
 
     <div class="profile-area">
       <div class="avatar">{{ member.name ? member.name[0] : '' }}</div>
@@ -22,10 +21,9 @@
       </div>
       <div class="field">
         <label>아이디</label>
-        <input type="text" :value="member.userId" readonly />
+        <input type="text" :value="member.user_id" readonly />
       </div>
     </div>
-  
 
     <div class="btn-area">
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
@@ -34,48 +32,50 @@
 
     <div class="bottom-btns">
       <button class="btn-logout" @click="handleLogout">로그아웃</button>
-      <button class="btn-withdraw" @click="router.push({ name: 'users/delete' })">회원탈퇴</button>
+      <button
+        class="btn-withdraw"
+        @click="router.push({ name: 'users/delete' })"
+      >
+        회원탈퇴
+      </button>
     </div>
   </div>
-
-  
 </template>
 
 <script setup>
-import { reactive,onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { getUserInfo,fetchUserById,logoutProcess } from '@/util/authUtil'
-import AppButton from '@/components/commons/AppButton.vue'
-import AppHeader from '@/layouts/AppHeader.vue'
-const router = useRouter()
+import { reactive, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { getUserInfo, fetchUserById, logoutProcess } from '@/util/authUtil';
+import AppButton from '@/components/commons/AppButton.vue';
+import AppHeader from '@/layouts/AppHeader.vue';
+const router = useRouter();
 
 // TODO: 서버에서 실제 데이터 불러오기
 const member = reactive({
-  userId: '',
+  user_id: '',
   name: '',
   nick: '',
   email: '',
-  profileImage: ''
-})
+  profileImage: '',
+});
 onMounted(async () => {
-  const userInfo = getUserInfo()
+  const userInfo = getUserInfo();
 
-if (!userInfo.authenticated){
-  router.push({name:'users/login'})
-  return
-}
-const user = await fetchUserById(userInfo.id)
-if(user){
-  Object.assign(member, user)
-}
-})
+  if (!userInfo.authenticated) {
+    router.push({ name: 'users/login' });
+    return;
+  }
+  const user = await fetchUserById(userInfo.id);
+  if (user) {
+    Object.assign(member, user);
+  }
+});
 function handleLogout() {
   // TODO: 로그인 상태 초기화 연결
-  console.log('로그아웃')
-  logoutProcess(()=> {
-     router.push({ name: 'users/login' })
-  })
- 
+  console.log('로그아웃');
+  logoutProcess(() => {
+    router.push({ name: 'users/login' });
+  });
 }
 </script>
 

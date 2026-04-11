@@ -86,7 +86,7 @@ const userInfo = getUserInfo();
 
 const expenses = ref([]);
 const activeTab = ref('전체');
-const currentUserId = Number(userInfo?.id);
+const currentuser_id = Number(userInfo?.id);
 
 const searchFilters = ref({
   searchText: '',
@@ -109,7 +109,7 @@ const getTagStyle = (tag) => {
 
 // API 파라미터 빌드
 const buildParams = (filters, tab) => {
-  const params = { userId: currentUserId };
+  const params = { user_id: currentuser_id };
 
   if (filters.searchText) params.title_like = filters.searchText;
   if (filters.startDate) params.date_gte = filters.startDate;
@@ -186,7 +186,7 @@ onMounted(() => {
 // 필터링 및 그룹화
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
-    if (Number(e.userId) !== currentUserId) return false;
+    if (Number(e.user_id) !== currentuser_id) return false;
 
     // 태그 필터링 (JSON 서버에서 처리하기 까다로운 다중 선택 필터)
     if (searchFilters.value.tags.length > 0) {

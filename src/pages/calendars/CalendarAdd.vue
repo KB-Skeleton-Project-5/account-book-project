@@ -34,8 +34,7 @@ import AppFooter from '@/layouts/AppFooter.vue';
 import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
-const {id}  = getUserInfo();
-
+const { id } = getUserInfo();
 
 const form = ref({
   title: '',
@@ -50,18 +49,18 @@ const saveCalendar = async () => {
     alert('제목을 입력해주세요.');
     return;
   }
-    if (!form.value.date) {
+  if (!form.value.date) {
     alert('날짜를 선택해주세요.');
     return;
   }
   try {
-    await axios.post( '/api/calendars', {
-      userId: id, 
+    await axios.post('/api/calendars', {
+      user_id: id,
       ...form.value,
     });
 
     router.push({ name: 'calendars' });
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };

@@ -2,20 +2,30 @@
   <div class="wrapper">
     <AppHeader title="비밀번호 재설정" :back="true" backTo="users/login" />
 
-    
-
     <div class="form-area">
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.userId" placeholder="아이디를 입력하세요" />
+        <input
+          type="text"
+          v-model="form.user_id"
+          placeholder="아이디를 입력하세요"
+        />
       </div>
       <div class="field">
         <label>새 비밀번호</label>
-        <input type="password" v-model="form.newPw" placeholder="새 비밀번호를 입력하세요" />
+        <input
+          type="password"
+          v-model="form.newPw"
+          placeholder="새 비밀번호를 입력하세요"
+        />
       </div>
       <div class="field">
         <label>새 비밀번호 확인</label>
-        <input type="password" v-model="newPwConfirm" placeholder="새 비밀번호를 다시 입력하세요" />
+        <input
+          type="password"
+          v-model="newPwConfirm"
+          placeholder="새 비밀번호를 다시 입력하세요"
+        />
       </div>
     </div>
 
@@ -23,8 +33,7 @@
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
       <AppButton text="저장" @click="handleReset" />
     </div>
-</div>
- 
+  </div>
 </template>
 
 <script setup>
@@ -37,7 +46,7 @@ import AppHeader from '@/layouts/AppHeader.vue'
 const router = useRouter()
 
 const form = reactive({
-  userId: '',
+  user_id: '',
   newPw: ''
 })
 
@@ -49,10 +58,10 @@ async function handleReset() {
     alert('비밀번호가 일치하지 않습니다')
     return
   }
-  const response = await fetch(`/api/usersdb/?userId=${form.userId}`)
+  const response = await fetch(`/api/usersdb/?user_id=${form.user_id}`)
 =======
   //아이디 유효성 검사
-  if (!form.userId.trim()) {
+  if (!form.user_id.trim()) {
     alert('아이디를 입력하세요')
     return
   }
@@ -65,7 +74,7 @@ async function handleReset() {
     alert('비밀번호가 일치하지 않습니다')
     return
   }
-  const response = await fetch(`/api/users/?userId=${form.userId}`)
+  const response = await fetch(`/api/users/?user_id=${form.user_id}`)
 >>>>>>> origin/Yongjin
   const users = await response.json()
 
@@ -77,7 +86,7 @@ async function handleReset() {
   const user = users[0]
 
   updateUserProcess(
-    user.id, 
+    user.id,
     { pw: form.newPw },
     () => {
       alert('비밀번호가 변경되었습니다')

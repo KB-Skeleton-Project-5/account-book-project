@@ -1,8 +1,6 @@
 <template>
   <div class="wrapper">
-
     <AppHeader title="회원수정" :back="true" backTo="users/info" />
-    
 
     <div class="form-area">
       <div class="field">
@@ -19,15 +17,28 @@
       </div>
       <div class="field">
         <label>아이디 <span class="disabled-label">(수정불가)</span></label>
-        <input type="text" :value="form.userId" disabled class="input-disabled" />
+        <input
+          type="text"
+          :value="form.user_id"
+          disabled
+          class="input-disabled"
+        />
       </div>
       <div class="field">
         <label>새 비밀번호</label>
-        <input type="password" v-model="form.newPw" placeholder="변경할 비밀번호를 입력하세요" />
+        <input
+          type="password"
+          v-model="form.newPw"
+          placeholder="변경할 비밀번호를 입력하세요"
+        />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
-        <input type="password" v-model="pwConfirm" placeholder="비밀번호를 다시 입력하세요" />
+        <input
+          type="password"
+          v-model="pwConfirm"
+          placeholder="비밀번호를 다시 입력하세요"
+        />
       </div>
     </div>
 
@@ -35,8 +46,7 @@
       <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
       <AppButton text="저장" @click="handleSave" />
     </div>
-    </div>
-  
+  </div>
 </template>
 
 <script setup>
@@ -53,14 +63,14 @@ const form = reactive({
   name: '',
   nick: '',
   email: '',
-  userId: '',
+  user_id: '',
   newPw: ''
 })
 
 const pwConfirm = ref('')
 onMounted(async () => {
   const userInfo = getUserInfo()
-  
+
   if(!userInfo.authenticated) {
     router.push({name:'users/login'})
     return
@@ -70,8 +80,8 @@ onMounted(async () => {
     form.name =user.name
     form.nick =user.nick
     form.email =user.email
-    form.userId =user.userId
-      
+    form.user_id =user.user_id
+
   }
 })
 

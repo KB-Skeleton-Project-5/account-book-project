@@ -2,7 +2,6 @@
   <div class="chart-section">
     <div class="pie-chart" :style="{ background: conicGradient }"></div>
     <div class="legend">
-
       <!-- 데이터 없을 때 -->
       <div v-if="!legendItems.length" class="no-data">
         해당 월 데이터가 없습니다
@@ -42,7 +41,7 @@ const summaryList = ref([]);
 const fetchSummary = async () => {
   try {
     const { id } = getUserInfo();
-    const res = await axios.get('/api/summary', { params: { userId: id } });
+    const res = await axios.get('/api/summary', { params: { user_id: id } });
     summaryList.value = res.data;
   } catch (erroe) {
     console.log(erroe);

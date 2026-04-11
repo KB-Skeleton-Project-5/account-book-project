@@ -65,7 +65,7 @@ const getOldData = async () => {
     const response = await axios.get(`/api/challenges/${challengeId}`);
     const oldData = response.data;
 
-    if (!oldData || String(oldData.userId) !== String(userInfo.id)) {
+    if (!oldData || String(oldData.user_id) !== String(userInfo.id)) {
       alert('권한이 없거나 잘못된 접근입니다.');
       router.push({ name: 'challenges' });
       return;
@@ -102,7 +102,7 @@ const handleUpdate = async () => {
 
   try {
     const expensesRes = await axios.get('/api/expenses', {
-      params: { userId: userInfo.id },
+      params: { user_id: userInfo.id },
     });
     const myExpenses = expensesRes.data;
     const targetYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -134,7 +134,7 @@ const handleUpdate = async () => {
       currentAmount: calculatedAmount,
       year: now.getFullYear(),
       month: now.getMonth() + 1,
-      userId: userInfo.id,
+      user_id: userInfo.id,
     };
 
     await axios.put(`/api/challenges/${challengeId}`, updatedChallenge);

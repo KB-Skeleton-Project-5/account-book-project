@@ -59,8 +59,8 @@ const getChallenges = async () => {
 
   try {
     const [challengeRes, expensesRes] = await Promise.all([
-      axios.get('/api/challenges', { params: { userId: userInfo.id } }),
-      axios.get('/api/expenses', { params: { userId: userInfo.id } }),
+      axios.get('/api/challenges', { params: { user_id: userInfo.id } }),
+      axios.get('/api/expenses', { params: { user_id: userInfo.id } }),
     ]);
 
     const challengeList = challengeRes.data;

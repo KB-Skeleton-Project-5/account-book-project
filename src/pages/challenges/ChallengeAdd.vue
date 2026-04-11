@@ -73,7 +73,7 @@ const handleSave = async () => {
 
   try {
     const expensesRes = await axios.get('/api/expenses', {
-      params: { userId: userInfo.id },
+      params: { user_id: userInfo.id },
     });
     const myExpenses = expensesRes.data;
     const targetYearMonth = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
@@ -104,7 +104,7 @@ const handleSave = async () => {
       currentAmount: calculatedAmount,
       year: currentYear,
       month: currentMonth,
-      userId: userInfo.id,
+      user_id: userInfo.id,
       memo: memoText.value,
     };
 
