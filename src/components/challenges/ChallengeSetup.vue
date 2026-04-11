@@ -12,8 +12,12 @@
     <p>카테고리 설정</p>
     <div class="tag-container">
       <select v-model="form.tag" class="tag-select">
-        <option v-for="tag in availableTags" :key="tag" :value="tag">
-          {{ tag }}
+        <option
+          v-for="tag in availableTags"
+          :key="tag.id"
+          :value="tag.tagtitle"
+        >
+          {{ tag.tagtitle }}
         </option>
       </select>
       <span class="suffix-label">에서</span>
@@ -30,41 +34,41 @@
 </template>
 
 <script setup>
-import { reactive, watch, computed } from 'vue';
+import { ref, reactive, onMounted, watch, computed } from 'vue';
+import { getTags } from '@/api/tags';
 
 const props = defineProps(['modelValue']);
 const emit = defineEmits(['update:modelValue']);
 
-// 태그 데이터 구성
-const tagsByType = {
-  지출: ['전체', '식비', '쇼핑', '교통비', '기타'],
-  수입: ['전체', '급여', '투자', '부업', '기타'],
-};
+const dbTags = ref([]);
 
-// 폼 데이터 초기화
+onMounted(async () => {
+  try {
+    const res = await getTags();
+    dbTags.value = res.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 const form = reactive({
   title: props.modelValue?.title || '',
-  tag: props.modelValue?.tag || '식비',
+  tag: props.modelValue?.tag || '전체',
   targetAmount: props.modelValue?.targetAmount ?? 0,
   type: props.modelValue?.type || '지출',
 });
 
-const validateAmount = (e) => {
-  const filteredValue = e.target.value.replace(/[^0-9]/g, '');
-
-  e.target.value = filteredValue;
-
-  form.targetAmount = filteredValue === '' ? 0 : Number(filteredValue);
-};
-
 const availableTags = computed(() => {
-  return tagsByType[form.type] || [];
+  const filtered = dbTags.value.filter((tag) => tag.type === form.type);
+  return [{ id: 'all', tagtitle: '전체' }, ...filtered];
 });
 
 watch(
   () => form.type,
-  (newType) => {
-    form.tag = tagsByType[newType][0];
+  () => {
+    if (availableTags.value.length > 0) {
+      form.tag = availableTags.value[0].tagtitle;
+    }
   },
 );
 
@@ -78,7 +82,6 @@ watch(
 </script>
 
 <style scoped>
-/* 1. 전체 컨테이너 및 라벨 (기존 유지) */
 .challenge-setup {
   display: flex;
   flex-direction: column;
@@ -92,7 +95,6 @@ watch(
   margin-bottom: 4px;
 }
 
-/* 2. 공통 입력창 스타일 (조약돌 디자인 유지) */
 input[type='text'],
 input[type='number'],
 select {
@@ -109,31 +111,28 @@ select {
   appearance: none;
 }
 
-/* 3. 🎯 [수정 핵심] 카테고리 설정창 너비 조절 */
 .tag-container {
   display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
+  align-items: center;
   gap: 10px;
   margin-bottom: 8px;
 }
 
 .tag-select {
-  flex: 0 1 140px !important; /* 💡 가로 너비를 최대 140px로 제한하여 '에서' 공간 확보 */
-  margin-bottom: 0 !important; /* 컨테이너 내부 마진 제거 */
+  flex: 0 1 140px !important;
+  margin-bottom: 0 !important;
 }
 
-/* 4. 🎯 [수정 핵심] '에서', '만원 이하' 글자 정렬 */
 .suffix-label,
 .unit-label {
   font-size: 14px;
   font-weight: 700;
   color: #64748b;
-  white-space: nowrap; /* 💡 절대 줄바꿈 되지 않게 고정 */
-  display: inline-block; /* 💡 block을 제거하여 가로 배치 허용 */
+  white-space: nowrap;
+  display: inline-block;
   margin-bottom: 0;
 }
 
-/* 5. 금액 컨테이너 (기존 유지) */
 .amount-container {
   display: flex;
   align-items: center;
@@ -146,7 +145,6 @@ select {
   margin-bottom: 0;
 }
 
-/* Focus & Hover 효과 (기존 유지) */
 input:focus,
 select:focus {
   outline: none;
@@ -156,7 +154,6 @@ select:focus {
   transform: translateY(-2px);
 }
 
-/* 화살표 아이콘 (기존 유지) */
 select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;

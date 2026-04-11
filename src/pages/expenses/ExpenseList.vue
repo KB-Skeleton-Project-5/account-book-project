@@ -5,43 +5,25 @@
     </template>
 
     <div class="main-content">
-      <!-- 검색 컴포넌트 -->
       <ExpenseSearch @search="handleSearch" />
 
-      <!-- 최근 내역 -->
       <section class="recent-section">
         <template v-if="!isEmpty || activeTab !== '전체'">
           <h2 class="section-title">최근 내역</h2>
           <div class="tab-group">
             <button
+              v-for="tab in ['전체', '수입', '지출']"
+              :key="tab"
               class="tab-btn"
-              :class="{ active: activeTab === '전체' }"
-              @click="onTabChange('전체')"
+              :class="{ active: activeTab === tab }"
+              @click="handleTabChange(tab)"
             >
-              전체
+              {{ tab }}
             </button>
-
-            <button
-              class="tab-btn"
-              :class="{ active: activeTab === '수입' }"
-              @click="onTabChange('수입')"
-            >
-              수입
-            </button>
-
-            <button
-              class="tab-btn"
-              :class="{ active: activeTab === '지출' }"
-              @click="onTabChange('지출')"
-            >
-              지출
-            </button>
-
             <span class="fixed-legend">⭐ 고정지출 표시</span>
           </div>
         </template>
 
-        <!-- 데이터 없을 때 -->
         <div v-if="isEmpty" class="empty-state">
           <div class="empty-icon">!</div>
           <p class="empty-text">등록된 내역이 없습니다</p>
@@ -53,7 +35,6 @@
           </button>
         </div>
 
-        <!-- 데이터 있을 때 -->
         <div v-else class="history-list">
           <template v-for="(items, date) in groupedExpenses" :key="date">
             <p class="history-date">{{ date }}</p>
@@ -61,24 +42,22 @@
               v-for="item in items"
               :key="item.id"
               class="history-item"
-              @click="
-                $router.push({
-                  name: 'expenses/info/id',
-                  params: { id: item.id },
-                })
-              "
+              @click="goToInfo(item.id)"
             >
-              <span class="tag-badge" :style="getTagStyle(item.tag.tagid)">{{
-                item.tag.tagtitle
-              }}</span>
+              <span class="tag-badge" :style="getTagStyle(item.tag)">
+                {{ item.tag?.tagtitle || '기타' }}
+              </span>
               <span class="item-name">{{ item.title }}</span>
               <span class="item-pay">
-                <span v-if="item.isFixed" class="fixed-star">⭐</span
-                >{{ item.paymentMethod }}
+                <span v-if="item.isFixed" class="fixed-star">⭐</span>
+                {{ item.paymentMethod }}
               </span>
-              <span class="item-amount"
-                >{{ item.amount.toLocaleString() }}원</span
+              <span
+                class="item-amount"
+                :class="item.type?.typetitle === '수입' ? 'text-success' : ''"
               >
+                {{ item.amount.toLocaleString() }}원
+              </span>
             </div>
           </template>
         </div>
@@ -103,72 +82,12 @@ import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
 const route = useRoute();
+const userInfo = getUserInfo();
 
 const expenses = ref([]);
 const activeTab = ref('전체');
-// 로그인한 유저 id — DB가 숫자로 저장하므로 Number로 통일
-const currentUserId = Number(getUserInfo().id);
+const currentUserId = Number(userInfo?.id);
 
-// 현재 적용된 검색 필터 (마지막으로 검색한 값 보관)
-const lastFilters = ref({
-  searchText: '',
-  startDate: '',
-  endDate: '',
-  tags: [],
-  payment: '',
-  minAmount: '',
-  maxAmount: '',
-});
-
-const tagColorMap = {
-  eat: { background: '#FFD6D6', color: '#E57373' },
-  traffic: { background: '#D6EAFF', color: '#5B9BD5' },
-  shopping: { background: '#D6F0E0', color: '#66A882' },
-  etc: { background: '#FFF3C4', color: '#B8860B' },
-};
-
-const getTagStyle = (tagid) => ({
-  backgroundColor: tagColorMap[tagid]?.background || '#f0f0f0',
-  color: tagColorMap[tagid]?.color || '#9e9e9e',
-});
-
-/**
- * 서버로 보낼 쿼리 파라미터 조립
- * json-server 지원 쿼리:
- *   userId        → 로그인 유저 필터 (필수)
- *   title_like    → 키워드 검색 (부분 일치)
- *   date_gte      → 시작 날짜 이상
- *   date_lte      → 종료 날짜 이하
- *   paymentMethod → 결제 수단
- *   amount_gte    → 최소 금액
- *   amount_lte    → 최대 금액
- *   type.typetitle → 수입/지출 탭 (탭 변경 시 사용)
- * 태그는 json-server가 OR 다중값을 지원하지 않으므로 응답 후 프론트에서 보조 필터
- */
-const buildParams = (filters, tab) => {
-  const params = {};
-
-  // 로그인 유저 데이터만 요청 (필수) —0 숫자 타입으로 통일
-  if (currentUserId) params.userId = Number(currentUserId);
-
-  // 키워드 검색
-  if (filters.searchText) params.title_like = filters.searchText;
-
-  // 날짜 범위
-  if (filters.startDate) params.date_gte = filters.startDate;
-  if (filters.endDate) params.date_lte = filters.endDate;
-
-  // 결제 수단
-  if (filters.payment) params.paymentMethod = filters.payment;
-
-  // 금액 범위
-  if (filters.minAmount) params.amount_gte = Number(filters.minAmount);
-  if (filters.maxAmount) params.amount_lte = Number(filters.maxAmount);
-
-  // 수입/지출 탭 (전체면 파라미터 생략)
-  if (tab !== '전체') params['type.typetitle'] = tab;
-
-  return params;
 const searchFilters = ref({
   searchText: '',
   startDate: '',
@@ -178,91 +97,102 @@ const searchFilters = ref({
   minAmount: '',
   maxAmount: '',
 });
-// query 관련 코드 추가
+
+// 태그 스타일 계산
+const getTagStyle = (tag) => {
+  if (!tag) return { backgroundColor: '#f0f0f0', color: '#9e9e9e' };
+  return {
+    backgroundColor: tag.color,
+    color: tag.textColor,
+  };
+};
+
+// API 파라미터 빌드
+const buildParams = (filters, tab) => {
+  const params = { userId: currentUserId };
+
+  if (filters.searchText) params.title_like = filters.searchText;
+  if (filters.startDate) params.date_gte = filters.startDate;
+  if (filters.endDate) params.date_lte = filters.endDate;
+  if (filters.payment) params.paymentMethod = filters.payment;
+  if (filters.minAmount) params.amount_gte = Number(filters.minAmount);
+  if (filters.maxAmount) params.amount_lte = Number(filters.maxAmount);
+  if (tab !== '전체') params['type.typetitle'] = tab;
+
+  return params;
+};
+
+// URL 쿼리 동기화
 const updateRouterQuery = () => {
   const query = {};
+  const f = searchFilters.value;
 
-  if (searchFilters.value.startDate)
-    query.startDate = searchFilters.value.startDate;
-  if (searchFilters.value.endDate) query.endDate = searchFilters.value.endDate;
-  if (searchFilters.value.tags && searchFilters.value.tags.length > 0)
-    query.tags = searchFilters.value.tags;
-
-  if (activeTab.value !== '전체') {
-    query.type = activeTab.value;
-  }
+  if (f.startDate) query.startDate = f.startDate;
+  if (f.endDate) query.endDate = f.endDate;
+  if (f.tags?.length > 0) query.tags = f.tags;
+  if (activeTab.value !== '전체') query.type = activeTab.value;
 
   router.push({ query });
 };
 
-const handleSearch = (filters) => {
-  searchFilters.value = filters;
-  updateRouterQuery();
-};
-
-const changeTab = (tabName) => {
-  activeTab.value = tabName;
-  updateRouterQuery();
-};
-
+// 데이터 로드
 const fetchExpenses = async (
-  filters = lastFilters.value,
+  filters = searchFilters.value,
   tab = activeTab.value,
 ) => {
+  if (!userInfo || !userInfo.authenticated) {
+    alert('로그인이 필요한 서비스입니다.');
+    router.push({ name: 'users/login' });
+    return;
+  }
+
   try {
     const params = buildParams(filters, tab);
     const res = await getExpenses(params);
     expenses.value = res.data;
   } catch (e) {
-    console.error('expenses 불러오기 실패:', e);
+    console.error('내역 로드 실패:', e);
   }
 };
 
-// // 검색 컴포넌트에서 emit 받으면 파라미터로 서버 요청
-// const handleSearch = (filters) => {
-//   lastFilters.value = filters;
-//   fetchExpenses(filters, activeTab.value);
-// };
+const handleSearch = (filters) => {
+  searchFilters.value = filters;
+  updateRouterQuery();
+  fetchExpenses(filters, activeTab.value);
+};
 
-// 탭 변경 시에도 서버 재요청
-const onTabChange = (tab) => {
-  activeTab.value = tab;
-  fetchExpenses(lastFilters.value, tab);
+const handleTabChange = (tabName) => {
+  activeTab.value = tabName;
+  updateRouterQuery();
+  fetchExpenses(searchFilters.value, tabName);
+};
+
+const goToInfo = (id) => {
+  router.push({ name: 'expenses/info/id', params: { id } });
 };
 
 onMounted(() => {
-  if (route.query.startDate) {
-    searchFilters.value.startDate = route.query.startDate;
-  }
-
-  if (route.query.endDate) {
-    searchFilters.value.endDate = route.query.endDate;
-  }
-
-  if (route.query.tags) {
-    searchFilters.value.tags = Array.isArray(route.query.tags)
-      ? route.query.tags
-      : [route.query.tags];
-  }
-
-  if (route.query.type) {
-    activeTab.value = route.query.type;
-  }
+  // 초기 URL 쿼리 반영
+  const q = route.query;
+  if (q.startDate) searchFilters.value.startDate = q.startDate;
+  if (q.endDate) searchFilters.value.endDate = q.endDate;
+  if (q.tags)
+    searchFilters.value.tags = Array.isArray(q.tags) ? q.tags : [q.tags];
+  if (q.type) activeTab.value = q.type;
 
   fetchExpenses();
 });
 
-// 보조 필터:
-// 1) userId 없는 데이터(불완전한 레코드) 제거 — 서버 파라미터만으로 완벽히 못 잡는 경우 대비
-// 2) 태그 다중 선택 — json-server OR 미지원으로 프론트에서 처리
+// 필터링 및 그룹화
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
     if (Number(e.userId) !== currentUserId) return false;
-    if (
-      lastFilters.value.tags.length > 0 &&
-      !lastFilters.value.tags.includes(e.tag?.tagid)
-    )
-      return false;
+
+    // 태그 필터링 (JSON 서버에서 처리하기 까다로운 다중 선택 필터)
+    if (searchFilters.value.tags.length > 0) {
+      const tagId = e.tag?.tagid || e.tag?.id;
+      if (!searchFilters.value.tags.includes(String(tagId))) return false;
+    }
     return true;
   });
 });
@@ -271,7 +201,12 @@ const isEmpty = computed(() => filteredExpenses.value.length === 0);
 
 const groupedExpenses = computed(() => {
   const groups = {};
-  filteredExpenses.value.forEach((e) => {
+  // 날짜 역순 정렬 후 그룹화
+  const sorted = [...filteredExpenses.value].sort(
+    (a, b) => new Date(b.date) - new Date(a.date),
+  );
+
+  sorted.forEach((e) => {
     if (!groups[e.date]) groups[e.date] = [];
     groups[e.date].push(e);
   });

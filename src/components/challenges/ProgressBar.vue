@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 
 const props = defineProps({
   current: { type: Number, default: 0 },
@@ -40,25 +40,34 @@ const props = defineProps({
   type: { type: String, default: '지출' },
 });
 
-// 💡 [핵심] 애니메이션을 위해 실제 화면에 보여줄 '가짜' 현재값을 만듭니다.
-// 처음엔 0으로 시작해서, 화면에 나타나는 순간 실제 current값까지 달려갈 거예요!
 const displayCurrent = ref(0);
 
-onMounted(() => {
-  // 🏎️ 화면에 마운트되자마자 실제 값으로 업데이트! (CSS transition이 실행됩니다)
+const triggerAnimation = (targetValue) => {
   setTimeout(() => {
-    displayCurrent.value = props.current;
-  }, 50); // 아주 미세한 지연을 주어 애니메이션이 확실히 보이게 합니다.
+    displayCurrent.value = targetValue;
+  }, 50);
+};
+
+onMounted(() => {
+  triggerAnimation(props.current);
 });
+
+watch(
+  () => props.current,
+  (newValue) => {
+    triggerAnimation(newValue);
+  },
+);
 
 const formatManwon = (amount) => Math.floor(amount / 10000);
 
-// 💡 모든 계산 로직에서 props.current 대신 displayCurrent를 사용하도록 변경합니다.
 const isOver = computed(() => displayCurrent.value > props.total);
 const isSuccess = computed(
   () => props.type === '수입' && displayCurrent.value >= props.total,
 );
-const isDanger = computed(() => props.type === '지출' && isOver.value);
+const isDanger = computed(
+  () => props.type === '지출' && displayCurrent.value >= props.total,
+);
 
 const statusClass = computed(() => {
   if (isSuccess.value) return 'is-success';
@@ -93,20 +102,23 @@ const fillStyle = computed(() => {
         ? `linear-gradient(to right, #10b981 ${splitPoint}%, #059669 ${splitPoint}%)`
         : `linear-gradient(to right, #ff4d4d ${splitPoint}%, #cc0000 ${splitPoint}%)`,
     };
-  } else {
-    const bgColor = isSuccess.value ? '#10b981' : '#3b82f6';
-    return {
-      width: `${props.total === 0 ? 0 : (displayCurrent.value / props.total) * 100}%`,
-      backgroundColor: bgColor,
-    };
   }
+
+  let bgColor = '#3b82f6';
+  if (isSuccess.value) bgColor = '#10b981';
+  if (isDanger.value) bgColor = '#ff4d4d';
+
+  return {
+    width: `${props.total === 0 ? 0 : (displayCurrent.value / props.total) * 100}%`,
+    backgroundColor: bgColor,
+  };
 });
 </script>
 
 <style scoped>
 .progress-container {
   width: 100%;
-  padding: 20px 0 10px 0; /* 💡 높이가 변할 것을 대비해 하단 여백을 살짝 늘렸습니다 */
+  padding: 20px 0 10px 0;
 }
 
 .track {
@@ -121,14 +133,15 @@ const fillStyle = computed(() => {
   height: 100%;
   border-radius: 20px;
   position: relative;
-  transition: width 0.4s ease-out;
+  transition:
+    width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.8s ease;
 }
 
 .indicator-dot {
   width: 18px;
   height: 18px;
   background-color: white;
-  /* border-color는 이제 :style에서 동적으로 들어옵니다! */
   border-width: 4px;
   border-style: solid;
   border-radius: 50%;
@@ -138,7 +151,7 @@ const fillStyle = computed(() => {
   transform: translateY(-50%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 2;
-  transition: border-color 0.3s; /* 색상 변할 때 부드럽게 */
+  transition: border-color 0.3s;
 }
 
 .is-danger .indicator-dot,
@@ -154,29 +167,23 @@ const fillStyle = computed(() => {
 
 .label {
   position: absolute;
-  font-size: 13px; /* 💡 글자 크기를 살짝 줄여 더 세련되게 바꿨습니다 */
+  font-size: 13px;
   font-weight: 700;
   color: #444;
   white-space: nowrap;
-  transition: all 0.3s ease; /* 💡 위치 변화가 부드럽게 일어나도록 설정 */
-}
-
-.moving-label {
-  /* transform은 script의 movingLabelStyle에서 동적으로 처리됩니다 */
+  transition: all 0.3s ease;
 }
 
 .end-label {
   right: 0;
 }
 
-/* 💡 [핵심 스타일] 두 라벨이 가까워지면 목표가(end-label)를 아래로 내립니다 */
 .labels-container.is-near-end .end-label {
-  transform: translateY(18px); /* 💡 아래로 한 칸 내려서 겹침 방지 */
+  transform: translateY(18px);
   font-size: 12px;
-  color: #888; /* 살짝 연하게 해서 위계를 줍니다 */
+  color: #888;
 }
 
-/* 텍스트 컬러 */
 .text-danger {
   color: #ff4d4d;
 }

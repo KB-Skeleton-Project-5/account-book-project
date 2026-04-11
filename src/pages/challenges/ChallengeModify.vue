@@ -1,7 +1,7 @@
 <template>
   <DefaultLayout>
     <template #header>
-      <AppHeader title="챌린지 MODIFY" :back="true" backTo="challenges" />
+      <AppHeader title="챌린지 수정" :back="true" backTo="challenges" />
     </template>
 
     <div class="modify-container">
@@ -12,12 +12,7 @@
         <MemoWrite v-model="memoText" />
 
         <footer class="modify-action-buttons">
-          <AppButton
-            type="history"
-            text="취소"
-            @click="router.push({ name: 'challenges' })"
-          />
-          <AppButton type="single" text="수정" @click="handleUpdate" />
+          <AppButton type="single" text="저장" @click="handleUpdate" />
         </footer>
       </div>
 
@@ -35,70 +30,63 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
 import ChallengeSetup from '@/components/challenges/ChallengeSetup.vue';
 import MemoWrite from '@/components/challenges/MemoWrite.vue';
 import AppButton from '@/components/commons/AppButton.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil.js';
 
 const route = useRoute();
 const router = useRouter();
 const userInfo = getUserInfo();
+const isDataLoaded = ref(false);
+const challengeId = route.params.id;
 
 const challengeData = ref({
   title: '',
-  tag: '식비',
+  tag: '전체',
   targetAmount: 1,
   type: '지출',
 });
 
 const memoText = ref('');
-const isDataLoaded = ref(false);
-const challengeId = route.params.id;
 
 const getOldData = async () => {
+  if (!userInfo || !userInfo.authenticated) {
+    alert('로그인이 필요한 서비스입니다.');
+    router.push({ name: 'users/login' });
+    return;
+  }
+
   try {
     const response = await axios.get(`/api/challenges/${challengeId}`);
     const oldData = response.data;
 
-    if (!oldData) {
-      alert('챌린지 불러오기 오류');
+    if (!oldData || String(oldData.userId) !== String(userInfo.id)) {
+      alert('권한이 없거나 잘못된 접근입니다.');
       router.push({ name: 'challenges' });
       return;
     }
-
-    // if (String(oldData.userId) !== String(userInfo.id)) {
-    //   alert('다른 사용자의 챌린지는 수정할 수 없습니다.');
-    //   router.push({ name: 'challenges' });
-    //   return;
-    // }
 
     challengeData.value = {
       title: oldData.title,
       tag: oldData.tag,
       targetAmount: oldData.targetAmount / 10000,
-      currentAmount: oldData.currentAmount / 10000,
       type: oldData.type,
     };
     memoText.value = oldData.memo || '';
-
     isDataLoaded.value = true;
   } catch (error) {
-    console.error('데이터 불러오기 오류:', error);
-    alert('데이터 불러오기 오류');
+    console.error(error);
     router.push({ name: 'challenges' });
   }
 };
 
-onMounted(() => {
-  getOldData();
-});
-
 const handleUpdate = async () => {
-  if (!challengeData.value.title || challengeData.value.title.trim() === '') {
+  if (!challengeData.value.title?.trim()) {
     alert('챌린지 제목 입력 필요');
     return;
   }
@@ -109,13 +97,12 @@ const handleUpdate = async () => {
     alert('목표 금액 설정 필요');
     return;
   }
-  console.log('제목/목표 금액 검사 완료');
 
   const now = new Date();
 
   try {
     const expensesRes = await axios.get('/api/expenses', {
-      params: userInfo?.id ? { userId: userInfo.id } : {},
+      params: { userId: userInfo.id },
     });
     const myExpenses = expensesRes.data;
     const targetYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -128,16 +115,14 @@ const handleUpdate = async () => {
 
       const isSameMonth =
         expense.date && expense.date.includes(targetYearMonth);
-
       const isSameType = expTypeTitle === challengeData.value.type;
       const isSameTag =
         challengeData.value.tag === '전체' ||
         expTagTitle === challengeData.value.tag;
 
-      if (isSameMonth && isSameType && isSameTag) {
-        return totalSum + Number(expense.amount);
-      }
-      return totalSum;
+      return isSameMonth && isSameType && isSameTag
+        ? totalSum + Number(expense.amount)
+        : totalSum;
     }, 0);
 
     const updatedChallenge = {
@@ -153,27 +138,24 @@ const handleUpdate = async () => {
     };
 
     await axios.put(`/api/challenges/${challengeId}`, updatedChallenge);
-
-    console.log('챌린지 수정 완료!');
     router.push({ name: 'challenges/info', params: { id: challengeId } });
   } catch (error) {
-    console.error('수정 실패:', error);
+    console.error(error);
     alert('수정에 실패했습니다.');
   }
 };
+
+onMounted(getOldData);
 </script>
 
 <style scoped>
-/* 💡 레이아웃: 이제 수동 높이 계산(100vh)이나 flex-1은 필요 없습니다! */
-
 .modify-container {
-  padding: 20px 0; /* 상하 여백으로 카드 배치 최적화 */
+  padding: 20px 0;
 }
 
-/* 🎨 카드 디자인 통일 (Add/Info 페이지와 완벽 동기화) */
 .challenge-modify-card {
-  width: calc(100% - 40px);
-  max-width: 450px;
+  width: calc(100% - 64px);
+  max-width: 400px;
   background-color: #ffffff;
   border-radius: 20px;
   padding: 32px;
@@ -182,24 +164,21 @@ const handleUpdate = async () => {
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
 
-/* 섹션 타이틀 (메모 등) */
 .section-title {
   font-size: 16px;
   font-weight: 700;
   color: #1e293b;
-  margin-top: 32px;
-  margin-bottom: 12px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   letter-spacing: -0.02em;
 }
 
-/* 버튼 그룹 레이아웃 */
 .modify-action-buttons {
   display: flex;
-  gap: 12px; /* 버튼 사이 간격 */
-  margin-top: 40px;
+  justify-content: flex-end;
+  margin-top: 28px;
 }
 
-/* 로딩 상태 스타일 */
 .loading-state {
   text-align: center;
   padding: 50px;
