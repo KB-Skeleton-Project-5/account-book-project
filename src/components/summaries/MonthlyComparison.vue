@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil';
 
@@ -59,36 +59,66 @@ const props = defineProps({
   selectedDate: Object,
 });
 
-const summaryList = ref([]);
+const expenseList = ref([]);
 
-const fetchSummary = async () => {
+const fetchExpenses = async () => {
   try {
     const { id } = getUserInfo();
-    const res = await axios.get('/api/summary', { params: { user_id: id } });
-    summaryList.value = res.data;
+    const res = await axios.get('/api/expenses', { params: { user_id: id } });
+    expenseList.value = res.data;
   } catch (error) {
     console.log(error);
-    summaryList.value = [];
+    expenseList.value = [];
   }
 };
 
+// 특정 년/월의 지출 합계 계산하는 함수
+const calcExpense = (year, month) => {
+  return expenseList.value
+    .filter((e) => {
+      const d = new Date(e.date);
+      return (
+        d.getFullYear() === year &&
+        d.getMonth() + 1 === month &&
+        e.type?.typetitle === '지출'
+      );
+    })
+    .reduce((sum, e) => sum + e.amount, 0);
+};
+
+// 이번 달 지출
 const summaryData = computed(() => {
-  return (
-    summaryList.value.find(
-      (item) =>
-        item.year === props.selectedDate.year &&
-        item.month === props.selectedDate.month,
-    ) || null
+  const expense = calcExpense(
+    props.selectedDate.year,
+    props.selectedDate.month,
   );
+  return { expense };
 });
 
+// 전월 계산 (1월이면 전년도 12월로)
+const prevDate = computed(() => {
+  const { year, month } = props.selectedDate;
+  return month === 1
+    ? { year: year - 1, month: 12 }
+    : { year, month: month - 1 };
+});
+
+// 전월 대비 비교 데이터
 const comparison = computed(() => {
-  return summaryData.value?.comparison?.[0] || null;
+  const prevExpense = calcExpense(prevDate.value.year, prevDate.value.month);
+  if (prevExpense === 0 && summaryData.value.expense === 0) return null;
+
+  const diff = summaryData.value.expense - prevExpense;
+  const diffRate = prevExpense
+    ? Math.round((diff / prevExpense) * 1000) / 10
+    : 0;
+
+  return { prevExpense, diff, diffRate };
 });
 
 const maxExpense = computed(() => {
-  if (!comparison.value || !summaryData.value) return 1;
-  return Math.max(comparison.value.prevExpense, summaryData.value.expense);
+  if (!comparison.value) return 1;
+  return Math.max(comparison.value.prevExpense, summaryData.value.expense) || 1;
 });
 
 const prevBarWidth = computed(() => {
@@ -101,7 +131,7 @@ const currentBarWidth = computed(() => {
   return Math.round((summaryData.value.expense / maxExpense.value) * 100);
 });
 
-onMounted(fetchSummary);
+onMounted(fetchExpenses);
 </script>
 
 <style scoped>
