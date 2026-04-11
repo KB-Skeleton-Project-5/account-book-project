@@ -74,14 +74,14 @@ const summaryData = computed(() => {
 
 <style scoped>
 .total-item {
-  height: 34px;
-  border: 1px solid #777;
+  height: 44px;
+  border: 1px solid #e0e0e0;
   background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
-  margin-bottom: 12px;
+  padding: 0 16px;
+  margin-bottom: 8px;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);

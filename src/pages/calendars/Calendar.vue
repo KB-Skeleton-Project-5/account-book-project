@@ -88,7 +88,7 @@ const selectedDate = ref({
   month: savedDate?.month || today.getMonth() + 1,
 });
 
-const selectedDay = ref(savedDate?.day || 1);
+const selectedDay = ref(savedDate?.day || today.getDate());
 
 // 여기에 추가
 const isToday = (day) => {
@@ -137,7 +137,16 @@ const goToday = () => {
   selectedDay.value = today.getDate();
 };
 
+
 const handleAdd = () => {
+  sessionStorage.setItem(
+    'calendarSelectedDate',
+    JSON.stringify({
+      year: selectedDate.value.year,
+      month: selectedDate.value.month,
+      day: selectedDay.value,
+    }),
+  );
   router.push({ name: 'calendars/add' });
 };
 
@@ -210,7 +219,7 @@ onMounted(() => {
 <style scoped>
 .calendar-page {
   padding: 18px;
-  background-color: #f3f3f3;
+  background-color: white;
   box-sizing: border-box;
   min-height: 100%;
 }
@@ -296,7 +305,7 @@ onMounted(() => {
 }
 
 .date-cell.selected {
-  background-color: #f3ecd6;
+  background-color: #f8eac5;
   font-weight: 700;
 }
 

@@ -97,7 +97,7 @@ onMounted(fetchExpenses);
   justify-content: center;
   /* gap: 24px; */
   gap: 40px;
-  margin: 40px 0 20px;
+  margin: 10px 0 ;
 }
 
 .pie-chart {

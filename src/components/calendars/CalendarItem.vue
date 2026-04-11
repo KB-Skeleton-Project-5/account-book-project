@@ -28,7 +28,7 @@ defineProps({
 
 <style scoped>
 .calendar-item {
-  background-color: #f3ecd6;
+  background-color: #f8eac5;
   border-radius: 16px;
   padding: 10px 18px;
   display: flex;
@@ -36,7 +36,9 @@ defineProps({
   gap: 4px;
   height: 56px;
   justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
+
 
 .calendar-item-link {
   text-decoration: none;
