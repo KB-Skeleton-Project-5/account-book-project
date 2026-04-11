@@ -35,8 +35,11 @@
     @submit-isFixed="handleIsFixed"
     :readonly="props.readonly" />
 
-    <!-- 경고창 모달 컴포넌트
-    <AlertModal v-model="showModal" :message="modalMessage" /> -->
+    <AlertModal
+    v-if="showModal"
+    :message="modalMessage"
+    @confirm="showModal = false"
+    />
   </div>
 </template>
 
@@ -49,10 +52,8 @@ import TagSelect from './TagSelect.vue';
 import MemoInput from './MemoInput.vue';
 import PaymentMethod from './PaymentMethod.vue';
 import ToggleSwitch from './ToggleSwitch.vue';
+import AlertModal from '@/components/commons/AlertModal.vue';
 import { ref, watch } from 'vue';
-
-// 경고창 모달 실행시킬 때
-// import AlertModal from '@/components/commons/AlertModal.vue';
 
 const formData = ref({
   amount: '',
@@ -65,43 +66,20 @@ const formData = ref({
   type: {},
 });
 
-const handleAmount = (value) => {
-  formData.value.amount = value;
-};
-
-const handleDate = (value) => {
-  formData.value.date = value;
-};
-
-const handleTitle = (value) => {
-  formData.value.title = value;
-};
-
-const handleMemo = (value) => {
-  formData.value.memo = value;
-};
-
-const handlePayment = (value) => {
-  formData.value.paymentMethod = value;
-};
-
-const handleIsFixed = (value) => {
-  formData.value.isFixed = value;
-};
-
-const handleTag = (value) => {
-  formData.value.tag = value;
-};
-
-const handleTab = (value) => {
-  formData.value.type = value;
-};
+const handleAmount = (value) => { formData.value.amount = value; };
+const handleDate = (value) => { formData.value.date = value; };
+const handleTitle = (value) => { formData.value.title = value; };
+const handleMemo = (value) => { formData.value.memo = value; };
+const handlePayment = (value) => { formData.value.paymentMethod = value; };
+const handleIsFixed = (value) => { formData.value.isFixed = value; };
+const handleTag = (value) => { formData.value.tag = value; };
+const handleTab = (value) => { formData.value.type = value; };
 
 // 부모 (ExpenseInfo)에서 전달받은 초기 데이터
 const props = defineProps({
-  // initialDate : 수정화면에서 기존 데이터를 전체로 받아옴.
+  // initialData : 수정화면에서 기존 데이터를 전체로 받아옴.
   initialData: Object,
-  readonly : Boolean,
+  readonly: Boolean,
 });
 
 // initialData가 들어오면 formData에 세팅
@@ -116,61 +94,42 @@ watch(
 
 const emit = defineEmits(['submit-form']);
 
-
-// 경고창 모달 실행시킬 때
-// const showModal = ref(false);
-// const modalMessage = ref('');
+const showModal = ref(false);
+const modalMessage = ref('');
 
 const submitForm = () => {
   // 필수값 검사
   // ?. : 옵셔널 체이닝
   // type이 빈 객체면, type.typetitle은 undefined를 반환해서
   // !undefined는 true이므로 alert가 뜨고 return으로 중단 됨.
-  if(!formData.value.type?.typetitle) {
-    // 경고창 모달 실행시킬 때
-    // modalMessage.value = '분류를 선택해주세요.';
-    // showModal.value = true;
-    alert('분류를 선택해주세요.')
+  if (!formData.value.type?.typetitle) {
+    modalMessage.value = '분류를 선택해주세요.';
+    showModal.value = true;
     return;
   }
-  if(!formData.value.date) {
-    // 경고창 모달 실행시킬 때
-    // modalMessage.value = '날짜를 선택해주세요.';
-    // showModal.value = true;
-
-    alert('날짜를 선택해주세요.')
+  if (!formData.value.date) {
+    modalMessage.value = '날짜를 선택해주세요.';
+    showModal.value = true;
     return;
   }
-  if(!formData.value.amount) {
-    // 경고창 모달 실행시킬 때
-    // modalMessage.value = '금액을 입력해주세요.';
-    // showModal.value = true;
-
-    alert('금액을 입력해주세요.')
+  if (!formData.value.amount) {
+    modalMessage.value = '금액을 입력해주세요.';
+    showModal.value = true;
     return;
   }
-  if(!formData.value.title) {
-    // 경고창 모달 실행시킬 때
-    // modalMessage.value = '제목을 입력해주세요.';
-    // showModal.value = true;
-
-    alert('제목을 입력해주세요.')
+  if (!formData.value.title) {
+    modalMessage.value = '제목을 입력해주세요.';
+    showModal.value = true;
     return;
   }
-  if(!formData.value.tag?.tagtitle) {
-    // 경고창 모달 실행시킬 때
-    // modalMessage.value = '태그를 선택해주세요.';
-    // showModal.value = true;
-
-    alert('태그를 선택해주세요.');
+  if (!formData.value.tag?.tagtitle) {
+    modalMessage.value = '태그를 선택해주세요.';
+    showModal.value = true;
     return;
   }
-  if(!formData.value.paymentMethod) {
-    // 경고창 모달 실행시킬 때
-    // modalMessage.value = '결제수단을 선택해주세요.';
-    // showModal.value = true;
-
-    alert('결제수단을 선택해주세요.')
+  if (!formData.value.paymentMethod) {
+    modalMessage.value = '결제수단을 선택해주세요.';
+    showModal.value = true;
     return;
   }
 

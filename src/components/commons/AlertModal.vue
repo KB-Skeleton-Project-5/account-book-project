@@ -1,13 +1,13 @@
 <template>
-  <div v-if="modelValue" class="modal-backdrop">
+  <div class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header-area">
-        <div class="icon-circle">⚠️</div>
-        <p class="modal-title">입력 확인</p>
-      </div>
-      <p class="modal-body-text">{{ message }}</p>
-      <div class="modal-footer-area">
-        <button @click="$emit('update:modelValue', false)">확인</button>
+      <h3>{{ title }}</h3>
+      <p>{{ message }}</p>
+
+      <div class="modal-buttons">
+        <button class="btn-right" @click="$emit('confirm')">
+          {{ confirmText }}
+        </button>
       </div>
     </div>
   </div>
@@ -15,65 +15,72 @@
 
 <script setup>
 defineProps({
-  modelValue: Boolean,  // v-model로 열고 닫기
-  message: String,      // 표시할 메시지
+  title: { type: String, default: '입력 확인' },
+  message: { type: String, default: '필수 항목을 모두 입력해주세요.' },
+  confirmText: { type: String, default: '확인' },
 });
 
-defineEmits(['update:modelValue']);
+defineEmits(['confirm']);
 </script>
 
 <style scoped>
-.modal-backdrop {
+.modal-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
+  align-items: center;
+  z-index: 1000;
 }
+
 .modal-box {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  width: 320px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-.modal-header-area {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+
+.modal-box h3 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #333;
 }
-.icon-circle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #FAEEDA;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-title {
-  font-weight: 500;
-  font-size: 15px;
-  margin: 0;
-}
-.modal-body-text {
+.modal-box p {
+  margin: 0 0 24px 0;
   font-size: 14px;
   color: #666;
-  margin: 0 0 1.25rem;
 }
-.modal-footer-area {
+
+.modal-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  gap: 10px;
 }
-.modal-footer-area button {
-  background: #185FA5;
-  color: #fff;
-  border: none;
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px 0;
   border-radius: 8px;
-  padding: 8px 20px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  border: none;
+}
+
+.btn-left {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd !important;
+}
+
+.btn-right {
+  background-color: #3B82F6;
+  color: white;
 }
 </style>
