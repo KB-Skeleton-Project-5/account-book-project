@@ -16,6 +16,13 @@
 
       <div class="page-bottom-space"></div>
     </div>
+
+    <AlertModal
+      v-if="showAlertModal"
+      :message="alertMessage"
+      @confirm="showAlertModal = false"
+    />
+
     <template #footer>
       <AppFooter />
     </template>
@@ -31,11 +38,14 @@ import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import AlertModal from '@/components/commons/AlertModal.vue';
 
 const route = useRoute();
 const router = useRouter();
 
 const form = ref(null);
+const showAlertModal = ref(false);
+const alertMessage = ref('');
 
 const fetchCalendar = async () => {
   try {
@@ -49,11 +59,13 @@ const fetchCalendar = async () => {
 
 const saveCalendar = async () => {
   if (!form.value.title) {
-    alert('제목을 입력해주세요.');
+    alertMessage.value = '제목을 입력해주세요.';
+    showAlertModal.value = true; 
     return;
   }
     if (!form.value.date) {
-    alert('날짜를 선택해주세요.');
+    alertMessage.value = '날짜를 선택해주세요.';
+    showAlertModal.value = true; 
     return;
   }
   try {
