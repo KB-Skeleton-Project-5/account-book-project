@@ -46,6 +46,7 @@ const handleSelect = (tab) => {
   emit('submit-tab', tab)
 }
 
+// 컴포넌트가 마운트 될 때 기본값(지출)을 부모에게 즉시 전달
 onMounted(() => {
   emit('submit-tab', selected.value);
 });

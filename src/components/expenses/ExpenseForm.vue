@@ -143,5 +143,8 @@ const submitForm = () => {
   emit('submit-form', formData.value);
 };
 
+
+// 자식 컴포넌트의 함수나 변수를 부모에서 쓸 수 있게 열어주는 것
+// submitForm을 부모에게 공개
 defineExpose({ submitForm });
 </script>

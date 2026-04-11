@@ -54,7 +54,7 @@ onMounted(async () => {
 
 
 const handleSave = () => {
-    expenseFormRef.value.submitForm();
+    expenseFormRef.value.submitForm();  // 자식 함수 직접 호출
 }
 
 
