@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div class="wrapper">
 
     <AppHeader title="회원수정" :back="true" backTo="users/info" />
@@ -51,6 +51,14 @@
       <AppButton text="저장" @click="handleSave" />
     </div>
 
+    <!-- AlertModal 추가 -->
+    <AlertModal
+      v-if="modal.show"
+      :title="modal.title"
+      :message="modal.message"
+      @confirm="handleModalConfirm"
+    />
+
   </div>
 </template>
 
@@ -60,6 +68,7 @@ import { useRouter } from 'vue-router'
 import { getUserInfo, fetchUserById, updateUserProcess } from '@/util/authUtil.js'
 import AppButton from '@/components/commons/AppButton.vue'
 import AppHeader from '@/layouts/AppHeader.vue'
+import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
 
 const router = useRouter()
 
@@ -67,13 +76,38 @@ const form = reactive({
   name: '',
   nick: '',
   email: '',
-  loginid: '',  // userId → loginid
+  loginid: '',
   newPw: ''
 })
 
 const pwConfirm = ref('')
-const pwEnabled = ref(false)  // 비밀번호 입력창 활성화 여부
-const originalData = ref({})  // 원본 데이터 저장용
+const pwEnabled = ref(false)
+const originalData = ref({})
+
+// 모달 상태 변수 추가
+const modal = reactive({
+  show: false,
+  title: '',
+  message: '',
+  isSuccess: false  // 수정 성공 여부 체크용
+})
+
+// showAlert 함수 추가
+function showAlert(title, message, isSuccess = false) {
+  modal.title = title
+  modal.message = message
+  modal.isSuccess = isSuccess
+  modal.show = true
+}
+
+// 확인 버튼 클릭 시
+function handleModalConfirm() {
+  modal.show = false
+  // 수정 성공한 경우에만 페이지 이동
+  if (modal.isSuccess) {
+    router.push({ name: 'users/info' })
+  }
+}
 
 onMounted(async () => {
   const userInfo = getUserInfo()
@@ -87,55 +121,54 @@ onMounted(async () => {
     form.name = user.name
     form.nick = user.nick
     form.email = user.email
-    form.loginid = user.loginid  // userId → loginid
-      
+    form.loginid = user.loginid
+
     originalData.value = {
       name: user.name,
       nick: user.nick,
       email: user.email
+    }
   }
-}  
 })
 
 async function handleSave() {
   if (!form.name.trim()) {
-    alert('이름을 입력하세요')
+    showAlert('입력 확인', '이름을 입력하세요')
     return
   }
   const nameRegex = /^[가-힣a-zA-Z]+$/
   if (!nameRegex.test(form.name)) {
-    alert('이름은 한글 또는 영문만 입력 가능합니다')
+    showAlert('입력 확인', '이름은 한글 또는 영문만 입력 가능합니다')
     return
   }
   if (!form.nick.trim()) {
-    alert('닉네임을 입력하세요')
+    showAlert('입력 확인', '닉네임을 입력하세요')
     return
   }
   if (!form.email.trim()) {
-    alert('이메일을 입력하세요')
+    showAlert('입력 확인', '이메일을 입력하세요')
     return
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(form.email)) {
-    alert('올바른 이메일 형식이 아닙니다')
+    showAlert('입력 확인', '올바른 이메일 형식이 아닙니다')
     return
   }
   if (!form.newPw && pwConfirm.value) {
-    alert('새 비밀번호를 입력하세요')
+    showAlert('입력 확인', '새 비밀번호를 입력하세요')
     return
   }
   if (form.newPw && form.newPw !== pwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다')
+    showAlert('입력 확인', '비밀번호가 일치하지 않습니다')
     return
   }
-  // 기존 정보와 동일한지 체크
   if (
     form.name === originalData.value.name &&
     form.nick === originalData.value.nick &&
     form.email === originalData.value.email &&
     !form.newPw
   ) {
-    alert('이미 회원정보와 동일합니다')
+    showAlert('알림', '이미 회원정보와 동일합니다')
     return
   }
 
@@ -155,12 +188,11 @@ async function handleSave() {
     userInfo.id,
     updateData,
     () => {
-      alert('수정이 완료되었습니다')
       console.log('수정 성공')
-      router.push({ name: 'users/info' })
+      showAlert('수정 완료', '수정이 완료되었습니다', true)  // isSuccess = true
     },
     () => {
-      alert('수정에 실패했습니다')
+      showAlert('수정 실패', '수정에 실패했습니다')
     }
   )
 }

@@ -23,6 +23,7 @@
       <label for="agree-check">위 내용을 모두 확인했으며 탈퇴에 동의합니다</label>
     </div>
 
+    <!-- 탈퇴 확인 모달 -->
     <div v-if="showModal" class="modal-overlay">
       <div class="delete-modal">
         <p class="modal-title">정말 탈퇴하시겠습니까?</p>
@@ -35,6 +36,14 @@
         </div>
       </div>
     </div>
+
+    <!-- AlertModal 추가 -->
+    <AlertModal
+      v-if="modal.show"
+      :title="modal.title"
+      :message="modal.message"
+      @confirm="modal.show = false"
+    />
   </div>
 </template>
 
@@ -43,16 +52,31 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getUserInfo, deleteUserProcess, logoutProcess } from '@/util/authUtil'
 import AppHeader from '@/layouts/AppHeader.vue'
+import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
 
 const router = useRouter()
 
 const form = reactive({
-  loginid: '',  // userId → loginid
+  loginid: '',
   pw: ''
 })
 
 const isAgreed = ref(false)
 const showModal = ref(false)
+
+// 모달 상태 변수 추가
+const modal = reactive({
+  show: false,
+  title: '',
+  message: ''
+})
+
+// showAlert 함수 추가
+function showAlert(title, message) {
+  modal.title = title
+  modal.message = message
+  modal.show = true
+}
 
 function onAgreeChange() {
   if (isAgreed.value) {
@@ -66,26 +90,24 @@ function closeModal() {
 }
 
 async function handleDelete() {
-  // 빈칸 체크 → 모달 닫기
   if (!form.loginid.trim()) {
-  closeModal()
-  alert('아이디를 입력하세요')
-  return
-}
-if (!form.pw.trim()) {
-  closeModal()
-  alert('비밀번호를 입력하세요')
-  return
-}
+    closeModal()
+    showAlert('탈퇴 실패', '아이디를 입력하세요')
+    return
+  }
+  if (!form.pw.trim()) {
+    closeModal()
+    showAlert('탈퇴 실패', '비밀번호를 입력하세요')
+    return
+  }
 
-  // 본인 확인
   const response = await fetch(
     `/api/users?loginid=${form.loginid}&pw=${form.pw}`
   )
   const users = await response.json()
 
   if (users.length === 0) {
-    alert('아이디 또는 비밀번호가 틀렸습니다')
+    showAlert('탈퇴 실패', '아이디 또는 비밀번호가 틀렸습니다')
     console.log('아이디 또는 비밀번호가 틀렸습니다')
     closeModal()
     return
@@ -96,15 +118,21 @@ if (!form.pw.trim()) {
 
   deleteUserProcess(
     userInfo.id,
-    userInfo.loginid,  // loginid 추가
+    userInfo.loginid,
     () => {
-      alert('탈퇴되셨습니다')
-      logoutProcess(() => {
-        router.push({ name: 'users/login' })
-      })
+      showAlert('탈퇴 완료', '탈퇴되셨습니다')
+      modal.show = true
+      // 확인 버튼 누르면 로그인 페이지로
+      const originalConfirm = () => {
+        modal.show = false
+        logoutProcess(() => {
+          router.push({ name: 'users/login' })
+        })
+      }
+      modal.onConfirm = originalConfirm
     },
     () => {
-      alert('탈퇴에 실패했습니다')
+      showAlert('탈퇴 실패', '탈퇴에 실패했습니다')
       console.log('탈퇴에 실패했습니다')
       closeModal()
     }
