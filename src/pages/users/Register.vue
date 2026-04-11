@@ -18,7 +18,7 @@
       </div>
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.loginid" placeholder="아이디를 입력하세요" />
+        <input type="text" v-model="form.login_id" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호</label>
@@ -59,7 +59,7 @@ const form = reactive({
   name: '',
   nick: '',
   email: '',
-  loginid: '',
+  login_id: '',
   pw: ''
 })
 
@@ -117,14 +117,14 @@ async function handleSignup() {
     console.log('올바른 이메일 형식이 아닙니다')
     return
   }
-  if (!form.loginid.trim()) {
+  if (!form.login_id.trim()) {
     showAlert('입력 확인', '아이디를 입력하세요')
     console.log('아이디를 입력하세요')
     return
   }
 
   // 아이디 중복 체크
-  const checkRes = await fetch(`/api/users?loginid=${form.loginid}`)
+  const checkRes = await fetch(`/api/users?login_id=${form.login_id}`)
   const checkUsers = await checkRes.json()
   if (checkUsers.length > 0) {
     showAlert('중복 확인', '이미 사용 중인 아이디입니다')

@@ -5,7 +5,7 @@
     <div class="form-area">
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.loginid" placeholder="아이디를 입력하세요" />
+        <input type="text" v-model="form.login_id" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>새 비밀번호</label>
@@ -42,7 +42,7 @@ import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
 const router = useRouter()
 
 const form = reactive({
-  loginid: '',
+  login_id: '',
   newPw: ''
 })
 
@@ -74,7 +74,7 @@ function handleModalConfirm() {
 }
 
 async function handleReset() {
-  if (!form.loginid.trim()) {
+  if (!form.login_id.trim()) {
     showAlert('입력 확인', '아이디를 입력하세요')
     return
   }
@@ -87,7 +87,7 @@ async function handleReset() {
     return
   }
 
-  const response = await fetch(`/api/users?loginid=${form.loginid}`)
+  const response = await fetch(`/api/users?login_id=${form.login_id}`)
   const users = await response.json()
 
   if (users.length === 0) {

@@ -21,7 +21,7 @@
       </div>
       <div class="field">
         <label>아이디</label>
-        <input type="text" :value="member.loginid" readonly />  <!-- userId → loginid -->
+        <input type="text" :value="member.login_id" readonly />  <!-- user_id → login_id -->
       </div>
     </div>
 
@@ -46,7 +46,7 @@ import AppHeader from '@/layouts/AppHeader.vue'
 const router = useRouter()
 
 const member = reactive({
-  loginid: '',  // userId → loginid
+  login_id: '',  // user_id → login_id
   name: '',
   nick: '',
   email: '',

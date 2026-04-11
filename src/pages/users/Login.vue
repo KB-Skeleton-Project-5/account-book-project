@@ -7,7 +7,7 @@
 
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.loginid" 
+        <input type="text" v-model="form.login_id" 
           placeholder="아이디를 입력하세요" 
           @keyup.enter="handleLogin" />
       </div>
@@ -47,7 +47,7 @@ import AlertModal from '@/components/commons/AlertModal.vue' //AlertModal 추가
 const router = useRouter()
 
 const form = reactive({
-  loginid: '',  // userId → loginid
+  login_id: '',  // user_id → login_id
   pw: ''
 })
 
@@ -65,7 +65,7 @@ function showAlert(title, message) {
 }
 
 function handleLogin() {
-  if (!form.loginid.trim()) {
+  if (!form.login_id.trim()) {
     showAlert('로그인 실패','아이디를 입력하세요')
     console.log('아이디를 입력하세요')
     return
@@ -76,7 +76,7 @@ function handleLogin() {
     return
   }
   loginProcess(
-    form.loginid,  // userId → loginid
+    form.login_id,  // user_id → login_id
     form.pw,
     () => {
       console.log('로그인 성공')

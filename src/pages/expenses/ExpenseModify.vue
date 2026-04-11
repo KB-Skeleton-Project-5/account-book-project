@@ -59,7 +59,7 @@ const handleSave = () => {
 
 const handleSubmit = async(data) => {
     try {
-        await axios.put(`/api/expenses/${route.params.id}`, {...data, userId : userInfo.id});
+        await axios.put(`/api/expenses/${route.params.id}`, {...data, user_id : userInfo.id});
         router.push({ name : 'expenses' });
     } catch (e) {
         console.error('수정 실패 : ', e);

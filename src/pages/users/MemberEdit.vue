@@ -18,7 +18,7 @@
       </div>
       <div class="field">
         <label>아이디 <span class="disabled-label">(수정불가)</span></label>
-        <input type="text" :value="form.loginid" disabled class="input-disabled" />
+        <input type="text" :value="form.login_id" disabled class="input-disabled" />
       </div>
       <div class="field">
         <label>
@@ -76,7 +76,7 @@ const form = reactive({
   name: '',
   nick: '',
   email: '',
-  loginid: '',
+  login_id: '',
   newPw: ''
 })
 
@@ -121,7 +121,7 @@ onMounted(async () => {
     form.name = user.name
     form.nick = user.nick
     form.email = user.email
-    form.loginid = user.loginid
+    form.login_id = user.login_id
 
     originalData.value = {
       name: user.name,

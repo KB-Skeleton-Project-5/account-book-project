@@ -16,11 +16,11 @@ const getUserInfo = () => {
   return JSON.parse(window.atob(str))
 }
 
-const loginProcess = async (loginid, pw, successCallback, failCallback) => {
+const loginProcess = async (login_id, pw, successCallback, failCallback) => {
   try {
     const response = await axios.get(USERS_URI, {
       params: {
-        loginid: loginid.trim(),  // userId → loginid
+        login_id: login_id.trim(),  // user_id → login_id
         pw: pw.trim()
       }
     })
@@ -31,7 +31,7 @@ const loginProcess = async (loginid, pw, successCallback, failCallback) => {
       setUserInfo({
         authenticated: true,
         id: String(user.id),
-        loginid: user.loginid,  // userId → loginid
+        login_id: user.login_id,  // user_id → login_id
       })
 
       successCallback()
@@ -77,28 +77,28 @@ const updateUserProcess = async (id, form, successCallback, failCallback) => {
   }
 }
 
-const deleteUserProcess = async (id, loginid, successCallback, failCallback) => {
+const deleteUserProcess = async (id, login_id, successCallback, failCallback) => {
   try {
     // 1. 유저 삭제
     await axios.delete(`${USERS_URI}/${id}`)
 
-    // 2. 관련 데이터 직접 삭제 (loginid 기준)
-    const expenseRes = await axios.get(`/api/expenses?userId=${loginid}`)
+    // 2. 관련 데이터 직접 삭제 (login_id 기준)
+    const expenseRes = await axios.get(`/api/expenses?user_id=${login_id}`)
     for (const item of expenseRes.data) {
       await axios.delete(`/api/expenses/${item.id}`)
     }
 
-    const calendarRes = await axios.get(`/api/calendars?userId=${loginid}`)
+    const calendarRes = await axios.get(`/api/calendars?user_id=${login_id}`)
     for (const item of calendarRes.data) {
       await axios.delete(`/api/calendars/${item.id}`)
     }
 
-    const summaryRes = await axios.get(`/api/summaries?userId=${loginid}`)
+    const summaryRes = await axios.get(`/api/summaries?user_id=${login_id}`)
     for (const item of summaryRes.data) {
       await axios.delete(`/api/summaries/${item.id}`)
     }
 
-    const challengeRes = await axios.get(`/api/challenges?userId=${loginid}`)
+    const challengeRes = await axios.get(`/api/challenges?user_id=${login_id}`)
     for (const item of challengeRes.data) {
       await axios.delete(`/api/challenges/${item.id}`)
     }

@@ -10,7 +10,7 @@
     <div class="form-area">
       <div class="field">
         <label>아이디 확인</label>
-        <input type="text" v-model="form.loginid" placeholder="아이디를 입력하세요" />
+        <input type="text" v-model="form.login_id" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
@@ -57,7 +57,7 @@ import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
 const router = useRouter()
 
 const form = reactive({
-  loginid: '',
+  login_id: '',
   pw: ''
 })
 
@@ -90,7 +90,7 @@ function closeModal() {
 }
 
 async function handleDelete() {
-  if (!form.loginid.trim()) {
+  if (!form.login_id.trim()) {
     closeModal()
     showAlert('탈퇴 실패', '아이디를 입력하세요')
     return
@@ -102,7 +102,7 @@ async function handleDelete() {
   }
 
   const response = await fetch(
-    `/api/users?loginid=${form.loginid}&pw=${form.pw}`
+    `/api/users?login_id=${form.login_id}&pw=${form.pw}`
   )
   const users = await response.json()
 
@@ -118,7 +118,7 @@ async function handleDelete() {
 
   deleteUserProcess(
     userInfo.id,
-    userInfo.loginid,
+    userInfo.login_id,
     () => {
       showAlert('탈퇴 완료', '탈퇴되셨습니다')
       modal.show = true
