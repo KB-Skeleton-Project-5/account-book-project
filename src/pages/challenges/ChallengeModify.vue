@@ -25,6 +25,18 @@
       <AppFooter />
     </template>
   </DefaultLayout>
+
+  <DeleteConfirm
+    v-if="isModalOpen"
+    :title="modalOptions.title"
+    :message="modalOptions.message"
+    :leftText="modalOptions.leftText"
+    :rightText="modalOptions.rightText"
+    :rightColor="modalOptions.rightColor"
+    :rightTextColor="modalOptions.rightTextColor"
+    @left="handleLeft"
+    @right="handleRight"
+  />
 </template>
 
 <script setup>
@@ -37,7 +49,9 @@ import AppButton from '@/components/commons/AppButton.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
 import { getUserInfo } from '@/util/authUtil.js';
+import { getTagTitle } from '@/util/tagUtil.js';
 
 const route = useRoute();
 const router = useRouter();
@@ -54,10 +68,67 @@ const challengeData = ref({
 
 const memoText = ref('');
 
+const isModalOpen = ref(false);
+const modalOptions = ref({
+  mode: '',
+  title: '',
+  message: '',
+  leftText: '닫기',
+  rightText: '확인',
+  rightColor: '#ffcc00',
+  rightTextColor: '#333',
+});
+
+const openModal = (
+  mode,
+  title,
+  message,
+  rightText = '확인',
+  rightColor = '#ffcc00',
+  rightTextColor = '#333',
+  leftText = '닫기',
+) => {
+  modalOptions.value = {
+    mode,
+    title,
+    message,
+    rightText,
+    rightColor,
+    rightTextColor,
+    leftText,
+  };
+  isModalOpen.value = true;
+};
+
+const handleLeft = () => {
+  isModalOpen.value = false;
+  if (
+    modalOptions.value.mode === 'login' ||
+    modalOptions.value.mode === 'auth_error'
+  ) {
+    router.push({ name: 'users/login' });
+  } else if (modalOptions.value.mode === 'invalid_access') {
+    router.push({ name: 'challenges' });
+  }
+};
+
+const handleRight = () => {
+  isModalOpen.value = false;
+  if (
+    modalOptions.value.mode === 'login' ||
+    modalOptions.value.mode === 'auth_error'
+  ) {
+    router.push({ name: 'users/login' });
+  } else if (modalOptions.value.mode === 'invalid_access') {
+    router.push({ name: 'challenges' });
+  } else if (modalOptions.value.mode === 'duplicate') {
+    executeUpdate();
+  }
+};
+
 const getOldData = async () => {
   if (!userInfo || !userInfo.authenticated) {
-    alert('로그인이 필요한 서비스입니다.');
-    router.push({ name: 'users/login' });
+    openModal('login', '알림', '로그인이 필요한 서비스입니다.');
     return;
   }
 
@@ -66,8 +137,7 @@ const getOldData = async () => {
     const oldData = response.data;
 
     if (!oldData || String(oldData.user_id) !== String(userInfo.id)) {
-      alert('권한이 없거나 잘못된 접근입니다.');
-      router.push({ name: 'challenges' });
+      openModal('invalid_access', '알림', '권한이 없거나 잘못된 접근입니다.');
       return;
     }
 
@@ -80,32 +150,73 @@ const getOldData = async () => {
     memoText.value = oldData.memo || '';
     isDataLoaded.value = true;
   } catch (error) {
-    console.error(error);
-    router.push({ name: 'challenges' });
+    openModal('invalid_access', '오류', '정보를 불러오는데 실패했습니다.');
   }
 };
 
 const handleUpdate = async () => {
   if (!challengeData.value.title?.trim()) {
-    alert('챌린지 제목 입력 필요');
+    openModal('alert', '알림', '챌린지 제목을 입력해주세요.');
     return;
   }
   if (
     !challengeData.value.targetAmount ||
     challengeData.value.targetAmount <= 0
   ) {
-    alert('목표 금액 설정 필요');
+    openModal('alert', '알림', '목표 금액을 설정해주세요.');
     return;
   }
 
   const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+
+  try {
+    const challengeRes = await axios.get('/api/challenges', {
+      params: { user_id: userInfo.id },
+    });
+    const allChallenges = challengeRes.data;
+
+    const isDuplicateTag = allChallenges.some(
+      (c) =>
+        Number(c.year) === currentYear &&
+        Number(c.month) === currentMonth &&
+        c.tag === challengeData.value.tag &&
+        String(c.id) !== String(challengeId),
+    );
+
+    if (isDuplicateTag) {
+      const tagLabel = getTagTitle(challengeData.value.tag);
+      const confirmMsg = `이번 달에 이미 '${tagLabel}' 카테고리의 챌린지가 존재합니다.\n이대로 수정하시겠습니까?`;
+      openModal(
+        'duplicate',
+        '중복 확인',
+        confirmMsg,
+        '수정하기',
+        '#ffcc00',
+        '#333',
+        '취소',
+      );
+      return;
+    }
+
+    await executeUpdate();
+  } catch (error) {
+    openModal('alert', '오류', '수정 과정 중 에러가 발생했습니다.');
+  }
+};
+
+const executeUpdate = async () => {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
 
   try {
     const expensesRes = await axios.get('/api/expenses', {
       params: { user_id: userInfo.id },
     });
     const myExpenses = expensesRes.data;
-    const targetYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const targetYearMonth = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
 
     const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
       if (!expense.type || !expense.tag) return totalSum;
@@ -132,16 +243,15 @@ const handleUpdate = async () => {
       type: challengeData.value.type,
       memo: memoText.value,
       currentAmount: calculatedAmount,
-      year: now.getFullYear(),
-      month: now.getMonth() + 1,
+      year: currentYear,
+      month: currentMonth,
       user_id: userInfo.id,
     };
 
     await axios.put(`/api/challenges/${challengeId}`, updatedChallenge);
     router.push({ name: 'challenges/info', params: { id: challengeId } });
   } catch (error) {
-    console.error(error);
-    alert('수정에 실패했습니다.');
+    openModal('alert', '오류', '수정에 실패했습니다.');
   }
 };
 
