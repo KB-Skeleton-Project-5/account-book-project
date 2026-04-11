@@ -117,19 +117,20 @@
       "memo": "월정액"
     },
     {
-      "amount": 100,
+      "amount": 100000,
       "date": "2026-04-11",
       "title": "실험용",
-      "memo": "",
+      "memo": "병원",
       "paymentMethod": "카드",
       "isFixed": false,
       "tag": {
-        "tagid": "기타_1775905335912",
-        "tagtitle": "기타",
-        "color": "#F0F0F0",
-        "textColor": "#7F8C8D",
+        "id": "4",
+        "tagid": "medical",
+        "tagtitle": "의료",
+        "color": "#E8D6FF",
+        "textColor": "#9B59B6",
         "type": "지출",
-        "id": "M2bub_X"
+        "user_id": "zw5vrr1"
       },
       "type": {
         "typeid": "withdrawal",
@@ -248,6 +249,50 @@
       },
       "user_id": "108kww2",
       "id": "tiP2mcI"
+    },
+    {
+      "amount": 1000000,
+      "date": "2026-03-19",
+      "title": "뭐든 썻겠지",
+      "memo": "ㄴㅇㄻㄴ",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "1",
+        "tagid": "eat",
+        "tagtitle": "식비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "108kww2",
+      "id": "sAZ9Tx4"
+    },
+    {
+      "amount": 100,
+      "date": "2026-04-11",
+      "title": "dfd",
+      "memo": "dfdfd",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "3",
+        "tagid": "shopping",
+        "tagtitle": "쇼핑",
+        "color": "#D6F0E0",
+        "textColor": "#66A882",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "z2cholm",
+      "id": "4ynJZ8r"
     }
   ],
   "calendars": [
@@ -1264,7 +1309,7 @@
     {
       "title": "4월 교통비 절약",
       "tag": "교통",
-      "targetAmount": 150000,
+      "targetAmount": 500000,
       "type": "지출",
       "memo": "으음,, 기차 그만 타고싶다.",
       "currentAmount": 100000,
@@ -1284,6 +1329,42 @@
       "month": 4,
       "user_id": "108kww2",
       "id": 2
+    },
+    {
+      "title": "3월 교통비 절약",
+      "tag": "교통",
+      "targetAmount": 50000,
+      "type": "지출",
+      "memo": "으음,, 기차 그만 타고싶다.",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 3,
+      "user_id": "108kww2",
+      "id": 3
+    },
+    {
+      "title": "돈벌자",
+      "tag": "급여",
+      "targetAmount": 1000000,
+      "type": "수입",
+      "memo": "돈 많이 벌고 싶소",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 3,
+      "user_id": "108kww2",
+      "id": 4
+    },
+    {
+      "title": "먀",
+      "tag": "부수입",
+      "targetAmount": 100000,
+      "type": "수입",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "user_id": "108kww2",
+      "memo": "",
+      "id": 5
     }
   ],
   "tags": [
@@ -1362,14 +1443,6 @@
       "textColor": "#7F8C8D",
       "type": "수입",
       "id": "xFpw4lH"
-    },
-    {
-      "tagid": "간식_1775910972620",
-      "tagtitle": "간식",
-      "color": "#D6F0F0",
-      "textColor": "#17A589",
-      "type": "지출",
-      "id": "YYDDO3D"
     }
   ]
 }
