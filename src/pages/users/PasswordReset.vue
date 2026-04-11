@@ -60,8 +60,14 @@ async function handleReset() {
     alert('존재하지 않는 아이디입니다')
     return
   }
+  
 
   const user = users[0]
+
+  if (user.pw === form.newPw) {
+  alert('이미 동일한 비밀번호입니다')
+  return
+}
 
   updateUserProcess(
     user.id,

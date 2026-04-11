@@ -67,11 +67,16 @@ function closeModal() {
 
 async function handleDelete() {
   // 빈칸 체크 → 모달 닫기
-  if (!form.loginid.trim() || !form.pw.trim()) {
-    closeModal()
-    alert('아이디와 비밀번호를 입력하세요')
-    return
-  }
+  if (!form.loginid.trim()) {
+  closeModal()
+  alert('아이디를 입력하세요')
+  return
+}
+if (!form.pw.trim()) {
+  closeModal()
+  alert('비밀번호를 입력하세요')
+  return
+}
 
   // 본인 확인
   const response = await fetch(
@@ -93,6 +98,7 @@ async function handleDelete() {
     userInfo.id,
     userInfo.loginid,  // loginid 추가
     () => {
+      alert('탈퇴되셨습니다')
       logoutProcess(() => {
         router.push({ name: 'users/login' })
       })

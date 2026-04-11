@@ -73,6 +73,7 @@ const form = reactive({
 
 const pwConfirm = ref('')
 const pwEnabled = ref(false)  // 비밀번호 입력창 활성화 여부
+const originalData = ref({})  // 원본 데이터 저장용
 
 onMounted(async () => {
   const userInfo = getUserInfo()
@@ -87,7 +88,13 @@ onMounted(async () => {
     form.nick = user.nick
     form.email = user.email
     form.loginid = user.loginid  // userId → loginid
+      
+    originalData.value = {
+      name: user.name,
+      nick: user.nick,
+      email: user.email
   }
+}  
 })
 
 async function handleSave() {
@@ -119,6 +126,16 @@ async function handleSave() {
   }
   if (form.newPw && form.newPw !== pwConfirm.value) {
     alert('비밀번호가 일치하지 않습니다')
+    return
+  }
+  // 기존 정보와 동일한지 체크
+  if (
+    form.name === originalData.value.name &&
+    form.nick === originalData.value.nick &&
+    form.email === originalData.value.email &&
+    !form.newPw
+  ) {
+    alert('이미 회원정보와 동일합니다')
     return
   }
 
