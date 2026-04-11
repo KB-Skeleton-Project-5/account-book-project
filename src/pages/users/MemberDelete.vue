@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-      <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
-    
+    <AppHeader title="회원탈퇴" :back="true" backTo="users/info" />
 
     <div class="warn-box">
       탈퇴 시 모든 데이터(지출, 캘린더, 챌린지)가 영구 삭제됩니다.<br />
@@ -11,7 +10,7 @@
     <div class="form-area">
       <div class="field">
         <label>아이디 확인</label>
-        <input type="text" v-model="form.userId" placeholder="아이디를 입력하세요" />
+        <input type="text" v-model="form.loginid" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
@@ -24,7 +23,6 @@
       <label for="agree-check">위 내용을 모두 확인했으며 탈퇴에 동의합니다</label>
     </div>
 
-    <!-- 모달 후에 교체 예정 -->
     <div v-if="showModal" class="modal-overlay">
       <div class="delete-modal">
         <p class="modal-title">정말 탈퇴하시겠습니까?</p>
@@ -38,19 +36,18 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { deleteUserProcess,logoutProcess } from '@/util/authUtil'
+import { getUserInfo, deleteUserProcess, logoutProcess } from '@/util/authUtil'
 import AppHeader from '@/layouts/AppHeader.vue'
 
 const router = useRouter()
 
 const form = reactive({
-  userId: '',
+  loginid: '',  // userId → loginid
   pw: ''
 })
 
@@ -69,34 +66,32 @@ function closeModal() {
 }
 
 async function handleDelete() {
-  // 유효성 검사
-  if (!form.userId.trim()) {
-    alert('아이디를 입력하세요')
-    console.log('아이디를 입력하세요')
+  // 빈칸 체크 → 모달 닫기
+  if (!form.loginid.trim() || !form.pw.trim()) {
+    closeModal()
+    alert('아이디와 비밀번호를 입력하세요')
     return
   }
-  if (!form.pw.trim()) {
-    alert('비밀번호를 입력하세요')
-    console.log('비밀번호를 입력하세요')
-    return
-  }
-  // 입력한 아이디/비밀번호로 본인 확인
+
+  // 본인 확인
   const response = await fetch(
-    `/api/users?userId=${form.userId}&pw=${form.pw}`
+    `/api/users?loginid=${form.loginid}&pw=${form.pw}`
   )
   const users = await response.json()
 
   if (users.length === 0) {
     alert('아이디 또는 비밀번호가 틀렸습니다')
-    console.log('아이디 또는 비밀번호가 틀렸습니다');
+    console.log('아이디 또는 비밀번호가 틀렸습니다')
     closeModal()
     return
   }
-  
+
   const user = users[0]
+  const userInfo = getUserInfo()
 
   deleteUserProcess(
-    user.id,
+    userInfo.id,
+    userInfo.loginid,  // loginid 추가
     () => {
       logoutProcess(() => {
         router.push({ name: 'users/login' })

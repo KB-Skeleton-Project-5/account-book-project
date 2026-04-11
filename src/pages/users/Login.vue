@@ -7,7 +7,7 @@
 
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.userId" 
+        <input type="text" v-model="form.loginid" 
           placeholder="아이디를 입력하세요" 
           @keyup.enter="handleLogin" />
       </div>
@@ -41,41 +41,36 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { loginProcess } from '@/util/authUtil'
 
-
 const router = useRouter()
 
 const form = reactive({
-  userId: '',
+  loginid: '',  // userId → loginid
   pw: ''
 })
 
 function handleLogin() {
-  // 유효성 검사
-  if (!form.userId.trim()) {
+  if (!form.loginid.trim()) {
     alert('아이디를 입력하세요')
-    console.log('아이디를 입력하세요');
+    console.log('아이디를 입력하세요')
     return
   }
   if (!form.pw.trim()) {
     alert('비밀번호를 입력하세요')
-    console.log('비밀번호를 입력하세요');
-    
+    console.log('비밀번호를 입력하세요')
     return
   }
   loginProcess(
-    form.userId,
+    form.loginid,  // userId → loginid
     form.pw,
     () => {
-       console.log('로그인 성공')
-       router.push({name:'main'})
+      console.log('로그인 성공')
+      router.push({ name: 'main' })
     },
     () => {
-  alert('아이디 또는 비밀번호가 틀렸습니다.')
+      alert('아이디 또는 비밀번호가 틀렸습니다.')
     }
   )
 }
-
-
 </script>
 
 <style scoped>

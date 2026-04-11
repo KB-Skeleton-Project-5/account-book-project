@@ -1,11 +1,7 @@
-// 로그인 / 로그아웃 / 세션 / 유저 정보 유틸 함수 모음
 import axios from 'axios'
 
 const USERS_URI = '/api/users'
 
-// ==============================
-// 1. 로그인 세션 저장 (localStorage)
-// ==============================
 const setUserInfo = (userInfo) => {
   if (userInfo && userInfo.authenticated) {
     window.localStorage.setItem('userInfo', btoa(JSON.stringify(userInfo)))
@@ -14,23 +10,17 @@ const setUserInfo = (userInfo) => {
   }
 }
 
-// ==============================
-// 2. 로그인 세션 조회
-// ==============================
 const getUserInfo = () => {
   const str = window.localStorage.getItem('userInfo')
   if (!str) return { authenticated: false }
   return JSON.parse(window.atob(str))
 }
 
-// ==============================
-// 3. 로그인 처리
-// ==============================
-const loginProcess = async (userId, pw, successCallback, failCallback) => {
+const loginProcess = async (loginid, pw, successCallback, failCallback) => {
   try {
     const response = await axios.get(USERS_URI, {
       params: {
-        userId: userId.trim(),
+        loginid: loginid.trim(),  // userId → loginid
         pw: pw.trim()
       }
     })
@@ -41,7 +31,7 @@ const loginProcess = async (userId, pw, successCallback, failCallback) => {
       setUserInfo({
         authenticated: true,
         id: String(user.id),
-        userId: user.userId,
+        loginid: user.loginid,  // userId → loginid
       })
 
       successCallback()
@@ -53,17 +43,11 @@ const loginProcess = async (userId, pw, successCallback, failCallback) => {
   }
 }
 
-// ==============================
-// 4. 로그아웃 처리
-// ==============================
 const logoutProcess = (callback) => {
   setUserInfo(null)
   callback()
 }
 
-// ==============================
-// 5. 사용자 정보 조회
-// ==============================
 const fetchUserById = async (id) => {
   try {
     const response = await axios.get(`${USERS_URI}/${id}`)
@@ -73,9 +57,6 @@ const fetchUserById = async (id) => {
   }
 }
 
-// ==============================
-// 6. 회원가입
-// ==============================
 const registerProcess = async (form, successCallback, failCallback) => {
   try {
     await axios.post(USERS_URI, form)
@@ -86,9 +67,6 @@ const registerProcess = async (form, successCallback, failCallback) => {
   }
 }
 
-// ==============================
-// 7. 회원정보 수정
-// ==============================
 const updateUserProcess = async (id, form, successCallback, failCallback) => {
   try {
     await axios.patch(`${USERS_URI}/${id}`, form)
@@ -99,41 +77,28 @@ const updateUserProcess = async (id, form, successCallback, failCallback) => {
   }
 }
 
-// 혹시 몰라서 남겨둠 만약 오류나면 밑에거 주석처리 후 현재꺼 주석처리 해제
-// // ==============================
-// // 8. 회원탈퇴
-// // ============================== 
-// const deleteUserProcess = async (id, successCallback, failCallback) => {
-//   try {
-//     await axios.delete(`${USERS_URI}/${id}`)
-//     successCallback()
-//   } catch (error) {
-//     if (failCallback) failCallback()
-//     alert('회원탈퇴 중 오류가 발생했습니다: ' + error)
-//   }
-// }
-const deleteUserProcess = async (id, successCallback, failCallback) => {
+const deleteUserProcess = async (id, loginid, successCallback, failCallback) => {
   try {
     // 1. 유저 삭제
     await axios.delete(`${USERS_URI}/${id}`)
 
-    // 2. 관련 데이터 직접 삭제
-    const expenseRes = await axios.get(`/api/expenses?userId=${id}`)
+    // 2. 관련 데이터 직접 삭제 (loginid 기준)
+    const expenseRes = await axios.get(`/api/expenses?userId=${loginid}`)
     for (const item of expenseRes.data) {
       await axios.delete(`/api/expenses/${item.id}`)
     }
 
-    const calendarRes = await axios.get(`/api/calendars?userId=${id}`)
+    const calendarRes = await axios.get(`/api/calendars?userId=${loginid}`)
     for (const item of calendarRes.data) {
       await axios.delete(`/api/calendars/${item.id}`)
     }
 
-    const summaryRes = await axios.get(`/api/summaries?userId=${id}`)
+    const summaryRes = await axios.get(`/api/summaries?userId=${loginid}`)
     for (const item of summaryRes.data) {
       await axios.delete(`/api/summaries/${item.id}`)
     }
 
-    const challengeRes = await axios.get(`/api/challenges?userId=${id}`)
+    const challengeRes = await axios.get(`/api/challenges?userId=${loginid}`)
     for (const item of challengeRes.data) {
       await axios.delete(`/api/challenges/${item.id}`)
     }

@@ -1,38 +1,53 @@
 {
-  "usersdb": [
+  "users": [
     {
-      "id": 1,
-      "userId": "user_001",
-      "pw": "hashed_string",
-      "name": "홍길동",
-      "nick": "길동이",
-      "email": "hong@email.com",
-      "profileImage": "https://..."
+      "name": "박상호",
+      "nick": "오우",
+      "email": "wow@email.com",
+      "loginid": "if",
+      "pw": "1234",
+      "id": "108kww2"
+    },
+    {
+      "name": "메머드",
+      "nick": "커피",
+      "email": "MM@email.com",
+      "loginid": "mm",
+      "pw": "3456",
+      "id": "z2cholm"
+    },
+    {
+      "name": "메가",
+      "nick": "커피",
+      "email": "coffee@email.com",
+      "loginid": "co",
+      "pw": "5678",
+      "id": "zw5vrr1"
     }
   ],
-  "expensesdb": [
+  "expenses": [
     {
-      "id": 2,
-      "userId": 1,
-      "date": "2026-04-02",
-      "title": "김밥",
+      "id": "1",
+      "userId": "user_001",
+      "date": "2026-04-01",
+      "title": "스타벅스 아메리카노",
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "amount": 3000,
+      "amount": 4500,
       "tag": {
         "tagid": "eat",
         "tagtitle": "식비"
       },
-      "paymentMethod": "현금",
+      "paymentMethod": "카드",
       "isFixed": false,
-      "memo": "아침식사"
+      "memo": "오전 커피"
     },
     {
-      "id": 3,
-      "userId": 1,
-      "date": "2026-04-03",
+      "id": "2",
+      "userId": "user_001",
+      "date": "2026-04-02",
       "title": "버스비",
       "type": {
         "typeid": "withdrawal",
@@ -43,32 +58,14 @@
         "tagid": "traffic",
         "tagtitle": "교통비"
       },
-      "paymentMethod": "카드",
+      "paymentMethod": "현금",
       "isFixed": true,
       "memo": "출근길"
     },
     {
-      "id": 4,
-      "userId": 1,
-      "date": "2026-04-04",
-      "title": "월급",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 2500000,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "paymentMethod": "카드",
-      "isFixed": true,
-      "memo": "4월 급여"
-    },
-    {
-      "id": 5,
-      "userId": 1,
-      "date": "2026-04-05",
+      "id": "3",
+      "userId": "user_001",
+      "date": "2026-04-03",
       "title": "올리브영",
       "type": {
         "typeid": "withdrawal",
@@ -84,332 +81,149 @@
       "memo": "스킨케어"
     },
     {
-      "amount": 15000,
-      "date": "2026-04-08",
-      "title": "미용실",
-      "memo": "기분 전환",
-      "paymentMethod": "카드",
-      "isFixed": false,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
-      "type": {
-        "typeid": "withdrawal",
-        "typetitle": "지출"
-      },
-      "id": 8
-    },
-    {
-      "amount": 135,
-      "date": "2026-04-05",
-      "title": "통장 이자",
-      "memo": "이자",
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "tag": {
-        "tagid": "etc",
-        "tagtitle": "기타"
-      },
+      "id": "4",
+      "userId": "user_001",
+      "date": "2026-04-04",
+      "title": "월급",
       "type": {
         "typeid": "deposit",
         "typetitle": "수입"
       },
-      "id": 9
+      "amount": 2500000,
+      "tag": {
+        "tagid": "etc",
+        "tagtitle": "기타"
+      },
+      "paymentMethod": "계좌이체",
+      "isFixed": true,
+      "memo": "4월 급여"
     },
     {
-      "amount": 200,
-      "date": "2026-04-01",
-      "title": "사탕",
-      "memo": "",
-      "paymentMethod": "현금",
-      "isFixed": false,
-      "tag": {
-        "tagid": "eat",
-        "tagtitle": "식비"
-      },
+      "id": "5",
+      "userId": "user_001",
+      "date": "2026-04-05",
+      "title": "김밥",
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
-      "userId": 4,
-      "id": 13
-    }
-  ],
-  "calendarsdb": [
+      "amount": 3000,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "memo": "아침식사"
+    },
     {
-      "id": 1,
-      "userId": 1,
-      "title": "월급날",
+      "id": "6",
+      "userId": "user_002",
       "date": "2026-04-01",
+      "title": "점심식사",
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "amount": 8000,
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "memo": "김치찌개"
+    }
+  ],
+  "summaries": [
+    {
+      "id": "1",
+      "userId": "user_001",
+      "year": 2026,
+      "month": 4,
+      "income": 2500000,
+      "expense": 31000,
+      "netProfit": 2469000
+    },
+    {
+      "id": "2",
+      "userId": "user_001",
+      "year": 2026,
+      "month": 3,
+      "income": 2500000,
+      "expense": 1800000,
+      "netProfit": 700000
+    },
+    {
+      "id": "3",
+      "userId": "user_002",
+      "year": 2026,
+      "month": 4,
+      "income": 3000000,
+      "expense": 8000,
+      "netProfit": 2992000
+    }
+  ],
+  "calendars": [
+    {
+      "id": "1",
+      "userId": "user_001",
+      "title": "월급날",
+      "date": "2026-04-04",
       "time": "09:00",
-      "expenseId": "exp_042",
-      "memo": "급여 입금 예정"
+      "expenseId": "4",
+      "memo": "급여 입금"
+    },
+    {
+      "id": "2",
+      "userId": "user_001",
+      "title": "병원 예약",
+      "date": "2026-04-15",
+      "time": "14:00",
+      "expenseId": null,
+      "memo": "정기 검진"
+    },
+    {
+      "id": "3",
+      "userId": "user_002",
+      "title": "친구 생일",
+      "date": "2026-04-10",
+      "time": "19:00",
+      "expenseId": null,
+      "memo": "선물 챙기기"
     }
   ],
-  "summarydb": [
+  "challenges": [
     {
-      "id": 1,
-      "userId": 1,
-      "year": 2024,
-      "month": 1,
-      "income": 2500000,
-      "expense": 1800000,
-      "netProfit": 700000
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "year": 2024,
-      "month": 2,
-      "income": 2600000,
-      "expense": 2000000,
-      "netProfit": 600000
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "year": 2024,
-      "month": 3,
-      "income": 2700000,
-      "expense": 1900000,
-      "netProfit": 800000
-    },
-    {
-      "id": 4,
-      "userId": 1,
-      "year": 2024,
-      "month": 4,
-      "income": 2800000,
-      "expense": 2100000,
-      "netProfit": 700000
-    },
-    {
-      "id": 5,
-      "userId": 1,
-      "year": 2024,
-      "month": 5,
-      "income": 2500000,
-      "expense": 1700000,
-      "netProfit": 800000
-    },
-    {
-      "id": 6,
-      "userId": 1,
-      "year": 2024,
-      "month": 6,
-      "income": 3000000,
-      "expense": 2200000,
-      "netProfit": 800000
-    },
-    {
-      "id": 7,
-      "userId": 1,
-      "year": 2024,
-      "month": 7,
-      "income": 2900000,
-      "expense": 1950000,
-      "netProfit": 950000
-    },
-    {
-      "id": 8,
-      "userId": 1,
-      "year": 2024,
-      "month": 8,
-      "income": 3100000,
-      "expense": 2300000,
-      "netProfit": 800000
-    },
-    {
-      "id": 9,
-      "userId": 1,
-      "year": 2024,
-      "month": 9,
-      "income": 2800000,
-      "expense": 2000000,
-      "netProfit": 800000
-    },
-    {
-      "id": 10,
-      "userId": 1,
-      "year": 2024,
-      "month": 10,
-      "income": 3200000,
-      "expense": 2100000,
-      "netProfit": 1100000
-    },
-    {
-      "id": 11,
-      "userId": 1,
-      "year": 2024,
-      "month": 11,
-      "income": 3000000,
-      "expense": 2400000,
-      "netProfit": 600000
-    },
-    {
-      "id": 12,
-      "userId": 1,
-      "year": 2024,
-      "month": 12,
-      "income": 3500000,
-      "expense": 2800000,
-      "netProfit": 700000
-    },
-    {
-      "id": 13,
-      "userId": 1,
-      "year": 2025,
-      "month": 1,
-      "income": 2600000,
-      "expense": 1900000,
-      "netProfit": 700000
-    },
-    {
-      "id": 14,
-      "userId": 1,
-      "year": 2025,
-      "month": 2,
-      "income": 2700000,
-      "expense": 2000000,
-      "netProfit": 700000
-    },
-    {
-      "id": 15,
-      "userId": 1,
-      "year": 2025,
-      "month": 3,
-      "income": 2800000,
-      "expense": 2100000,
-      "netProfit": 700000
-    },
-    {
-      "id": 16,
-      "userId": 1,
-      "year": 2025,
-      "month": 4,
-      "income": 2900000,
-      "expense": 1800000,
-      "netProfit": 1100000
-    },
-    {
-      "id": 17,
-      "userId": 1,
-      "year": 2025,
-      "month": 5,
-      "income": 3000000,
-      "expense": 2200000,
-      "netProfit": 800000
-    },
-    {
-      "id": 18,
-      "userId": 1,
-      "year": 2025,
-      "month": 6,
-      "income": 3100000,
-      "expense": 2300000,
-      "netProfit": 800000
-    },
-    {
-      "id": 19,
-      "userId": 1,
-      "year": 2025,
-      "month": 7,
-      "income": 2900000,
-      "expense": 2000000,
-      "netProfit": 900000
-    },
-    {
-      "id": 20,
-      "userId": 1,
-      "year": 2025,
-      "month": 8,
-      "income": 3200000,
-      "expense": 2400000,
-      "netProfit": 800000
-    },
-    {
-      "id": 21,
-      "userId": 1,
-      "year": 2025,
-      "month": 9,
-      "income": 3000000,
-      "expense": 2100000,
-      "netProfit": 900000
-    },
-    {
-      "id": 22,
-      "userId": 1,
-      "year": 2025,
-      "month": 10,
-      "income": 3300000,
-      "expense": 2200000,
-      "netProfit": 1100000
-    },
-    {
-      "id": 23,
-      "userId": 1,
-      "year": 2025,
-      "month": 11,
-      "income": 3100000,
-      "expense": 2500000,
-      "netProfit": 600000
-    },
-    {
-      "id": 24,
-      "userId": 1,
-      "year": 2025,
-      "month": 12,
-      "income": 3600000,
-      "expense": 2900000,
-      "netProfit": 700000
-    },
-    {
-      "id": 25,
-      "userId": 1,
-      "year": 2026,
-      "month": 1,
-      "income": 2700000,
-      "expense": 2000000,
-      "netProfit": 700000
-    },
-    {
-      "id": 26,
-      "userId": 1,
-      "year": 2026,
-      "month": 2,
-      "income": 2800000,
-      "expense": 2100000,
-      "netProfit": 700000
-    },
-    {
-      "id": 27,
-      "userId": 1,
-      "year": 2026,
-      "month": 3,
-      "income": 2800000,
-      "expense": 2100000,
-      "netProfit": 700000
-    },
-    {
-      "id": 28,
-      "userId": 1,
-      "year": 2026,
-      "month": 4,
-      "income": 3200000,
-      "expense": 1850000,
-      "netProfit": 1350000
-    }
-  ],
-  "challengesdb": [
-    {
-      "id": 1,
-      "userId": 1,
+      "id": "1",
+      "userId": "user_001",
       "title": "4월 식비 절약",
       "targetAmount": 300000,
       "type": "SPENDING",
       "tag": "식비",
       "memo": "이번 달은 외식 금지!",
+      "year": 2026,
+      "month": 4
+    },
+    {
+      "id": "2",
+      "userId": "user_001",
+      "title": "4월 교통비 줄이기",
+      "targetAmount": 50000,
+      "type": "SPENDING",
+      "tag": "교통비",
+      "memo": "걸어다니기",
+      "year": 2026,
+      "month": 4
+    },
+    {
+      "id": "3",
+      "userId": "user_002",
+      "title": "4월 쇼핑 절약",
+      "targetAmount": 100000,
+      "type": "SPENDING",
+      "tag": "쇼핑",
+      "memo": "충동구매 금지",
       "year": 2026,
       "month": 4
     }

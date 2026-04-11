@@ -18,7 +18,7 @@
       </div>
       <div class="field">
         <label>아이디</label>
-        <input type="text" v-model="form.userId" placeholder="아이디를 입력하세요" />
+        <input type="text" v-model="form.loginid" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호</label>
@@ -31,9 +31,8 @@
     </div>
 
     <div class="btn-area">
-      
       <app-button text="저장" @click="handleSignup" @keyup.enter="handleSignup"/>
-    </div> 
+    </div>
 
   </div>
 </template>
@@ -45,64 +44,63 @@ import { useRouter } from 'vue-router'
 import AppHeader from '@/layouts/AppHeader.vue'
 import { registerProcess } from '@/util/authUtil'
 
-
-
 const router = useRouter()
 
 const form = reactive({
   name: '',
   nick: '',
   email: '',
-  userId: '',
+  loginid: '',  // userId → loginid
   pw: ''
 })
 
 const pwConfirm = ref('')
 
- function handleSignup() {
-  // 유효성 검사 
-   if (!form.name.trim()) {
+async function handleSignup() {  // async 추가
+  if (!form.name.trim()) {
     alert('이름을 입력하세요')
-    console.log('이름을 입력하세요');
+    console.log('이름을 입력하세요')
     return
   }
-  //이름 문자열 유효성 검사
   const nameRegex = /^[가-힣a-zA-Z]+$/
-if (!nameRegex.test(form.name)) {
-  alert('이름은 한글 또는 영문만 입력 가능합니다')
-  console.log('이름은 한글 또는 영문만 입력 가능합니다');
-  
-  return
-}
-  if(!form.nick.trim()){
+  if (!nameRegex.test(form.name)) {
+    alert('이름은 한글 또는 영문만 입력 가능합니다')
+    console.log('이름은 한글 또는 영문만 입력 가능합니다')
+    return
+  }
+  if (!form.nick.trim()) {
     alert('닉네임을 입력하세요')
-    console.log('닉네임을 입력하세요');
-    
+    console.log('닉네임을 입력하세요')
     return
   }
-   if (!form.email.trim()) {
+  if (!form.email.trim()) {
     alert('이메일을 입력하세요')
-    console.log('이메일을 입력하세요');
-    
+    console.log('이메일을 입력하세요')
     return
   }
-  //이메일 형식 유효성 검사
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-if (!emailRegex.test(form.email)) {
-  alert('올바른 이메일 형식이 아닙니다')
-  console.log('올바른 이메일 형식이 아닙니다');
-  return
-}
-  if (!form.userId.trim()) {
-    alert('아이디를 입력하세요')
-    console.log('아이디를 입력하세요');
-    
+  if (!emailRegex.test(form.email)) {
+    alert('올바른 이메일 형식이 아닙니다')
+    console.log('올바른 이메일 형식이 아닙니다')
     return
   }
- 
+  if (!form.loginid.trim()) {
+    alert('아이디를 입력하세요')
+    console.log('아이디를 입력하세요')
+    return
+  }
+
+  // 아이디 중복 체크
+  const checkRes = await fetch(`/api/users?loginid=${form.loginid}`)
+  const checkUsers = await checkRes.json()
+  if (checkUsers.length > 0) {
+    alert('이미 사용 중인 아이디입니다')
+    return
+  }
+
   if (!form.pw.trim()) {
     alert('비밀번호를 입력하세요')
-    console.log('비밀번호를 입력하세요');
+    console.log('비밀번호를 입력하세요')
     return
   }
   if (form.pw !== pwConfirm.value) {
@@ -110,11 +108,18 @@ if (!emailRegex.test(form.email)) {
     console.log('비밀번호가 일치하지 않습니다')
     return
   }
+
+  // 문자열 id 생성
+  const newForm = {
+    ...form,
+    id: Math.random().toString(36).substring(2, 9)
+  }
+
   registerProcess(
-    form,
+    newForm,
     () => {
       console.log('회원가입 성공')
-      router.push({name:"users/login"})
+      router.push({ name: 'users/login' })
     },
     () => {
       alert('회원가입에 실패했습니다')
