@@ -46,7 +46,7 @@ const selectedDate = ref({
 
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
   min-height: calc(100vh - 120px); /*header+footer 제외 높이*/
 }
 

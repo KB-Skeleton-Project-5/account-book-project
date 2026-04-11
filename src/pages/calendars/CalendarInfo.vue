@@ -5,27 +5,24 @@
     </template>
 
     <div class="calendar-form-page">
-      <div class="page-top-space"></div>
-
-      <CalendarForm v-if="form" :form="form" mode="value">
-        <div class="button-area">
-          <AppButton
-            type="edit-delete"
-            @edit="handleEdit"
-            @delete="handleDelete"
-          />
-        </div>
-      </CalendarForm>
-      <div class="page-bottom-space"></div>
+      <div class="form-wrapper">
+        <CalendarForm v-if="form" :form="form" mode="value">
+            <AppButton
+              type="edit-delete"
+              @edit="handleEdit"
+              @delete="handleDelete"
+              style="margin-top: 16px;"
+            />
+        </CalendarForm>
+      </div>
     </div>
 
-     <!-- 삭제 모달 -->
+    <!-- 삭제 모달 -->
     <DeleteConfirm
       v-if="showDeleteModal"
       @left="showDeleteModal = false"
       @right="confirmDelete"
     />
-
 
     <template #footer>
       <AppFooter />
@@ -70,9 +67,7 @@ const confirmDelete = async () => {
 
 const fetchCalendar = async () => {
   try {
-    const res = await axios.get(
-      `/api/calendars/${route.params.id}`,
-    );
+    const res = await axios.get(`/api/calendars/${route.params.id}`);
 
     form.value = res.data;
 
@@ -88,17 +83,16 @@ onMounted(() => {
 
 <style scoped>
 .calendar-form-page {
-  padding: 0 18px 22px;
-  background-color: #f3f3f3;
+  padding: 20px 0;
+  background-color: white;
   box-sizing: border-box;
   min-height: 100%;
 }
 
-.page-top-space {
-  height: 56px;
+.form-wrapper {
+  width: calc(100% - 64px);
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.page-bottom-space {
-  height: 60px;
-}
 </style>

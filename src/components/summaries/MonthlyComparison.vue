@@ -138,7 +138,7 @@ onMounted(fetchExpenses);
 .comparison-box {
   display: flex;
   flex-direction: column;
-  border: 1px solid #777;
+  border: 1px solid #e0e0e0;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 12px;
@@ -246,11 +246,13 @@ onMounted(fetchExpenses);
 }
 
 .diff-value.good {
-  color: #4caf50;
+  color: #4caf50; 
+ 
 }
 
 .diff-value.bad {
-  color: #e53935;
+  color: #e53935; 
+ 
 }
 
 .empty-text {

@@ -270,15 +270,6 @@
       "memo": "ppt 준비"
     },
     {
-      "id": "3",
-      "user_id": "108kww2",
-      "title": "스터디",
-      "date": "2026-04-10",
-      "time": "16:00",
-      "expenseId": "6",
-      "memo": "Vue 라우터 복습 완료!"
-    },
-    {
       "id": "4",
       "user_id": "zw5vrr1",
       "title": "병원 예약",
@@ -306,6 +297,7 @@
       "memo": "리뷰 쓰기"
     },
     {
+      "user_id": "z2cholm",
       "title": "병원",
       "date": "2026-04-01",
       "time": "02:40",
@@ -314,6 +306,7 @@
       "id": 8
     },
     {
+      "user_id": "zw5vrr1",
       "title": "소풍",
       "date": "2026-04-08",
       "time": "14:40",
@@ -322,6 +315,7 @@
       "id": 12
     },
     {
+      "user_id": "z2cholm",
       "title": "카페가기",
       "date": "2026-04-11",
       "time": "01:39",
@@ -330,6 +324,7 @@
       "id": 14
     },
     {
+      "user_id": "zw5vrr1",
       "title": "노래방가기",
       "date": "2026-04-10",
       "time": "15:42",
@@ -371,6 +366,18 @@
       "month": 4,
       "user_id": "108kww2",
       "id": 2
+    },
+    {
+      "title": "4월 식비 절약",
+      "tag": "식비",
+      "targetAmount": 300000,
+      "type": "지출",
+      "currentAmount": 0,
+      "year": 2026,
+      "month": 4,
+      "user_id": "108kww2",
+      "memo": "",
+      "id": 3
     }
   ],
   "tags": [
