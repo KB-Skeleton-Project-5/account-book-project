@@ -475,6 +475,28 @@
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "4월 배당"
+    },
+    {
+      "amount": 40000,
+      "date": "2026-04-12",
+      "title": "123",
+      "memo": "",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "겜비_1775973721763",
+        "tagtitle": "겜비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출",
+        "id": "QIQTbcH"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "108kww2",
+      "id": "Keq5uGW"
     }
   ],
   "calendars": [
@@ -554,7 +576,7 @@
       "tag": "all",
       "targetAmount": 1000000,
       "type": "지출",
-      "currentAmount": 1500,
+      "currentAmount": 41500,
       "year": 2026,
       "month": 4,
       "user_id": "108kww2",
@@ -572,6 +594,18 @@
       "user_id": "108kww2",
       "memo": "",
       "id": "4"
+    },
+    {
+      "id": "5",
+      "title": "123",
+      "tag": "겜비_1775973721763",
+      "targetAmount": 100000,
+      "type": "지출",
+      "currentAmount": 40000,
+      "year": 2026,
+      "month": 4,
+      "user_id": "108kww2",
+      "memo": ""
     }
   ],
   "tags": [
@@ -634,6 +668,14 @@
       "textColor": "#B8860B",
       "type": "수입",
       "user_id": "108kww2"
+    },
+    {
+      "tagid": "겜비_1775973721763",
+      "tagtitle": "겜비",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "지출",
+      "id": "QIQTbcH"
     }
   ]
 }
