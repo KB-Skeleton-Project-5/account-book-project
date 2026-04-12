@@ -53,19 +53,21 @@ import profile5 from '@/assets/profiles/profile5.png'
 
 const profiles = [profile1, profile2, profile3, profile4, profile5]
 
-// localStorage에 저장된 프로필 인덱스 확인
-const savedIndex = localStorage.getItem('profileIndex')
+
+
+const userId = getUserInfo().id ?? 'guest' // 이미 위에서 import 되어 있음
+
+const key = `profileIndex_${userId}`
+const savedIndex = localStorage.getItem(key)
 let profileIndex
 
 if (savedIndex !== null) {
-  profileIndex = parseInt(savedIndex)  // 저장된 거 사용
+  profileIndex = parseInt(savedIndex)
 } else {
-  profileIndex = Math.floor(Math.random() * profiles.length)  // 새로 뽑기
-  localStorage.setItem('profileIndex', profileIndex)  // 저장
+  profileIndex = Math.floor(Math.random() * profiles.length)
+  localStorage.setItem(key, profileIndex)
 }
-
 const randomProfile = ref(profiles[profileIndex])
-
 const router = useRouter()
 
 const member = reactive({
