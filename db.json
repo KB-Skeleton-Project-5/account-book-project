@@ -23,6 +23,14 @@
       "login_id": "co",
       "pw": "5678",
       "id": "zw5vrr1"
+    },
+    {
+      "name": "흠",
+      "nick": "련",
+      "email": "rlarkgus3415@gmail.com",
+      "login_id": "qq",
+      "pw": "1234",
+      "id": "dh9hr80"
     }
   ],
   "expenses": [
@@ -475,6 +483,140 @@
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "4월 배당"
+    },
+    {
+      "amount": 500001,
+      "date": "2026-03-12",
+      "title": "월급2",
+      "memo": "돈돈돈",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "5",
+        "tagid": "salary",
+        "tagtitle": "급여",
+        "color": "#D6EAFF",
+        "textColor": "#5B9BD5",
+        "type": "수입",
+        "user_id": "108kww2"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "user_id": "dh9hr80",
+      "id": "utlm8lO"
+    },
+    {
+      "amount": 1000000,
+      "date": "2026-03-16",
+      "title": "장학금",
+      "memo": "냠냠",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "7",
+        "tagid": "sideJob",
+        "tagtitle": "부수입",
+        "color": "#FFF3C4",
+        "textColor": "#B8860B",
+        "type": "수입",
+        "user_id": "108kww2"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "user_id": "dh9hr80",
+      "id": "zM2Tqah"
+    },
+    {
+      "amount": 20000,
+      "date": "2026-03-26",
+      "title": "마라탕",
+      "memo": "호록",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "id": "1",
+        "tagid": "eat",
+        "tagtitle": "식비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "dh9hr80",
+      "id": "1pv9FRa"
+    },
+    {
+      "amount": 30000,
+      "date": "2026-03-04",
+      "title": "올리브영",
+      "memo": "필요한 화장품",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "id": "3",
+        "tagid": "shopping",
+        "tagtitle": "쇼핑",
+        "color": "#D6F0E0",
+        "textColor": "#66A882",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "dh9hr80",
+      "id": "hJTGX13"
+    },
+    {
+      "amount": 103000,
+      "date": "2026-04-03",
+      "title": "기차",
+      "memo": "기차값 너무 비싸다아",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "2",
+        "tagid": "traffic",
+        "tagtitle": "교통",
+        "color": "#D6EAFF",
+        "textColor": "#5B9BD5",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "dh9hr80",
+      "id": "qzGilzY"
+    },
+    {
+      "amount": 250000,
+      "date": "2026-04-12",
+      "title": "훈련장려금",
+      "memo": "KB",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "tagid": "기타_1775973780586",
+        "tagtitle": "기타",
+        "color": "#F0F0F0",
+        "textColor": "#7F8C8D",
+        "type": "수입",
+        "id": "mhCB_1S"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "user_id": "dh9hr80",
+      "id": "IFYllr3"
     }
   ],
   "calendars": [
@@ -522,6 +664,15 @@
       "time": "14:00",
       "expenseId": "55",
       "memo": "리뷰 쓰기"
+    },
+    {
+      "user_id": "dh9hr80",
+      "title": "모듈 평가",
+      "date": "2026-04-14",
+      "time": "10:00",
+      "expenseId": "",
+      "memo": "",
+      "id": "XGjS3r_"
     }
   ],
   "challenges": [
@@ -530,7 +681,7 @@
       "tag": "all",
       "targetAmount": 1000000,
       "type": "지출",
-      "currentAmount": 1000000,
+      "currentAmount": 79000,
       "year": 2026,
       "month": 3,
       "user_id": "108kww2",
@@ -542,7 +693,7 @@
       "tag": "eat",
       "targetAmount": 200000,
       "type": "지출",
-      "currentAmount": 1000000,
+      "currentAmount": 67000,
       "year": 2026,
       "month": 3,
       "user_id": "108kww2",
@@ -554,7 +705,7 @@
       "tag": "all",
       "targetAmount": 1000000,
       "type": "지출",
-      "currentAmount": 202700,
+      "currentAmount": 1500,
       "year": 2026,
       "month": 4,
       "user_id": "108kww2",
@@ -566,7 +717,7 @@
       "tag": "traffic",
       "targetAmount": 50000,
       "type": "지출",
-      "currentAmount": 101500,
+      "currentAmount": 1500,
       "year": 2026,
       "month": 4,
       "user_id": "108kww2",
@@ -634,6 +785,30 @@
       "textColor": "#B8860B",
       "type": "수입",
       "user_id": "108kww2"
+    },
+    {
+      "tagid": "간식_1775972574263",
+      "tagtitle": "간식",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "지출",
+      "id": "LiYUA2b"
+    },
+    {
+      "tagid": "투자_1775972738668",
+      "tagtitle": "투자",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "수입",
+      "id": "k96EFEa"
+    },
+    {
+      "tagid": "기타_1775973780586",
+      "tagtitle": "기타",
+      "color": "#F0F0F0",
+      "textColor": "#7F8C8D",
+      "type": "수입",
+      "id": "mhCB_1S"
     }
   ]
 }
