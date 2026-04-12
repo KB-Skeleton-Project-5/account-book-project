@@ -79,6 +79,16 @@ watch(selectedYear, () => {
     month: selectedMonth.value,
   });
 });
+
+// 캘린더에서 오늘 버튼 눌렀을때 필요한 코드
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    selectedYear.value = newVal.year;
+    selectedMonth.value = newVal.month;
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>

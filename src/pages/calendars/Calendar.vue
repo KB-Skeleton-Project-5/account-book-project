@@ -35,7 +35,9 @@
               @click="selectDay(day)"
             >
               <template v-if="day">
-                <span class="day-number" :class="{ today: isToday(day) }" >{{ day }}</span>
+                <span class="day-number" :class="{ today: isToday(day) }">{{
+                  day
+                }}</span>
                 <span v-if="eventDays.includes(day)" class="event-dot"></span>
               </template>
             </div>
@@ -89,8 +91,8 @@ const selectedDate = ref({
 });
 
 const selectedDay = ref(savedDate?.day || today.getDate());
+const isGoingToday = ref(false);
 
-// 여기에 추가
 const isToday = (day) => {
   return (
     day === today.getDate() &&
@@ -117,6 +119,10 @@ watch(
 watch(
   () => `${selectedDate.value.year}-${selectedDate.value.month}`,
   () => {
+    if (isGoingToday.value) {
+      isGoingToday.value = false;
+      return;
+    }
     selectedDay.value = 1;
   },
 );
@@ -130,13 +136,13 @@ const selectedDayText = computed(() => {
 const calendarList = ref([]);
 
 const goToday = () => {
+  selectedDay.value = today.getDate();
+  isGoingToday.value = true;
   selectedDate.value = {
     year: today.getFullYear(),
     month: today.getMonth() + 1,
   };
-  selectedDay.value = today.getDate();
 };
-
 
 const handleAdd = () => {
   sessionStorage.setItem(
@@ -224,7 +230,6 @@ onMounted(() => {
   min-height: 100%;
 }
 
-
 .calendar-card {
   background-color: #f9f8f2;
   border-radius: 16px;
@@ -254,13 +259,11 @@ onMounted(() => {
   background: #e5e0d4;
   border: none;
   border-radius: 8px;
-  padding: 5px 14px;;
-   font-size: 0.8rem;
+  padding: 5px 14px;
+  font-size: 0.8rem;
   color: #545045;
   cursor: pointer;
   font-weight: 600;
- 
-
 }
 
 .calendar-box {
@@ -306,7 +309,7 @@ onMounted(() => {
 }
 
 .date-cell.selected {
-  background-color: #fbeab9a7;;
+  background-color: #fbeab9a7;
   font-weight: 700;
 }
 
@@ -325,7 +328,7 @@ onMounted(() => {
 
 .today {
   font-weight: 700;
-  text-decoration: underline;  /* 언더라인으로 오늘 표시 */
+  text-decoration: underline; /* 언더라인으로 오늘 표시 */
 }
 
 .empty-text {

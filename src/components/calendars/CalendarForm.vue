@@ -45,8 +45,15 @@
     <div class="wrapper">
       <label>입출금내역</label>
 
-      <input v-if="mode === 'input'" type="text" v-model="form.expenseId" placeholder="관련 입출금 내역을 입력해주세요."/>
-
+      <div v-if="mode === 'input'" class="amount-input-wrapper">
+        <input 
+          type="number" 
+          v-model="form.expenseId" 
+          placeholder="금액을 입력해주세요."
+          @input="preventInvalidInput"
+        />
+        <span class="unit">원</span>
+      </div>
       <div v-else class="value-box">
         {{ form.expenseId }}
       </div>
@@ -55,7 +62,9 @@
     <div class="wrapper">
       <label>메모</label>
 
-      <textarea v-if="mode === 'input'" v-model="form.memo" placeholder="일정 메모를 입력해주세요."></textarea>
+      <textarea v-if="mode === 'input'" 
+      v-model="form.memo" 
+      placeholder="일정 메모를 입력해주세요."></textarea>
 
       <div v-else class="value-box textarea-value">
         {{ form.memo }}
@@ -87,6 +96,19 @@ const { form, mode } = toRefs(props);
 const clearTime = () => {
   emit('update:form', { ...props.form, time: '' });
   console.log('clearTime 실행됨'); // 이거 추가해서 함수 실행되는지 확인
+
+};
+
+const preventInvalidInput = (e) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    /* replace(/[^0-9]/g, '') 
+        - 정규식(regex)으로 값 필터링
+        - [^0-9] : 0~9 숫자가 아닌 모든 문자를 의미
+        - g : 해당되는 것을 전부 다 찾아서 바꾸겠다는 옵션
+        - '' : 찾은 것들을 빈 문자열로 교체 (ex. "abc12한글" -> "12")
+    */
+    // 필터링 된 값을 부모에 전달
+    emit('submit-amount', Number(e.target.value));
 };
 </script>
 
@@ -192,5 +214,31 @@ const clearTime = () => {
 
 .input-with-clear {
   width: 100%;
+}
+
+.amount-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amount-input-wrapper input {
+  flex: 1;
+}
+
+.unit {
+  font-size: 15px;
+  font-weight: 500;
+  color: #334155;
+  white-space: nowrap;
+}
+
+/* 그 외(Chrome, Safari, Edge...)의 브라우저용 사용자 정의 스타일 */
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
