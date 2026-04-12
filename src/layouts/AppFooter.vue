@@ -47,7 +47,7 @@
       </div>
     </router-link>
 
-    <router-link :to="{ name: 'summaries' }" class="nav-item">
+    <router-link :to="{ name: 'summary' }" class="nav-item">
       <svg
         width="22"
         height="22"

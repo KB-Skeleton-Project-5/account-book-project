@@ -5,89 +5,113 @@
     <div class="form-area">
       <div class="field">
         <label>아이디</label>
-        <input
-          type="text"
-          v-model="form.login_id"
-          placeholder="아이디를 입력하세요"
-        />
+        <input type="text" v-model="form.login_id" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>새 비밀번호</label>
-        <input
-          type="password"
-          v-model="form.newPw"
-          placeholder="새 비밀번호를 입력하세요"
-        />
+        <input type="password" v-model="form.newPw" placeholder="새 비밀번호를 입력하세요" />
       </div>
       <div class="field">
         <label>새 비밀번호 확인</label>
-        <input
-          type="password"
-          v-model="newPwConfirm"
-          placeholder="새 비밀번호를 다시 입력하세요"
-        />
+        <input type="password" v-model="newPwConfirm" placeholder="새 비밀번호를 다시 입력하세요" />
       </div>
     </div>
 
     <div class="btn-area">
-      <!-- TODO: AppButton 컴포넌트로 교체 예정 -->
       <AppButton text="저장" @click="handleReset" />
     </div>
+
+    <!-- AlertModal 추가 -->
+    <AlertModal
+      v-if="modal.show"
+      :title="modal.title"
+      :message="modal.message"
+      @confirm="handleModalConfirm"
+    />
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { updateUserProcess } from '@/util/authUtil';
-import AppButton from '@/components/commons/AppButton.vue';
-import AppHeader from '@/layouts/AppHeader.vue';
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { updateUserProcess } from '@/util/authUtil'
+import AppButton from '@/components/commons/AppButton.vue'
+import AppHeader from '@/layouts/AppHeader.vue'
+import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
 
-const router = useRouter();
+const router = useRouter()
 
 const form = reactive({
   login_id: '',
-  newPw: '',
-});
+  newPw: ''
+})
 
-const newPwConfirm = ref('');
+const newPwConfirm = ref('')
+
+// 모달 상태 변수 추가
+const modal = reactive({
+  show: false,
+  title: '',
+  message: '',
+  isSuccess: false  // 성공 여부 체크용
+})
+
+// showAlert 함수 추가
+function showAlert(title, message, isSuccess = false) {
+  modal.title = title
+  modal.message = message
+  modal.isSuccess = isSuccess
+  modal.show = true
+}
+
+// 확인 버튼 클릭 시
+function handleModalConfirm() {
+  modal.show = false
+  // 비밀번호 변경 성공한 경우에만 로그인 페이지로 이동
+  if (modal.isSuccess) {
+    router.push({ name: 'users/login' })
+  }
+}
 
 async function handleReset() {
-  //아이디 유효성 검사
   if (!form.login_id.trim()) {
-    alert('아이디를 입력하세요');
-    return;
+    showAlert('입력 확인', '아이디를 입력하세요')
+    return
   }
-  //비밀번호 유효성 검사
   if (!form.newPw.trim()) {
-    alert('새 비밀번호를 입력하세요');
-    return;
+    showAlert('입력 확인', '새 비밀번호를 입력하세요')
+    return
   }
   if (form.newPw !== newPwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다');
-    return;
+    showAlert('입력 확인', '비밀번호가 일치하지 않습니다')
+    return
   }
-  const response = await fetch(`/api/users/?login_id=${form.login_id}`);
-  const users = await response.json();
+
+  const response = await fetch(`/api/users?login_id=${form.login_id}`)
+  const users = await response.json()
 
   if (users.length === 0) {
-    alert('존재하지 않는 아이디입니다');
-    return;
+    showAlert('확인 실패', '존재하지 않는 아이디입니다')
+    return
   }
 
-  const user = users[0];
+  const user = users[0]
+
+  if (user.pw === form.newPw) {
+    showAlert('알림', '이미 동일한 비밀번호입니다')
+    return
+  }
 
   updateUserProcess(
     user.id,
     { pw: form.newPw },
     () => {
-      alert('비밀번호가 변경되었습니다');
-      router.push({ name: 'users/login' });
+      showAlert('변경 완료', '비밀번호가 변경되었습니다', true)  // isSuccess = true
     },
     () => {
-      alert('비밀번호변경에 실패했습니다');
-    },
-  );
+      showAlert('변경 실패', '비밀번호 변경에 실패했습니다')
+    }
+  )
 }
 </script>
 

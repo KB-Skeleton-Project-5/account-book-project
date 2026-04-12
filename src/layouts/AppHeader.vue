@@ -77,7 +77,7 @@
  * [뒤로가기 있음 - 하위 페이지]
  * <AppHeader title="챌린지" :back="true" backTo="Challenge" />
  * <AppHeader title="지출 내역" :back="true" backTo="expenses" />
- * <AppHeader title="월별 요약" :back="true" backTo="summaries" />
+ * <AppHeader title="월별 요약" :back="true" backTo="summary" />
  *
  * backTo: router/index.js 에 등록된 name 값을 넣어주세요
  */

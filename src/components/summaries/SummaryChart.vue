@@ -30,6 +30,7 @@ const props = defineProps({
 });
 
 const expenseList = ref([]);
+const tagList = ref([]);
 
 const fetchExpenses = async () => {
   try {
@@ -39,6 +40,16 @@ const fetchExpenses = async () => {
   } catch (e) {
     console.log(e);
     expenseList.value = [];
+  }
+};
+
+// 태그 색상가져오기
+const fetchTags = async () => {  // 추가
+  try {
+    const res = await axios.get('/api/tags');
+    tagList.value = res.data;
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -60,7 +71,8 @@ const legendItems = computed(() => {
 
   filteredExpenses.value.forEach((e) => {
     const tagName = e.tag?.tagtitle || '기타';
-    const color = e.tag?.color || '#ccc';
+    const tagInfo = tagList.value.find((t) => t.tagid === e.tag?.tagid);
+    const color = tagInfo?.color || '#ccc'; 
     if (!tagMap[tagName]) {
       tagMap[tagName] = { tag: tagName, color, amount: 0 };
     }
@@ -87,7 +99,10 @@ const conicGradient = computed(() => {
   return `conic-gradient(${stops.join(', ')})`;
 });
 
-onMounted(fetchExpenses);
+onMounted(() => {
+  fetchExpenses();
+  fetchTags(); 
+});
 </script>
 
 <style scoped>

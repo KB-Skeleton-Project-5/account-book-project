@@ -10,35 +10,20 @@
     <div class="form-area">
       <div class="field">
         <label>아이디 확인</label>
-        <input
-          type="text"
-          v-model="form.login_id"
-          placeholder="아이디를 입력하세요"
-        />
+        <input type="text" v-model="form.login_id" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
-        <input
-          type="password"
-          v-model="form.pw"
-          placeholder="비밀번호를 입력하세요"
-        />
+        <input type="password" v-model="form.pw" placeholder="비밀번호를 입력하세요" />
       </div>
     </div>
 
     <div class="agree-row">
-      <input
-        type="checkbox"
-        id="agree-check"
-        v-model="isAgreed"
-        @change="onAgreeChange"
-      />
-      <label for="agree-check"
-        >위 내용을 모두 확인했으며 탈퇴에 동의합니다</label
-      >
+      <input type="checkbox" id="agree-check" v-model="isAgreed" @change="onAgreeChange" />
+      <label for="agree-check">위 내용을 모두 확인했으며 탈퇴에 동의합니다</label>
     </div>
 
-    <!-- 모달 후에 교체 예정 -->
+    <!-- 탈퇴 확인 모달 -->
     <div v-if="showModal" class="modal-overlay">
       <div class="delete-modal">
         <p class="modal-title">정말 탈퇴하시겠습니까?</p>
@@ -51,79 +36,108 @@
         </div>
       </div>
     </div>
+
+    <!-- AlertModal -->
+    <AlertModal
+      v-if="modal.show"
+      :title="modal.title"
+      :message="modal.message"
+      @confirm="handleModalConfirm"
+    />
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { deleteUserProcess, logoutProcess } from '@/util/authUtil';
-import AppHeader from '@/layouts/AppHeader.vue';
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { getUserInfo, deleteUserProcess, logoutProcess } from '@/util/authUtil'
+import AppHeader from '@/layouts/AppHeader.vue'
+import AlertModal from '@/components/commons/AlertModal.vue'
 
-const router = useRouter();
+const router = useRouter()
 
 const form = reactive({
   login_id: '',
-  pw: '',
-});
+  pw: ''
+})
 
-const isAgreed = ref(false);
-const showModal = ref(false);
+const isAgreed = ref(false)
+const showModal = ref(false)
+
+const modal = reactive({
+  show: false,
+  title: '',
+  message: '',
+  isSuccess: false
+})
+
+function showAlert(title, message, isSuccess = false) {
+  modal.title = title
+  modal.message = message
+  modal.isSuccess = isSuccess
+  modal.show = true
+}
+//
+function handleModalConfirm() {
+  modal.show = false
+  if (modal.isSuccess) {
+    logoutProcess(() => {
+      router.push({ name: 'users/login' })
+    })
+  }
+}
 
 function onAgreeChange() {
   if (isAgreed.value) {
-    showModal.value = true;
+    showModal.value = true
   }
 }
 
 function closeModal() {
-  showModal.value = false;
-  isAgreed.value = false;
+  showModal.value = false
+  isAgreed.value = false
 }
 
 async function handleDelete() {
-  // 유효성 검사
   if (!form.login_id.trim()) {
-    alert('아이디를 입력하세요');
-    console.log('아이디를 입력하세요');
-    return;
+    closeModal()
+    showAlert('탈퇴 실패', '아이디를 입력하세요')
+    return
   }
   if (!form.pw.trim()) {
-    alert('비밀번호를 입력하세요');
-    console.log('비밀번호를 입력하세요');
-    return;
+    closeModal()
+    showAlert('탈퇴 실패', '비밀번호를 입력하세요')
+    return
   }
-  // 입력한 아이디/비밀번호로 본인 확인
+
   const response = await fetch(
-    `/api/users?login_id=${form.login_id}&pw=${form.pw}`,
-  );
-  const users = await response.json();
+    `/api/users?login_id=${form.login_id}&pw=${form.pw}`
+  )
+  const users = await response.json()
 
   if (users.length === 0) {
-    alert('아이디 또는 비밀번호가 틀렸습니다');
-    console.log('아이디 또는 비밀번호가 틀렸습니다');
-    closeModal();
-    return;
+    showAlert('탈퇴 실패', '아이디 또는 비밀번호가 틀렸습니다')
+    closeModal()
+    return
   }
 
-  const user = users[0];
+  const user = users[0]
+  const userInfo = getUserInfo()
 
   deleteUserProcess(
-    user.id,
+    userInfo.id,
+    userInfo.login_id,
     () => {
-      logoutProcess(() => {
-        router.push({ name: 'users/login' });
-      });
+      closeModal()
+      showAlert('탈퇴 완료', '탈퇴되셨습니다', true)  // isSuccess = true
     },
     () => {
-      alert('탈퇴에 실패했습니다');
-      console.log('탈퇴에 실패했습니다');
-      closeModal();
-    },
-  );
+      showAlert('탈퇴 실패', '탈퇴에 실패했습니다')
+      closeModal()
+    }
+  )
 }
 </script>
-
 <style scoped>
 .wrapper {
   min-height: 100dvh;
@@ -135,6 +149,9 @@ async function handleDelete() {
   margin: 0 auto;
   position: relative;
 }
+
+
+
 
 .warn-box {
   background-color: #fff5f5;
@@ -264,3 +281,4 @@ async function handleDelete() {
   background-color: #fff5f5;
 }
 </style>
+

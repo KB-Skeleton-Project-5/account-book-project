@@ -1,147 +1,162 @@
 <template>
   <div class="wrapper">
+
     <AppHeader title="회원가입" :back="true" backTo="users/login" />
 
     <div class="form-area">
       <div class="field">
         <label>이름</label>
-        <input
-          type="text"
-          v-model="form.name"
-          placeholder="이름을 입력하세요"
-        />
+        <input type="text" v-model="form.name" placeholder="이름을 입력하세요" />
       </div>
       <div class="field">
         <label>닉네임</label>
-        <input
-          type="text"
-          v-model="form.nick"
-          placeholder="닉네임을 입력하세요"
-        />
+        <input type="text" v-model="form.nick" placeholder="닉네임을 입력하세요" />
       </div>
       <div class="field">
         <label>이메일</label>
-        <input
-          type="email"
-          v-model="form.email"
-          placeholder="이메일을 입력하세요"
-        />
+        <input type="email" v-model="form.email" placeholder="이메일을 입력하세요" />
       </div>
       <div class="field">
         <label>아이디</label>
-        <input
-          type="text"
-          v-model="form.login_id"
-          placeholder="아이디를 입력하세요"
-        />
+        <input type="text" v-model="form.login_id" placeholder="아이디를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호</label>
-        <input
-          type="password"
-          v-model="form.pw"
-          placeholder="비밀번호를 입력하세요"
-        />
+        <input type="password" v-model="form.pw" placeholder="비밀번호를 입력하세요" />
       </div>
       <div class="field">
         <label>비밀번호 확인</label>
-        <input
-          type="password"
-          v-model="pwConfirm"
-          placeholder="비밀번호를 다시 입력하세요"
-        />
+        <input type="password" v-model="pwConfirm" placeholder="비밀번호를 다시 입력하세요" />
       </div>
     </div>
 
     <div class="btn-area">
-      <app-button
-        text="저장"
-        @click="handleSignup"
-        @keyup.enter="handleSignup"
-      />
+      <app-button text="저장" @click="handleSignup" @keyup.enter="handleSignup"/>
     </div>
+
+    <!-- AlertModal 추가 -->
+    <AlertModal
+      v-if="modal.show"
+      :title="modal.title"
+      :message="modal.message"
+      @confirm="handleModalConfirm"
+    />
+
   </div>
 </template>
 
 <script setup>
-import AppButton from '@/components/commons/AppButton.vue';
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import AppHeader from '@/layouts/AppHeader.vue';
-import { registerProcess } from '@/util/authUtil';
+import AppButton from '@/components/commons/AppButton.vue'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import AppHeader from '@/layouts/AppHeader.vue'
+import { registerProcess } from '@/util/authUtil'
+import AlertModal from '@/components/commons/AlertModal.vue'  // 추가
 
-const router = useRouter();
+const router = useRouter()
 
 const form = reactive({
   name: '',
   nick: '',
   email: '',
   login_id: '',
-  pw: '',
-});
+  pw: ''
+})
 
-const pwConfirm = ref('');
+const pwConfirm = ref('')
 
-function handleSignup() {
-  // 유효성 검사
-  if (!form.name.trim()) {
-    alert('이름을 입력하세요');
-    console.log('이름을 입력하세요');
-    return;
+// 모달 상태 변수 추가
+const modal = reactive({
+  show: false,
+  title: '',
+  message: '',
+  isSuccess: false
+})
+
+// showAlert 함수 추가
+function showAlert(title, message, isSuccess = false) {
+  modal.title = title
+  modal.message = message
+  modal.isSuccess = isSuccess
+  modal.show = true
+}
+
+// 확인 버튼 클릭 시
+function handleModalConfirm() {
+  modal.show = false
+  if (modal.isSuccess) {
+    router.push({ name: 'users/login' })
   }
-  //이름 문자열 유효성 검사
-  const nameRegex = /^[가-힣a-zA-Z]+$/;
-  if (!nameRegex.test(form.name)) {
-    alert('이름은 한글 또는 영문만 입력 가능합니다');
-    console.log('이름은 한글 또는 영문만 입력 가능합니다');
+}
 
-    return;
+async function handleSignup() {
+  if (!form.name.trim()) {
+    showAlert('입력 확인', '이름을 입력하세요')
+    console.log('이름을 입력하세요')
+    return
+  }
+  const nameRegex = /^[가-힣a-zA-Z]+$/
+  if (!nameRegex.test(form.name)) {
+    showAlert('입력 확인', '이름은 한글 또는 영문만 입력 가능합니다')
+    console.log('이름은 한글 또는 영문만 입력 가능합니다')
+    return
   }
   if (!form.nick.trim()) {
-    alert('닉네임을 입력하세요');
-    console.log('닉네임을 입력하세요');
-
-    return;
-  }
-  if (!form.login_id.trim()) {
-    alert('아이디를 입력하세요');
-    console.log('아이디를 입력하세요');
-
-    return;
+    showAlert('입력 확인', '닉네임을 입력하세요')
+    console.log('닉네임을 입력하세요')
+    return
   }
   if (!form.email.trim()) {
-    alert('이메일을 입력하세요');
-    console.log('이메일을 입력하세요');
-
-    return;
+    showAlert('입력 확인', '이메일을 입력하세요')
+    console.log('이메일을 입력하세요')
+    return
   }
-  //이메일 형식 유효성 검사
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(form.email)) {
-    alert('올바른 이메일 형식이 아닙니다');
-    console.log('올바른 이메일 형식이 아닙니다');
-    return;
+    showAlert('입력 확인', '올바른 이메일 형식이 아닙니다')
+    console.log('올바른 이메일 형식이 아닙니다')
+    return
   }
+  if (!form.login_id.trim()) {
+    showAlert('입력 확인', '아이디를 입력하세요')
+    console.log('아이디를 입력하세요')
+    return
+  }
+
+  // 아이디 중복 체크
+  const checkRes = await fetch(`/api/users?login_id=${form.login_id}`)
+  const checkUsers = await checkRes.json()
+  if (checkUsers.length > 0) {
+    showAlert('중복 확인', '이미 사용 중인 아이디입니다')
+    return
+  }
+
   if (!form.pw.trim()) {
-    alert('비밀번호를 입력하세요');
-    console.log('비밀번호를 입력하세요');
-    return;
+    showAlert('입력 확인', '비밀번호를 입력하세요')
+    console.log('비밀번호를 입력하세요')
+    return
   }
   if (form.pw !== pwConfirm.value) {
-    alert('비밀번호가 일치하지 않습니다');
-    console.log('비밀번호가 일치하지 않습니다');
-    return;
+    showAlert('입력 확인', '비밀번호가 일치하지 않습니다')
+    console.log('비밀번호가 일치하지 않습니다')
+    return
   }
+
+  const newForm = {
+    ...form,
+    id: Math.random().toString(36).substring(2, 9)
+  }
+
   registerProcess(
-    form,
+    newForm,
     () => {
-      console.log('회원가입 성공');
-      router.push({ name: 'users/login' });
+      console.log('회원가입 성공')
+      showAlert('가입 완료', '회원가입이 완료되었습니다', true)  // isSuccess = true
     },
     () => {
-      alert('회원가입에 실패했습니다');
-    },
-  );
+      showAlert('가입 실패', '회원가입에 실패했습니다')
+    }
+  )
 }
 </script>
 
