@@ -17,7 +17,9 @@ export const getTagTitle = (tagId, dbTags = []) => {
     if (foundTag) return foundTag.tagtitle;
   }
 
-  return DEFAULT_TAG_MAP[tagId] || tagId;
+  const extractedTitle = tagId.includes('_') ? tagId.split('_')[0] : tagId;
+
+  return DEFAULT_TAG_MAP[tagId] || extractedTitle;
 };
 
 export const getTagIconUrl = (tagId) => {

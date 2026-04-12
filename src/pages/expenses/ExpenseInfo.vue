@@ -67,7 +67,7 @@ const handleEdit = () => {
 
 const confirmDelete = async() => {
   try {
-    await axios.delete(`/api/expenses/${parseInt(route.params.id)}`);
+    await axios.delete(`/api/expenses/${route.params.id}`);
     router.push({ name : 'expenses' });
   } catch (e) {
     console.error('삭제 : ', e)
