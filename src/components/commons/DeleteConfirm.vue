@@ -6,6 +6,7 @@
 
       <div class="modal-buttons">
         <button
+          v-if="showLeftButton"
           class="btn-left"
           :style="{ backgroundColor: leftColor, color: leftTextColor }"
           @click="$emit('left')"
@@ -35,6 +36,7 @@ defineProps({
   rightColor: { type: String, default: '#ff4d4d' },
   leftTextColor: { type: String, default: '#333' },
   rightTextColor: { type: String, default: 'white' },
+  showLeftButton: { type: Boolean, default: true },
 });
 
 defineEmits(['left', 'right']);
