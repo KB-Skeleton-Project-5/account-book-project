@@ -21,10 +21,11 @@
     </div>
 
     <div class="wrapper">
-      <div class="label-row">
-        <label>시간</label>
+      <label>시간</label>
+      <div v-if="mode === 'input'" class="time-input-wrapper">
+        <input type="time" v-model="form.time" />
         <button
-          v-if="form.time && mode === 'input'"
+          v-if="form.time"
           type="button"
           class="clear-btn"
           @click="clearTime"
@@ -33,29 +34,37 @@
         </button>
       </div>
 
-      <div v-if="mode === 'input'" class="input-with-clear">
-        <input type="time" v-model="form.time" />
-      </div>
-
       <div v-else class="value-box">
-        {{ form.time }}
+        {{ formatTime(form.time) }}
       </div>
     </div>
 
     <div class="wrapper">
       <label>입출금내역</label>
 
-      <input v-if="mode === 'input'" type="text" v-model="form.expenseId" placeholder="관련 입출금 내역을 입력해주세요."/>
-
+      <div v-if="mode === 'input'" class="amount-input-wrapper">
+        <input
+          type="number"
+          v-model="form.expense_id"
+          placeholder="금액을 입력하세요"
+        />
+        <span class="unit">원</span>
+      </div>
       <div v-else class="value-box">
-        {{ form.expenseId }}
+        {{
+          form.expense_id ? Number(form.expense_id).toLocaleString() + '원' : ''
+        }}
       </div>
     </div>
 
     <div class="wrapper">
       <label>메모</label>
 
-      <textarea v-if="mode === 'input'" v-model="form.memo" placeholder="일정 메모를 입력해주세요."></textarea>
+      <textarea
+        v-if="mode === 'input'"
+        v-model="form.memo"
+        placeholder="일정 메모를 입력해주세요."
+      ></textarea>
 
       <div v-else class="value-box textarea-value">
         {{ form.memo }}
@@ -88,6 +97,16 @@ const clearTime = () => {
   emit('update:form', { ...props.form, time: '' });
   console.log('clearTime 실행됨'); // 이거 추가해서 함수 실행되는지 확인
 };
+
+const formatTime = (time) => {
+  if (!time) return '';
+  const [hour, minute] = time.split(':');
+  const h = parseInt(hour);
+  const ampm = h < 12 ? '오전' : '오후';
+  const displayHour = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return `${ampm} ${String(displayHour).padStart(2, '0')}:${minute}`;
+};
+
 </script>
 
 <style scoped>
@@ -109,20 +128,24 @@ const clearTime = () => {
 }
 
 .wrapper label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
 }
 
-.label-row {
+.time-input-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+}
+.time-input-wrapper input {
+  flex: 1;
+  width: 0;
 }
 
 .label-row label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
@@ -135,11 +158,10 @@ const clearTime = () => {
   font-size: 13px;
   color: #888;
   padding: 0;
-  margin-right: 11px; /* input 오른쪽 끝이랑 맞게 조절 */
 }
 
 .wrapper input,
- .wrapper textarea {
+.wrapper textarea {
   width: 100%;
   height: auto;
   background-color: #f8fafc;
@@ -192,5 +214,31 @@ const clearTime = () => {
 
 .input-with-clear {
   width: 100%;
+}
+
+.amount-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amount-input-wrapper input {
+  flex: 1;
+}
+
+.unit {
+  font-size: 15px;
+  font-weight: 500;
+  color: #334155;
+  white-space: nowrap;
+}
+
+/* 그 외(Chrome, Safari, Edge...)의 브라우저용 사용자 정의 스타일 */
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

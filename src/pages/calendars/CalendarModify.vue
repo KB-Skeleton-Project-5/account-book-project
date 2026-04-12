@@ -53,9 +53,9 @@ const fetchCalendar = async () => {
   try {
     const res = await axios.get(`/api/calendars/${route.params.id}`);
     form.value = res.data;
-    console.log(form.value);
   } catch (error) {
-    console.log(error);
+    alertMessage.value = '데이터를 불러오는데 실패했습니다.';
+    showAlertModal.value = true;
   }
 };
 
@@ -72,11 +72,10 @@ const saveCalendar = async () => {
   }
   try {
     await axios.put(`/api/calendars/${route.params.id}`, form.value);
-    console.log('수정 성공');
-
     router.push({ name: 'calendars' });
   } catch (error) {
-    console.log('수정실패:', error);
+     alertMessage.value = '수정에 실패했습니다.';
+     showAlertModal.value = true;
   }
 };
 
@@ -104,6 +103,4 @@ onMounted(() => {
   justify-content: flex-end;
   margin-top: 16px;
 }
-
-
 </style>

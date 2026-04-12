@@ -48,7 +48,7 @@ import AlertModal from '@/components/commons/AlertModal.vue';
 import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
-const { id } = getUserInfo();
+const userInfo = getUserInfo();
 
 const today = new Date().toISOString().split('T')[0];
 const savedDate = JSON.parse(sessionStorage.getItem('calendarSelectedDate'));
@@ -59,7 +59,7 @@ const form = ref({
     ? `${savedDate.year}-${String(savedDate.month).padStart(2, '0')}-${String(savedDate.day).padStart(2, '0')}`
     : today,
   time: '',
-  expenseId: '',
+  expense_id: '',
   memo: '',
 });
 
@@ -67,6 +67,12 @@ const showAlertModal = ref(false);
 const alertMessage = ref('');
 
 const saveCalendar = async () => {
+  if (!userInfo || !userInfo.authenticated) {
+    alertMessage.value = '로그인이 필요한 서비스입니다.';
+    showAlertModal.value = true;
+    return;
+  }
+
   if (!form.value.title) {
     alertMessage.value = '제목을 입력해주세요.';
     showAlertModal.value = true;
@@ -79,7 +85,7 @@ const saveCalendar = async () => {
   }
   try {
     await axios.post('/api/calendars', {
-      user_id: id,
+      user_id: userInfo.id,
       ...form.value,
     });
 
@@ -97,7 +103,8 @@ const saveCalendar = async () => {
 
     router.push({ name: 'calendars' });
   } catch (error) {
-    console.log(error);
+    alertMessage.value = '등록에 실패했습니다.';
+    showAlertModal.value = true;
   }
 };
 </script>
