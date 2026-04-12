@@ -52,8 +52,22 @@ import profile4 from '@/assets/profiles/profile4.png'
 import profile5 from '@/assets/profiles/profile5.png'
 
 const profiles = [profile1, profile2, profile3, profile4, profile5]
-const randomProfile = ref(profiles[Math.floor(Math.random() * profiles.length)])
 
+
+
+const userId = getUserInfo().id ?? 'guest' // 이미 위에서 import 되어 있음
+
+const key = `profileIndex_${userId}`
+const savedIndex = localStorage.getItem(key)
+let profileIndex
+
+if (savedIndex !== null) {
+  profileIndex = parseInt(savedIndex)
+} else {
+  profileIndex = Math.floor(Math.random() * profiles.length)
+  localStorage.setItem(key, profileIndex)
+}
+const randomProfile = ref(profiles[profileIndex])
 const router = useRouter()
 
 const member = reactive({
