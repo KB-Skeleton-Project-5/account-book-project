@@ -2,9 +2,12 @@
   <div class="wrapper">
     <AppHeader title="내 정보" :back="true" backTo="main" />
 
-    <div class="profile-area">
+    <!-- <div class="profile-area">
       <div class="avatar">{{ member.name ? member.name[0] : '' }}</div>
-    </div>
+    </div> -->
+    <div class="profile-area">
+  <img :src="randomProfile" class="avatar-img" alt="프로필" />
+</div>
 
     <div class="form-area">
       <div class="field">
@@ -37,11 +40,19 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted,ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getUserInfo, fetchUserById, logoutProcess } from '@/util/authUtil'
 import AppButton from '@/components/commons/AppButton.vue'
 import AppHeader from '@/layouts/AppHeader.vue'
+import profile1 from '@/assets/profiles/profile1.png'
+import profile2 from '@/assets/profiles/profile2.png'
+import profile3 from '@/assets/profiles/profile3.png'
+import profile4 from '@/assets/profiles/profile4.png'
+import profile5 from '@/assets/profiles/profile5.png'
+
+const profiles = [profile1, profile2, profile3, profile4, profile5]
+const randomProfile = ref(profiles[Math.floor(Math.random() * profiles.length)])
 
 const router = useRouter()
 
@@ -99,6 +110,12 @@ function handleLogout() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.avatar-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .form-area {
   display: flex;
