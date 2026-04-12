@@ -522,6 +522,24 @@
       "time": "14:00",
       "expenseId": "55",
       "memo": "리뷰 쓰기"
+    },
+    {
+      "user_id": "108kww2",
+      "title": "테스트",
+      "date": "2026-04-12",
+      "time": "14:00",
+      "expenseId": "",
+      "memo": "",
+      "id": "clW3Ad-"
+    },
+    {
+      "user_id": "108kww2",
+      "title": "발표",
+      "date": "2026-04-13",
+      "time": "17:00",
+      "expenseId": "",
+      "memo": "",
+      "id": "vbjnbOb"
     }
   ],
   "challenges": [
