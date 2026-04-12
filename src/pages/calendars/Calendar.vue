@@ -224,8 +224,9 @@ onMounted(() => {
   min-height: 100%;
 }
 
+
 .calendar-card {
-  background-color: #e9e9e9;
+  background-color: #f9f8f2;
   border-radius: 16px;
   padding: 14px;
   margin-bottom: 18px;
@@ -250,20 +251,20 @@ onMounted(() => {
 }
 
 .today-btn {
-  background: #b5b2b2;
+  background: #e5e0d4;
   border: none;
   border-radius: 8px;
   padding: 5px 14px;;
-  font-size: 13px;
-  color: white;
+   font-size: 0.8rem;
+  color: #545045;
   cursor: pointer;
   font-weight: 600;
-  /* text-decoration: underline; */
+ 
 
 }
 
 .calendar-box {
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 12px;
   padding: 14px;
 }
@@ -305,7 +306,7 @@ onMounted(() => {
 }
 
 .date-cell.selected {
-  background-color: #f8eac5;
+  background-color: #fbeab9a7;;
   font-weight: 700;
 }
 
@@ -318,7 +319,7 @@ onMounted(() => {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #ffbc00;
+  background-color: #faa003;
   margin-top: 4px;
 }
 
