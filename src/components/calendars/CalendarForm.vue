@@ -46,7 +46,7 @@
         <input
           type="number"
           v-model="form.expense_id"
-          placeholder="금액을 입력하세요"
+          placeholder="예) 지출 : -30000, 수입: 30000"
         />
         <span class="unit">원</span>
       </div>
