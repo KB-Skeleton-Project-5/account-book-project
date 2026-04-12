@@ -30,6 +30,7 @@
     :rightText="modalOptions.rightText"
     :rightColor="modalOptions.rightColor"
     :rightTextColor="modalOptions.rightTextColor"
+    :showLeftButton="modalOptions.showLeftButton"
     @left="handleLeft"
     @right="handleRight"
   />
@@ -62,6 +63,8 @@ const challengeData = ref({
 const memoText = ref('');
 
 const isModalOpen = ref(false);
+
+// 💡 상태 객체에 showLeftButton 추가
 const modalOptions = ref({
   mode: '',
   title: '',
@@ -70,12 +73,14 @@ const modalOptions = ref({
   rightText: '확인',
   rightColor: '#ffcc00',
   rightTextColor: '#333',
+  showLeftButton: true,
 });
 
 const openModal = (
   mode,
   title,
   message,
+  showLeftButton = false,
   rightText = '확인',
   rightColor = '#ffcc00',
   rightTextColor = '#333',
@@ -85,6 +90,7 @@ const openModal = (
     mode,
     title,
     message,
+    showLeftButton,
     rightText,
     rightColor,
     rightTextColor,
@@ -148,10 +154,12 @@ const handleSave = async () => {
     if (isDuplicateTag) {
       const tagLabel = getTagTitle(challengeData.value.tag);
       const confirmMsg = `이번 달에 이미 '${tagLabel}' 카테고리의 챌린지가 존재합니다.\n그래도 추가하시겠습니까?`;
+
       openModal(
         'duplicate',
         '중복 확인',
         confirmMsg,
+        true,
         '추가하기',
         '#ffcc00',
         '#333',
