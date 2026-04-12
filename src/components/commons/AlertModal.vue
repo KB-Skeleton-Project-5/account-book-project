@@ -80,7 +80,7 @@ defineEmits(['confirm']);
 }
 
 .btn-right {
-  background-color: #3B82F6;
-  color: white;
+  background-color: #ffbc00;
+  color: black;
 }
 </style>
