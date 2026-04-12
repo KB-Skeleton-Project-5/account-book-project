@@ -19,7 +19,11 @@
       </svg>
     </button>
 
-    <span class="header-title">{{ title }}</span>
+    <span class="header-title">
+      <img src="@/assets/logo.PNG" class="header-logo" alt="logo" />
+      {{ title }}
+      <img src="@/assets/logo.PNG" class="header-logo" alt="logo" />
+    </span>
 
     <!-- 오른쪽 아이콘 (back이 false일 때만 표시) -->
     <div v-if="!back" class="header-icons">
@@ -116,6 +120,12 @@ defineProps({
   color: #545045;
   letter-spacing: -0.3px;
   white-space: nowrap;
+}
+
+.header-logo {
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: contain;
 }
 
 .header-icons {
