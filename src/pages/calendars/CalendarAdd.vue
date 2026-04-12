@@ -5,16 +5,29 @@
     </template>
 
     <div class="calendar-form-page">
-      <div class="page-top-space"></div>
+      <div class="form-wrapper">
 
       <!-- 입력 폼 -->
-      <CalendarForm :form="form" mode="input">
+      <CalendarForm
+        :form="form"
+        mode="input"
+        @update:form="(val) => (form = val)"
+      >
         <div class="button-area">
           <AppButton text="저장" @click="saveCalendar" />
         </div>
       </CalendarForm>
-      <div class="page-bottom-space"></div>
+      </div>
+      
     </div>
+
+    <!-- ⭐ 추가: Alert 모달 -->
+    <AlertModal
+      v-if="showAlertModal"
+      :message="alertMessage"
+      @confirm="showAlertModal = false"
+    />
+
     <template #footer>
       <AppFooter />
     </template>
@@ -31,26 +44,37 @@ import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import AlertModal from '@/components/commons/AlertModal.vue';
 import { getUserInfo } from '@/util/authUtil';
 
 const router = useRouter();
 const { id } = getUserInfo();
 
+const today = new Date().toISOString().split('T')[0];
+const savedDate = JSON.parse(sessionStorage.getItem('calendarSelectedDate'));
+
 const form = ref({
   title: '',
-  date: '',
+  date: savedDate
+    ? `${savedDate.year}-${String(savedDate.month).padStart(2, '0')}-${String(savedDate.day).padStart(2, '0')}`
+    : today,
   time: '',
   expenseId: '',
   memo: '',
 });
 
+const showAlertModal = ref(false);
+const alertMessage = ref('');
+
 const saveCalendar = async () => {
   if (!form.value.title) {
-    alert('제목을 입력해주세요.');
+    alertMessage.value = '제목을 입력해주세요.';
+    showAlertModal.value = true;
     return;
   }
   if (!form.value.date) {
-    alert('날짜를 선택해주세요.');
+    alertMessage.value = '날짜를 선택해주세요.';
+    showAlertModal.value = true;
     return;
   }
   try {
@@ -58,6 +82,18 @@ const saveCalendar = async () => {
       user_id: id,
       ...form.value,
     });
+
+    // ⭐ 추가: 선택 날짜 저장
+    const selected = new Date(form.value.date);
+
+    sessionStorage.setItem(
+      'calendarSelectedDate',
+      JSON.stringify({
+        year: selected.getFullYear(),
+        month: selected.getMonth() + 1,
+        day: selected.getDate(),
+      }),
+    );
 
     router.push({ name: 'calendars' });
   } catch (error) {
@@ -68,10 +104,16 @@ const saveCalendar = async () => {
 
 <style scoped>
 .calendar-form-page {
-  padding: 0 18px 22px;
-  background-color: #f3f3f3;
+  padding: 20px 0;
+  background-color: white;
   box-sizing: border-box;
   min-height: 100%;
+}
+
+.form-wrapper {
+  width: calc(100% - 64px);
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .button-area {
@@ -80,11 +122,4 @@ const saveCalendar = async () => {
   margin-top: 16px;
 }
 
-.page-top-space {
-  height: 56px;
-}
-
-.page-bottom-space {
-  height: 60px;
-}
 </style>

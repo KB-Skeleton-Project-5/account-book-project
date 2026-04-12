@@ -1,11 +1,11 @@
 <template>
   <div class="description-container">
     <div class="tag-icon-wrapper">
-      <img :src="tagIcon" :alt="props.tag" class="tag-icon-image" />
+      <img :src="tagIcon" :alt="translatedTitle" class="tag-icon-image" />
     </div>
 
     <h5 class="description-text">
-      {{ tag }}에서 {{ targetAmount }}만원
+      {{ translatedTitle }}에서 {{ targetAmount }}만원
       {{ type === '지출' ? '이하 지출' : '이상 수입' }}
     </h5>
   </div>
@@ -13,6 +13,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { getTagTitle, getTagIconUrl } from '@/util/tagUtil.js';
 
 const props = defineProps({
   tag: { type: String, required: true },
@@ -20,21 +21,8 @@ const props = defineProps({
   type: { type: String, default: '지출' },
 });
 
-const tagIcon = computed(() => {
-  const iconMap = {
-    식비: '식비',
-    교통: '교통',
-    쇼핑: '쇼핑',
-    의료: '의료',
-    급여: '급여',
-    금융: '금융',
-    부수입: '부수입',
-    전체: '전체',
-  };
-
-  const fileName = iconMap[props.tag] || '전체';
-  return new URL(`../../assets/icons/${fileName}.png`, import.meta.url).href;
-});
+const translatedTitle = computed(() => getTagTitle(props.tag));
+const tagIcon = computed(() => getTagIconUrl(props.tag));
 </script>
 
 <style scoped>

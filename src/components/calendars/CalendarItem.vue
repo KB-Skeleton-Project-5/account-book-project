@@ -28,15 +28,17 @@ defineProps({
 
 <style scoped>
 .calendar-item {
-  background-color: #f3ecd6;
+  background-color: #fbeab9a7;
   border-radius: 16px;
   padding: 10px 18px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-height: 36px;
+  height: 56px;
   justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
+
 
 .calendar-item-link {
   text-decoration: none;

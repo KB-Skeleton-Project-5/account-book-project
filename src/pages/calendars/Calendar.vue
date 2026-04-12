@@ -11,6 +11,7 @@
           <!--왼쪽 : 날짜 선택 -->
           <div class="month-left">
             <MonthPicker v-model="selectedDate" />
+            <button class="today-btn" @click="goToday">오늘</button>
           </div>
           <!-- 오른쪽: 추가 버튼 -->
           <div class="month-right">
@@ -34,7 +35,7 @@
               @click="selectDay(day)"
             >
               <template v-if="day">
-                <span class="day-number">{{ day }}</span>
+                <span class="day-number" :class="{ today: isToday(day) }" >{{ day }}</span>
                 <span v-if="eventDays.includes(day)" class="event-dot"></span>
               </template>
             </div>
@@ -87,7 +88,16 @@ const selectedDate = ref({
   month: savedDate?.month || today.getMonth() + 1,
 });
 
-const selectedDay = ref(savedDate?.day || 1);
+const selectedDay = ref(savedDate?.day || today.getDate());
+
+// 여기에 추가
+const isToday = (day) => {
+  return (
+    day === today.getDate() &&
+    selectedDate.value.year === today.getFullYear() &&
+    selectedDate.value.month === today.getMonth() + 1
+  );
+};
 
 watch(
   [selectedDate, selectedDay],
@@ -119,7 +129,24 @@ const selectedDayText = computed(() => {
 
 const calendarList = ref([]);
 
+const goToday = () => {
+  selectedDate.value = {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  };
+  selectedDay.value = today.getDate();
+};
+
+
 const handleAdd = () => {
+  sessionStorage.setItem(
+    'calendarSelectedDate',
+    JSON.stringify({
+      year: selectedDate.value.year,
+      month: selectedDate.value.month,
+      day: selectedDay.value,
+    }),
+  );
   router.push({ name: 'calendars/add' });
 };
 
@@ -192,13 +219,14 @@ onMounted(() => {
 <style scoped>
 .calendar-page {
   padding: 18px;
-  background-color: #f3f3f3;
+  background-color: white;
   box-sizing: border-box;
   min-height: 100%;
 }
 
+
 .calendar-card {
-  background-color: #e9e9e9;
+  background-color: #f9f8f2;
   border-radius: 16px;
   padding: 14px;
   margin-bottom: 18px;
@@ -214,6 +242,7 @@ onMounted(() => {
 .month-left {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .month-right {
@@ -221,8 +250,21 @@ onMounted(() => {
   align-items: center;
 }
 
+.today-btn {
+  background: #e5e0d4;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 14px;;
+   font-size: 0.8rem;
+  color: #545045;
+  cursor: pointer;
+  font-weight: 600;
+ 
+
+}
+
 .calendar-box {
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 12px;
   padding: 14px;
 }
@@ -264,7 +306,7 @@ onMounted(() => {
 }
 
 .date-cell.selected {
-  background-color: #f3ecd6;
+  background-color: #fbeab9a7;;
   font-weight: 700;
 }
 
@@ -277,8 +319,13 @@ onMounted(() => {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #ffbc00;
+  background-color: #faa003;
   margin-top: 4px;
+}
+
+.today {
+  font-weight: 700;
+  text-decoration: underline;  /* 언더라인으로 오늘 표시 */
 }
 
 .empty-text {

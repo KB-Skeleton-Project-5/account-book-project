@@ -7,14 +7,20 @@
       :back="true" backTo="expenses"/>
     </template>
 
-    <!-- initialData로 불러온 데이터를 ExpenseForm에 전달 -->
-    <ExpenseForm 
-    :initialData="expenseData"
-    :readonly="true"/>
-    <AppButton 
-    type="edit-delete" 
-    @edit="handleEdit" 
-    @delete="handleDelete" />
+    <div class="info-container">
+      <div class="expense-info-card">
+        <ExpenseForm 
+        :initialData="expenseData"
+        :readonly="true"/>
+        <div class="action-buttons">
+          <AppButton 
+          type="edit-delete" 
+          @edit="handleEdit" 
+          @delete="handleDelete" 
+          class="full-width"/>
+        </div>
+      </div>
+    </div>
 
     <DeleteConfirm 
     v-if="showModal"
@@ -39,17 +45,12 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
 
-
 const route = useRoute();
 const router = useRouter();
 
-// API에서 불러온 상세 데이터 저장
 const expenseData = ref(null);
-
-// 모달 열고 닫는 상태 변수
 const showModal = ref(false);
 
-// 페이지 진입 시 id로 상세 데이터 불러오기
 onMounted( async() => {
   try {
     const response = await axios.get(`/api/expenses/${route.params.id}`);
@@ -60,13 +61,10 @@ onMounted( async() => {
   }
 })
 
-
-// 수정 페이지로 이동하기
 const handleEdit = () => {
   router.push({ name: 'expenses/modify/id', params: { id: route.params.id } });
 };
 
-// 모달에서 '삭제' 버튼 클릭 시 -> 실제 삭제 실행
 const confirmDelete = async() => {
   try {
     await axios.delete(`/api/expenses/${parseInt(route.params.id)}`);
@@ -76,14 +74,33 @@ const confirmDelete = async() => {
   }
 }
 
-// 삭제 버튼 시 -> 모달만 열기
 const handleDelete = () => {
   showModal.value = true;
 };
-
-
 </script>
 
 <style scoped>
+.info-container {
+  padding: 20px 0;
+}
 
+.expense-info-card {
+  width: calc(100% - 40px);
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px 8px;
+  margin: 0 auto;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.action-buttons {
+  margin-top: 16px;
+  padding: 0 16px;
+}
+
+.full-width :deep(.btn-group) {
+  width: 100%;
+}
 </style>

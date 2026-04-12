@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <label>태그</label>
+    <label>🏷️ 태그</label>
     <div class="tag-group">
       <button
         v-for="tag in filteredTags"
@@ -105,7 +105,7 @@ const handleSelect = (tag) => {
 label {
   font-size: 0.9rem;
   color: #545045;
-  min-width: 40px;
+  min-width: 60px;
 }
 .tag-group {
   display: flex;

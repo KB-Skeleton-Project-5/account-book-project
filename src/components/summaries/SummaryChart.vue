@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil';
 
@@ -29,45 +29,49 @@ const props = defineProps({
   selectedDate: Object,
 });
 
-const TAG_COLORS = {
-  식비: '#f2d778',
-  교통비: '#7ec8a4',
-  쇼핑: '#f4a261',
-  기타: '#a8d8ea',
-};
+const expenseList = ref([]);
 
-const summaryList = ref([]);
-
-const fetchSummary = async () => {
+const fetchExpenses = async () => {
   try {
     const { id } = getUserInfo();
-    const res = await axios.get('/api/summary', { params: { user_id: id } });
-    summaryList.value = res.data;
-  } catch (erroe) {
-    console.log(erroe);
-    summaryList.value = [];
+    const res = await axios.get('/api/expenses', { params: { user_id: id } });
+    expenseList.value = res.data;
+  } catch (e) {
+    console.log(e);
+    expenseList.value = [];
   }
 };
 
-const summaryData = computed(() => {
-  return (
-    summaryList.value.find(
-      (item) =>
-        item.year === props.selectedDate.year &&
-        item.month === props.selectedDate.month,
-    ) || null
-  );
+// 선택한 월의 지출 데이터만 필터링
+const filteredExpenses = computed(() => {
+  return expenseList.value.filter((e) => {
+    const d = new Date(e.date);
+    return (
+      d.getFullYear() === props.selectedDate.year &&
+      d.getMonth() + 1 === props.selectedDate.month &&
+      e.type?.typetitle === '지출' // 지출만
+    );
+  });
 });
 
+// 태그별로 금액 합산
 const legendItems = computed(() => {
-  if (!summaryData.value?.tagBreakdown) return [];
-  const total = summaryData.value.tagBreakdown.reduce(
-    (s, t) => s + t.amount,
-    0,
-  );
-  return summaryData.value.tagBreakdown.map((t) => ({
+  const tagMap = {};
+
+  filteredExpenses.value.forEach((e) => {
+    const tagName = e.tag?.tagtitle || '기타';
+    const color = e.tag?.color || '#ccc';
+    if (!tagMap[tagName]) {
+      tagMap[tagName] = { tag: tagName, color, amount: 0 };
+    }
+    tagMap[tagName].amount += e.amount;
+  });
+
+  const total = Object.values(tagMap).reduce((s, t) => s + t.amount, 0);
+
+  return Object.values(tagMap).map((t) => ({
     tag: t.tag,
-    color: TAG_COLORS[t.tag] || '#ccc',
+    color: t.color,
     percent: total ? Math.round((t.amount / total) * 100) : 0,
   }));
 });
@@ -83,7 +87,7 @@ const conicGradient = computed(() => {
   return `conic-gradient(${stops.join(', ')})`;
 });
 
-onMounted(fetchSummary);
+onMounted(fetchExpenses);
 </script>
 
 <style scoped>
@@ -93,7 +97,7 @@ onMounted(fetchSummary);
   justify-content: center;
   /* gap: 24px; */
   gap: 40px;
-  margin: 40px 0 20px;
+  margin: 10px 0 ;
 }
 
 .pie-chart {

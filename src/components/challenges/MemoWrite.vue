@@ -3,6 +3,7 @@
     <textarea
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
+      maxlength="100"
       placeholder="챌린지 다짐 메모를 입력해주세요."
     ></textarea>
   </div>

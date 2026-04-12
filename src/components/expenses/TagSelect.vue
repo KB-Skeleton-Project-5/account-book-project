@@ -1,7 +1,7 @@
 <template>
   <!-- 태그 선택 UI 영역 -->
   <div class="wrapper">
-    <label>🏷️ 태그</label>
+    <label>🏷️태그</label>
     <div class="tag-group">
       <button
         v-for="tag in tags"
@@ -22,7 +22,7 @@ import { onMounted, ref, watch } from 'vue';
 
 const tags = [
   { tagid: 'eat', tagtitle: '식비' },
-  { tagid: 'traffic', tagtitle: '교통비' },
+  { tagid: 'traffic', tagtitle: '교통' },
   { tagid: 'shopping', tagtitle: '쇼핑' },
   { tagid: 'etc', tagtitle: '기타' },
 ];

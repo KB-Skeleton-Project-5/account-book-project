@@ -38,15 +38,17 @@
 
         <footer class="low-button">
           <AppButton
+            v-if="!isPastChallenge"
             type="edit-delete"
             @edit="handleEdit"
             @delete="handleDelete"
           />
+          <AppButton v-else type="single" text="삭제" @click="handleDelete" />
         </footer>
       </div>
 
       <div v-else class="loading-state">
-        <p>정보를 불러오는 중입니다...</p>
+        <p>정보 불러오는 중</p>
       </div>
     </div>
 
@@ -97,19 +99,26 @@ const percentage = computed(() => {
   return (Number(challenge.value.currentAmount) / target) * 100;
 });
 
+const isPastChallenge = computed(() => {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+  const challengeYear = Number(challenge.value.year);
+  const challengeMonth = Number(challenge.value.month);
+
+  return (
+    challengeYear < currentYear ||
+    (challengeYear === currentYear && challengeMonth < currentMonth)
+  );
+});
+
 const challengeResult = computed(() => {
   const rawValue = Math.floor(percentage.value);
   const { type, currentAmount, targetAmount } = challenge.value;
   const current = Number(currentAmount);
   const target = Number(targetAmount);
 
-  const now = new Date();
-  const isPast =
-    Number(challenge.value.year) < now.getFullYear() ||
-    (Number(challenge.value.year) === now.getFullYear() &&
-      Number(challenge.value.month) < now.getMonth() + 1);
-
-  if (isPast) {
+  if (isPastChallenge.value) {
     if (type === '지출') return current < target ? '목표 달성!' : '목표 실패!';
     return current >= target ? '목표 달성!' : '목표 실패!';
   }
@@ -174,13 +183,15 @@ const getChallengeInfo = async () => {
 
     const calculatedAmount = myExpenses.reduce((totalSum, expense) => {
       if (!expense.type || !expense.tag) return totalSum;
+
       const expTypeTitle = expense.type.typetitle || expense.type;
-      const expTagTitle = expense.tag.tagtitle || expense.tag;
+      const expTagId = expense.tag.tagid || expense.tag;
+
       const isSameMonth =
         expense.date && expense.date.includes(targetYearMonth);
       const isSameType = expTypeTitle === challengeData.type;
       const isSameTag =
-        challengeData.tag === '전체' || expTagTitle === challengeData.tag;
+        challengeData.tag === 'all' || expTagId === challengeData.tag;
 
       return isSameMonth && isSameType && isSameTag
         ? totalSum + Number(expense.amount)
@@ -206,12 +217,17 @@ const handleHistory = () => {
   const { year, month, type, tag } = challenge.value;
   const lastDay = new Date(year, month, 0).getDate();
   const formattedMonth = String(month).padStart(2, '0');
+
   const queryParams = {
     startDate: `${year}-${formattedMonth}-01`,
     endDate: `${year}-${formattedMonth}-${String(lastDay).padStart(2, '0')}`,
     type: type,
   };
-  if (tag !== '전체') queryParams.tags = tag;
+
+  if (tag && tag !== 'all') {
+    queryParams.tags = tag;
+  }
+
   router.push({ name: 'expenses', query: queryParams });
 };
 

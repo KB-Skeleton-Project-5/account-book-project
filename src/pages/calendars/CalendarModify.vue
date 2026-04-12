@@ -5,17 +5,26 @@
     </template>
 
     <div class="calendar-form-page">
-      <div class="page-top-space"></div>
-
-      <CalendarForm v-if="form" :form="form" mode="input">
-
-      <div class="button-area">
-        <AppButton text="저장" @click="saveCalendar" />
+      <div class="form-wrapper">
+        <CalendarForm
+          v-if="form"
+          :form="form"
+          mode="input"
+          @update:form="(val) => (form = val)"
+        >
+          <div class="button-area">
+            <AppButton text="저장" @click="saveCalendar" />
+          </div>
+        </CalendarForm>
       </div>
-      </CalendarForm>
-
-      <div class="page-bottom-space"></div>
     </div>
+
+    <AlertModal
+      v-if="showAlertModal"
+      :message="alertMessage"
+      @confirm="showAlertModal = false"
+    />
+
     <template #footer>
       <AppFooter />
     </template>
@@ -31,11 +40,14 @@ import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
+import AlertModal from '@/components/commons/AlertModal.vue';
 
 const route = useRoute();
 const router = useRouter();
 
 const form = ref(null);
+const showAlertModal = ref(false);
+const alertMessage = ref('');
 
 const fetchCalendar = async () => {
   try {
@@ -48,29 +60,43 @@ const fetchCalendar = async () => {
 };
 
 const saveCalendar = async () => {
+  if (!form.value.title) {
+    alertMessage.value = '제목을 입력해주세요.';
+    showAlertModal.value = true;
+    return;
+  }
+  if (!form.value.date) {
+    alertMessage.value = '날짜를 선택해주세요.';
+    showAlertModal.value = true;
+    return;
+  }
   try {
-    await axios.put(`/api/calendars/${route.params.id}`,form.value,)
+    await axios.put(`/api/calendars/${route.params.id}`, form.value);
     console.log('수정 성공');
-    
-    router.push({name: 'calendars' });
 
+    router.push({ name: 'calendars' });
   } catch (error) {
-    console.log('수정실패:',error);
+    console.log('수정실패:', error);
   }
 };
 
 onMounted(() => {
   fetchCalendar();
 });
-
 </script>
 
 <style scoped>
 .calendar-form-page {
-  padding: 0 18px 22px;
-  background-color: #f3f3f3;
+  padding: 20px 0;
+  background-color: white;
   box-sizing: border-box;
   min-height: 100%;
+}
+
+.form-wrapper {
+  width: calc(100% - 64px);
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .button-area {
@@ -79,11 +105,5 @@ onMounted(() => {
   margin-top: 16px;
 }
 
-.page-top-space {
-  height: 56px;
-}
 
-.page-bottom-space {
-  height: 60px;
-}
 </style>

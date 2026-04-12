@@ -10,7 +10,7 @@
         <AppButton text="추가" type="single" @click="handleAdd" />
       </header>
 
-      <div class="card-list">
+      <div v-if="filteredChallenges.length > 0" class="card-list">
         <router-link
           v-for="item in filteredChallenges"
           :key="item.id"
@@ -19,6 +19,14 @@
         >
           <ChallengeCard :challenge="item" />
         </router-link>
+      </div>
+
+      <div v-else class="empty-state">
+        <div class="empty-icon">!</div>
+        <p class="empty-text">이번 달 등록된 챌린지가 없습니다.</p>
+        <button class="empty-btn" @click="handleAdd">
+          새로운 챌린지 도전하기
+        </button>
       </div>
     </div>
 
@@ -74,13 +82,13 @@ const getChallenges = async () => {
           if (!expense.type || !expense.tag) return totalSum;
 
           const expTypeTitle = expense.type.typetitle || expense.type;
-          const expTagTitle = expense.tag.tagtitle || expense.tag;
+          const expTagId = expense.tag.tagid || expense.tag;
 
           const isSameMonth =
             expense.date && expense.date.includes(targetYearMonth);
           const isSameType = expTypeTitle === challenge.type;
           const isSameTag =
-            challenge.tag === '전체' || expTagTitle === challenge.tag;
+            challenge.tag === 'all' || expTagId === challenge.tag;
 
           return isSameMonth && isSameType && isSameTag
             ? totalSum + Number(expense.amount)
@@ -166,5 +174,57 @@ onMounted(getChallenges);
 
 .card-link:active {
   transform: scale(0.98);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.empty-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.empty-btn {
+  padding: 12px 24px;
+  background-color: #ffcc00;
+  color: #1e293b;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
+}
+
+.empty-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 204, 0, 0.3);
+}
+
+.empty-btn:active {
+  transform: translateY(0);
 }
 </style>
