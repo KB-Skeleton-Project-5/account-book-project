@@ -28,7 +28,7 @@ defineProps({
 
 <style scoped>
 .calendar-item {
-  background-color: #f8eac5;
+  background-color: #fbeab9a7;
   border-radius: 16px;
   padding: 10px 18px;
   display: flex;
