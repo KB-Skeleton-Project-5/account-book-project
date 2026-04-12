@@ -4,7 +4,7 @@
     >
       <div class="calendar-item">
         <div class="calendar-title">{{ title }}</div>
-        <div class="calendar-time" v-if="time">{{ time }}</div>
+        <div class="calendar-time" v-if="time">{{ formatTime(time) }}</div>
       </div>
   </router-link>
 </template>
@@ -24,6 +24,16 @@ defineProps({
      required: true,
   },
 });
+
+const formatTime = (time) => {
+  if (!time) return '';
+  const [hour, minute] = time.split(':');
+  const h = parseInt(hour);
+  const ampm = h < 12 ? '오전' : '오후';
+  const displayHour = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return `${ampm} ${String(displayHour).padStart(2, '0')}:${minute}`;
+};
+
 </script>
 
 <style scoped>

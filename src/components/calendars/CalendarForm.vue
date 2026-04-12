@@ -21,10 +21,11 @@
     </div>
 
     <div class="wrapper">
-      <div class="label-row">
-        <label>시간</label>
+      <label>시간</label>
+      <div v-if="mode === 'input'" class="time-input-wrapper">
+        <input type="time" v-model="form.time" />
         <button
-          v-if="form.time && mode === 'input'"
+          v-if="form.time"
           type="button"
           class="clear-btn"
           @click="clearTime"
@@ -33,12 +34,8 @@
         </button>
       </div>
 
-      <div v-if="mode === 'input'" class="input-with-clear">
-        <input type="time" v-model="form.time" />
-      </div>
-
       <div v-else class="value-box">
-        {{ form.time }}
+        {{ formatTime(form.time) }}
       </div>
     </div>
 
@@ -46,25 +43,28 @@
       <label>입출금내역</label>
 
       <div v-if="mode === 'input'" class="amount-input-wrapper">
-        <input 
-          type="number" 
-          v-model="form.expenseId" 
-          placeholder="금액을 입력해주세요."
-          @input="preventInvalidInput"
+        <input
+          type="number"
+          v-model="form.expense_id"
+          placeholder="금액을 입력하세요"
         />
         <span class="unit">원</span>
       </div>
       <div v-else class="value-box">
-        {{ form.expenseId }}
+        {{
+          form.expense_id ? Number(form.expense_id).toLocaleString() + '원' : ''
+        }}
       </div>
     </div>
 
     <div class="wrapper">
       <label>메모</label>
 
-      <textarea v-if="mode === 'input'" 
-      v-model="form.memo" 
-      placeholder="일정 메모를 입력해주세요."></textarea>
+      <textarea
+        v-if="mode === 'input'"
+        v-model="form.memo"
+        placeholder="일정 메모를 입력해주세요."
+      ></textarea>
 
       <div v-else class="value-box textarea-value">
         {{ form.memo }}
@@ -99,17 +99,16 @@ const clearTime = () => {
 
 };
 
-const preventInvalidInput = (e) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-    /* replace(/[^0-9]/g, '') 
-        - 정규식(regex)으로 값 필터링
-        - [^0-9] : 0~9 숫자가 아닌 모든 문자를 의미
-        - g : 해당되는 것을 전부 다 찾아서 바꾸겠다는 옵션
-        - '' : 찾은 것들을 빈 문자열로 교체 (ex. "abc12한글" -> "12")
-    */
-    // 필터링 된 값을 부모에 전달
-    emit('submit-amount', Number(e.target.value));
+
+const formatTime = (time) => {
+  if (!time) return '';
+  const [hour, minute] = time.split(':');
+  const h = parseInt(hour);
+  const ampm = h < 12 ? '오전' : '오후';
+  const displayHour = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return `${ampm} ${String(displayHour).padStart(2, '0')}:${minute}`;
 };
+
 </script>
 
 <style scoped>
@@ -131,20 +130,24 @@ const preventInvalidInput = (e) => {
 }
 
 .wrapper label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
 }
 
-.label-row {
+.time-input-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+}
+.time-input-wrapper input {
+  flex: 1;
+  width: 0;
 }
 
 .label-row label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
@@ -157,11 +160,10 @@ const preventInvalidInput = (e) => {
   font-size: 13px;
   color: #888;
   padding: 0;
-  margin-right: 11px; /* input 오른쪽 끝이랑 맞게 조절 */
 }
 
 .wrapper input,
- .wrapper textarea {
+.wrapper textarea {
   width: 100%;
   height: auto;
   background-color: #f8fafc;

@@ -37,6 +37,7 @@ import axios from 'axios';
 import AppButton from '@/components/commons/AppButton.vue';
 import CalendarForm from '@/components/calendars/CalendarForm.vue';
 import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
+import AlertModal from '@/components/commons/AlertModal.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AppHeader from '@/layouts/AppHeader.vue';
 import AppFooter from '@/layouts/AppFooter.vue';
@@ -46,6 +47,8 @@ const route = useRoute();
 
 const form = ref(null);
 const showDeleteModal = ref(false);
+const showAlertModal = ref(false); 
+const alertMessage = ref('');
 
 const handleEdit = () => {
   router.push({ name: 'calendars/modify', params: { id: route.params.id } });
@@ -58,22 +61,21 @@ const handleDelete = () => {
 const confirmDelete = async () => {
   try {
     await axios.delete(`/api/calendars/${route.params.id}`);
-    console.log('삭제 완료');
     router.push({ name: 'calendars' });
   } catch (error) {
-    console.log('삭제 실패', error);
+     alertMessage.value = '삭제에 실패했습니다.';
+     showAlertModal.value = true;
   }
 };
 
 const fetchCalendar = async () => {
   try {
     const res = await axios.get(`/api/calendars/${route.params.id}`);
-
     form.value = res.data;
 
-    console.log(form.value);
   } catch (error) {
-    console.log(error);
+     alertMessage.value = '데이터를 불러오는데 실패했습니다.';
+     showAlertModal.value = true;
   }
 };
 onMounted(() => {
