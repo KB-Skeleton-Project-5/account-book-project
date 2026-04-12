@@ -226,9 +226,10 @@ async function handleDelete() {
   justify-content: center;
   z-index: 100;
 }
-.modal {
-  background: #fff;
-  border-radius: 12px;
+.delete-modal {
+  background: #fff5f5;           /* 연한 붉은 배경 */
+  border-radius: 16px;
+  border: 2px solid #e57373;     /* 명확한 빨간 테두리 */
   padding: 28px 24px;
   width: 80%;
   max-width: 320px;
@@ -236,13 +237,13 @@ async function handleDelete() {
 .modal-title {
   font-size: 1rem;
   font-weight: 700;
-  color: #545045;
+  color: #c62828;                /* 진한 빨간 제목 */
   text-align: center;
   margin-bottom: 8px;
 }
 .modal-sub {
   font-size: 0.85rem;
-  color: #9e9e9e;
+  color: #c71a1a;                /* 빨간 계열 서브텍스트 */
   text-align: center;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -268,17 +269,17 @@ async function handleDelete() {
 .modal-confirm {
   flex: 1;
   height: 42px;
-  background: #fff;
-  border: 1px solid #e57373;
+  background: #e57373;           /* 탈퇴 버튼과 같은 색 배경 */
+  border: 2px solid #c62828;     /* 진한 빨간 테두리 */
   border-radius: 8px;
   font-size: 0.9rem;
-  color: #e57373;
+  color: #fff;                   /* 흰 글씨 */
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
 }
 .modal-confirm:hover {
-  background-color: #fff5f5;
+  background-color: #c62828;
 }
 </style>
 

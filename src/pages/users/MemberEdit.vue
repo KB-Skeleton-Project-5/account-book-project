@@ -126,7 +126,8 @@ onMounted(async () => {
     originalData.value = {
       name: user.name,
       nick: user.nick,
-      email: user.email
+      email: user.email,
+      pw: user.pw
     }
   }
 })
@@ -170,7 +171,8 @@ async function handleSave() {
     form.name === originalData.value.name &&
     form.nick === originalData.value.nick &&
     form.email === originalData.value.email &&
-    (!pwEnabled.value || !form.newPw)  // pwEnabled가 false거나 비밀번호 없으면
+    // (!pwEnabled.value || !form.newPw)  // pwEnabled가 false거나 비밀번호 없으면
+    (!pwEnabled.value || !form.newPw || form.newPw === originalData.value.pw)
   ) {
     showAlert('알림', '이미 회원정보와 동일합니다')
     return

@@ -79,8 +79,7 @@ const updateUserProcess = async (id, form, successCallback, failCallback) => {
 
 const deleteUserProcess = async (id, login_id, successCallback, failCallback) => {
   try {
-    // 1. 유저 삭제
-    await axios.delete(`${USERS_URI}/${id}`)
+    
 
     // 2. 관련 데이터 직접 삭제 (login_id 기준)
     const expenseRes = await axios.get(`/api/expenses?user_id=${id}`)
@@ -93,10 +92,10 @@ const deleteUserProcess = async (id, login_id, successCallback, failCallback) =>
       await axios.delete(`/api/calendars/${item.id}`)
     }
 
-    const summaryRes = await axios.get(`/api/summary?user_id=${id}`)
-    for (const item of summaryRes.data) {
-      await axios.delete(`/api/summary/${item.id}`)
-    }
+    // const summaryRes = await axios.get(`/api/summaries?user_id=${id}`)
+    // for (const item of summaryRes.data) {
+    //   await axios.delete(`/api/summaries/${item.id}`)
+    // }
 
     const challengeRes = await axios.get(`/api/challenges?user_id=${id}`)
     for (const item of challengeRes.data) {
@@ -106,6 +105,8 @@ const deleteUserProcess = async (id, login_id, successCallback, failCallback) =>
     for (const item of tagRes.data) {
       await axios.delete(`/api/tags/${item.id}`)
     }
+    // 1. 유저 삭제
+    await axios.delete(`${USERS_URI}/${id}`)
 
     successCallback()
   } catch (error) {

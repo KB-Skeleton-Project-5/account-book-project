@@ -23,6 +23,30 @@
       "login_id": "co",
       "pw": "5678",
       "id": "zw5vrr1"
+    },
+    {
+      "name": "qqq",
+      "nick": "123",
+      "email": "123@naver.com",
+      "login_id": "123",
+      "pw": "123",
+      "id": "9awv0kx"
+    },
+    {
+      "name": "콩콩이",
+      "nick": "콩순이",
+      "email": "cong@naver.com",
+      "login_id": "cong",
+      "pw": "cong",
+      "id": "356qkon"
+    },
+    {
+      "name": "로지텍",
+      "nick": "마우스",
+      "email": "logitech@apple.com",
+      "login_id": "logic",
+      "pw": "7777",
+      "id": "x7jiqv9"
     }
   ],
   "expenses": [
@@ -475,6 +499,28 @@
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "4월 배당"
+    },
+    {
+      "amount": 1234,
+      "date": "2026-04-12",
+      "title": "기름값",
+      "memo": "고급 휘발유",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "tagid": "유류비_1775971772684",
+        "tagtitle": "유류비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출",
+        "id": "BqQUzxx"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "108kww2",
+      "id": "8uo8uBG"
     }
   ],
   "calendars": [
@@ -572,6 +618,42 @@
       "user_id": "108kww2",
       "memo": "",
       "id": "4"
+    },
+    {
+      "id": "5",
+      "title": "식비 절약",
+      "tag": "eat",
+      "targetAmount": 50000,
+      "type": "지출",
+      "currentAmount": 12345,
+      "year": 2026,
+      "month": 4,
+      "user_id": "wxc0kn4",
+      "memo": ""
+    },
+    {
+      "id": "6",
+      "title": "ai 값 아끼기",
+      "tag": "eat",
+      "targetAmount": 111111110000,
+      "type": "지출",
+      "currentAmount": 111111,
+      "year": 2026,
+      "month": 4,
+      "user_id": "9awv0kx",
+      "memo": ""
+    },
+    {
+      "id": "7",
+      "title": "식비 절약",
+      "tag": "eat",
+      "targetAmount": 200000,
+      "type": "지출",
+      "currentAmount": 123123,
+      "year": 2026,
+      "month": 4,
+      "user_id": "356qkon",
+      "memo": ""
     }
   ],
   "tags": [
@@ -634,6 +716,14 @@
       "textColor": "#B8860B",
       "type": "수입",
       "user_id": "108kww2"
+    },
+    {
+      "tagid": "유류비_1775971772684",
+      "tagtitle": "유류비",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "지출",
+      "id": "BqQUzxx"
     }
   ]
 }
