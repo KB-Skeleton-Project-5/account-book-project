@@ -1,6 +1,6 @@
 <template>
   <div class="challenge-setup">
-    <p>목표 제목</p>
+    <p>챌린지 제목</p>
     <input
       type="text"
       v-model="form.title"
