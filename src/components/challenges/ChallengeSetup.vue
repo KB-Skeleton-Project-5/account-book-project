@@ -28,7 +28,7 @@
       <span class="suffix-label">에서</span>
     </div>
 
-    <p>목표 금액</p>
+    <p>챌린지 금액</p>
     <div class="amount-container">
       <input
         type="number"
