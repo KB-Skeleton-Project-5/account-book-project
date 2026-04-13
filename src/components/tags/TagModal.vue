@@ -13,17 +13,17 @@
         <div class="type-row">
           <button
             class="type-btn"
-            :class="{ active: selectedType === '지출' }"
-            @click="selectedType = '지출'"
-          >
-            지출
-          </button>
-          <button
-            class="type-btn"
             :class="{ active: selectedType === '수입' }"
             @click="selectedType = '수입'"
           >
             수입
+          </button>
+          <button
+            class="type-btn"
+            :class="{ active: selectedType === '지출' }"
+            @click="selectedType = '지출'"
+          >
+            지출
           </button>
         </div>
 
@@ -141,11 +141,18 @@ import { getUserInfo } from '@/util/authUtil';
 const emit = defineEmits(['close', 'updated']);
 const userInfo = getUserInfo();
 
+const props = defineProps({
+  initialType: {
+    type: String,
+    default: '지출',
+  },
+});
+
 const tags = ref([]);
 const newTagTitle = ref('');
 const showDeleteConfirm = ref(false);
 const targetTag = ref(null);
-const selectedType = ref('지출'); // 기본값 지출
+const selectedType = ref(props.initialType);
 
 const expenseTags = computed(() => tags.value.filter((t) => t.type === '지출'));
 const incomeTags = computed(() => tags.value.filter((t) => t.type === '수입'));
