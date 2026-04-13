@@ -1,6 +1,11 @@
 <template>
   <section class="recent-section">
-    <h2 class="section-title">최근 내역</h2>
+    <div class="section-header">
+      <h2 class="section-title">📑 최근 내역</h2>
+      <button class="more-btn" @click="router.push({ name: 'expenses' })">
+        + 더보기
+      </button>
+    </div>
     <div class="recent-card">
       <!-- 탭 row -->
       <div class="tab-row">
@@ -175,11 +180,28 @@ const rightGrouped = computed(() => groupByDate(rightList.value));
 </script>
 
 <style scoped>
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.more-btn {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  color: #9e9e9e;
+  cursor: pointer;
+  padding: 0;
+}
+.more-btn:hover {
+  color: #545045;
+}
 .section-title {
   font-size: 0.95rem;
   font-weight: 700;
   color: #545045;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 .recent-card {
   border: 1px solid #e0e0e0;
