@@ -725,6 +725,42 @@
       "expenseId": "",
       "memo": "",
       "id": "vbjnbOb"
+    },
+    {
+      "user_id": "108kww2",
+      "title": "모듈평가",
+      "date": "2026-04-13",
+      "time": "15:00",
+      "expense_id": "",
+      "memo": "",
+      "id": "rdKfya8"
+    },
+    {
+      "user_id": "z2cholm",
+      "title": "오늘은 스켈레톤 마지막!!",
+      "date": "2026-04-13",
+      "time": "09:10",
+      "expense_id": "",
+      "memo": "드디어 끝이다~~",
+      "id": "NnH0ccO"
+    },
+    {
+      "user_id": "z2cholm",
+      "title": "모듈평가",
+      "date": "2026-04-14",
+      "time": "15:00",
+      "expense_id": "",
+      "memo": "엄청 어렵대..",
+      "id": "fJr15Te"
+    },
+    {
+      "user_id": "z2cholm",
+      "title": "점심약속",
+      "date": "2026-04-01",
+      "time": "13:30",
+      "expense_id": -20000,
+      "memo": "꾸밈 3단계",
+      "id": "tOl59XV"
     }
   ],
   "challenges": [
