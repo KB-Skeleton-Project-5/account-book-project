@@ -28,6 +28,7 @@
   <!-- 태그 관리 모달 -->
   <TagModal
     v-if="showTagModal"
+    :initialType="props.type"
     @close="showTagModal = false"
     @updated="fetchTags"
   />
@@ -85,10 +86,16 @@ watch(
   { immediate: true },
 );
 
-// type 바뀌면 선택된 태그 초기화
+// type 바뀌면 선택된 태그 초기화 (readonly거나 초기 로드 시엔 초기화 안 함)
+let isInitialized = false;
 watch(
   () => props.type,
   () => {
+    if (props.readonly) return;
+    if (!isInitialized) {
+      isInitialized = true;
+      return;
+    }
     selected.value = {};
     emit('submit-tag', {});
   },
