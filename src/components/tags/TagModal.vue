@@ -136,8 +136,10 @@
 import { ref, onMounted, computed } from 'vue';
 import DeleteConfirm from '@/components/commons/DeleteConfirm.vue';
 import { getTags, createTag, deleteTag } from '@/api/tags';
+import { getUserInfo } from '@/util/authUtil';
 
 const emit = defineEmits(['close', 'updated']);
+const userInfo = getUserInfo();
 
 const tags = ref([]);
 const newTagTitle = ref('');
@@ -156,7 +158,7 @@ const colorPresets = [
   { color: '#E8D6FF', textColor: '#9B59B6' },
   { color: '#FFE5D6', textColor: '#E67E22' },
   { color: '#D6F0F0', textColor: '#17A589' },
-  { color: '#F0F0F0', textColor: '#7F8C8D' },
+  { color: '#BDBDBD', textColor: '#424242' },
 ];
 const selectedPreset = ref(colorPresets[0]);
 
@@ -185,6 +187,7 @@ const handleCreate = async () => {
       color: selectedPreset.value.color,
       textColor: selectedPreset.value.textColor,
       type: selectedType.value,
+      user_id: userInfo?.id,
     });
     newTagTitle.value = '';
     selectedPreset.value = colorPresets[0];

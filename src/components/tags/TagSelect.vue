@@ -37,11 +37,13 @@
 import { ref, watch, onMounted, computed } from 'vue';
 import { getTags } from '@/api/tags';
 import TagModal from '@/components/tags/TagModal.vue';
+import { getUserInfo } from '@/util/authUtil';
 
 const tags = ref([]);
 const selected = ref({});
 const showTagModal = ref(false);
 const emit = defineEmits(['submit-tag']);
+const userInfo = getUserInfo();
 
 const props = defineProps({
   value: [Object],
@@ -62,7 +64,10 @@ const filteredTags = computed(() => {
 const fetchTags = async () => {
   try {
     const res = await getTags();
-    tags.value = res.data;
+    // 기본 태그(user_id 없음) + 내 태그(user_id === 나)만 표시
+    tags.value = res.data.filter(
+      (t) => !t.user_id || t.user_id === userInfo?.id,
+    );
   } catch (e) {
     console.error('태그 불러오기 실패:', e);
   }

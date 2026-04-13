@@ -137,6 +137,9 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import AppButton from '@/components/commons/AppButton.vue';
 import { getTags } from '@/api/tags';
+import { getUserInfo } from '@/util/authUtil';
+
+const userInfo = getUserInfo();
 
 const emit = defineEmits(['search']);
 const route = useRoute();
@@ -145,15 +148,6 @@ const searchText = ref('');
 const showFilter = ref(false);
 const selectedTags = ref([]);
 const tags = ref([]);
-
-onMounted(async () => {
-  try {
-    const res = await getTags();
-    tags.value = res.data;
-  } catch (e) {
-    console.error('태그 불러오기 실패:', e);
-  }
-});
 
 // 지출 태그만
 const expenseTags = computed(() => tags.value.filter((t) => t.type === '지출'));
@@ -200,7 +194,18 @@ const handleSearch = () => {
   });
 };
 
-onMounted(() => {
+onMounted(async () => {
+  // 태그 로드
+  try {
+    const res = await getTags();
+    tags.value = res.data.filter(
+      (t) => !t.user_id || t.user_id === userInfo?.id
+    );
+  } catch (e) {
+    console.error('태그 불러오기 실패:', e);
+  }
+
+  // URL 쿼리 반영
   if (
     route.query.startDate ||
     route.query.endDate ||
@@ -214,7 +219,6 @@ onMounted(() => {
         ? route.query.tags
         : [route.query.tags];
     }
-
     handleSearch();
   }
 });
