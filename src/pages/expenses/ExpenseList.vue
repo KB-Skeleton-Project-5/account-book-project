@@ -87,6 +87,7 @@ const userInfo = getUserInfo();
 const expenses = ref([]);
 const activeTab = ref('전체');
 const currentuser_id = userInfo?.id;
+const allTags = ref([]);
 
 const searchFilters = ref({
   searchText: '',
@@ -98,12 +99,25 @@ const searchFilters = ref({
   maxAmount: '',
 });
 
-// 태그 스타일 계산
+// 태그 목록 로드 (기본 태그 + 내 태그)
+const fetchTags = async () => {
+  try {
+    const res = await axios.get('/api/tags');
+    allTags.value = res.data.filter(
+      (t) => !t.user_id || t.user_id === currentuser_id,
+    );
+  } catch (e) {
+    console.error('태그 불러오기 실패:', e);
+  }
+};
+
+// 태그 스타일 계산 (allTags에서 color 매핑)
 const getTagStyle = (tag) => {
   if (!tag) return { backgroundColor: '#f0f0f0', color: '#9e9e9e' };
+  const found = allTags.value.find((t) => t.tagid === tag.tagid);
   return {
-    backgroundColor: tag.color,
-    color: tag.textColor,
+    backgroundColor: found?.color || tag.color || '#f0f0f0',
+    color: found?.textColor || tag.textColor || '#9e9e9e',
   };
 };
 
@@ -141,7 +155,7 @@ const fetchExpenses = async (
   tab = activeTab.value,
 ) => {
   // 목록 에러 이슈로 확인차 찍음.
-  // console.log('userInfo:', userInfo); 
+  // console.log('userInfo:', userInfo);
   // console.log('currentuser_id:', currentuser_id);
   if (!userInfo || !userInfo.authenticated) {
     alert('로그인이 필요한 서비스입니다.');
@@ -183,13 +197,14 @@ onMounted(() => {
     searchFilters.value.tags = Array.isArray(q.tags) ? q.tags : [q.tags];
   if (q.type) activeTab.value = q.type;
 
+  fetchTags();
   fetchExpenses();
 });
 
 // 필터링 및 그룹화
 const filteredExpenses = computed(() => {
   return expenses.value.filter((e) => {
-    if ((e.user_id) !== currentuser_id) return false;
+    if (e.user_id !== currentuser_id) return false;
 
     // 태그 필터링 (JSON 서버에서 처리하기 까다로운 다중 선택 필터)
     if (searchFilters.value.tags.length > 0) {

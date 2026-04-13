@@ -985,10 +985,10 @@
       "tag": "all",
       "targetAmount": 1000000,
       "type": "지출",
-      "currentAmount": 79000,
+      "currentAmount": 101000,
       "year": 2026,
       "month": 3,
-      "user_id": "108kww2",
+      "user_id": "z2cholm",
       "memo": "",
       "id": "1"
     },
@@ -997,10 +997,10 @@
       "tag": "eat",
       "targetAmount": 200000,
       "type": "지출",
-      "currentAmount": 67000,
+      "currentAmount": 12000,
       "year": 2026,
       "month": 3,
-      "user_id": "108kww2",
+      "user_id": "z2cholm",
       "memo": "",
       "id": "2"
     },
@@ -1084,8 +1084,7 @@
       "tagtitle": "의료",
       "color": "#E8D6FF",
       "textColor": "#9B59B6",
-      "type": "지출",
-      "user_id": "zw5vrr1"
+      "type": "지출"
     },
     {
       "id": "5",
@@ -1093,8 +1092,7 @@
       "tagtitle": "급여",
       "color": "#D6EAFF",
       "textColor": "#5B9BD5",
-      "type": "수입",
-      "user_id": "108kww2"
+      "type": "수입"
     },
     {
       "id": "6",
@@ -1102,8 +1100,7 @@
       "tagtitle": "금융",
       "color": "#D6F0F0",
       "textColor": "#17A589",
-      "type": "수입",
-      "user_id": "zw5vrr1"
+      "type": "수입"
     },
     {
       "id": "7",
@@ -1111,32 +1108,23 @@
       "tagtitle": "부수입",
       "color": "#FFF3C4",
       "textColor": "#B8860B",
-      "type": "수입",
-      "user_id": "108kww2"
+      "type": "수입"
     },
     {
-      "tagid": "간식_1775972574263",
-      "tagtitle": "간식",
-      "color": "#D6F0F0",
-      "textColor": "#17A589",
-      "type": "지출",
-      "id": "LiYUA2b"
-    },
-    {
-      "tagid": "투자_1775972738668",
+      "id": "8",
+      "tagid": "invest",
       "tagtitle": "투자",
       "color": "#FFD6D6",
       "textColor": "#E57373",
-      "type": "수입",
-      "id": "k96EFEa"
+      "type": "수입"
     },
     {
-      "tagid": "기타_1775973780586",
+      "id": "9",
+      "tagid": "etc",
       "tagtitle": "기타",
-      "color": "#F0F0F0",
-      "textColor": "#7F8C8D",
-      "type": "수입",
-      "id": "mhCB_1S"
+      "color": "#BDBDBD",
+      "textColor": "#424242",
+      "type": "수입"
     }
   ]
 }
