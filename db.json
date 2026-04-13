@@ -1187,5 +1187,78 @@
       "id": "6"
     }
   ],
-  "tags": []
+  "tags": [
+    {
+      "id": "1",
+      "tagid": "eat",
+      "tagtitle": "식비",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "지출"
+    },
+    {
+      "id": "2",
+      "tagid": "traffic",
+      "tagtitle": "교통",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "지출"
+    },
+    {
+      "id": "3",
+      "tagid": "shopping",
+      "tagtitle": "쇼핑",
+      "color": "#D6F0E0",
+      "textColor": "#66A882",
+      "type": "지출"
+    },
+    {
+      "id": "4",
+      "tagid": "medical",
+      "tagtitle": "의료",
+      "color": "#E8D6FF",
+      "textColor": "#9B59B6",
+      "type": "지출"
+    },
+    {
+      "id": "5",
+      "tagid": "salary",
+      "tagtitle": "급여",
+      "color": "#D6EAFF",
+      "textColor": "#5B9BD5",
+      "type": "수입"
+    },
+    {
+      "id": "6",
+      "tagid": "finance",
+      "tagtitle": "금융",
+      "color": "#D6F0F0",
+      "textColor": "#17A589",
+      "type": "수입"
+    },
+    {
+      "id": "7",
+      "tagid": "sideJob",
+      "tagtitle": "부수입",
+      "color": "#FFF3C4",
+      "textColor": "#B8860B",
+      "type": "수입"
+    },
+    {
+      "id": "8",
+      "tagid": "invest",
+      "tagtitle": "투자",
+      "color": "#FFD6D6",
+      "textColor": "#E57373",
+      "type": "수입"
+    },
+    {
+      "id": "9",
+      "tagid": "etc",
+      "tagtitle": "기타",
+      "color": "#BDBDBD",
+      "textColor": "#424242",
+      "type": "수입"
+    }
+  ]
 }
