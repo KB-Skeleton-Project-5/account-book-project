@@ -20,7 +20,7 @@
       <!-- 이번달 / 저번달 집계 카드 (클릭 시 월별 요약으로 이동) -->
       <div
         style="margin-bottom: 20px; cursor: pointer"
-        @click="router.push({ name: 'summaries' })"
+        @click="router.push({ name: 'summary' })"
       >
         <MainSummaryCards />
       </div>

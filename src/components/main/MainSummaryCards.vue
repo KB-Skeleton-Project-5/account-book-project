@@ -1,5 +1,9 @@
 <template>
-  <section class="summary-section">
+  <section
+    class="summary-section"
+    @click="router.push({ name: 'summary' })"
+    style="cursor: pointer"
+  >
     <!-- 전월 대비 차액/퍼센트 -->
     <div class="comparison-header">
       <span class="comparison-label">전월 대비</span>
@@ -40,8 +44,11 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { getUserInfo } from '@/util/authUtil';
+
+const router = useRouter();
 
 const expenseList = ref([]);
 
