@@ -591,8 +591,12 @@
       },
       "amount": 5000,
       "tag": {
+        "id": "1",
         "tagid": "eat",
-        "tagtitle": "식비"
+        "tagtitle": "식비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출"
       },
       "paymentMethod": "현금",
       "isFixed": false,
@@ -975,6 +979,28 @@
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "장보기"
+    },
+    {
+      "amount": 150000,
+      "date": "2026-04-13",
+      "title": "하이디라오",
+      "memo": "훠궈",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "id": "1",
+        "tagid": "eat",
+        "tagtitle": "식비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "z2cholm",
+      "id": "ny8LT-r"
     }
   ],
   "calendars": [
