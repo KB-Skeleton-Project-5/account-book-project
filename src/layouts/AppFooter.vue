@@ -28,7 +28,7 @@
         <line x1="7" y1="9" x2="17" y2="9" />
         <line x1="7" y1="13" x2="13" y2="13" />
       </svg>
-      <span>지출</span>
+      <span>거래내역</span>
     </router-link>
 
     <router-link :to="{ name: 'expenses/add' }" class="nav-item nav-add">
