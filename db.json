@@ -77,24 +77,6 @@
       "memo": "아침식사"
     },
     {
-      "id": "2",
-      "user_id": "108kww2",
-      "date": "2026-02-05",
-      "title": "월급",
-      "type": {
-        "typeid": "deposit",
-        "typetitle": "수입"
-      },
-      "amount": 2500000,
-      "tag": {
-        "tagid": "salary",
-        "tagtitle": "급여"
-      },
-      "paymentMethod": "카드",
-      "isFixed": true,
-      "memo": "2월 월급"
-    },
-    {
       "id": "3",
       "user_id": "zw5vrr1",
       "date": "2026-02-07",
@@ -249,8 +231,12 @@
       },
       "amount": 2500000,
       "tag": {
+        "id": "5",
         "tagid": "salary",
-        "tagtitle": "급여"
+        "tagtitle": "급여",
+        "color": "#D6EAFF",
+        "textColor": "#5B9BD5",
+        "type": "수입"
       },
       "paymentMethod": "카드",
       "isFixed": true,
@@ -1001,6 +987,28 @@
       },
       "user_id": "z2cholm",
       "id": "ny8LT-r"
+    },
+    {
+      "amount": 23000,
+      "date": "2026-04-13",
+      "title": "asdf",
+      "memo": "asdf",
+      "paymentMethod": "현금",
+      "isFixed": false,
+      "tag": {
+        "id": "7",
+        "tagid": "sideJob",
+        "tagtitle": "부수입",
+        "color": "#FFF3C4",
+        "textColor": "#B8860B",
+        "type": "수입"
+      },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
+      "user_id": "108kww2",
+      "id": "XDR7Pj0"
     }
   ],
   "calendars": [
