@@ -13,7 +13,7 @@
       "nick": "커피",
       "email": "MM@email.com",
       "login_id": "mm",
-      "pw": "1234",
+      "pw": "3456",
       "id": "z2cholm"
     },
     {
@@ -55,14 +55,6 @@
       "login_id": "aa",
       "pw": "111",
       "id": "tjgqgz4"
-    },
-    {
-      "name": "박상호",
-      "nick": "박상호",
-      "email": "interact@naver.com",
-      "login_id": "ttt",
-      "pw": "1234",
-      "id": "86vs6a8"
     }
   ],
   "expenses": [
@@ -661,27 +653,26 @@
       "memo": "디자인 외주"
     },
     {
-      "amount": 300000,
+      "amount": 150000,
       "date": "2026-04-13",
-      "title": "지금은 시연중",
-      "memo": "시연중입니다",
-      "paymentMethod": "카드",
-      "isFixed": true,
+      "title": "하이디라오",
+      "memo": "훠궈",
+      "paymentMethod": "현금",
+      "isFixed": false,
       "tag": {
-        "tagid": "시연_1776041967774",
-        "tagtitle": "시연",
+        "id": "1",
+        "tagid": "eat",
+        "tagtitle": "식비",
         "color": "#FFD6D6",
         "textColor": "#E57373",
-        "type": "지출",
-        "user_id": "z2cholm",
-        "id": "xd3bmt0"
+        "type": "지출"
       },
       "type": {
         "typeid": "withdrawal",
         "typetitle": "지출"
       },
       "user_id": "z2cholm",
-      "id": "y4hiH2D"
+      "id": "PZeCeAS"
     }
   ],
   "calendars": [
@@ -756,15 +747,6 @@
       "expenseId": "",
       "memo": "",
       "id": "vbjnbOb"
-    },
-    {
-      "user_id": "z2cholm",
-      "title": "지금은 시연중",
-      "date": "2026-04-02",
-      "time": "",
-      "expense_id": 20000,
-      "memo": "시연중",
-      "id": "dgbpRYu"
     }
   ],
   "challenges": [
@@ -773,10 +755,10 @@
       "tag": "all",
       "targetAmount": 1000000,
       "type": "지출",
-      "currentAmount": 79000,
+      "currentAmount": 101000,
       "year": 2026,
       "month": 3,
-      "user_id": "108kww2",
+      "user_id": "z2cholm",
       "memo": "",
       "id": "1"
     },
@@ -785,10 +767,10 @@
       "tag": "eat",
       "targetAmount": 200000,
       "type": "지출",
-      "currentAmount": 67000,
+      "currentAmount": 12000,
       "year": 2026,
       "month": 3,
-      "user_id": "108kww2",
+      "user_id": "z2cholm",
       "memo": "",
       "id": "2"
     },
@@ -839,18 +821,6 @@
       "month": 4,
       "user_id": "dh9hr80",
       "id": "6"
-    },
-    {
-      "title": "지금은 시연중",
-      "tag": "시연_1776041967774",
-      "targetAmount": 100000,
-      "type": "지출",
-      "memo": "시연",
-      "currentAmount": 300000,
-      "year": 2026,
-      "month": 4,
-      "user_id": "z2cholm",
-      "id": "7"
     }
   ],
   "tags": [
@@ -925,24 +895,6 @@
       "color": "#BDBDBD",
       "textColor": "#424242",
       "type": "수입"
-    },
-    {
-      "tagid": "지금은_시연중_1776041441629",
-      "tagtitle": "지금은 시연중",
-      "color": "#FFD6D6",
-      "textColor": "#E57373",
-      "type": "수입",
-      "user_id": "z2cholm",
-      "id": "7OO7XI5"
-    },
-    {
-      "tagid": "시연_1776041967774",
-      "tagtitle": "시연",
-      "color": "#FFD6D6",
-      "textColor": "#E57373",
-      "type": "지출",
-      "user_id": "z2cholm",
-      "id": "xd3bmt0"
     }
   ]
 }

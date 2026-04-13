@@ -1,6 +1,6 @@
 <template>
   <div class="challenge-setup">
-    <p>목표 제목</p>
+    <p>챌린지 제목</p>
     <input
       type="text"
       v-model="form.title"
@@ -28,7 +28,7 @@
       <span class="suffix-label">에서</span>
     </div>
 
-    <p>목표 금액</p>
+    <p>챌린지 금액</p>
     <div class="amount-container">
       <input
         type="number"
