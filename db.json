@@ -591,8 +591,12 @@
       },
       "amount": 5000,
       "tag": {
+        "id": "1",
         "tagid": "eat",
-        "tagtitle": "식비"
+        "tagtitle": "식비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출"
       },
       "paymentMethod": "현금",
       "isFixed": false,
@@ -657,9 +661,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-01",
       "title": "월급",
-      "type": { "typeid": "deposit", "typetitle": "수입" },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
       "amount": 2500000,
-      "tag": { "tagid": "salary", "tagtitle": "급여" },
+      "tag": {
+        "tagid": "salary",
+        "tagtitle": "급여"
+      },
       "paymentMethod": "카드",
       "isFixed": true,
       "memo": "3월 월급"
@@ -669,9 +679,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-05",
       "title": "편의점",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 2500,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "간식"
@@ -681,9 +697,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-07",
       "title": "지하철",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 1400,
-      "tag": { "tagid": "traffic", "tagtitle": "교통" },
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": ""
@@ -693,9 +715,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-10",
       "title": "카페",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 4500,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "아메리카노"
@@ -705,9 +733,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-14",
       "title": "버스비",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 1400,
-      "tag": { "tagid": "traffic", "tagtitle": "교통" },
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": ""
@@ -717,9 +751,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-16",
       "title": "병원",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 8000,
-      "tag": { "tagid": "medical", "tagtitle": "의료" },
+      "tag": {
+        "tagid": "medical",
+        "tagtitle": "의료"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "내과"
@@ -729,9 +769,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-20",
       "title": "마트",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 15000,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "장보기"
@@ -741,9 +787,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-22",
       "title": "택시",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 4500,
-      "tag": { "tagid": "traffic", "tagtitle": "교통" },
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "늦어서 택시"
@@ -753,9 +805,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-25",
       "title": "약국",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 5000,
-      "tag": { "tagid": "medical", "tagtitle": "의료" },
+      "tag": {
+        "tagid": "medical",
+        "tagtitle": "의료"
+      },
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "두통약"
@@ -765,9 +823,15 @@
       "user_id": "z2cholm",
       "date": "2026-03-28",
       "title": "프리랜서",
-      "type": { "typeid": "deposit", "typetitle": "수입" },
+      "type": {
+        "typeid": "deposit",
+        "typetitle": "수입"
+      },
       "amount": 150000,
-      "tag": { "tagid": "sideJob", "tagtitle": "부수입" },
+      "tag": {
+        "tagid": "sideJob",
+        "tagtitle": "부수입"
+      },
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "디자인 외주"
@@ -777,9 +841,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-04",
       "title": "카페",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 4500,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "아메리카노"
@@ -789,9 +859,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-06",
       "title": "버스비",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 1400,
-      "tag": { "tagid": "traffic", "tagtitle": "교통" },
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": ""
@@ -801,9 +877,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-11",
       "title": "편의점",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 3500,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "간식"
@@ -813,9 +895,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-13",
       "title": "지하철",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 1400,
-      "tag": { "tagid": "traffic", "tagtitle": "교통" },
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": ""
@@ -825,9 +913,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-17",
       "title": "점심",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 9000,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "혼밥"
@@ -837,9 +931,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-19",
       "title": "택시",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 7500,
-      "tag": { "tagid": "traffic", "tagtitle": "교통" },
+      "tag": {
+        "tagid": "traffic",
+        "tagtitle": "교통"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": ""
@@ -849,9 +949,15 @@
       "user_id": "z2cholm",
       "date": "2026-02-23",
       "title": "약국",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 6000,
-      "tag": { "tagid": "medical", "tagtitle": "의료" },
+      "tag": {
+        "tagid": "medical",
+        "tagtitle": "의료"
+      },
       "paymentMethod": "현금",
       "isFixed": false,
       "memo": "두통약"
@@ -861,12 +967,40 @@
       "user_id": "z2cholm",
       "date": "2026-02-26",
       "title": "마트",
-      "type": { "typeid": "withdrawal", "typetitle": "지출" },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
       "amount": 18000,
-      "tag": { "tagid": "eat", "tagtitle": "식비" },
+      "tag": {
+        "tagid": "eat",
+        "tagtitle": "식비"
+      },
       "paymentMethod": "카드",
       "isFixed": false,
       "memo": "장보기"
+    },
+    {
+      "amount": 150000,
+      "date": "2026-04-13",
+      "title": "하이디라오",
+      "memo": "훠궈",
+      "paymentMethod": "카드",
+      "isFixed": false,
+      "tag": {
+        "id": "1",
+        "tagid": "eat",
+        "tagtitle": "식비",
+        "color": "#FFD6D6",
+        "textColor": "#E57373",
+        "type": "지출"
+      },
+      "type": {
+        "typeid": "withdrawal",
+        "typetitle": "지출"
+      },
+      "user_id": "z2cholm",
+      "id": "ny8LT-r"
     }
   ],
   "calendars": [
@@ -985,7 +1119,7 @@
       "tag": "all",
       "targetAmount": 1000000,
       "type": "지출",
-      "currentAmount": 101000,
+      "currentAmount": 143300,
       "year": 2026,
       "month": 3,
       "user_id": "z2cholm",
@@ -997,7 +1131,7 @@
       "tag": "eat",
       "targetAmount": 200000,
       "type": "지출",
-      "currentAmount": 12000,
+      "currentAmount": 34000,
       "year": 2026,
       "month": 3,
       "user_id": "z2cholm",
